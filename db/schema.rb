@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_22_212759) do
+ActiveRecord::Schema.define(version: 2020_12_23_111943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "connections", force: :cascade do |t|
+    t.bigint "space_id", null: false
+    t.integer "parent_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["space_id"], name: "index_connections_on_space_id"
+  end
 
   create_table "items", force: :cascade do |t|
     t.string "url"
@@ -71,4 +79,5 @@ ActiveRecord::Schema.define(version: 2020_12_22_212759) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "connections", "spaces"
 end
