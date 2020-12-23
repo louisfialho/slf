@@ -1,0 +1,11 @@
+<%= link_to 'All shelves', root_path %>
+
+<a href="<%= @shelf.id %>/edit">Edit shelf</a>
+
+<%= link_to "Delete shelf",
+            shelf_path(@shelf),
+            method: :delete,
+            data: {confirm: "Are you sure?"} %>
+
+<h2><%= @shelf.name %></h2>
+<p><%= @shelf.description %></p>

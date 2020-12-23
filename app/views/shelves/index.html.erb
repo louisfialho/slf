@@ -1,0 +1,9 @@
+<h2> My shelves </h2>
+
+<%= link_to 'Create shelf', new_shelf_path %>
+
+<ul>
+  <% current_user.shelves.each do |shelf| %>
+    <li><%= link_to shelf.name, shelf_path(shelf) %></li>
+  <% end %>
+</ul>

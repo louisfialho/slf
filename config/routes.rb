@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'pages#home'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: "shelves#index"
+  resources :shelves
 end
+
+  #root to: 'shelves#index'
+  #get 'shelves/new', to: 'shelves#new'
+  #post 'shelves', to: 'shelves#create'
+  #get 'shelves', to: 'shelves#index'
+  #get 'shelves/:id', to: 'shelves#show', as: :shelf
+  #get 'shelves/:id/edit', to: 'shelves#edit'
+  #patch 'shelves/:id', to: 'shelves#update'
+  #delete 'shelves/:id', to: 'shelves#destroy'
