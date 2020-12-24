@@ -1,2 +1,4 @@
-<%= link_to 'Back to shelf', shelf_path(Shelf.find(params[:shelf_id])) %>
+<% if params.has_key?(:shelf_id) %>
+  <%= link_to 'Back to shelf', shelf_path(Shelf.find(params[:shelf_id])) %>
+<% end %>
 <h2><%= @space.name %></h2>
