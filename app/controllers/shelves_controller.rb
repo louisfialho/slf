@@ -17,6 +17,7 @@ class ShelvesController < ApplicationController
   end
 
   def show
+    @spaces = Space.all
   end
 
   def edit

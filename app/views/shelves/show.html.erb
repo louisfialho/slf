@@ -9,3 +9,9 @@
 
 <h2><%= @shelf.name %></h2>
 <p><%= @shelf.description %></p>
+
+<ul>
+  <% @spaces.each do |space| %>
+    <li><%= space.name %></li>
+  <% end %>
+</ul>
