@@ -1,3 +1,13 @@
+<% if @space.connections.empty? %>
+  <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> <!-- Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i? -->
+<% else %>
+  <% if @space.connections.first.root? %>
+    <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> <!-- Not DRY! Refacto -->
+  <% else %>
+    <%= link_to 'Back to space', space_path(@space.connections.first.parent.space) %> <!-- Valide ssi un space a une ocurrence dans la table -->
+  <% end %>
+<% end %>
+
 <%= link_to 'Edit space', edit_space_path(@space) %>
 
 <%= link_to "Delete space",
