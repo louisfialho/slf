@@ -9,7 +9,7 @@ class SpacesController < ApplicationController
     @space.save
     @shelf = Shelf.find(params[:space][:shelf_id])
     @shelf.spaces << @space
-    redirect_to space_path(@space)
+    redirect_to space_path(@space, shelf_id: @shelf.id)
   end
 
   def index
