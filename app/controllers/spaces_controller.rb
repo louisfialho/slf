@@ -1,11 +1,14 @@
 class SpacesController < ApplicationController
   def new
     @space = Space.new
+    @shelf = Shelf.find(params[:shelf_id])
   end
 
   def create
     @space = Space.new(space_params)
     @space.save
+    @shelf = Shelf.find(params[:space][:shelf_id])
+    @shelf.spaces << @space
     redirect_to space_path(@space)
   end
 

@@ -2,10 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "shelves#index"
   resources :shelves
-  get 'spaces/new', to: 'spaces#new'
-  post 'spaces', to: 'spaces#create'
-  get 'spaces', to: 'spaces#index'
-  get 'spaces/:id', to: 'spaces#show', as: :space
+  resources :spaces, only: [:new, :create, :index, :show]
 end
 
   #root to: 'shelves#index'

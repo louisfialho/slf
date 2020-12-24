@@ -10,10 +10,10 @@
 <h2><%= @shelf.name %></h2>
 <p><%= @shelf.description %></p>
 
-<%= link_to 'Create space', spaces_new_path %>
+<%= link_to 'Create space', new_space_path(shelf_id: @shelf.id) %>
 
 <ul>
-  <% @spaces.each do |space| %>
+  <% @shelf.spaces.each do |space| %>
     <li><%= link_to space.name, space_path(space) %></li>
   <% end %>
 </ul>
