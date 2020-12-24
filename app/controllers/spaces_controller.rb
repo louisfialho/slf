@@ -9,7 +9,7 @@ class SpacesController < ApplicationController
     @space.save
     @shelf = Shelf.find(params[:space][:shelf_id])
     @shelf.spaces << @space
-    redirect_to space_path(@space, shelf_id: @shelf.id)
+    redirect_to space_path(@space)
   end
 
   def index
@@ -33,7 +33,7 @@ class SpacesController < ApplicationController
   def destroy
     @space = Space.find(params[:id])
     @space.destroy
-    redirect_to spaces_path
+    redirect_to root_path #not perfect: should redirect to shelf
   end
 
   private

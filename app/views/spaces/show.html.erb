@@ -1,8 +1,7 @@
-<% if params.has_key?(:shelf_id) %>
-  <%= link_to 'Back to shelf', shelf_path(Shelf.find(params[:shelf_id])) %>
-<% end %>
+<%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %>
+<!-- Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i? -->
 
-<a href="<%= @space.id %>/edit">Edit space</a>
+<%= link_to 'Edit space', edit_space_path(@space) %>
 
 <%= link_to "Delete space",
             space_path(@space),

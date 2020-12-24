@@ -1,6 +1,6 @@
 <%= link_to 'All shelves', root_path %>
 
-<a href="<%= @shelf.id %>/edit">Edit shelf</a>
+<%= link_to 'Edit shelf', edit_shelf_path(@shelf) %>
 
 <%= link_to "Delete shelf",
             shelf_path(@shelf),
@@ -14,6 +14,6 @@
 
 <ul>
   <% @shelf.spaces.each do |space| %>
-    <li><%= link_to space.name, space_path(space, shelf_id: @shelf.id) %></li>
+    <li><%= link_to space.name, space_path(space) %></li>
   <% end %>
 </ul>
