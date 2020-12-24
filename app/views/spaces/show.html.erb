@@ -1,5 +1,3 @@
-<%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %>
-<!-- Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i? -->
 
 <%= link_to 'Edit space', edit_space_path(@space) %>
 
@@ -9,11 +7,12 @@
             data: {confirm: "Are you sure?"} %>
 
 <h2><%= @space.name %></h2>
+<h2><%= @space.description %></h2>
 
 <%= link_to 'Create space', new_space_path(parent_id: @space.id) %>
 
 <ul>
-  <% @space.connections.first.space.children each do |space| %>
-    <li><%= link_to space.name, space_path(space) %></li>
+  <% @space.connections.first.space.children.each do |connection| %>
+    <li><%= link_to connection.space.name, space_path(connection.space) %></li>
   <% end %>
 </ul>
