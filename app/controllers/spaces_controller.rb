@@ -1,4 +1,6 @@
 class SpacesController < ApplicationController
+before_action :set_space, only: [:show, :edit, :update, :destroy]
+
   def new
     if params[:shelf_id].present?
       @space = Space.new
@@ -31,21 +33,17 @@ class SpacesController < ApplicationController
   end
 
   def show
-    @space = Space.find(params[:id])
   end
 
   def edit
-    @space = Space.find(params[:id])
   end
 
   def update
-    @space = Space.find(params[:id])
     @space.update(space_params)
     redirect_to space_path(@space)
   end
 
   def destroy
-    @space = Space.find(params[:id])
     @space.destroy
     redirect_to root_path #not perfect: should redirect to shelf
   end
@@ -55,4 +53,9 @@ class SpacesController < ApplicationController
   def space_params
     params.require(:space).permit(:name, :description)
   end
+
+  def set_space
+    @space = Space.find(params[:id])
+  end
+
 end
