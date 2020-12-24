@@ -1,4 +1,3 @@
-
 <%= link_to 'Edit space', edit_space_path(@space) %>
 
 <%= link_to "Delete space",
@@ -7,12 +6,15 @@
             data: {confirm: "Are you sure?"} %>
 
 <h2><%= @space.name %></h2>
-<h2><%= @space.description %></h2>
+<p><%= @space.description %></p>
 
 <%= link_to 'Create space', new_space_path(parent_id: @space.id) %>
 
+
+<% if @space.children.empty? == false %>
 <ul>
   <% @space.connections.first.space.children.each do |connection| %>
     <li><%= link_to connection.space.name, space_path(connection.space) %></li>
   <% end %>
 </ul>
+<% end %>
