@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :spaces, only: [:new, :create, :index, :show]
   get 'spaces/:id/edit', to: 'spaces#edit'
   patch 'spaces/:id', to: 'spaces#update'
+  delete 'spaces/:id', to: 'spaces#destroy'
 end
 
   #root to: 'shelves#index'
