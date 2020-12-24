@@ -9,3 +9,11 @@
             data: {confirm: "Are you sure?"} %>
 
 <h2><%= @space.name %></h2>
+
+<%= link_to 'Create space', new_space_path(parent_id: @space.id) %>
+
+<ul>
+  <% @space.connections.first.space.children each do |space| %>
+    <li><%= link_to space.name, space_path(space) %></li>
+  <% end %>
+</ul>

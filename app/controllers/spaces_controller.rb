@@ -1,15 +1,29 @@
 class SpacesController < ApplicationController
   def new
-    @space = Space.new
-    @shelf = Shelf.find(params[:shelf_id])
+    if params[:shelf_id].present?
+      @space = Space.new
+      @shelf = Shelf.find(params[:shelf_id])
+    elsif params[:parent_id].present?
+      @parent = Space.find(params[:parent_id])
+      @child = Space.new
+    end
   end
 
   def create
-    @space = Space.new(space_params)
-    @space.save
-    @shelf = Shelf.find(params[:space][:shelf_id])
-    @shelf.spaces << @space
-    redirect_to space_path(@space)
+    if params[:space][:shelf_id].present?
+      @space = Space.new(space_params)
+      @space.save
+      @shelf = Shelf.find(params[:space][:shelf_id])
+      @shelf.spaces << @space
+      redirect_to space_path(@space)
+    elsif params[:space][:parent_id].present?
+      @child = Space.new(space_params)
+      @child.save
+      @parent = Space.find(params[:space][:parent_id])
+      s1 = Connection.create(space: @parent)
+      s2 = s1.children.create(space: @child)
+      redirect_to space_path(@parent)
+    end
   end
 
   def index
