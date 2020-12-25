@@ -14,7 +14,7 @@ before_action :set_item, only: [:show, :edit, :update, :destroy]
       @item.save
       @shelf = Shelf.find(params[:item][:shelf_id])
       @shelf.items << @item
-      redirect_to item_path(@item)
+      redirect_to item_path(@item, shelf_id: @shelf.id)
     end
   end
 
@@ -23,6 +23,9 @@ before_action :set_item, only: [:show, :edit, :update, :destroy]
   end
 
   def show
+    if params[:shelf_id].present?
+      @shelf = Shelf.find(params[:shelf_id])
+    end
   end
 
   def edit

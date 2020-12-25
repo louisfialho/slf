@@ -9,3 +9,5 @@
     <%= f.input :rating, collection: ['1', '2', '3', '4', '5', 'Not reviewed yet (Add to queue)'] %>
     <%= f.submit "Add item" %>
 <% end %>
+
+<%= link_to 'Cancel', url_for(:back) %>
