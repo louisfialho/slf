@@ -54,11 +54,13 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
   end
 
   def destroy
+    ids = []
+    ids << @space.id
     sc = Connection.where(space_id: @space.id).first
     sc.descendants.reverse.each do |descendant|
-      descendant.space.destroy
+      ids << descendant.space.id
     end
-    @space.destroy
+    Space.where(id: ids).destroy_all
     redirect_to root_path #not perfect: should redirect to shelf
   end
 
