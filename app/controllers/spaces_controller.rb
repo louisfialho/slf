@@ -56,9 +56,13 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
   def destroy
     ids = []
     ids << @space.id
-    sc = Connection.where(space_id: @space.id).first
-    sc.descendants.reverse.each do |descendant|
-      ids << descendant.space.id
+    if !@space.connections.empty?
+      sc = Connection.where(space_id: @space.id).first
+      if !sc.descendants.empty?
+        sc.descendants.reverse.each do |descendant|
+          ids << descendant.space.id # a refactorer car la même méthode est dans le controller shelves. Faire methode privée ou ajouter à Application controller
+         end
+      end
     end
     Space.where(id: ids).destroy_all
     redirect_to root_path #not perfect: should redirect to shelf
