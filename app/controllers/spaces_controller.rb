@@ -22,11 +22,21 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
       @child = Space.new(space_params)
       @child.save
       @parent = Space.find(params[:space][:parent_id])
-      s1 = Connection.create(space: @parent)
-      s2 = s1.children.create(space: @child)
+      if !@parent.shelves.empty?
+        s1 = Connection.create(space: @parent)
+        s2 = s1.children.create(space: @child)
+      else
+        s2 = @parent.connections.first.children.create(space: @child)
+      end
       redirect_to space_path(@parent)
     end
   end
+
+  # not dry!
+  # if space.shelves is not empty (meaning the parent space is the root)
+  # set the space to parent (connection to nil) and the new space to child
+  # if space.shelves is empty (meaning the parent space is nested)
+  # immediately create children.
 
   def index
     @spaces = Space.all
