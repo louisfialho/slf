@@ -33,8 +33,10 @@ class ShelvesController < ApplicationController
       ids = []
       ids << space.id
       sc = Connection.where(space_id: space.id).first
-      sc.descendants.reverse.each do |descendant|
-        ids << descendant.space.id # a refactorer car la même méthode est dans le controller spaces
+      if !sc.descendants.empty?
+        sc.descendants.reverse.each do |descendant|
+          ids << descendant.space.id # a refactorer car la même méthode est dans le controller spaces
+        end
       end
       Space.where(id: ids).destroy_all
     end
