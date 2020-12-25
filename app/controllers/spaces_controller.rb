@@ -22,7 +22,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
       @child = Space.new(space_params)
       @child.save
       @parent = Space.find(params[:space][:parent_id])
-      if !@parent.shelves.empty?
+      if !@parent.shelves.empty? && @parent.connections.empty?
         s1 = Connection.create(space: @parent)
         s2 = s1.children.create(space: @child)
       else
