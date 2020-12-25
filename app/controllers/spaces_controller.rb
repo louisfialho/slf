@@ -77,5 +77,4 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
   def set_space
     @space = Space.find(params[:id])
   end
-
 end

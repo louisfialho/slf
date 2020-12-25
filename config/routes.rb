@@ -3,11 +3,7 @@ Rails.application.routes.draw do
   root to: "shelves#index"
   resources :shelves
   resources :spaces
-  resources :items, only: [:new]
-  post 'items', to: 'items#create'
-  get 'items', to: 'items#index'
-  get 'items/:id', to: 'items#show', as: :item
-
+  resources :items
 end
 
   #root to: 'shelves#index'
