@@ -29,6 +29,15 @@ class ShelvesController < ApplicationController
   end
 
   def destroy
+    @shelf.spaces.each do |space|
+      ids = []
+      ids << space.id
+      sc = Connection.where(space_id: space.id).first
+      sc.descendants.reverse.each do |descendant|
+        ids << descendant.space.id # a refactorer car la même méthode est dans le controller spaces
+      end
+      Space.where(id: ids).destroy_all
+    end
     @shelf.destroy
     redirect_to shelves_path
   end
