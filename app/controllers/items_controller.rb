@@ -38,7 +38,8 @@ before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def destroy
     @item.destroy
-    redirect_to root_path
+    @shelf = Shelf.find(params[:shelf_id])
+    redirect_to shelf_path(@shelf)
   end
 
   private

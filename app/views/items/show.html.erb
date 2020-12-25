@@ -3,7 +3,7 @@
 <%= link_to 'Edit item', edit_item_path(@item) %>
 
 <%= link_to "Delete item",
-            item_path(@item),
+            item_path(@item, shelf_id: @shelf.id),
             method: :delete,
             data: {confirm: "Are you sure?"} %>
 
