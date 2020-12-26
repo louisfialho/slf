@@ -43,6 +43,21 @@ space_3.save!
 shelf_1.spaces << space_3
 space_3_c = Connection.create(space: space_3)
 
+Item.destroy_all
+puts 'Creating first level items...'
+
+item_1 = Item.create(url: 'url1', medium: 'book', name: 'item 1', description: 'My item 1', rating: '5')
+item_1.save!
+shelf_1.items << item_1
+
+item_2 = Item.create(url: 'url2', medium: 'book', name: 'item 2', description: 'My item 2', rating: '5')
+item_2.save!
+shelf_1.items << item_2
+
+item_3 = Item.create(url: 'url3', medium: 'book', name: 'item 3', description: 'My item 3', rating: '5')
+item_3.save!
+shelf_1.items << item_3
+
 puts 'Creating second level spaces...'
 
 space_1_1 = Space.create(name: 'Space 11', description: 'My space 11')
@@ -57,6 +72,20 @@ space_1_3 = Space.create(name: 'Space 13', description: 'My space 13')
 space_1_3.save!
 space_1_3_c = space_1_c.children.create(space: space_1_3)
 
+puts 'Creating second level items...'
+
+item_1_1 = Item.create(url: 'url11', medium: 'book', name: 'item 11', description: 'My item 11', rating: '5')
+item_1_1.save!
+space_1.items << item_1_1
+
+item_1_2 = Item.create(url: 'url12', medium: 'book', name: 'item 12', description: 'My item 12', rating: '5')
+item_1_2.save!
+space_1.items << item_1_2
+
+item_1_3 = Item.create(url: 'url13', medium: 'book', name: 'item 13', description: 'My item 13', rating: '5')
+item_1_3.save!
+space_1.items << item_1_3
+
 puts 'Creating third level spaces...'
 
 space_1_1_1 = Space.create(name: 'Space 111', description: 'My space 111')
@@ -70,6 +99,20 @@ space_1_1_2_c = space_1_1_c.children.create(space: space_1_1_2)
 space_1_1_3 = Space.create(name: 'Space 113', description: 'My space 113')
 space_1_1_3.save!
 space_1_1_3_c = space_1_1_c.children.create(space: space_1_1_3)
+
+puts 'Creating third level items...'
+
+item_1_1_1 = Item.create(url: 'url111', medium: 'book', name: 'item 111', description: 'My item 111', rating: '5')
+item_1_1_1.save!
+space_1_1.items << item_1_1_1
+
+item_1_1_2 = Item.create(url: 'url112', medium: 'book', name: 'item 112', description: 'My item 112', rating: '5')
+item_1_1_2.save!
+space_1_1.items << item_1_1_2
+
+item_1_1_3 = Item.create(url: 'url113', medium: 'book', name: 'item 113', description: 'My item 113', rating: '5')
+item_1_1_3.save!
+space_1_1.items << item_1_1_3
 
 puts 'Finished!'
 
