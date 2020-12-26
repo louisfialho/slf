@@ -1,13 +1,9 @@
 class ItemsController < ApplicationController
 before_action :set_item, only: [:show, :edit, :update, :destroy]
+before_action :set_shelf_space, only: [:new, :show, :edit]
 
   def new
     @item = Item.new
-    if params[:shelf_id].present?
-      @shelf = Shelf.find(params[:shelf_id])
-    elsif params[:space_id].present?
-      @space = Space.find(params[:space_id])
-    end
   end
 
   def create
@@ -25,23 +21,13 @@ before_action :set_item, only: [:show, :edit, :update, :destroy]
   end
 
   def index
-    @items = Item.al
+    @items = Item.all
   end
 
   def show
-    if params[:shelf_id].present?
-      @shelf = Shelf.find(params[:shelf_id])
-    elsif params[:space_id].present?
-      @space = Space.find(params[:space_id])
-    end
   end
 
   def edit
-    if params[:shelf_id].present?
-      @shelf = Shelf.find(params[:shelf_id])
-    elsif params[:space_id].present?
-      @space = Space.find(params[:space_id])
-    end
   end
 
   def update
@@ -74,6 +60,14 @@ before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def set_shelf_space
+    if params[:shelf_id].present?
+      @shelf = Shelf.find(params[:shelf_id])
+    elsif params[:space_id].present?
+      @space = Space.find(params[:space_id])
+    end
   end
 end
 
