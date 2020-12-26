@@ -13,7 +13,7 @@
 
 <h2> Spaces </h2>
 
-<% if policy(Space).create? %>
+<% if policy(@shelf).update? %>
   <%= link_to 'Create space', new_space_path(shelf_id: @shelf.id) %>
 <% end %>
 
