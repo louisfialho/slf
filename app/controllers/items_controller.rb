@@ -29,11 +29,15 @@ before_action :set_item, only: [:show, :edit, :update, :destroy]
   end
 
   def edit
+    if params[:shelf_id].present?
+      @shelf = Shelf.find(params[:shelf_id])
+    end
   end
 
   def update
     @item.update(item_params)
-    redirect_to item_path(@item)
+    @shelf = Shelf.find(params[:item][:shelf_id])
+    redirect_to item_path(@item, shelf_id: @shelf.id)
   end
 
   def destroy
