@@ -20,7 +20,6 @@
 
 <%= link_to 'Create space', new_space_path(parent_id: @space.id) %>
 
-
 <% if @space.children.empty? == false %>
 <ul>
   <% @space.connections.first.space.children.each do |connection| %>
