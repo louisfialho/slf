@@ -4,6 +4,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
   def new
     if params[:shelf_id].present?
       @space = Space.new
+      authorize @space
       @shelf = Shelf.find(params[:shelf_id])
     elsif params[:parent_id].present?
       @parent = Space.find(params[:parent_id])
@@ -14,6 +15,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
   def create
     if params[:space][:shelf_id].present?
       @space = Space.new(space_params)
+      authorize @space
       @space.save
       @shelf = Shelf.find(params[:space][:shelf_id])
       @shelf.spaces << @space
@@ -39,7 +41,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
   # immediately create children.
 
   def index
-    @spaces = Space.all
+    @spaces = policy_scope(Space).order(created_at: :desc)
   end
 
   def show
@@ -76,5 +78,6 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
 
   def set_space
     @space = Space.find(params[:id])
+    authorize @space
   end
 end

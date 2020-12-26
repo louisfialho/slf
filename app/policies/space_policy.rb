@@ -1,7 +1,7 @@
-class ShelfPolicy < ApplicationPolicy
+class SpacePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all  # For a multi-tenant SaaS app, you may want to use: scope.where(user: user)
+      scope.all
     end
   end
 
@@ -14,12 +14,16 @@ class ShelfPolicy < ApplicationPolicy
   end
 
   def update?
-    record.users.first == user #(assuming 1 user per shelf)
+    if !record.shelves.empty?
+      record.shelves.first.users.first == user #assuming a space can be in one shelf and one shelf can belong to one user
     # - record: the restaurant passed to the `authorize` method in controller
     # - user:   the `current_user` signed in with Devise.
+    end
   end
 
   def destroy?
-    record.users.first == user #(assuming 1 user per shelf)
+    if !record.shelves.empty?
+      record.shelves.first.users.first == user
+    end
   end
 end

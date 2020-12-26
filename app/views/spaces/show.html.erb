@@ -8,19 +8,22 @@
   <% end %>
 <% end %>
 
-<%= link_to 'Edit space', edit_space_path(@space) %>
+<% if policy(@space).edit? %>
+  <%= link_to 'Edit space', edit_space_path(@space) %>
+<% end %>
 
-<%= link_to "Delete space",
-            space_path(@space),
-            method: :delete,
-            data: {confirm: "Are you sure?"} %>
+<% if policy(@space).destroy? %>
+  <%= link_to 'Delete space', space_path(@space), method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
 
 <h2><%= @space.name %></h2>
 <p><%= @space.description %></p>
 
 <h2> Spaces </h2>
 
-<%= link_to 'Create space', new_space_path(parent_id: @space.id) %>
+<% if policy(Space).create? %>
+  <%= link_to 'Create space', new_space_path(parent_id: @space.id) %>
+<% end %>
 
 <% if @space.children.empty? == false %>
 <ul>

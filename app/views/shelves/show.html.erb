@@ -13,11 +13,15 @@
 
 <h2> Spaces </h2>
 
-<%= link_to 'Create space', new_space_path(shelf_id: @shelf.id) %>
+<% if policy(Space).create? %>
+  <%= link_to 'Create space', new_space_path(shelf_id: @shelf.id) %>
+<% end %>
 
 <ul>
   <% @shelf.spaces.each do |space| %>
+    <% if policy(space).show? %>
     <li><%= link_to space.name, space_path(space) %></li>
+    <% end %>
   <% end %>
 </ul>
 
