@@ -1,11 +1,12 @@
 <%= link_to 'All shelves', root_path %>
 
-<%= link_to 'Edit shelf', edit_shelf_path(@shelf) %>
+<% if policy(@shelf).edit? %>
+  <%= link_to 'Edit shelf', edit_shelf_path(@shelf) %>
+<% end %>
 
-<%= link_to "Delete shelf",
-            shelf_path(@shelf),
-            method: :delete,
-            data: {confirm: "Are you sure?"} %>
+<% if policy(@shelf).destroy? %>
+<%= link_to 'Delete shelf', shelf_path(@shelf), method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
 
 <h2><%= @shelf.name %></h2>
 <p><%= @shelf.description %></p>

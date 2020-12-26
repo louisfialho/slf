@@ -1,9 +1,15 @@
 <h2> My shelves </h2>
 
-<%= link_to 'Create shelf', new_shelf_path %>
+<% if policy(Shelf).create? %>
+  <%= link_to 'Create shelf', new_shelf_path %>
+<% end %>
+
 
 <ul>
   <% current_user.shelves.each do |shelf| %>
-    <li><%= link_to shelf.name, shelf_path(shelf) %></li>
+    <% if policy(shelf).show? %> <!-- pas utile pr l'instant -->
+      <li><%= link_to shelf.name, shelf_path(shelf) %></li>
+    <% end %>
   <% end %>
 </ul>
+

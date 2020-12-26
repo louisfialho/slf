@@ -3,17 +3,19 @@ class ShelvesController < ApplicationController
 
   def new
     @shelf = Shelf.new
+    authorize @shelf
   end
 
   def create
     @shelf = Shelf.new(shelf_params)
+    authorize @shelf
     @shelf.save
     current_user.shelves << @shelf
     redirect_to shelf_path(@shelf)
   end
 
   def index
-    @shelves = Shelf.all
+    @shelves = policy_scope(Shelf).order(created_at: :desc)
   end
 
   def show
@@ -52,5 +54,6 @@ class ShelvesController < ApplicationController
 
   def set_shelf
     @shelf = Shelf.find(params[:id])
+    authorize @shelf
   end
 end
