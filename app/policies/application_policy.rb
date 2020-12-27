@@ -1,5 +1,5 @@
 class ApplicationPolicy
-  attr_reader :user, :record, :shelf
+  attr_reader :user, :record, :request_shelf
 
   def initialize(context, record)
     @user = context.user

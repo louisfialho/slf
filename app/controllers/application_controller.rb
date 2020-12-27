@@ -3,7 +3,15 @@ class ApplicationController < ActionController::Base
   include Pundit
 
 def pundit_user
-    CurrentContext.new(current_user, @shelf)
+    CurrentContext.new(current_user, current_shelf)
+end
+
+def current_shelf
+  if params[:id].present?
+    @shelf
+  elsif params[:shelf_id].present?
+    Shelf.find(params[:shelf_id])
+  end
 end
 
   # Pundit: white-list approach.
