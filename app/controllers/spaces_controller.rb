@@ -9,6 +9,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
     elsif params[:parent_id].present?
       @parent = Space.find(params[:parent_id])
       @child = Space.new
+      authorize @child
     end
   end
 
@@ -22,6 +23,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
       redirect_to space_path(@space)
     elsif params[:space][:parent_id].present?
       @child = Space.new(space_params)
+      authorize @child, policy_class: SpacePolicy
       @child.save
       @parent = Space.find(params[:space][:parent_id])
       if !@parent.shelves.empty? && @parent.connections.empty?

@@ -3,16 +3,26 @@ class ApplicationController < ActionController::Base
   include Pundit
 
 def pundit_user
-    CurrentContext.new(current_user, current_shelf)
+  CurrentContext.new(current_user, current_context)
 end
 
-def current_shelf
+def current_context
   if params[:id].present?
-    @shelf
+    if params[:controller] == 'shelves'
+      context = ['shelf', Shelf.find(params[:id])]
+    elsif params[:controller] == 'spaces'
+      context = ['parent', Space.find(params[:id])]
+    end
+  elsif params[:parent_id].present?
+    context = ['parent', Space.find(params[:parent_id])]
   elsif params[:shelf_id].present?
-    Shelf.find(params[:shelf_id])
+    context = ['shelf', Shelf.find(params[:shelf_id])]
   elsif params[:space].present?
-    Shelf.find(params[:space][:shelf_id])
+    if params[:space][:parent_id].present?
+      context = ['parent', Space.find(params[:space][:parent_id])]
+    elsif params[:space][:shelf_id].present?
+      context = ['shelf', Shelf.find(params[:space][:shelf_id])]
+    end
   end
 end
 

@@ -3,8 +3,12 @@ class ApplicationPolicy
 
   def initialize(context, record)
     @user = context.user
-    @shelf = context.shelf
     @record = record
+    if !context.instance_values["shelf"].nil?
+      @shelf = context.instance_values["shelf"]
+    elsif !context.instance_values["parent"].nil?
+      @parent = context.instance_values["parent"]
+    end
   end
 
   def index?
