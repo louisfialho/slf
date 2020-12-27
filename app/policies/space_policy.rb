@@ -12,6 +12,8 @@ class SpacePolicy < ApplicationPolicy
   def create?
     if @shelf
       @shelf.users.first == user
+    elsif @parent
+      @parent.connections.first.root.space.shelves.first.users.first == user  #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
     end
   end
 
