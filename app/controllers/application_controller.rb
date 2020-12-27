@@ -11,6 +11,8 @@ def current_shelf
     @shelf
   elsif params[:shelf_id].present?
     Shelf.find(params[:shelf_id])
+  elsif params[:space].present?
+    Shelf.find(params[:space][:shelf_id])
   end
 end
 

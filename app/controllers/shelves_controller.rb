@@ -16,10 +16,12 @@ class ShelvesController < ApplicationController
 
   def index
     @shelves = policy_scope(Shelf).order(created_at: :desc)
+    @space = Space.new
   end
 
   def show
     @spaces = Space.all
+    @space = Space.new
   end
 
   def edit

@@ -1,7 +1,7 @@
 <h2> My shelves </h2>
 
 <% if policy(Shelf).create? %>
-  <%= link_to 'Create shelf', new_shelf_path %>
+  <%= link_to 'Create shelf', new_shelf_path(space: @space) %>
 <% end %>
 
 
