@@ -10,7 +10,7 @@ class SpacePolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    @shelf.users.first == user
   end
 
   def update?
