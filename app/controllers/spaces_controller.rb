@@ -20,7 +20,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
       @space.save
       @shelf = Shelf.find(params[:space][:shelf_id])
       @shelf.spaces << @space
-      redirect_to space_path(@space)
+      redirect_to space_path(@space, shelf_id: @shelf.id)
     elsif params[:space][:parent_id].present?
       @child = Space.new(space_params)
       authorize @child, policy_class: SpacePolicy
