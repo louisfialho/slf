@@ -4,10 +4,12 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
 
   def new
     @item = Item.new
+    authorize @item
   end
 
   def create
     @item = Item.new(item_params)
+    authorize @item
     @item.save
     if params[:item][:shelf_id].present?
       @shelf = Shelf.find(params[:item][:shelf_id])
@@ -21,7 +23,7 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
   end
 
   def index
-    @items = Item.all
+    @items = policy_scope(Item)
   end
 
   def show
@@ -60,6 +62,7 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
 
   def set_item
     @item = Item.find(params[:id])
+    authorize @item
   end
 
   def set_shelf_space

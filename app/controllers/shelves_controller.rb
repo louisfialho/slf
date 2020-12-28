@@ -15,7 +15,7 @@ class ShelvesController < ApplicationController
   end
 
   def index
-    @shelves = policy_scope(Shelf).order(created_at: :desc)
+    @shelves = policy_scope(Shelf)
     @space = Space.new
   end
 

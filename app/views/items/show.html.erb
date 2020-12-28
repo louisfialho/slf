@@ -1,17 +1,27 @@
 <% if params[:shelf_id].present? %>
+
   <%= link_to 'Back to shelf', shelf_path(@shelf) %>
-  <%= link_to 'Edit item', edit_item_path(@item, shelf_id: @shelf.id) %>
-  <%= link_to 'Delete item',
-            item_path(@item, shelf_id: @shelf.id),
-            method: :delete,
-            data: {confirm: "Are you sure?"} %>
+
+  <% if policy(@item).edit? %>
+    <%= link_to 'Edit item', edit_item_path(@item, shelf_id: @shelf.id) %>
+  <% end %>
+
+  <% if policy(@item).destroy? %>
+    <%= link_to 'Delete item', item_path(@item, shelf_id: @shelf.id), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% end %>
+
 <% elsif params[:space_id].present? %>
+
   <%= link_to 'Back to space', space_path(@space) %>
-  <%= link_to 'Edit item', edit_item_path(@item, space_id: @space.id) %>
-  <%= link_to 'Delete item',
-            item_path(@item, space_id: @space.id),
-            method: :delete,
-            data: {confirm: "Are you sure?"} %>
+
+  <% if policy(@item).edit? %>
+    <%= link_to 'Edit item', edit_item_path(@item, space_id: @space.id) %>
+  <% end %>
+
+  <% if policy(@item).destroy? %>
+    <%= link_to 'Delete item', item_path(@item, space_id: @space.id), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% end %>
+
 <% end %>
 
 <h2><%= @item.name %></h2>
@@ -20,3 +30,7 @@
 <h3><%= @item.name %></h3>
 <h3><%= @item.description %></h3>
 <h3><%= @item.rating %></h3>
+
+
+
+

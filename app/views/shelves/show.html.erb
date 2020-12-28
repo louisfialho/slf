@@ -19,18 +19,26 @@
 
 <ul>
   <% @shelf.spaces.each do |space| %>
-    <% if policy(space).show? %>
-    <li><%= link_to space.name, space_path(space, shelf_id: @shelf.id) %></li>
-    <% end %>
+    <li>
+      <% if policy(space).show? %>
+        <%= link_to space.name, space_path(space, shelf_id: @shelf.id) %>
+      <% end %>
+    </li>
   <% end %>
 </ul>
 
 <h2> Items </h2>
 
-<%= link_to 'Create item', new_item_path(shelf_id: @shelf.id) %>
+<% if policy(Item).create? %>
+  <%= link_to 'Create item', new_item_path(shelf_id: @shelf.id) %>
+<% end %>
 
 <ul>
   <% @shelf.items.each do |item| %>
-    <li><%= link_to item.name, item_path(item, shelf_id: @shelf.id) %></li>
+    <li>
+      <% if policy(item).show? %>
+        <%= link_to item.name, item_path(item, shelf_id: @shelf.id) %>
+      <% end %>
+    </li>
   <% end %>
 </ul>

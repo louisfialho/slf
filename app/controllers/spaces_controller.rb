@@ -43,7 +43,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
   # immediately create children.
 
   def index
-    @spaces = policy_scope(Space).order(created_at: :desc)
+    @spaces = policy_scope(Space)
   end
 
   def show
