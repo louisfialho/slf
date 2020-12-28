@@ -4,7 +4,6 @@
   <%= link_to 'Create shelf', new_shelf_path(space: @space) %>
 <% end %>
 
-
 <ul>
   <% current_user.shelves.each do |shelf| %>
     <% if policy(shelf).show? %> <!-- pas utile pr l'instant -->
