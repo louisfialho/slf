@@ -1,19 +1,33 @@
 <% if @space.connections.empty? %>
-  <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> <!-- Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i? -->
-<% else %>
-  <% if @space.connections.first.root? %>
-    <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> <!-- Not DRY! Refacto -->
-  <% else %>
-    <%= link_to 'Back to space', space_path(@space.connections.first.parent.space) %> <!-- Valide ssi un space a une ocurrence dans la table -->
+
+  <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> <!-- Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i? --> <!-- Not DRY! Refacto -->
+
+  <% if policy(@space).destroy? %>
+    <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, data: {confirm: "Are you sure?"} %>
   <% end %>
+
+<% elsif @space.connections.first.root? %>
+
+  <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> <!-- Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i? --> <!-- Not DRY! Refacto -->
+
+  <% if policy(@space).destroy? %>
+    <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% end %>
+
+<% else %>
+
+  <%= link_to 'Back to space', space_path(@space.connections.first.parent.space) %> <!-- Valide ssi un space a une ocurrence dans la table -->
+
+  <% if policy(@space).destroy? %>
+    <%= link_to 'Delete space', space_path(@space, parent_id: @space.connections.first.parent.space.id), method: :delete, data: {confirm: "Are you sure?"} %>
+  <% end %>
+
 <% end %>
+
+<!-- Bloc ci-dessus not DRY a refacto -->
 
 <% if policy(@space).edit? %>
   <%= link_to 'Edit space', edit_space_path(@space) %>
-<% end %>
-
-<% if policy(@space).destroy? %>
-  <%= link_to 'Delete space', space_path(@space), method: :delete, data: {confirm: "Are you sure?"} %>
 <% end %>
 
 <h2><%= @space.name %></h2>

@@ -69,7 +69,13 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
       end
     end
     Space.where(id: ids).destroy_all
-    redirect_to root_path #not perfect: should redirect to shelf
+    if params[:shelf_id].present?
+      @shelf = Shelf.find(params[:shelf_id])
+      redirect_to shelf_path(@shelf)
+    elsif params[:parent_id].present?
+      @space = Space.find(params[:parent_id])
+      redirect_to space_path(@space)
+    end
   end
 
   private
