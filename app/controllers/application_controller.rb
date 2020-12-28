@@ -16,6 +16,8 @@ def current_context
   elsif params[:item].present?
     if params[:item][:shelf_id].present?
       context = ['shelf', Shelf.find(params[:item][:shelf_id])]
+    elsif params[:item][:parent_id].present?
+      context = ['parent', Space.find(params[:item][:parent_id])]
     end
   elsif params[:parent_id].present?
     context = ['parent', Space.find(params[:parent_id])]

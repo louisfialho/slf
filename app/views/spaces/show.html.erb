@@ -49,11 +49,17 @@
 
 <h2> Items </h2>
 
-<%= link_to 'Create item', new_item_path(space_id: @space.id) %>
+<% if policy(Item).create? %>
+  <%= link_to 'Create item', new_item_path(space_id: @space.id, parent_id: @space.id) %> <!-- space_id for the controller, parent_id for pundit-->
+<% end %>
 
 <ul>
   <% @space.items.each do |item| %>
-    <li><%= link_to item.name, item_path(item, space_id: @space.id) %></li>
+    <li>
+      <% if policy(item).show? %>
+        <%= link_to item.name, item_path(item, space_id: @space.id) %>
+      <% end %>
+    </li>
   <% end %>
 </ul>
 

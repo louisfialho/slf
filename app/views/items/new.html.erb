@@ -21,7 +21,8 @@
     <%= f.label :description %>
     <%= f.text_field :description %>
     <%= f.input :rating, collection: ['1', '2', '3', '4', '5', 'Not reviewed yet (Add to queue)'] %>
-    <%= f.hidden_field :space_id, :value => @space.id %>
+    <%= f.hidden_field :space_id, :value => @space.id %> <!-- for controller -->
+    <%= f.hidden_field :parent_id, :value => @space.id %> <!-- for pundit -->
     <%= f.submit "Add item" %>
   <% end %>
 <% end %>
