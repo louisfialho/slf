@@ -20,7 +20,7 @@
 <ul>
   <% @shelf.spaces.each do |space| %>
     <% if policy(space).show? %>
-    <li><%= link_to space.name, space_path(space) %></li>
+    <li><%= link_to space.name, space_path(space, shelf_id: @shelf.id) %></li>
     <% end %>
   <% end %>
 </ul>
