@@ -2,7 +2,7 @@
   <%= simple_form_for (@item) do |f| %>
     <%= f.label :url %>
     <%= f.text_field :url %>
-    <%= f.input :medium, collection: ["book", "e-book", "website", "blogpost", "news article", "podcast", "video", "online course", "documentary", "movie", "github repository", "tweet"] %>
+    <%= f.input :medium, collection: ["book", "podcast", "video", "other"] %>
     <%= f.label :name %>
     <%= f.text_field :name %>
     <%= f.label :description %>
@@ -15,7 +15,7 @@
   <%= simple_form_for (@item) do |f| %>
     <%= f.label :url %>
     <%= f.text_field :url %>
-    <%= f.input :medium, collection: ["book", "e-book", "website", "blogpost", "news article", "podcast", "video", "online course", "documentary", "movie", "github repository", "tweet"] %>
+    <%= f.input :medium, collection: ["book", "podcast", "video", "other"] %>
     <%= f.label :name %>
     <%= f.text_field :name %>
     <%= f.label :description %>
