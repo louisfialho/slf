@@ -57,7 +57,7 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
   private
 
   def item_params
-    params.require(:item).permit(:url, :medium, :status, :name, :description, :rank)
+    params.require(:item).permit(:url, :medium, :status, :name, :notes, :rank)
   end
 
   def set_item

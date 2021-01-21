@@ -6,8 +6,8 @@
     <%= f.label :name %>
     <%= f.text_field :name %>
     <%= f.input :status, collection: ["not sarted", "in progress", "finished"] %>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.label :notes %>
+    <%= f.text_field :notes %>
     <%= f.input :rank, collection: ['low', 'medium', 'high'] %>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
     <%= f.submit "Add item" %>
@@ -20,8 +20,8 @@
     <%= f.label :name %>
     <%= f.text_field :name %>
     <%= f.input :status, collection: ["not sarted", "in progress", "finished"] %>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.label :notes %>
+    <%= f.text_field :notes %>
     <%= f.input :rank, collection: ['low', 'medium', 'high'] %>
     <%= f.hidden_field :space_id, :value => @space.id %>
     <%= f.submit "Add item" %>
