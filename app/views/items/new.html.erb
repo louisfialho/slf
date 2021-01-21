@@ -8,7 +8,7 @@
     <%= f.input :status, collection: ["not sarted", "in progress", "finished"] %>
     <%= f.label :description %>
     <%= f.text_field :description %>
-    <%= f.input :rating, collection: ['1', '2', '3', '4', '5', 'Not reviewed yet (Add to queue)'] %>
+    <%= f.input :rank, collection: ['low', 'medium', 'high'] %>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
     <%= f.submit "Add item" %>
   <% end %>
