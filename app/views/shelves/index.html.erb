@@ -1,3 +1,5 @@
+<!-- This route is deactivated for now
+
 <h2> My shelves </h2>
 
 <% if policy(Shelf).create? %>
@@ -6,9 +8,10 @@
 
 <ul>
   <% current_user.shelves.each do |shelf| %>
-    <% if policy(shelf).show? %> <!-- pas utile pr l'instant -->
+    <% if policy(shelf).show? %>
       <li><%= link_to shelf.name, shelf_path(shelf) %></li>
     <% end %>
   <% end %>
 </ul>
 
+-->
