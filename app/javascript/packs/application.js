@@ -24,6 +24,7 @@ require("channels")
 
 // External imports
 import "bootstrap";
+import { displayAddBtns } from '../components/navbar';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -34,20 +35,4 @@ document.addEventListener('turbolinks:load', () => {
 });
 
 
-const displayAddBtns = () => {
-  const plus = document.getElementById("plus");
-  const btns = document.querySelector(".btns");
-  plus.addEventListener("click", (event) => {
-    if (btns.style.display === "none") {
-      btns.style.display = "";
-    } else {
-      btns.style.display = "none";
-    }
-    plus.classList.toggle("fa-rotate-45");
-});
-}
-
 displayAddBtns();
-
-
-//export { initUpdateNavbarOnScroll };

@@ -24,13 +24,19 @@ body {
 
 // buttons
 
-.btn {
+.add-btn {
     color: #000000;
     border: 2px solid #000000;
     padding: 5px 10px;
     border-radius: 50px;
     font-weight: lighter;
     font-weight: 400;
+}
+
+.add-btn:hover
+{
+     color:white;
+     background-color: black;
 }
 
 .btns {

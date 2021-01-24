@@ -7,11 +7,11 @@
 
    <div class="btns" style="display:none;">
       <% if policy(Space).create? %>
-        <%= link_to 'Add a space', new_space_path(shelf_id: params[:id]), class: "btn" %>
+        <%= link_to 'Add a space', new_space_path(shelf_id: params[:id]), class: "add-btn" %>
       <% end %>
 
       <% if policy(Item).create? %>
-        <%= link_to 'Add an item', new_item_path(shelf_id: params[:id]), class: "btn" %>
+        <%= link_to 'Add an item', new_item_path(shelf_id: params[:id]), class: "add-btn" %>
       <% end %>
 
       <% if user_signed_in? %>
