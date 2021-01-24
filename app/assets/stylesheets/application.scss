@@ -9,5 +9,43 @@
 @import "font-awesome";
 
 // Your CSS partials
-@import "components/index";
-@import "pages/index";
+
+body {
+  background-color: white;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+// logo
+
+.logo {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-weight: 900;
+}
+
+// buttons
+
+.btn {
+    color: #000000;
+    border: 2px solid #000000;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-weight: lighter;
+    font-weight: 400;
+}
+
+.btns {
+  display: flex;
+  gap: 12px;
+}
+
+// navbar le wag
+
+.navbar-lewagon {
+  justify-content: space-between;
+  background: white;
+}
+
+.navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+}
+

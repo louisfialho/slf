@@ -1,6 +1,32 @@
-<% if user_signed_in? %>
-  <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to "Login", new_user_session_path %>
-<% end %>
-<br>
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <h3 class="logo">shelf</h3>
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <div class="btns">
+    <% if policy(Space).create? %>
+      <%= link_to 'Add a space', new_space_path(shelf_id: params[:id]), class: "btn" %>
+    <% end %>
+
+    <% if policy(Item).create? %>
+      <%= link_to 'Add an item', new_item_path(shelf_id: params[:id]), class: "btn" %>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
+    <br>
+
+    </div>
+
+
+
+  </div>
+</div>
+
+
+
+
