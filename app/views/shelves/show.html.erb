@@ -1,18 +1,31 @@
-<ul>
-  <% @shelf.spaces.each do |space| %>
-    <li>
+<div class="grid-container">
+
+<% @shelf.spaces.each do |space| %>
       <% if policy(space).show? %>
-        <%= link_to space.name, space_path(space, shelf_id: @shelf.id) %>
+        <div class="object">
+          <%= image_tag "space.png", width: 95, class: "object_image" %>
+          <%= link_to space.name, space_path(space, shelf_id: @shelf.id), class: "object_name" %>
+        </div>
       <% end %>
-    </li>
   <% end %>
-</ul>
-<ul>
-  <% @shelf.items.each do |item| %>
-    <li>
+
+  <% @shelf.items.order(created_at: :desc).each do |item| %>
       <% if policy(item).show? %>
-        <%= link_to item.name, item_path(item, shelf_id: @shelf.id) %>
+        <div class="object">
+          <% if item.medium == "book" %>
+            <%= image_tag "book.png", width: 80, class: "object_image" %>
+          <% elsif item.medium == "podcast" %>
+            <%= image_tag "podcast.png", width: 80, class: "object_image" %>
+          <% elsif item.medium == "video" %>
+            <%= image_tag "video.png", width: 80, class: "object_image" %>
+          <% elsif item.medium == "web" %>
+            <%= image_tag "web.png", width: 80, class: "object_image" %>
+          <% end %>
+
+          <%= link_to truncate(item.name, length: 20), item_path(item, shelf_id: @shelf.id), class: "object_name" %>
+        </div>
       <% end %>
-    </li>
   <% end %>
 </ul>
+
+</div>
