@@ -4,12 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-has_and_belongs_to_many :shelves
+has_many :shelves
 
 after_create do
-    shelf = Shelf.new(name: 'default shelf')
+    user = User.last
+    shelf = Shelf.new(user_id: user.id)
     shelf.save
-    User.last.shelves << shelf
 end
 
 end

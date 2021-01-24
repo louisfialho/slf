@@ -13,6 +13,10 @@ class ShelfPolicy < ApplicationPolicy
     true
   end
 
+  def shelf?
+    true
+  end
+
   def update?
     record.users.first == user #(assuming 1 user per shelf)
     # - record: the restaurant passed to the `authorize` method in controller

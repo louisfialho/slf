@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_195859) do
+ActiveRecord::Schema.define(version: 2021_01_24_091846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,19 +46,15 @@ ActiveRecord::Schema.define(version: 2021_01_21_195859) do
   end
 
   create_table "shelves", force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_shelves_on_user_id"
   end
 
   create_table "shelves_spaces", id: false, force: :cascade do |t|
     t.bigint "shelf_id", null: false
     t.bigint "space_id", null: false
-  end
-
-  create_table "shelves_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "shelf_id", null: false
   end
 
   create_table "spaces", force: :cascade do |t|
@@ -80,4 +76,5 @@ ActiveRecord::Schema.define(version: 2021_01_21_195859) do
   end
 
   add_foreign_key "connections", "spaces"
+  add_foreign_key "shelves", "users"
 end

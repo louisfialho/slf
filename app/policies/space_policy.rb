@@ -11,12 +11,12 @@ class SpacePolicy < ApplicationPolicy
 
   def create?
   if @shelf
-    @shelf.users.first == user
+    @shelf.user == user
   elsif @parent
     if !@parent.shelves.empty?
-      @parent.shelves.first.users.first == user
+      @parent.shelves.first.user == user
     else
-      @parent.connections.first.root.space.shelves.first.users.first == user  #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
+      @parent.connections.first.root.space.shelves.first.user == user  #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
     end
   end
 end
@@ -25,17 +25,17 @@ end
 
   def update?
     if !record.shelves.empty?
-      record.shelves.first.users.first == user #assuming a space can be in one shelf and one shelf can belong to one user
+      record.shelves.first.user == user #assuming a space can be in one shelf and one shelf can belong to one user
     elsif !record.connections.first.parent.nil?
-      record.connections.first.root.space.shelves.first.users.first == user #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
+      record.connections.first.root.space.shelves.first.user == user #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
     end
   end
 
   def destroy?
     if !record.shelves.empty?
-      record.shelves.first.users.first == user
+      record.shelves.first.user == user
     elsif !record.connections.first.parent.nil?
-      record.connections.first.root.space.shelves.first.users.first == user #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
+      record.connections.first.root.space.shelves.first.user == user #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
     end
   end
 end
