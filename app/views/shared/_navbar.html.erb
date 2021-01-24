@@ -4,9 +4,8 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-  <i class="fas fa-plus fa-lg"></i>
 
-<!--   <div class="btns">
+   <div class="btns" style="display:none;">
       <% if policy(Space).create? %>
         <%= link_to 'Add a space', new_space_path(shelf_id: params[:id]), class: "btn" %>
       <% end %>
@@ -21,13 +20,13 @@
         <%= link_to "Log in", new_user_session_path %>
       <% end %>
       <br>
-    </div> -->
+    </div>
+
+  <i class="fas fa-plus fa-lg" id="plus"></i>
 
 
 
   </div>
 </div>
-
-
 
 
