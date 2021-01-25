@@ -1,6 +1,7 @@
+<!--
 <% if @space.connections.empty? %>
 
-  <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> <!-- Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i? --> <!-- Not DRY! Refacto -->
+  <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i?  Not DRY! Refacto
 
   <% if policy(@space).destroy? %>
     <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, data: {confirm: "Are you sure?"} %>
@@ -8,7 +9,7 @@
 
 <% elsif @space.connections.first.root? %>
 
-  <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> <!-- Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i? --> <!-- Not DRY! Refacto -->
+  <%= link_to 'Back to shelf', shelf_path(@space.shelves.first) %> Fonctionne uniquement si un space a une unique shelve. Sinon, il faudrait prendre en compte user_i? Not DRY! Refacto
 
   <% if policy(@space).destroy? %>
     <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, data: {confirm: "Are you sure?"} %>
@@ -16,7 +17,7 @@
 
 <% else %>
 
-  <%= link_to 'Back to space', space_path(@space.connections.first.parent.space) %> <!-- Valide ssi un space a une ocurrence dans la table -->
+  <%= link_to 'Back to space', space_path(@space.connections.first.parent.space) %>  Valide ssi un space a une ocurrence dans la table
 
   <% if policy(@space).destroy? %>
     <%= link_to 'Delete space', space_path(@space, parent_id: @space.connections.first.parent.space.id), method: :delete, data: {confirm: "Are you sure?"} %>
@@ -24,41 +25,49 @@
 
 <% end %>
 
-<!-- Bloc ci-dessus not DRY a refacto -->
-
 <% if policy(@space).edit? %>
   <%= link_to 'Edit space', edit_space_path(@space) %>
 <% end %>
+-->
 
-<h2><%= @space.name %></h2>
+<!-- <h2><%= @space.name %></h2> -->
 
-<h2> Spaces </h2>
 
 <% if policy(Space).create? %>
   <%= link_to 'Create space', new_space_path(parent_id: @space.id) %>
 <% end %>
 
-<% if @space.children.empty? == false %>
-<ul>
-  <% @space.connections.first.space.children.each do |connection| %>
-    <li><%= link_to connection.space.name, space_path(connection.space) %></li>
-  <% end %>
-</ul>
-<% end %>
-
-<h2> Items </h2>
 
 <% if policy(Item).create? %>
   <%= link_to 'Create item', new_item_path(space_id: @space.id, parent_id: @space.id) %> <!-- space_id for the controller, parent_id for pundit-->
 <% end %>
 
-<ul>
-  <% @space.items.each do |item| %>
-    <li>
-      <% if policy(item).show? %>
-        <%= link_to item.name, item_path(item, space_id: @space.id) %>
-      <% end %>
-    </li>
+<div class="grid-container">
+
+  <% if @space.children.empty? == false %>
+    <% @space.connections.first.space.children.each do |connection| %>
+      <div class="object">
+        <%= image_tag "space.png", width: 95, class: "object_image" %>
+        <%= link_to connection.space.name, space_path(connection.space),  class: "object_name" %>
+      </div>
+    <% end %>
   <% end %>
-</ul>
+
+  <% @space.items.order(created_at: :desc).each do |item| %>
+      <% if policy(item).show? %>
+        <div class="object">
+            <% if item.medium == "book" %>
+              <%= image_tag "book.png", width: 80, class: "object_image" %>
+            <% elsif item.medium == "podcast" %>
+              <%= image_tag "podcast.png", width: 80, class: "object_image" %>
+            <% elsif item.medium == "video" %>
+              <%= image_tag "video.png", width: 80, class: "object_image" %>
+            <% elsif item.medium == "web" %>
+              <%= image_tag "web.png", width: 80, class: "object_image" %>
+            <% end %>
+            <%= link_to truncate(item.name, length: 20), item_path(item, space_id: @space.id), class: "object_name"%>
+        </div>
+      <% end %>
+  <% end %>
+</div>
 

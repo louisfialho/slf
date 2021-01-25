@@ -13,15 +13,15 @@ user = User.create(email: 'louis.fialho@hec.edu', password: '123456', password_c
 Shelf.destroy_all
 puts 'Creating shelves...'
 
-shelf_1 = Shelf.create(name: 'Shelf 1', description: 'My first shelf')
+shelf_1 = Shelf.create(user: user)
 shelf_1.save!
 user.shelves << shelf_1
 
-shelf_2 = Shelf.create(name: 'Shelf 2', description: 'My second shelf')
+shelf_2 = Shelf.create(user: user)
 shelf_2.save!
 user.shelves << shelf_2
 
-shelf_3 = Shelf.create(name: 'Shelf 3', description: 'My third shelf')
+shelf_3 = Shelf.create(user: user)
 shelf_3.save!
 user.shelves << shelf_3
 
