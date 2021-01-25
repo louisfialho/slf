@@ -1,8 +1,8 @@
 <h1 class="question">What is the name of this new 🗃 ? </h1>
 
 <% if @shelf %>
-  <%= simple_form_for(@space) do |f| %>
-    <%= f.input :name, autofocus: true, label: false, input_html: { class: "inp" } %>
+  <%= simple_form_for @space, html: { autocomplete: 'off' } do |f| %>
+    <%= f.input :name, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp" } %>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
     <div class='buttonHolder' > <%= f.submit "Add space to shelf", class: "add-btn" %> </div>
   <% end %>
