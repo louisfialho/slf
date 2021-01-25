@@ -1,3 +1,65 @@
+<!-- BEGINNING OF NAVBAR -->
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <%= link_to "shelf", root_path, class: "logo" %>
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+   <div class="btns" style="display:none;">
+
+      <% if policy(Space).create? %>
+        <%= link_to 'Add a space', new_space_path(parent_id: @space.id), class: "add-btn" %>
+      <% end %>
+
+      <% if policy(Item).create? %>
+        <%= link_to 'Add an item', new_item_path(space_id: @space.id, parent_id: @space.id), class: "add-btn" %> <!-- space_id for the controller, parent_id for pundit-->
+      <% end %>
+
+      <% if user_signed_in? %>
+        <%= link_to "t", destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to "Log in", new_user_session_path %>
+      <% end %>
+      <br>
+    </div>
+
+  <i class="fas fa-plus fa-lg" id="plus"></i>
+  </div>
+</div>
+<!-- END OF NAVBAR -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--
 <% if @space.connections.empty? %>
 
@@ -32,15 +94,6 @@
 
 <!-- <h2><%= @space.name %></h2> -->
 
-
-<% if policy(Space).create? %>
-  <%= link_to 'Create space', new_space_path(parent_id: @space.id) %>
-<% end %>
-
-
-<% if policy(Item).create? %>
-  <%= link_to 'Create item', new_item_path(space_id: @space.id, parent_id: @space.id) %> <!-- space_id for the controller, parent_id for pundit-->
-<% end %>
 
 <div class="grid-container">
 
