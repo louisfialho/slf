@@ -1,17 +1,26 @@
+<h1 class="question">What is the name of this new 🗃 ? </h1>
+
 <% if @shelf %>
-  <%= form_for(@space) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <%= simple_form_for(@space) do |f| %>
+    <%= f.input :name, input_html: { class: "txt-inpt" }%>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
     <%= f.submit %>
   <% end %>
 <% elsif @child %>
-  <%= form_for(@child) do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <%= simple_form_for(@child) do |f| %>
+    <%= f.input :name %>
     <%= f.hidden_field :parent_id, :value => @parent.id %>
     <%= f.submit %>
   <% end %>
 <% end %>
 
-<%= link_to 'Cancel', url_for(:back) %>
+
+<!-- Understanding the raw HTML created by simple_form
+<form class="simple_form new_restaurant" id="new_restaurant" novalidate="novalidate" action="/restaurants" accept-charset="UTF-8" method="post">
+  <input type="hidden" name="authenticity_token" value="6mcCvU7ZazpIBcJTptw/8y4EucmzccFWli7tFUzX6IJEx8wq6PFC7m4rA1Jy+W4YW1hlhYhSOyhZefWtOM5ofQ==">
+  <div class="form-group string optional restaurant_name">
+    <label class="string optional" for="restaurant_name">Name</label>
+    <input class="form-control string optional" type="text" name="restaurant[name]" id="restaurant_name">
+  </div>
+  <input type="submit" name="commit" value="Create Restaurant" data-disable-with="Create Restaurant">
+</form> -->

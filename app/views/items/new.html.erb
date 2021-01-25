@@ -2,11 +2,11 @@
   <%= simple_form_for (@item) do |f| %>
     <%= f.label :url %>
     <%= f.text_field :url %>
-    <%= f.input :medium, collection: ["book", "podcast", "video", "web", "other"] %>
+    <%= f.input :medium, collection: Item::MEDIUM %>
     <%= f.label :name %>
     <%= f.text_field :name %>
-    <%= f.input :status, collection: ["not sarted", "in progress", "finished"] %>
-    <%= f.input :rank, collection: ['low', 'medium', 'high'] %>
+    <%= f.input :status, collection: Item::STATUS %>
+    <%= f.input :rank, collection: Item::RANK %>
     <%= f.label :notes %>
     <%= f.text_field :notes %>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
@@ -16,11 +16,11 @@
   <%= simple_form_for (@item) do |f| %>
     <%= f.label :url %>
     <%= f.text_field :url %>
-    <%= f.input :medium, collection: ["book", "podcast", "video", "web", "other"] %>
+    <%= f.input :medium, collection: Item::MEDIUM %>
     <%= f.label :name %>
     <%= f.text_field :name %>
-    <%= f.input :status, collection: ["not sarted", "in progress", "finished"] %>
-    <%= f.input :rank, collection: ['low', 'medium', 'high'] %>
+    <%= f.input :status, collection: Item::STATUS %>
+    <%= f.input :rank, collection: Item::RANK %>
     <%= f.label :notes %>
     <%= f.text_field :notes %>
     <%= f.hidden_field :space_id, :value => @space.id %> <!-- for controller -->
