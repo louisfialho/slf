@@ -34,6 +34,7 @@ body {
     border-radius: 50px;
     font-weight: lighter;
     font-weight: 400;
+    background-color: white;
 }
 
 .add-btn:hover
@@ -111,4 +112,21 @@ a:hover
   font-family: Charter;
   font-size: xx-large;
   font-weight: 530;
+}
+
+
+// text input in form for space
+input:focus, input.form-control:focus {
+    border-color: transparent;
+    -webkit-box-shadow: none;
+    font-family: Charter;
+    font-size: 27px;
+    margin-top: 35px;
+    text-align: center;
+}
+
+// form validation button
+.buttonHolder{
+  text-align: center;
+  margin-top: 35px;
 }

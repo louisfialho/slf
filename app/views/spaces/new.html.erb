@@ -2,9 +2,9 @@
 
 <% if @shelf %>
   <%= simple_form_for(@space) do |f| %>
-    <%= f.input :name, input_html: { class: "txt-inpt" }%>
+    <%= f.input :name, autofocus: true, label: false, input_html: { class: "inp" } %>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-    <%= f.submit %>
+    <div class="buttonHolder"> <%= f.submit "Add space to shelf", class: "add-btn" %> </div>
   <% end %>
 <% elsif @child %>
   <%= simple_form_for(@child) do |f| %>
@@ -23,4 +23,6 @@
     <input class="form-control string optional" type="text" name="restaurant[name]" id="restaurant_name">
   </div>
   <input type="submit" name="commit" value="Create Restaurant" data-disable-with="Create Restaurant">
-</form> -->
+</form>
+ -->
+
