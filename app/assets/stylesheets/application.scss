@@ -116,10 +116,11 @@ a:hover
 
 
 // text input in form for space
-input:focus, input.form-control:focus {
+input.form-control, input:focus, input.form-control:focus {
     border-color: transparent;
     -webkit-box-shadow: none;
     font-family: Charter;
+    color: black;
     font-size: 27px;
     margin-top: 35px;
     text-align: center;

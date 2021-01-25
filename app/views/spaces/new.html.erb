@@ -4,7 +4,7 @@
   <%= simple_form_for(@space) do |f| %>
     <%= f.input :name, autofocus: true, label: false, input_html: { class: "inp" } %>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-    <div class="buttonHolder"> <%= f.submit "Add space to shelf", class: "add-btn" %> </div>
+    <div class='buttonHolder' > <%= f.submit "Add space to shelf", class: "add-btn" %> </div>
   <% end %>
 <% elsif @child %>
   <%= simple_form_for(@child) do |f| %>
