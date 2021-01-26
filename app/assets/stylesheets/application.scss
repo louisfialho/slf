@@ -116,7 +116,7 @@ a:hover
 
 
 // text input in form for space
-input[type="text"].form-control, input[type="text"]:focus, input[type="text"].form-control:focus {
+input[type="text"].form-control, input[type="text"]:focus, input[type="text"].form-control:focus, input[type="url"].form-control, input[type="url"]:focus, input[type="url"].form-control:focus {
     border-color: transparent;
     -webkit-box-shadow: none;
     font-family: Charter;
