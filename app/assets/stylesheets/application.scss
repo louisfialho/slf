@@ -173,3 +173,22 @@ input[type="text"].form-control, input[type="text"]:focus, input[type="text"].fo
 legend {
    color: transparent;
 }
+
+
+// msg for "Your shelf is empty" when the user creates shelf
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.msg {
+    position: relative;
+    font-family: Charter;
+    color: black;
+    font-size: 180%;
+    font-weight: 500;
+}

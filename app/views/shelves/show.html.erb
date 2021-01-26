@@ -31,14 +31,17 @@
 
 
 
+<!-- IF SHELF IS EMPTY -->
+<% if @shelf.spaces.empty? && @shelf.spaces.empty? %>
+  <div class="center"><p class="msg">Your shelf is empty.</p></div>
+<% end %>
 
 
 
 
 
 
-
-
+<!-- IF SHELF HAS OBJECTS -->
 <div class="grid-container">
 
 <% @shelf.spaces.each do |space| %>

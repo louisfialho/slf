@@ -35,8 +35,10 @@
 
 
 
-
-
+<!-- IF SPACE IS EMPTY -->
+<% if @space.children.empty? && @space.items.empty? %>
+  <div class="center"><p class="msg">This space is empty.</p></div>
+<% end %>
 
 
 
