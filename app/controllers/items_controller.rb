@@ -2,24 +2,29 @@ class ItemsController < ApplicationController
 before_action :set_item, only: [:show, :edit, :update, :destroy]
 before_action :set_shelf_space, only: [:new, :show, :edit]
 
-  def new
-    @item = Item.new
-    authorize @item
-  end
+  # def new
+  #   @item = Item.new
+  #   authorize @item
+  # end
 
   def create
-    @item = Item.new(item_params)
+    @item = Item.new
     authorize @item
-    @item.save
-    if params[:item][:shelf_id].present?
-      @shelf = Shelf.find(params[:item][:shelf_id])
-      @shelf.items << @item
-      redirect_to item_path(@item, shelf_id: @shelf.id)
-    elsif params[:item][:space_id].present?
-      @space = Space.find(params[:item][:space_id])
-      @space.items << @item
-      redirect_to item_path(@item, space_id: @space.id)
+    @item.save(validate: false)
+    if params[:shelf_id].present?
+      redirect_to item_step_path(@item, 'url', shelf_id: params[:shelf_id])
+    elsif params[:space_id].present?
+      redirect_to item_step_path(@item, 'url', space_id: params[:space_id])
     end
+    # if params[:item][:shelf_id].present?
+    #   @shelf = Shelf.find(params[:item][:shelf_id])
+    #   @shelf.items << @item
+    #   redirect_to item_path(@item, shelf_id: @shelf.id)
+    # elsif params[:item][:space_id].present?
+    #   @space = Space.find(params[:item][:space_id])
+    #   @space.items << @item
+    #   redirect_to item_path(@item, space_id: @space.id)
+    # end
   end
 
   def index

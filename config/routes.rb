@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  namespace :item do
+    get 'steps/show'
+    get 'steps/update'
+  end
   devise_for :users
   root to: 'shelves#shelf'
   resources :shelves, only: [:new, :create, :show]
   resources :spaces
-  resources :items
+  resources :items do
+    resources :steps, only: [:show, :update], controller: 'item/steps' #/items/1/steps/identity
+  end
 end

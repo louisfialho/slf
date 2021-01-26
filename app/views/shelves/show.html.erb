@@ -12,7 +12,7 @@
       <% end %>
 
       <% if policy(Item).create? %>
-        <%= link_to 'Add an item', new_item_path(shelf_id: params[:id]), class: "add-btn" %>
+        <%= link_to 'Add an object', items_path(shelf_id: params[:id]), method: :post, class: "add-btn" %>
       <% end %>
 
       <% if user_signed_in? %>

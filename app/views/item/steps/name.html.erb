@@ -1,0 +1,46 @@
+<% if @shelf %>
+
+  <%= form_for @item, method: :put, url: wizard_path do |f| %>
+    <% if f.object.errors.any? %>
+      <div class="error_messages">
+        <% f.object.errors.full_messages.each do |error| %>
+          <p><%= error %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+      </div>
+
+      <div>
+        <%= f.submit 'Next Step' %>
+      </div>
+  <% end %>
+
+<% elsif @space %>
+
+  <%= form_for @item, method: :put, url: wizard_path do |f| %>
+    <% if f.object.errors.any? %>
+      <div class="error_messages">
+        <% f.object.errors.full_messages.each do |error| %>
+          <p><%= error %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.hidden_field :space_id, :value => @space.id %>
+        <%= f.hidden_field :parent_id, :value => @space.id %> <!-- apparently for Pundit -->
+      </div>
+
+      <div>
+        <%= f.submit 'Next Step' %>
+      </div>
+  <% end %>
+
+<% end %>
