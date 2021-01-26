@@ -1,46 +1,23 @@
+<% if params[:medium] == "book" %>
+  <h1 class="question">Do you want to add notes to this 📕 ? </h1>
+<% else %>
+  <h1 class="question">Do you want to add notes to this object ? </h1>
+<% end %>
+
 <% if @shelf %>
-
-  <%= form_for @item, method: :put, url: wizard_path do |f| %>
-    <% if f.object.errors.any? %>
-      <div class="error_messages">
-        <% f.object.errors.full_messages.each do |error| %>
-          <p><%= error %></p>
-        <% end %>
-      </div>
-    <% end %>
-
-      <div>
-        <%= f.label :notes %>
-        <%= f.text_field :notes %>
+  <%= simple_form_for @item, method: :put, url: wizard_path, html: { autocomplete: 'off' } do |f| %>
+        <%= f.input :notes, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp" } %>
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-      </div>
-
-      <div>
-        <%= f.submit 'Next Step' %>
-      </div>
+        <div class='buttonHolder'> <%= f.submit "Add to shelf", class: "add-btn" %> </div>
   <% end %>
 
 <% elsif @space %>
 
-  <%= form_for @item, method: :put, url: wizard_path do |f| %>
-    <% if f.object.errors.any? %>
-      <div class="error_messages">
-        <% f.object.errors.full_messages.each do |error| %>
-          <p><%= error %></p>
-        <% end %>
-      </div>
-    <% end %>
-
-      <div>
-        <%= f.label :notes %>
-        <%= f.text_field :notes %>
+  <%= simple_form_for @item, method: :put, url: wizard_path, html: { autocomplete: 'off' } do |f| %>
+        <%= f.input :notes, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp" } %>
         <%= f.hidden_field :space_id, :value => @space.id %>
         <%= f.hidden_field :parent_id, :value => @space.id %> <!-- apparently for Pundit -->
-      </div>
-
-      <div>
-        <%= f.submit 'Next Step' %>
-      </div>
+        <div class='buttonHolder'> <%= f.submit "Add to shelf", class: "add-btn" %> </div>
   <% end %>
 
 <% end %>

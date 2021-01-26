@@ -131,3 +131,45 @@ input[type="text"].form-control, input[type="text"]:focus, input[type="text"].fo
   text-align: center;
   margin-top: 35px;
 }
+
+
+
+// styling radio buttons for adding item form for steps with buttons
+.tag-item {
+  display: inline-block;
+}
+
+.tag-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.tag-selector + label {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.1rem 0.7rem; /* padding: 5px 10px;*/
+  text-align: center;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 50px; /* 50rem; ? */
+  font-weight: lighter;
+  font-weight: 400;
+  background-color: white;
+  margin-right: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.tag-selector:checked + label {
+  background-color: black;
+  color: white;
+}
+
+.choices {
+  text-align: center;
+}
+
+// hiding labels
+
+legend {
+   color: transparent;
+}

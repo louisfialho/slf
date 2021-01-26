@@ -1,46 +1,20 @@
+<h1 class="question">What is the status of this new object ? </h1>
+
 <% if @shelf %>
 
-  <%= form_for @item, method: :put, url: wizard_path do |f| %>
-    <% if f.object.errors.any? %>
-      <div class="error_messages">
-        <% f.object.errors.full_messages.each do |error| %>
-          <p><%= error %></p>
-        <% end %>
-      </div>
-    <% end %>
-
-      <div>
-        <%= f.label :status %>
-        <%= f.text_field :status %>
+  <%= simple_form_for @item, method: :put, url: wizard_path do |f| %>
+        <div class='choices'> <%= f.input :status, label: false, collection: [['Not started', 'not started'], ['In progress', 'in progress'], ['Finished', 'finished']], as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item' %> </div>
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-      </div>
-
-      <div>
-        <%= f.submit 'Next Step' %>
-      </div>
+        <div class='buttonHolder'> <%= f.submit "Next", class: "add-btn" %> </div>
   <% end %>
 
 <% elsif @space %>
 
-  <%= form_for @item, method: :put, url: wizard_path do |f| %>
-    <% if f.object.errors.any? %>
-      <div class="error_messages">
-        <% f.object.errors.full_messages.each do |error| %>
-          <p><%= error %></p>
-        <% end %>
-      </div>
-    <% end %>
-
-      <div>
-        <%= f.label :status %>
-        <%= f.text_field :status %>
+  <%= simple_form_for @item, method: :put, url: wizard_path do |f| %>
+        <div class='choices'> <%= f.input :status, label: false, collection: [['Not started', 'not started'], ['In progress', 'in progress'], ['Finished', 'finished']], as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item' %> </div>
         <%= f.hidden_field :space_id, :value => @space.id %>
         <%= f.hidden_field :parent_id, :value => @space.id %> <!-- apparently for Pundit -->
-      </div>
-
-      <div>
-        <%= f.submit 'Next Step' %>
-      </div>
+        <div class='buttonHolder'> <%= f.submit "Next", class: "add-btn" %> </div>
   <% end %>
 
 <% end %>

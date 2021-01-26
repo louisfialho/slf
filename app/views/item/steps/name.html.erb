@@ -1,4 +1,8 @@
-<h1 class="question">What is the name of this new object ? </h1>
+<% if params[:medium] == "book" %>
+  <h1 class="question">What is the name of this new 📕 ? </h1>
+<% else %>
+  <h1 class="question">What is the name of this new object ? </h1>
+<% end %>
 
 <% if @shelf %>
   <%= simple_form_for @item, method: :put, url: wizard_path, html: { autocomplete: 'off' } do |f| %>
