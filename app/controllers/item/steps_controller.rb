@@ -40,7 +40,11 @@ class Item::StepsController < ApplicationController
   private
 
   def finish_wizard_path
-    item_path(@item, space_id: @space.id)
+    if @space
+      item_path(@item, space_id: @space.id)
+    elsif @shelf
+      item_path(@item, shelf_id: @shelf.id)
+    end
   end
 
   def item_params(step)
