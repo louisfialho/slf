@@ -24,14 +24,14 @@ class Item::StepsController < ApplicationController
       @shelf = Shelf.find(params[:item][:shelf_id])
       render_wizard(@item, {}, { shelf_id: @shelf.id })
       case step
-        when "name"
+        when "notes"
           @shelf.items << @item
         end
     elsif params[:item][:space_id].present?
       @space = Space.find(params[:item][:space_id])
       render_wizard(@item, {}, { space_id: @space.id })
       case step
-        when "name"
+        when "notes"
           @space.items << @item
         end
     end
