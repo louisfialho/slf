@@ -192,3 +192,9 @@ legend {
     font-size: 180%;
     font-weight: 500;
 }
+
+// prevent fontawesome icon from becoming blue when making it a link
+
+a {
+  color:inherit;
+}
