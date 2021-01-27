@@ -1,10 +1,10 @@
 <!-- BEGINNING OF NAVBAR -->
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon" id="navshow">
+<div class="navbar navbar-expand-sm navbar-light" id="navshow">
 
   <%= link_to "shelf", root_path, class: "logo" %>
 
     <h1 class="item-title">
-      <a href="<%= @item.url %>">
+      <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
         <% if @item.medium == "book" %>
           📕
         <% elsif @item.medium == "podcast" %>
@@ -20,13 +20,11 @@
       </a>
     </h1>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <% if @shelf %>
-      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45" id="plus"></i>'.html_safe, shelf_path(@shelf) %>
+      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45"></i>'.html_safe, shelf_path(@shelf), class: "close-item-show" %>
     <% elsif @space %>
-      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45" id="plus"></i>'.html_safe, space_path(@space) %>
+      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45"></i>'.html_safe, space_path(@space), class: "close-item-show" %>
     <% end %>
-  </div>
 </div>
 <!-- END OF NAVBAR -->
 

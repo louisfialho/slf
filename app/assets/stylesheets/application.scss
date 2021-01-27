@@ -221,3 +221,11 @@ a {
   align-items: start;
 }
 
+.close-item-show {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
