@@ -39,6 +39,10 @@ class Item::StepsController < ApplicationController
 
   private
 
+  def finish_wizard_path
+    item_path(@item, space_id: @space.id)
+  end
+
   def item_params(step)
     permitted_attributes = case step
       when "url"
