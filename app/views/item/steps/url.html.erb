@@ -1,5 +1,15 @@
-
-
+<!-- BEGINNING OF NAVBAR -->
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <%= link_to "shelf", root_path, class: "logo" %>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <% if @shelf %>
+      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45" id="plus"></i>'.html_safe, shelf_path(@shelf) %>
+    <% elsif @space %>
+      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45" id="plus"></i>'.html_safe, space_path(@space) %>
+    <% end %>
+  </div>
+</div>
+<!-- END OF NAVBAR -->
 
 
 <h1 class="question">What is the URL 🌐 of this new object ? </h1>
