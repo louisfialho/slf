@@ -71,7 +71,6 @@ body {
     margin-top: 30px;
 }
 
-
 // object
 
 .object{
@@ -203,3 +202,26 @@ legend {
 a {
   color:inherit;
 }
+
+// now focusing on the item show
+
+// container for the title
+.title-ctn {
+  margin-left: 150px;
+  margin-right: 150px;
+  position: relative;
+  margin-top: 0px;
+}
+
+.item-title {
+  font-family: Charter;
+  font-size: xx-large;
+  font-weight: 500;
+}
+
+// navbar
+
+#navshow {
+  align-items: start;
+}
+

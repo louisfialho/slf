@@ -1,36 +1,48 @@
-<% if params[:shelf_id].present? %>
+<!-- BEGINNING OF NAVBAR -->
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon" id="navshow">
 
-  <%= link_to 'Back to shelf', shelf_path(@shelf) %>
+  <%= link_to "shelf", root_path, class: "logo" %>
 
-  <% if policy(@item).edit? %>
-    <%= link_to 'Edit item', edit_item_path(@item, shelf_id: @shelf.id) %>
-  <% end %>
+  <div class="title-ctn">
+    <h1 class="item-title">
+      <a href="<%= @item.url %>">
+        <% if @item.medium == "book" %>
+          📕
+        <% elsif @item.medium == "podcast" %>
+          🎙
+        <% elsif @item.medium == "video" %>
+          📺
+        <% elsif @item.medium == "web" %>
+          💻
+        <% elsif @item.medium == "other" %>
+          🔍
+        <% end %>
+        <%= @item.name %>
+      </a>
+    </h1>
+  </div>
 
-  <% if policy(@item).destroy? %>
-    <%= link_to 'Delete item', item_path(@item, shelf_id: @shelf.id), method: :delete, data: {confirm: "Are you sure?"} %>
-  <% end %>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <% if @shelf %>
+      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45" id="plus"></i>'.html_safe, shelf_path(@shelf) %>
+    <% elsif @space %>
+      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45" id="plus"></i>'.html_safe, space_path(@space) %>
+    <% end %>
+  </div>
+</div>
+<!-- END OF NAVBAR -->
 
-<% elsif params[:space_id].present? %>
 
-  <%= link_to 'Back to space', space_path(@space) %>
 
-  <% if policy(@item).edit? %>
-    <%= link_to 'Edit item', edit_item_path(@item, space_id: @space.id) %>
-  <% end %>
 
-  <% if policy(@item).destroy? %>
-    <%= link_to 'Delete item', item_path(@item, space_id: @space.id), method: :delete, data: {confirm: "Are you sure?"} %>
-  <% end %>
 
-<% end %>
 
-<h2><%= @item.name %></h2>
-<a href="<%= @item.url %>"><%= @item.url %></a>
-<h3><%= @item.medium %></h3>
+
+
+<!-- <h3><%= @item.medium %></h3>
 <h3><%= @item.name %></h3>
 <h3><%= @item.status %></h3>
 <h3><%= @item.rank %></h3>
-<h3><%= @item.notes %></h3>
-
+<h3><%= @item.notes %></h3> -->
 
 
