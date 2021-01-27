@@ -16,7 +16,7 @@
 <% if @shelf %>
 
   <%= simple_form_for @item, method: :put, url: wizard_path do |f| %>
-        <div class='choices'> <%= f.input :rank, label: false, collection: [['😴 Low', 'low'], ['🤔 Medium', 'medium'], ['😱 High', 'high']], as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item' %> </div>
+        <div class='choices inp'> <%= f.input :rank, label: false, collection: [['😴 Low', 'low'], ['🤔 Medium', 'medium'], ['😱 High', 'high']], as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item' %> </div>
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
         <div class='buttonHolder'> <%= f.submit "Next", class: "add-btn" %> </div>
   <% end %>
@@ -24,7 +24,7 @@
 <% elsif @space %>
 
   <%= simple_form_for @item, method: :put, url: wizard_path do |f| %>
-        <div class='choices'> <%= f.input :rank, label: false, collection: [['😴 Low', 'low'], ['🤔 Medium', 'medium'], ['😱 High', 'high']], as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item' %> </div>
+        <div class='choices inp'> <%= f.input :rank, label: false, collection: [['😴 Low', 'low'], ['🤔 Medium', 'medium'], ['😱 High', 'high']], as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item' %> </div>
         <%= f.hidden_field :space_id, :value => @space.id %>
         <%= f.hidden_field :parent_id, :value => @space.id %> <!-- apparently for Pundit -->
         <div class='buttonHolder'> <%= f.submit "Next", class: "add-btn" %> </div>

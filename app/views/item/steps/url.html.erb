@@ -16,7 +16,7 @@
 
 <% if @shelf %>
   <%= simple_form_for @item, method: :put, url: wizard_path, html: { autocomplete: 'off' } do |f| %>
-        <%= f.input :url, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp" } %>
+        <%= f.input :url, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp-txt" } %>
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
         <div class='buttonHolder'> <%= f.submit "Next", class: "add-btn" %> </div>
   <% end %>
@@ -24,7 +24,7 @@
 <% elsif @space %>
 
   <%= simple_form_for @item, method: :put, url: wizard_path, html: { autocomplete: 'off' } do |f| %>
-        <%= f.input :url, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp" } %>
+        <%= f.input :url, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp-txt" } %>
         <%= f.hidden_field :space_id, :value => @space.id %>
         <%= f.hidden_field :parent_id, :value => @space.id %> <!-- apparently for Pundit -->
         <div class='buttonHolder'> <%= f.submit "Next", class: "add-btn" %> </div>

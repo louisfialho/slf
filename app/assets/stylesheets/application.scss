@@ -122,17 +122,22 @@ input[type="text"].form-control, input[type="text"]:focus, input[type="text"].fo
     font-family: Charter;
     color: black;
     font-size: 27px;
-    margin-top: 35px;
     text-align: center;
 }
 
 // form validation button
 .buttonHolder {
   text-align: center;
-  margin-top: 35px;
+  margin-top: 45px;
 }
 
+.inp {
+  margin-top: 20px;
+}
 
+.inp-txt {
+  margin-top: 35px;
+}
 
 // styling radio buttons for adding item form for steps with buttons
 .tag-item {
