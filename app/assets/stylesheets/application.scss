@@ -64,7 +64,7 @@ body {
 .grid-container {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto;
     padding: 10px;
     grid-gap: 5px 5px;
     row-gap: 50px;
@@ -111,7 +111,7 @@ a:hover
   margin-top: 60px;
   font-family: Charter;
   font-size: xx-large;
-  font-weight: 530;
+  font-weight: 500;
 }
 
 
