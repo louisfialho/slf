@@ -3,7 +3,6 @@
 
   <%= link_to "shelf", root_path, class: "logo" %>
 
-  <div class="title-ctn">
     <h1 class="item-title">
       <a href="<%= @item.url %>">
         <% if @item.medium == "book" %>
@@ -20,7 +19,6 @@
         <%= @item.name %>
       </a>
     </h1>
-  </div>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <% if @shelf %>
