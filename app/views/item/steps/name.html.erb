@@ -11,8 +11,14 @@
 </div>
 <!-- END OF NAVBAR -->
 
-<% if params[:medium] == "book" %>
+<% if Item.find(params[:item_id]).medium == "book" %>
   <h1 class="question">What is the name of this new 📕 ? </h1>
+<% elsif Item.find(params[:item_id]).medium == "podcast" %>
+  <h1 class="question">What is the name of this new 🎙 ? </h1>
+<% elsif Item.find(params[:item_id]).medium == "video" %>
+  <h1 class="question">What is the name of this new 📺 ? </h1>
+<% elsif Item.find(params[:item_id]).medium == "web" %>
+  <h1 class="question">What is the name of this new 💻 ? </h1>
 <% else %>
   <h1 class="question">What is the name of this new object ? </h1>
 <% end %>

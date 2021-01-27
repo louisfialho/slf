@@ -11,11 +11,21 @@
 </div>
 <!-- END OF NAVBAR -->
 
-<% if params[:medium] == "book" %>
-  <h1 class="question">Do you want to add notes to this 📕 ? </h1>
+
+<% if Item.find(params[:item_id]).medium == "book" %>
+  <h1 class="question">Do you want to add notes to this new 📕 ? </h1>
+<% elsif Item.find(params[:item_id]).medium == "podcast" %>
+  <h1 class="question">Do you want to add notes to this new 🎙 ? </h1>
+<% elsif Item.find(params[:item_id]).medium == "video" %>
+  <h1 class="question">Do you want to add notes to this new 📺 ? </h1>
+<% elsif Item.find(params[:item_id]).medium == "web" %>
+  <h1 class="question">Do you want to add notes to this new 💻 ? </h1>
 <% else %>
-  <h1 class="question">Do you want to add notes to this object ? </h1>
+  <h1 class="question">Do you want to add notes to this new object ? </h1>
 <% end %>
+
+
+
 
 <% if @shelf %>
   <%= simple_form_for @item, method: :put, url: wizard_path, html: { autocomplete: 'off' } do |f| %>

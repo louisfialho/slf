@@ -11,7 +11,24 @@
 </div>
 <!-- END OF NAVBAR -->
 
-<h1 class="question">How would you rank this new object ? </h1>
+<% if Item.find(params[:item_id]).medium == "book" %>
+  <h1 class="question">How would you rank this new 📕 ? </h1>
+<% elsif Item.find(params[:item_id]).medium == "podcast" %>
+  <h1 class="question">How would you rank this new 🎙 ? </h1>
+<% elsif Item.find(params[:item_id]).medium == "video" %>
+  <h1 class="question">How would you rank this new 📺 ? </h1>
+<% elsif Item.find(params[:item_id]).medium == "web" %>
+  <h1 class="question">How would you rank this new 💻 ? </h1>
+<% else %>
+  <h1 class="question">How would you rank this new object ? </h1>
+<% end %>
+
+
+
+
+
+
+
 
 <% if @shelf %>
 
