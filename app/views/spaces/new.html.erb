@@ -19,13 +19,13 @@
 
 <% if @shelf %>
   <%= simple_form_for @space, html: { autocomplete: 'off' } do |f| %>
-    <%= f.input :name, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp" } %>
+    <%= f.input :name, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp-txt" } %>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
     <div class='buttonHolder' > <%= f.submit "Add space to shelf", class: "add-btn" %> </div>
   <% end %>
 <% elsif @child %>
   <%= simple_form_for @child, html: { autocomplete: 'off' } do |f| %>
-    <%= f.input :name , autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp" } %>
+    <%= f.input :name , autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp-txt" } %>
     <%= f.hidden_field :parent_id, :value => @parent.id %>
     <div class='buttonHolder' > <%= f.submit "Add space to shelf", class: "add-btn" %> </div>
   <% end %>
