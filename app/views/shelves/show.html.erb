@@ -15,11 +15,11 @@
         <%= link_to 'Add an object', items_path(shelf_id: params[:id]), method: :post, class: "add-btn" %>
       <% end %>
 
-      <% if user_signed_in? %>
+<!--       <% if user_signed_in? %>
         <%= link_to "t", destroy_user_session_path, method: :delete %>
       <% else %>
         <%= link_to "Log in", new_user_session_path %>
-      <% end %>
+      <% end %> -->
       <br>
     </div>
 
@@ -32,7 +32,7 @@
 
 
 <!-- IF SHELF IS EMPTY -->
-<% if @shelf.spaces.empty? && @shelf.spaces.empty? %>
+<% if @shelf.spaces.empty? && @shelf.items.empty? %>
   <div class="center"><p class="msg">Your shelf is empty.</p></div>
 <% end %>
 

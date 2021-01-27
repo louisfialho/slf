@@ -16,11 +16,11 @@
         <%= link_to 'Add an object', items_path(space_id: @space.id, parent_id: @space.id), method: :post, class: "add-btn" %> <!-- space_id for the controller, parent_id for pundit-->
       <% end %>
 
-      <% if user_signed_in? %>
+<!--       <% if user_signed_in? %>
         <%= link_to "t", destroy_user_session_path, method: :delete %>
       <% else %>
         <%= link_to "Log in", new_user_session_path %>
-      <% end %>
+      <% end %> -->
       <br>
     </div>
 
