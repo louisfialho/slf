@@ -31,7 +31,7 @@
 
 <!-- UPDATE BUTTONS -->
 <div class='update-btns'>
-  <button class='update-btn' id='update-status'>
+  <button class='update-btn active-btn' id='update-status'>
     <% if @item.status == 'not started'%>
       🙅 Not started
     <% elsif @item.status == 'in progress'%>
@@ -41,7 +41,7 @@
     <% end %>
   </button>
 
-  <button class='update-btn' id='update-rank'>
+  <button class='update-btn active-btn' id='update-rank'>
     <% if @item.rank == 'low'%>
       😴 Low rank
     <% elsif @item.rank == 'medium'%>
