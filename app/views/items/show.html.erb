@@ -28,9 +28,19 @@
 </div>
 <!-- END OF NAVBAR -->
 
+<% if @shelf %>
+  <%= simple_form_for (@item) do |f| %>
+    <%= f.input :status, label: false, collection: ["not sarted", "in progress", "finished"], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector" } %>
+    <%= f.input :rank, label: false, collection: ['low', 'medium', 'high'], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector" }%>
+    <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+    <%= f.submit "Update" %>
+  <% end %>
+<% end %>
 
 
 
+<%= @item.status %>
+<%= @item.rank %>
 
 
 
