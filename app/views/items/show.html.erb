@@ -28,6 +28,9 @@
 </div>
 <!-- END OF NAVBAR -->
 
+<button class="update-btn"><%= @item.status.capitalize %></button>
+<button class="update-btn"><%= @item.rank.capitalize %></button>
+
 <% if @shelf %>
   <%= simple_form_for (@item) do |f| %>
     <%= f.input :status, label: false, collection: [['🙅 Not started', 'not started'], ['🧑‍💻 In progress', 'in progress'], ['💆 Finished', 'finished']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector" } %>
@@ -38,12 +41,6 @@
 <% end %>
 
 
-
-
-
-
-<%= @item.status %>
-<%= @item.rank %>
 
 
 

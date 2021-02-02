@@ -148,7 +148,7 @@ input[type="text"].form-control, input[type="text"]:focus, input[type="text"].fo
   transform: scale(0);
 }
 
-.tag-selector + label {
+.tag-selector + label, .update-btn {
   cursor: pointer;
   display: inline-block;
   padding: 0.1rem 0.7rem; /* padding: 5px 10px;*/
