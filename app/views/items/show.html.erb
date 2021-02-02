@@ -28,15 +28,16 @@
 </div>
 <!-- END OF NAVBAR -->
 
-<button class='update-btn'><%= @item.status.capitalize %></button>
-<button class='update-btn'><%= @item.rank.capitalize %></button>
+<div class='update-btns'>
+<button class='update-btn' id='update-status'><%= @item.status.capitalize %></button>
+<button class='update-btn' id='update-rank'><%= @item.rank.capitalize %></button>
+</div>
 
 <% if @shelf %>
   <%= simple_form_for (@item) do |f| %>
-    <div class='buttons-ctn'> <%= f.input :status, label: false, collection: [['🙅 Not started', 'not started'], ['🧑‍💻 In progress', 'in progress'], ['💆 Finished', 'finished']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector" } %> </div>
-    <%= f.input :rank, label: false, collection: [['😴 Low rank', 'low'], ['🤔 Medium rank', 'medium'], ['😱 High rank', 'high']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector" }%>
+    <div class='buttons-ctn' id='opts-status' style="display:none;"> <%= f.input :status, label: false, collection: [['🙅 Not started', 'not started'], ['🧑‍💻 In progress', 'in progress'], ['💆 Finished', 'finished']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector" } %> </div>
+    <div class='buttons-ctn' id='opts-rank' style="display:none;"><%= f.input :rank, label: false, collection: [['😴 Low rank', 'low'], ['🤔 Medium rank', 'medium'], ['😱 High rank', 'high']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector" }%> </div>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-    <%= f.submit 'Update' %>
   <% end %>
 <% end %>
 

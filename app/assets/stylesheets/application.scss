@@ -229,9 +229,16 @@ a {
     transform: translateY(-50%);
 }
 
+// creating a div for update buttons
+.update-btns {
+  margin-left: 120px;
+}
+
 // creating a container for the buttons on item show
 .buttons-ctn {
+    display: table;
     border: 2px solid #000000;
-    border-radius: 50px;
+    border-radius: 25px;
     margin: 3px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2)
 }

@@ -26,7 +26,6 @@ require("channels")
 import "bootstrap";
 import { updateStatus } from '../components/update';
 import { displayAddBtns } from '../components/navbar';
-import Rails from '@rails/ujs'; global.Rails = Rails;
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
