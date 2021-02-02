@@ -28,10 +28,31 @@
 </div>
 <!-- END OF NAVBAR -->
 
+
+<!-- UPDATE BUTTONS -->
 <div class='update-btns'>
-<button class='update-btn' id='update-status'><%= @item.status.capitalize %></button>
-<button class='update-btn' id='update-rank'><%= @item.rank.capitalize %></button>
+  <button class='update-btn' id='update-status'>
+    <% if @item.status == 'not started'%>
+      🙅 Not started
+    <% elsif @item.status == 'in progress'%>
+      🧑‍💻 In progress
+    <% elsif @item.status == 'finished'%>
+      💆 Finished
+    <% end %>
+  </button>
+
+  <button class='update-btn' id='update-rank'>
+    <% if @item.rank == 'low'%>
+      😴 Low rank
+    <% elsif @item.rank == 'medium'%>
+      🤔 Medium rank
+    <% elsif @item.rank == 'high'%>
+      😱 High rank
+    <% end %>
+
+  </button>
 </div>
+<!-- END OF UPDATE BUTTONS -->
 
 <% if @shelf %>
   <%= simple_form_for (@item) do |f| %>
