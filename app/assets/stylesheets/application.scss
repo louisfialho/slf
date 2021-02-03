@@ -334,7 +334,12 @@ textarea {
 .txt-area {
   font-family: Charter;
   font-size: x-large;
-  color: #282828;
+  color: #404040;
+}
+
+// overriding bootstrap for text input color
+.form-control:focus {
+    color: #404040;
 }
 
 .item-notes {
