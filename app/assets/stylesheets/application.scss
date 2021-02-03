@@ -276,8 +276,19 @@ a {
 
 // removing focuss effect on radio buttons
 
-button{
+button {
  outline: none !important;
+}
+
+button,
+button:active,
+button:focus,
+button:hover,
+.btn,
+.btn:active,
+.btn:focus,
+.btn:hover{
+    outline:none !important;
 }
 
 // overriding bootstrap css for options box on item show
@@ -290,3 +301,47 @@ button{
     margin-bottom: 10px;
 }
 
+// overriding bootstrap form styling
+
+.form-control.is-valid {
+  padding-right: 0px;
+  background-image: none;
+}
+
+input.form-control[type="text"] {
+  text-align: left !important;
+}
+
+.notes {
+  margin-left: 130px;
+}
+
+// remove styling textarea
+
+textarea {
+    border: none !important;
+    overflow: auto !important;
+    outline: none !important;
+
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+
+    resize: none !important; /*remove the resize handle on the bottom right*/
+}
+
+
+.txt-area {
+  font-family: Charter;
+  font-size: x-large;
+  color: #282828;
+}
+
+.item-notes {
+  font-family: Charter;
+  font-size: xx-large;
+  font-weight: 500;
+  margin-left: 10px;
+  margin-right: 40px;
+  margin-top: 8px;
+}
