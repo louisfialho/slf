@@ -57,8 +57,8 @@
 <% if @shelf %>
   <%= simple_form_for (@item) do |f| %>
     <div class='filter-boxes'>
-    <div class='buttons-ctn' id='opts-status' style="display:none;"> <%= f.input :status, label: false, collection: [['🙅 Not started', 'not started'], ['🧑‍💻 In progress', 'in progress'], ['💆 Finished', 'finished']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector" } %> </div>
-    <div class='buttons-ctn' id='opts-rank' style="display:none;"><%= f.input :rank, label: false, collection: [['😴 Low rank', 'low'], ['🤔 Medium rank', 'medium'], ['😱 High rank', 'high']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector" }%> </div>
+    <div class='buttons-ctn' id='opts-status' style="display:none;"> <%= f.input :status, label: false, collection: [['🙅 Not started', 'not started'], ['🧑‍💻 In progress', 'in progress'], ['💆 Finished', 'finished']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" } %> </div>
+    <div class='buttons-ctn' id='opts-rank' style="display:none;"><%= f.input :rank, label: false, collection: [['😴 Low rank', 'low'], ['🤔 Medium rank', 'medium'], ['😱 High rank', 'high']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" }%> </div>
     </div>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
   <% end %>

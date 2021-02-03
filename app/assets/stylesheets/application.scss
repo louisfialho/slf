@@ -151,25 +151,29 @@ input[type="text"].form-control, input[type="text"]:focus, input[type="text"].fo
 .tag-selector + label, .update-btn {
   cursor: pointer;
   display: inline-block;
-  padding: 0.1rem 0.7rem; /* padding: 5px 10px;*/
+  padding: 5px 10px;
   text-align: center;
-  color: #000000;
+  color: #282828;
   border: 2px solid #000000;
   border-radius: 50px; /* 50rem; ? */
   font-weight: lighter;
   font-weight: 400;
   background-color: white;
-  margin-right: 0.6rem;
-  margin-bottom: 0.4rem;
+  margin-right: 1rem;
+  margin-bottom: 0.6rem;
 }
 
 .update-btn {
   padding: 6px 20px;
-  border-radius: 70px; /* 50rem; ? */
+  border-radius: 90px; /* 50rem; ? */
+}
+
+.select-btn + label {
+  width: 100%;
 }
 
 .tag-selector:checked + label {
-  background-color: black;
+  background-color: #282828;
   color: white;
 }
 
@@ -251,18 +255,22 @@ a {
 .buttons-ctn {
     display: table;
     border: 2px solid #000000;
-    border-radius: 25px;
+    border-radius: 30px;
     box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    padding-right: 20px;
+    padding-top: 0px;
+    margin-top: 0px;
 }
 
 // creating a div containing the filter boxes
 .filter-boxes {
   display: flex;
-  margin-left: 133px;
+  margin-left: 122px;
+  margin-top: 8px;
 }
 
 #opts-rank {
-  margin-left: 153px;
+  margin-left: 145px;
 }
 
 // removing focuss effect on radio buttons
@@ -270,3 +278,14 @@ a {
 button{
  outline: none !important;
 }
+
+// overriding bootstrap css for options box on item show
+
+.col-form-label {
+  padding-bottom: 0px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
