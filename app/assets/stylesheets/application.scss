@@ -163,6 +163,11 @@ input[type="text"].form-control, input[type="text"]:focus, input[type="text"].fo
   margin-bottom: 0.4rem;
 }
 
+.update-btn {
+  padding: 4px 20px;
+  border-radius: 70px; /* 50rem; ? */
+}
+
 .tag-selector:checked + label {
   background-color: black;
   color: white;
@@ -232,20 +237,35 @@ a {
 // creating a div for update buttons
 .update-btns {
   margin-left: 120px;
+  margin-top: 20px;
 }
 
 .active-btn {
     color:white;
-    background-color: #202020;
+    background-color: #282828;
 }
+
 
 // creating a container for the buttons on item show
 .buttons-ctn {
     display: table;
     border: 2px solid #000000;
     border-radius: 25px;
-    margin: 3px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.2)
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 
+// creating a div containing the filter boxes
+.filter-boxes {
+  display: flex;
+  margin-left: 110px;
+}
 
+#opts-rank {
+  margin-left: 160px;
+}
+
+// removing focuss effect on radio buttons
+
+button{
+ outline: none !important;
+}
