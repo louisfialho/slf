@@ -255,12 +255,15 @@ a {
 // creating a container for the buttons on item show
 .buttons-ctn {
     display: table;
+    background-color: white;
     border: 2px solid #000000;
     border-radius: 30px;
     box-shadow: 0 0 8px rgba(0,0,0,0.2);
     padding-right: 20px;
     padding-top: 0px;
     margin-top: 0px;
+    position: absolute;
+    z-index: 10;
 }
 
 // creating a div containing the filter boxes
