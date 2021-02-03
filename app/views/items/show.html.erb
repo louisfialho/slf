@@ -62,10 +62,12 @@
     </div>
     <div class='notes'> <!-- A remplacer par une div + globale main-container pr tt edit -->
       <h1 class="item-notes"><%= f.label :notes %></h1>
-      <%= f.input :notes, as: :text, label: false, html: {autocomplete: 'disabled'}, :input_html => {onfocus: "this.value = this.value;" , :style => 'width: 100%', :rows => 14, class: "txt-area" } %>
+      <%= f.input :notes, as: :text, label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area" } %>
       <%= f.hidden_field :shelf_id, :value => @shelf.id %>
     </div>
-    <div class='buttonHolder'> <%= f.submit "Save notes", class: "add-btn" %> </div>
+    <div class='buttonHolder'>
+      <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+    </div>
   <% end %>
 
 <% elsif @space %>
