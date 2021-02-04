@@ -6,9 +6,11 @@ class User < ApplicationRecord
 
 has_many :shelves
 
-after_create do
-    user = User.last
-    shelf = Shelf.new(user_id: user.id)
+after_create :create_shelf
+
+
+def create_shelf
+    shelf = Shelf.new(user_id: self.id)
     shelf.save
 end
 
