@@ -102,8 +102,8 @@
   <% if @space.children.empty? == false %>
     <% @space.connections.first.space.children.each do |connection| %>
       <div class="object">
-        <%= image_tag "space.png", width: 95, class: "object_image" %>
-        <%= link_to connection.space.name, space_path(connection.space),  class: "object_name" %>
+        <%= link_to image_tag("space.png", width: 95), space_path(connection.space) %>
+        <%= link_to truncate(connection.space.name, length: 12), space_path(connection.space),  class: "object_name" %>
       </div>
     <% end %>
   <% end %>
@@ -111,18 +111,20 @@
   <% @space.items.order(created_at: :desc).each do |item| %>
       <% if policy(item).show? %>
         <div class="object">
-            <% if item.medium == "book" %>
-              <%= image_tag "book.png", width: 80, class: "object_image" %>
-            <% elsif item.medium == "podcast" %>
-              <%= image_tag "podcast.png", width: 80, class: "object_image" %>
-            <% elsif item.medium == "video" %>
-              <%= image_tag "video.png", width: 80, class: "object_image" %>
-            <% elsif item.medium == "web" %>
-              <%= image_tag "web.png", width: 80, class: "object_image" %>
-            <% end %>
-            <%= link_to truncate(item.name, length: 20), item_path(item, space_id: @space.id), class: "object_name"%>
+          <% if item.medium == "book" %>
+            <%= link_to image_tag("book.png", width: 80), item_path(item, space_id: @space.id) %>
+          <% elsif item.medium == "podcast" %>
+            <%= link_to image_tag("podcast.png", width: 80), item_path(item, space_id: @space.id) %>
+          <% elsif item.medium == "video" %>
+            <%= link_to image_tag("video.png", width: 80), item_path(item, space_id: @space.id) %>
+          <% elsif item.medium == "web" %>
+            <%= link_to image_tag("web.png", width: 80), item_path(item, space_id: @space.id) %>
+          <% end %>
+          <%= link_to truncate(item.name, length: 12), item_path(item, space_id: @space.id), class: "object_name" %>
         </div>
       <% end %>
   <% end %>
 </div>
+
+
 

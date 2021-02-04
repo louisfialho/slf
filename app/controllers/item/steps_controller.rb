@@ -80,7 +80,7 @@ class Item::StepsController < ApplicationController
   def item_name(item)
     item_url = item.url
     page = MetaInspector.new(item_url)
-    return page.best_title
+    return page.title
   end
 
 end

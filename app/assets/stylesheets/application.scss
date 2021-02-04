@@ -69,6 +69,7 @@ body {
     grid-gap: 5px 5px;
     row-gap: 50px;
     margin-top: 30px;
+    margin-left: 120px;
 }
 
 // object
@@ -80,13 +81,8 @@ body {
 .object_name {
   color: black;
   font-family: Charter;
-  color: inherit;
-  margin: auto;
+  color: inherit;;
   margin-top: 4px;
-}
-
-.object_image {
-  margin: auto;
 }
 
 a:hover
