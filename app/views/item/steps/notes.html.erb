@@ -29,7 +29,9 @@
 
 <% if @shelf %>
   <%= simple_form_for @item, method: :put, url: wizard_path, html: { autocomplete: 'off' } do |f| %>
-        <%= f.input :notes, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp-txt" } %>
+        <div class='notes' id='txt-area-add'> <!-- A remplacer par une div + globale main-container pr tt edit -->
+          <%= f.input :notes, as: :text, autofocus: true, placeholder: 'Start typing...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 1, class: "txt-area", id: "txt-area" } %>
+        </div>
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
         <div class='buttonHolder'> <%= f.submit "Add to shelf", class: "add-btn" %> </div>
   <% end %>
