@@ -25,7 +25,7 @@
 
 <% if @shelf %>
   <%= simple_form_for @item, method: :put, url: wizard_path, html: { autocomplete: 'off' } do |f| %>
-        <%= f.input :name, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { class: "inp-txt" } %>
+        <%= f.input :name, autofocus: true, label: false, html: {autocomplete: 'disabled'}, input_html: { value: item_name(@item), class: "inp-txt" } %>
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
         <div class='buttonHolder'> <%= f.submit "Next", class: "add-btn" %> </div>
   <% end %>

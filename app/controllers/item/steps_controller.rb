@@ -5,6 +5,8 @@ class Item::StepsController < ApplicationController
   include Pundit
   after_action :verify_authorized, except: [:update]
 
+  helper_method :item_type, :item_name
+
   def show
     @item = Item.find(params[:item_id])
     authorize @item
@@ -74,8 +76,12 @@ class Item::StepsController < ApplicationController
       return 'podcast'
     end
   end
-  helper_method :item_type
 
+  def item_name(item)
+    item_url = item.url
+    page = MetaInspector.new(item_url)
+    return page.best_title
+  end
 
 end
 
