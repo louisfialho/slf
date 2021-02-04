@@ -16,7 +16,7 @@
 <% if @shelf %>
 
   <%= simple_form_for @item, method: :put, url: wizard_path do |f| %>
-        <div class='choices inp'> <%= f.input :medium, label: false, collection: [['📕 Book', 'book'], ['🎙 Podcast', 'podcast'], ['📺 Video', 'video'], ['💻 Web', 'web'], ['🔍 Other', 'other']], as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item' %> </div>
+        <div class='choices inp '> <%= f.input :medium, checked: item_type(@item), label: false, collection: [['📕 Book', 'book'], ['🎙 Podcast', 'podcast'], ['📺 Video', 'video'], ['💻 Web', 'web'], ['🔍 Other', 'other']], as: :radio_buttons, input_html: { class: "tag-selector" }, item_wrapper_class: 'tag-item' %> </div>
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
         <div class='buttonHolder'> <%= f.submit "Next", class: "add-btn" %> </div>
   <% end %>

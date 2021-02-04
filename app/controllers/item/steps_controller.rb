@@ -66,5 +66,16 @@ class Item::StepsController < ApplicationController
     params.require(:item).permit(permitted_attributes).merge(form_step: step)
   end
 
+  def item_type(item)
+    item_url = item.url
+    if item_url.include? 'youtube'
+      return 'video'
+    elsif item_url.include? 'spotify.com/episode'
+      return 'podcast'
+    end
+  end
+  helper_method :item_type
+
+
 end
 
