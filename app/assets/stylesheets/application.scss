@@ -215,7 +215,7 @@ a {
 
 // container for the title
 
-.item-title {
+.item-title, .space-title {
   font-family: Charter;
   font-size: xx-large;
   font-weight: 500;
@@ -223,6 +223,7 @@ a {
   margin-right: 40px;
   margin-top: 8px;
 }
+
 
 // navbar
 
@@ -358,4 +359,12 @@ textarea {
 #txt-area-add {
   margin-top: 40px;
   margin-left: 200px;
+}
+
+// styling the title of the space on top of the space show
+
+.space-title {
+  position: absolute;
+  margin-left: 120px;
+  font-weight: 500;
 }
