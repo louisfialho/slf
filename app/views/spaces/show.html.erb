@@ -103,7 +103,7 @@
     <% @space.connections.first.space.children.each do |connection| %>
       <div class="object">
         <%= link_to image_tag("space.png", width: 95), space_path(connection.space) %>
-        <%= link_to truncate(connection.space.name, length: 20), space_path(connection.space),  class: "object_name" %>
+        <%= link_to truncate(connection.space.name, length: 50), space_path(connection.space),  class: "object_name" %>
       </div>
     <% end %>
   <% end %>
@@ -120,7 +120,7 @@
           <% elsif item.medium == "web" %>
             <%= link_to image_tag("web.png", width: 80), item_path(item, space_id: @space.id) %>
           <% end %>
-          <%= link_to truncate(item.name, length: 20), item_path(item, space_id: @space.id), class: "object_name" %>
+          <%= link_to truncate(item.name, length: 50), item_path(item, space_id: @space.id), class: "object_name" %>
         </div>
       <% end %>
   <% end %>

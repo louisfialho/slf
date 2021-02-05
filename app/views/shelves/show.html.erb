@@ -48,7 +48,7 @@
       <% if policy(space).show? %>
         <div class="object">
           <%= link_to image_tag("space.png", width: 95), space_path(space, shelf_id: @shelf.id) %>
-          <%= link_to truncate(space.name, length: 25), space_path(space, shelf_id: @shelf.id), class: "object_name" %>
+          <%= link_to truncate(space.name, length: 50), space_path(space, shelf_id: @shelf.id), class: "object_name" %>
         </div>
       <% end %>
   <% end %>
@@ -65,7 +65,7 @@
           <% elsif item.medium == "web" %>
             <%= link_to image_tag("web.png", width: 80), item_path(item, shelf_id: @shelf.id) %>
           <% end %>
-          <%= link_to truncate(item.name, length: 25), item_path(item, shelf_id: @shelf.id), class: "object_name" %>
+          <%= link_to truncate(item.name, length: 50), item_path(item, shelf_id: @shelf.id), class: "object_name" %>
         </div>
       <% end %>
   <% end %>
