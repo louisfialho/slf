@@ -3,18 +3,13 @@
 
   <%= link_to "shelf", root_path, class: "logo" %>
 
-  <% if params[:shelf_id] %>
+  <% if @space.shelves.empty? == false %>
     <h1 class="space-title"> <%= @space.name %> </h1>
-  <% elsif @space.connections.first.parent_id %>
-    <%= link_to space_path(Space.find(Connection.find(@space.connections.first.parent_id).space_id)), class: "space-title" do %>
-     <%= Space.find(Connection.find(@space.connections.first.parent_id).space_id).name %> / <%= @space.name %>
-    <% end %>
+  <% elsif @parent %>
+    <h1 class="space-title"> <%= link_to @parent.name, space_path(@parent) %> / <%= @space.name %> </h1>
   <% end %>
 
-
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
 
    <div class="btns" style="display:none;">
 

@@ -47,6 +47,9 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
   end
 
   def show
+    if @space.connections.empty? == false && @space.connections.first.parent_id.nil? == false
+      @parent = Space.find(Connection.find(@space.connections.first.parent_id).space_id)
+    end
   end
 
   def edit
