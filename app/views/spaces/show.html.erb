@@ -6,7 +6,7 @@
   <% if @space.shelves.empty? == false %>
     <h1 class="space-title"> <%= @space.name %> </h1>
   <% elsif @parent %>
-    <h1 class="space-title"> <%= link_to @parent.name, space_path(@parent) %> / <%= @space.name %> </h1>
+    <h1 class="space-title"> <%= link_to @parent.name.capitalize, space_path(@parent) %> / <%= @space.name.capitalize %> </h1>
   <% end %>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
