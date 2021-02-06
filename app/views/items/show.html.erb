@@ -4,7 +4,7 @@
   <%= link_to "shelf", root_path, class: "logo" %>
 
     <h1 class="item-title">
-      <a href="<%= @item.url %>">
+      <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
         <%= @item.name   %>
         <% if @item.medium == "book" %>
           📕
