@@ -2,18 +2,20 @@ require File.expand_path('../config/environment', __dir__)
 
 require 'telegram/bot'
 require 'uri'
-require 'metainspector'
+require 'open-uri'
+require 'nokogiri'
 
 token = '1659215816:AAHxfbWMVqVK7r52W04LrjSiEEgA6ZHM7f8'
 
 def item_name(url)
-  page = MetaInspector.new(url)
-  title = page.title
-  if title.to_s.strip.empty? == false
-    return title
+  html_file = open(url)
+  html_doc = Nokogiri::HTML(html_file)
+  if url.include? 'www.youtube'
+    return html_doc.at('meta[name="title"]')['content'] # works for YouTube
   else
-    return 'Added from Telegram'
+    return html_doc.css('head title').inner_text # works for spotify and more
   end
+  # does not work for Techcrunch
 end
 
 def item_medium(url)

@@ -2,7 +2,8 @@ class Item::StepsController < ApplicationController
   include Wicked::Wizard
   steps *Item.form_steps
 
-  require 'metainspector'
+require 'open-uri'
+require 'nokogiri'
 
   include Pundit
   after_action :verify_authorized, except: [:update]
@@ -80,10 +81,15 @@ class Item::StepsController < ApplicationController
   end
 
   def item_name(item)
-    item_url = item.url
-    page = MetaInspector.new(item_url)
-    return page.title
+    url = item.url
+    html_file = open(url)
+    html_doc = Nokogiri::HTML(html_file)
+    if url.include? 'www.youtube'
+      return html_doc.at('meta[name="title"]')['content'] # works for YouTube
+    else
+      return html_doc.css('head title').inner_text # works for spotify and more
+    end
+    # does not work for Techcrunch
   end
-
 end
 

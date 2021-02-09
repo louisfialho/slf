@@ -3,13 +3,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.6'
 
-gem 'metainspector'
-
 gem 'pundit'
 
 gem 'acts_as_tree'
 
 gem 'wicked'
+
+gem 'open-uri'
 
 gem 'nokogiri'
 
