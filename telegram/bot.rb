@@ -32,9 +32,7 @@ end
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
-    case message.text
-    when '/start'
-      #chercher unique_code
+    if message.text.include? '/start'
       unique_code = message.text.split[1] # add condition if exists
       #si il y a unique_code
       if unique_code.to_s.strip.empty? == false
@@ -55,17 +53,21 @@ Telegram::Bot::Client.run(token) do |bot|
         #demander de se connecter avec un lien envoyé par mail pr identifier
         bot.api.send_message(chat_id: message.chat.id, text: "#{message.from.first_name}, please use the link sent by mail to open your first discussion with Shelf bot")
       end
-    when '/stop'
     else
-      email = message.text.scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i).first #suppr
-      url = URI.extract(message.text).first
-      item_name = item_name(url)
-      item_medium = item_medium(url)
-      user = User.find_by(email: email) #utiliser User.find_by(telegram_chat_id: message.chat.id) vCH1vGWJxfSeifSAs0K5PA
-      shelf = user.shelves.first
-      item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
-      shelf.items << item
-      bot.api.send_message(chat_id: message.chat.id, text: "#{item_name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
+      case message.text
+        when '/stop'
+          bot.api.send_message(chat_id: message.chat.id, text: "Ciao #{message.text}")
+        else
+          # email = message.text.scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i).first #suppr
+          url = URI.extract(message.text).first
+          item_name = item_name(url)
+          item_medium = item_medium(url)
+          user = User.find_by(telegram_chat_id: message.chat.id) # User.find_by(email: email)
+          shelf = user.shelves.first
+          item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
+          shelf.items << item
+          bot.api.send_message(chat_id: message.chat.id, text: "#{item_name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
+        end
     end
   end
 end
