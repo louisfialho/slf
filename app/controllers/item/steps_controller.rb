@@ -2,6 +2,8 @@ class Item::StepsController < ApplicationController
   include Wicked::Wizard
   steps *Item.form_steps
 
+  require 'metainspector'
+
   include Pundit
   after_action :verify_authorized, except: [:update]
 

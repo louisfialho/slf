@@ -11,6 +11,8 @@ gem 'acts_as_tree'
 
 gem 'wicked'
 
+gem 'nokogiri'
+
 gem 'telegram-bot-ruby'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

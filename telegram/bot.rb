@@ -1,7 +1,8 @@
 require File.expand_path('../config/environment', __dir__)
 
 require 'telegram/bot'
-require "uri"
+require 'uri'
+require 'metainspector'
 
 token = '1659215816:AAHxfbWMVqVK7r52W04LrjSiEEgA6ZHM7f8'
 
@@ -43,7 +44,7 @@ Telegram::Bot::Client.run(token) do |bot|
       shelf = user.shelves.first
       item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
       shelf.items << item
-      bot.api.send_message(chat_id: message.chat.id, text: "Your object was added to your shelf! Check it out!")
+      bot.api.send_message(chat_id: message.chat.id, text: "Your object was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
     end
   end
 end
