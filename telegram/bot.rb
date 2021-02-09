@@ -34,15 +34,23 @@ Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     case message.text
     when '/start'
-      bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}. Send me a message with your e-mail and a URL, and I'll add the object to your shelf!")
+      #chercher unique_code
+      #si il y a unique_code
+      #  si ce unique_code correspond à un user (utiliser User.find_by(telegram_hash: unique_code).exists?)
+      #  ajouter message.chat.id à ce user user.telegram_chat_id = message.chat.id
+      #  si ce unique code ne correspond pas à un user
+      #  je ne sais pas qui vous êtes...
+      #si il n'y a pas unique_code
+      #demander de se connecter avec un lien envoyé par mail pr identifier
+      #bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}. Send me a message with your e-mail and a URL, and I'll add the object to your shelf!")
     when '/stop'
       bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
     else
-      email = message.text.scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i).first
+      email = message.text.scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i).first #suppr
       url = URI.extract(message.text).first
       item_name = item_name(url)
       item_medium = item_medium(url)
-      user = User.find_by(email: email)
+      user = User.find_by(email: email) #utiliser User.find_by(telegram_chat_id: message.chat.id) vCH1vGWJxfSeifSAs0K5PA
       shelf = user.shelves.first
       item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
       shelf.items << item
