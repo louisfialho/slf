@@ -62,7 +62,7 @@
             <%= link_to image_tag("podcast.png", width: 80), item_path(item, shelf_id: @shelf.id) %>
           <% elsif item.medium == "video" %>
             <%= link_to image_tag("video.png", width: 80), item_path(item, shelf_id: @shelf.id) %>
-          <% elsif item.medium == "web" %>
+          <% else item.medium == "web" %>
             <%= link_to image_tag("web.png", width: 80), item_path(item, shelf_id: @shelf.id) %>
           <% end %>
           <%= link_to truncate(item.name, length: 45), item_path(item, shelf_id: @shelf.id), class: "object_name" %>

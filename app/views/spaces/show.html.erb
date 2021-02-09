@@ -4,7 +4,7 @@
   <%= link_to "shelf", root_path, class: "logo" %>
 
   <% if @space.shelves.empty? == false %>
-    <h1 class="space-title"> <%= @space.name %> </h1>
+    <h1 class="space-title"> <%= @space.name.capitalize %> </h1>
   <% elsif @parent %>
     <h1 class="space-title"> <%= link_to @parent.name.capitalize, space_path(@parent) %> / <%= @space.name.capitalize %> </h1>
   <% end %>
@@ -122,7 +122,7 @@
             <%= link_to image_tag("podcast.png", width: 80), item_path(item, space_id: @space.id) %>
           <% elsif item.medium == "video" %>
             <%= link_to image_tag("video.png", width: 80), item_path(item, space_id: @space.id) %>
-          <% elsif item.medium == "web" %>
+          <% else item.medium == "web" %>
             <%= link_to image_tag("web.png", width: 80), item_path(item, space_id: @space.id) %>
           <% end %>
           <%= link_to truncate(item.name, length: 45), item_path(item, space_id: @space.id), class: "object_name" %>
