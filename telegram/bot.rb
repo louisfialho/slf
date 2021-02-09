@@ -35,16 +35,27 @@ Telegram::Bot::Client.run(token) do |bot|
     case message.text
     when '/start'
       #chercher unique_code
+      unique_code = message.text.split[1] # add condition if exists
       #si il y a unique_code
-      #  si ce unique_code correspond à un user (utiliser User.find_by(telegram_hash: unique_code).exists?)
-      #  ajouter message.chat.id à ce user user.telegram_chat_id = message.chat.id
+      if unique_code.to_s.strip.empty? == false
+      #  si ce unique_code correspond à un user
+        if User.find_by(telegram_hash: unique_code).nil? == false
+      #  ajouter message.chat.id à ce user
+          user = User.find_by(telegram_hash: unique_code)
+          user.telegram_chat_id = message.chat.id
+          user.save
+          bot.api.send_message(chat_id: message.chat.id, text: "Hi #{message.from.first_name}, send me a URL and I'll add the object to your shelf!")
       #  si ce unique code ne correspond pas à un user
+        else
       #  je ne sais pas qui vous êtes...
+          bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, I cannot find you.")
+        end
       #si il n'y a pas unique_code
-      #demander de se connecter avec un lien envoyé par mail pr identifier
-      #bot.api.send_message(chat_id: message.chat.id, text: "Hello, #{message.from.first_name}. Send me a message with your e-mail and a URL, and I'll add the object to your shelf!")
+      else
+        #demander de se connecter avec un lien envoyé par mail pr identifier
+        bot.api.send_message(chat_id: message.chat.id, text: "#{message.from.first_name}, please use the link sent by mail to open your first discussion with Shelf bot")
+      end
     when '/stop'
-      bot.api.send_message(chat_id: message.chat.id, text: "Bye, #{message.from.first_name}")
     else
       email = message.text.scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i).first #suppr
       url = URI.extract(message.text).first
