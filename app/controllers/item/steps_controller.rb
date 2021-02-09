@@ -2,6 +2,7 @@ class Item::StepsController < ApplicationController
   include Wicked::Wizard
   steps *Item.form_steps
 
+
 require 'open-uri'
 require 'nokogiri'
 
@@ -81,8 +82,8 @@ require 'nokogiri'
   end
 
   def item_name(item)
-    url = item.url
-    html_file = open(url)
+    url = @item.url
+    html_file = URI.open(url)
     html_doc = Nokogiri::HTML(html_file)
     if url.include? 'www.youtube'
       return html_doc.at('meta[name="title"]')['content'] # works for YouTube

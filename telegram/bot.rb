@@ -8,7 +8,7 @@ require 'nokogiri'
 token = '1659215816:AAHxfbWMVqVK7r52W04LrjSiEEgA6ZHM7f8'
 
 def item_name(url)
-  html_file = open(url)
+  html_file = URI.open(url)
   html_doc = Nokogiri::HTML(html_file)
   if url.include? 'www.youtube'
     return html_doc.at('meta[name="title"]')['content'] # works for YouTube
