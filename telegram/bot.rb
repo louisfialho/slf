@@ -44,7 +44,7 @@ Telegram::Bot::Client.run(token) do |bot|
       shelf = user.shelves.first
       item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
       shelf.items << item
-      bot.api.send_message(chat_id: message.chat.id, text: "Your object was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
+      bot.api.send_message(chat_id: message.chat.id, text: "#{item_name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
     end
   end
 end
