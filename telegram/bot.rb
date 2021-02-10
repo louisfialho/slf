@@ -41,6 +41,14 @@ rescue URI::InvalidURIError
   false
 end
 
+def working_url?(url_str)
+    begin
+      Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPSuccess)
+    rescue
+      false
+    end
+end
+
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     if message.text.include? '/start'
@@ -70,6 +78,7 @@ Telegram::Bot::Client.run(token) do |bot|
           bot.api.send_message(chat_id: message.chat.id, text: "Ciao #{message.text}")
         else
           if uri?(message.text.to_s)
+            if working_url?(message.text.to_s)
               url = URI.extract(message.text).first
               item_name = item_name(url)
               item_medium = item_medium(url)
@@ -78,9 +87,9 @@ Telegram::Bot::Client.run(token) do |bot|
               item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
               shelf.items << item
               bot.api.send_message(chat_id: message.chat.id, text: "#{item_name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
-            #else
-            #  bot.api.send_message(chat_id: message.chat.id, text: "Mmh... This URL doesn't seem to be valid! Please only send me valid URLs 💆‍♂️")
-            #end
+            else
+              bot.api.send_message(chat_id: message.chat.id, text: "Mmh... This URL doesn't seem to be valid! Please only send me valid URLs 💆‍♂️")
+            end
           else
             bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, but I don't understand what you are saying... Please only send me plain URLs so that I can add the corresponding object to your Shelf! 💆‍♂️")
           end
