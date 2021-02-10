@@ -1,9 +1,11 @@
 require File.expand_path('../config/environment', __dir__)
 
+require 'net/http'
 require 'telegram/bot'
 require 'uri'
 require 'open-uri'
 require 'nokogiri'
+
 
 token = '1659215816:AAHxfbWMVqVK7r52W04LrjSiEEgA6ZHM7f8'
 
@@ -68,20 +70,21 @@ Telegram::Bot::Client.run(token) do |bot|
           bot.api.send_message(chat_id: message.chat.id, text: "Ciao #{message.text}")
         else
           if uri?(message.text.to_s)
-            url = URI.extract(message.text).first
-            item_name = item_name(url)
-            item_medium = item_medium(url)
-            user = User.find_by(telegram_chat_id: message.chat.id)
-            shelf = user.shelves.first
-            item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
-            shelf.items << item
-            bot.api.send_message(chat_id: message.chat.id, text: "#{item_name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
+              url = URI.extract(message.text).first
+              item_name = item_name(url)
+              item_medium = item_medium(url)
+              user = User.find_by(telegram_chat_id: message.chat.id)
+              shelf = user.shelves.first
+              item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
+              shelf.items << item
+              bot.api.send_message(chat_id: message.chat.id, text: "#{item_name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
+            #else
+            #  bot.api.send_message(chat_id: message.chat.id, text: "Mmh... This URL doesn't seem to be valid! Please only send me valid URLs 💆‍♂️")
+            #end
           else
-            bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, but I don't understand what you are saying... Please only send me plain URLs so that I can add the corresponding object to your Shelf!")
+            bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, but I don't understand what you are saying... Please only send me plain URLs so that I can add the corresponding object to your Shelf! 💆‍♂️")
           end
         end
     end
   end
 end
-
-
