@@ -7,7 +7,7 @@ require 'open-uri'
 require 'nokogiri'
 
 
-token = TELEGRAM_TOKEN
+token = ENV['TELEGRAM_TOKEN']
 
 def item_name(url)
   html_file = URI.open(url)
