@@ -22,12 +22,6 @@
 
     <i class="fas fa-ellipsis-v fa-2x options"></i>
 
-<!--     <% if @shelf %>
-      <%= link_to "Delete this object", item_path(@item, shelf_id: @shelf.id), method: :delete %>
-    <% elsif @space %>
-      <%= link_to "Delete this object", item_path(@item, space_id: @space.id), method: :delete %>
-    <% end %> -->
-
     <% if @shelf %>
       <%= link_to '<i class="fas fa-plus fa-2x fa-rotate-45"></i>'.html_safe, shelf_path(@shelf), class: "close-item-show" %>
     <% elsif @space %>
@@ -35,6 +29,18 @@
     <% end %>
 </div>
 <!-- END OF NAVBAR -->
+
+<!-- OPTIONS -->
+    <div class="options-ctn">
+      <p class="option">Move object</p>
+      <% if @shelf %>
+        <%= link_to "Delete object", item_path(@item, shelf_id: @shelf.id), method: :delete %>
+      <% elsif @space %>
+        <%= link_to "Delete object", item_path(@item, space_id: @space.id), method: :delete %>
+      <% end %>
+      <p class="option">Edit object</p>
+    </div>
+<!-- END OF OPTIONS -->
 
 
 <!-- UPDATE BUTTONS -->

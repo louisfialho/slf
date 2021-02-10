@@ -373,5 +373,20 @@ textarea {
 
 .options {
   margin-top: 17px;
-  margin-left: 490px;
+  margin-right: 0;
+}
+
+.options-ctn {
+    margin-left: 1660px;
+    background-color: white;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    position: absolute;
+    z-index: 10;
+    padding-right: 0%;
+}
+
+.option {
+  margin-top: 1px;
 }
