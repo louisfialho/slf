@@ -5,6 +5,8 @@ ruby '2.6.6'
 
 gem 'pundit'
 
+gem 'dotenv-rails', groups: [:development, :test]
+
 gem 'acts_as_tree'
 
 gem 'wicked'
