@@ -21,6 +21,12 @@
     </h1>
 
     <% if @shelf %>
+      <%= link_to "Delete this object", item_path(@item, shelf_id: @shelf.id), method: :delete %>
+    <% elsif @space %>
+      <%= link_to "Delete this object", item_path(@item, space_id: @space.id), method: :delete %>
+    <% end %>
+
+    <% if @shelf %>
       <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45"></i>'.html_safe, shelf_path(@shelf), class: "close-item-show" %>
     <% elsif @space %>
       <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45"></i>'.html_safe, space_path(@space), class: "close-item-show" %>
