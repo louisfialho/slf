@@ -76,7 +76,7 @@ require 'nokogiri'
     item_url = item.url
     if item_url.include? 'youtube'
       return 'video'
-    elsif item_url.include? 'spotify.com/episode'
+    elsif item_url.include?('spotify.com/episode') || item_url.include?('podcasts.apple')
       return 'podcast'
     end
   end

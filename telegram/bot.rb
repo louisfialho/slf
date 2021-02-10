@@ -23,7 +23,7 @@ end
 def item_medium(url)
   if url.include? 'www.youtube'
     return 'video'
-  elsif url.include? 'spotify.com/episode'
+  elsif url.include?('spotify.com/episode') || url.include?('podcasts.apple')
     return 'podcast'
   elsif url.include? 'www.amazon'
     return 'book'
