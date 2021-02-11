@@ -88,11 +88,10 @@ Telegram::Bot::Client.run(token) do |bot|
           #demander de se connecter avec un lien envoyé par mail pr identifier
           bot.api.send_message(chat_id: message.chat.id, text: "#{message.from.first_name}, please use the link sent by mail to open your first discussion with Shelf bot")
         end
+      elsif message.text == '/stop'
+        bot.api.send_message(chat_id: message.chat.id, text: "Ciao #{message.text}")
       else
-        case message.text
-          when '/stop'
-            bot.api.send_message(chat_id: message.chat.id, text: "Ciao #{message.text}")
-          else
+        if User.find_by(telegram_chat_id: message.chat.id).nil? == false
             if message.text.to_s.downcase.include? "http"
               candidate = URI.extract(message.text.to_s, ['http', 'https']).first
               if uri?(candidate)
@@ -119,6 +118,8 @@ Telegram::Bot::Client.run(token) do |bot|
             else
               bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, but I don't understand what you are saying... Please only send me plain URLs so that I can add the corresponding object to your Shelf! 💆‍♂️")
             end
+        else
+          bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, I cannot find you. Please try to open this chat using the link provided by Shelf so that I can know who you are!")
         end
       end
     end
