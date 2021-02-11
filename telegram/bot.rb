@@ -92,23 +92,28 @@ Telegram::Bot::Client.run(token) do |bot|
         when '/stop'
           bot.api.send_message(chat_id: message.chat.id, text: "Ciao #{message.text}")
         else
-          if uri?(message.text.to_s)
-            if is_redirect?(message.text.to_s)
-              fin_url = final_url(message.text.to_s)
+          if message.text.to_s.downcase.include? "http"
+            candidate = URI.extract(message.text.to_s, ['http', 'https']).first
+            if uri?(candidate)
+              if is_redirect?(candidate)
+                fin_url = final_url(candidate)
+              else
+                fin_url = candidate
+              end
+              if working_url?(fin_url)
+                url = URI.extract(fin_url).first
+                item_name = item_name(url)
+                item_medium = item_medium(url)
+                user = User.find_by(telegram_chat_id: message.chat.id)
+                shelf = user.shelves.first
+                item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
+                shelf.items << item
+                bot.api.send_message(chat_id: message.chat.id, text: "#{item_name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
+              else
+                bot.api.send_message(chat_id: message.chat.id, text: "Mmh... This URL doesn't seem to be valid! Please only send me valid URLs 💆‍♂️")
+              end
             else
-              fin_url = message.text.to_s
-            end
-            if working_url?(fin_url)
-              url = URI.extract(fin_url).first
-              item_name = item_name(url)
-              item_medium = item_medium(url)
-              user = User.find_by(telegram_chat_id: message.chat.id)
-              shelf = user.shelves.first
-              item = Item.new(url: url, medium: item_medium, name: item_name, status: 'not started', rank: 'medium')
-              shelf.items << item
-              bot.api.send_message(chat_id: message.chat.id, text: "#{item_name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
-            else
-              bot.api.send_message(chat_id: message.chat.id, text: "Mmh... This URL doesn't seem to be valid! Please only send me valid URLs 💆‍♂️")
+              bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, but I don't understand what you are saying... Please only send me plain URLs so that I can add the corresponding object to your Shelf! 💆‍♂️")
             end
           else
             bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, but I don't understand what you are saying... Please only send me plain URLs so that I can add the corresponding object to your Shelf! 💆‍♂️")
