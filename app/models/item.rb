@@ -2,6 +2,8 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :shelves
   has_and_belongs_to_many :spaces
 
+  before_validation :ensure_item_has_a_name
+
   MEDIUM = ['book', 'podcast', 'video', 'web', 'other']
   STATUS = ['not sarted', 'in progress', 'finished']
   RANK = ['low', 'medium', 'high']
@@ -28,4 +30,9 @@ class Item < ApplicationRecord
   validates :name, presence: true,
       if: -> { required_for_step?(:name) }
 
+  def ensure_item_has_a_name
+      if name.empty?
+        self.name = "No name found"
+      end
+  end
 end
