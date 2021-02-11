@@ -1,11 +1,14 @@
-require "net/http"
+require 'net/http'
 
-def working_url?(url_str)
-    begin
-      Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPSuccess)
-    rescue
-      false
-    end
+def is_redirect?(url_str)
+  Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPRedirection)
 end
 
-puts working_url?('https://www.yoube.com/watch?v=dEv99vxKjVI&ab_channel=LexFridman')
+def new_uri(url_str)
+  return Net::HTTP.get_response(URI.parse(url_str))['Location']
+end
+
+p is_redirect?('https://youtu.be/ghwaIiE3Nd8')
+p new_uri('https://youtu.be/ghwaIiE3Nd8')
+
+
