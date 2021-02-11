@@ -66,7 +66,7 @@ end
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
-    if message.text.include? '/start'
+    if message.text == '/start' || message.text.include?('/start ')
       unique_code = message.text.split[1] # add condition if exists
       #si il y a unique_code
       if unique_code.to_s.strip.empty? == false
