@@ -49,6 +49,21 @@ def working_url?(url_str)
     end
 end
 
+
+def is_redirect?(url_str)
+  begin
+    Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPRedirection)
+  rescue
+    false
+  end
+end
+
+def final_url(url_str)
+  URI.open(url_str) do |resp|
+    return resp.base_uri.to_s
+  end
+end
+
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     if message.text.include? '/start'
@@ -78,8 +93,13 @@ Telegram::Bot::Client.run(token) do |bot|
           bot.api.send_message(chat_id: message.chat.id, text: "Ciao #{message.text}")
         else
           if uri?(message.text.to_s)
-            if working_url?(message.text.to_s)
-              url = URI.extract(message.text).first
+            if is_redirect?(message.text.to_s)
+              fin_url = final_url(message.text.to_s)
+            else
+              fin_url = message.text.to_s
+            end
+            if working_url?(fin_url)
+              url = URI.extract(fin_url).first
               item_name = item_name(url)
               item_medium = item_medium(url)
               user = User.find_by(telegram_chat_id: message.chat.id)
