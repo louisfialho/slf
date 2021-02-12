@@ -33,13 +33,13 @@
 
 <!-- OPTIONS -->
     <div class="options-ctn">
-      <a>Move object</a>
+      <a class="option">Move object</a>
       <% if @shelf %>
-        <%= link_to "Delete object", item_path(@item, shelf_id: @shelf.id), method: :delete %>
+        <%= link_to "Delete object", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option" %>
       <% elsif @space %>
-        <%= link_to "Delete object", item_path(@item, space_id: @space.id), method: :delete %>
+        <%= link_to "Delete object", item_path(@item, space_id: @space.id), method: :delete, class: "option" %>
       <% end %>
-      <a>Edit object</a>
+      <a class="option">Edit object</a>
     </div>
 <!-- END OF OPTIONS -->
 
@@ -77,7 +77,7 @@
     </div>
     <div class='notes'> <!-- A remplacer par une div + globale main-container pr tt edit -->
       <h1 class="item-notes"><%= f.label :notes %></h1>
-      <%= f.input :notes, as: :text, placeholder: 'Click to add notes', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area" } %>
+      <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area" } %>
       <%= f.hidden_field :shelf_id, :value => @shelf.id %>
       <div class='buttonHolder'>
         <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
