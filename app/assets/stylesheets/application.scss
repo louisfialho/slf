@@ -233,6 +233,7 @@ a {
 }
 
 .buttons-ctn-item-show {
+  display: flex;
   margin-left: auto;
   margin-top: 16px;
 }
@@ -398,4 +399,20 @@ textarea {
 
 .rotated img {
   transform: rotate(45deg);
+}
+
+// creating grey circle to design hover effect
+
+.grey-circle {
+  height: 32px;
+  width: 32px;
+  background-color: #DCDCDC;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+#options-btn {
+}
+
+#options-btn-ctn {
 }

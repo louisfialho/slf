@@ -2,6 +2,14 @@ const displayOptions = () => {
   const optionsBtn = document.getElementById('options-btn');
   const options = document.getElementById('options');
 
+  optionsBtn.addEventListener("mouseover", (event) => {
+  optionsBtn.className = "grey-circle options";
+  });
+
+  optionsBtn.addEventListener("mouseout", (event) => {
+  optionsBtn.className = "options";
+  });
+
  optionsBtn.addEventListener("click", (event) => {
     if (options.style.display === "none") {
       options.style.display = "";
