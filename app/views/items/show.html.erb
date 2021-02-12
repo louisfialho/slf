@@ -33,13 +33,13 @@
 
 <!-- OPTIONS -->
     <div class="options-ctn">
-      <p class="option">Move object</p>
+      <a>Move object</a>
       <% if @shelf %>
         <%= link_to "Delete object", item_path(@item, shelf_id: @shelf.id), method: :delete %>
       <% elsif @space %>
         <%= link_to "Delete object", item_path(@item, space_id: @space.id), method: :delete %>
       <% end %>
-      <p class="option">Edit object</p>
+      <a>Edit object</a>
     </div>
 <!-- END OF OPTIONS -->
 
