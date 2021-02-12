@@ -370,13 +370,13 @@ textarea {
 // positioning the options button on item show
 
 .options {
-  margin-right: 35px;
+  margin-right: 49px;
 }
 
 .options-ctn {
     // margin-left: 1660px;
     position: absolute;
-    top: 70px;
+    top: 80px;
     right: 45px;
     background-color: white;
     border: 1px solid #000000;
@@ -384,5 +384,6 @@ textarea {
     box-shadow: 0 0 8px rgba(0,0,0,0.2);
     z-index: 10;
     display: grid;
+    padding: 10px;
 }
 
