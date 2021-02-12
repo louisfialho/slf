@@ -21,7 +21,8 @@
     </h1>
 
     <div class="buttons-ctn-item-show">
-      <i class="fas fa-ellipsis-v fa-2x options" id="options-btn"></i>
+<!--       <i class="fas fa-ellipsis-v fa-2x options" id="options-btn"></i> -->
+      <%= image_tag "options.png", class: "options", id: "options-btn", alt: "Options", width: 33 %>
       <% if @shelf %>
         <%= link_to image_tag("Plus.png", width: 45).html_safe, shelf_path(@shelf), class: 'rotated' %>
       <% elsif @space %>
