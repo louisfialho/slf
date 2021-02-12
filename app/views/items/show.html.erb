@@ -20,13 +20,14 @@
       </a>
     </h1>
 
-    <i class="fas fa-ellipsis-v fa-2x options"></i>
-
-    <% if @shelf %>
-      <%= link_to '<i class="fas fa-plus fa-2x fa-rotate-45"></i>'.html_safe, shelf_path(@shelf), class: "close-item-show" %>
-    <% elsif @space %>
-      <%= link_to '<i class="fas fa-plus fa-2x fa-rotate-45"></i>'.html_safe, space_path(@space), class: "close-item-show" %>
-    <% end %>
+    <div class="buttons-ctn-item-show">
+      <i class="fas fa-ellipsis-v fa-2x options"></i>
+      <% if @shelf %>
+        <%= link_to '<i class="fas fa-plus fa-2x fa-rotate-45"></i>'.html_safe, shelf_path(@shelf) %>
+      <% elsif @space %>
+        <%= link_to '<i class="fas fa-plus fa-2x fa-rotate-45"></i>'.html_safe, space_path(@space) %>
+      <% end %>
+    </div>
 </div>
 <!-- END OF NAVBAR -->
 

@@ -232,11 +232,8 @@ a {
   align-items: start;
 }
 
-.close-item-show {
-  position: relative;
-  margin-top: 17px;
+.buttons-ctn-item-show {
   margin-left: auto;
-  margin-right: 0;
 }
 
 // creating a div for update buttons
@@ -377,13 +374,14 @@ textarea {
 }
 
 .options-ctn {
-    margin-left: 1660px;
+    // margin-left: 1660px;
+    position: absolute;
+    top: 70px;
+    right: 10px;
     background-color: white;
     border: 1px solid #000000;
     border-radius: 20px;
     box-shadow: 0 0 8px rgba(0,0,0,0.2);
-    position: absolute;
     z-index: 10;
-    padding-right: 0%;
 }
 
