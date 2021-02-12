@@ -31,7 +31,7 @@ class Item < ApplicationRecord
       if: -> { required_for_step?(:name) }
 
   def ensure_item_has_a_name
-      if name.empty?
+      if (name.nil? == false) && name.empty?
         self.name = "No name found"
       end
   end
