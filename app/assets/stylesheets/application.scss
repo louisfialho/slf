@@ -384,6 +384,7 @@ textarea {
     box-shadow: 2px 2px 11px rgba(0,0,0,0.2);
     z-index: 10;
     display: grid;
+    grid-gap: 3px;
     padding: 10px 17px 10px 17px;
 }
 
@@ -392,4 +393,6 @@ textarea {
   font-size: larger;
   color: #282828;
   font-weight: 400;
+  margin-left: 10px;
 }
+
