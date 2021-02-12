@@ -3,9 +3,9 @@
   <%= link_to "shelf", root_path, class: "logo" %>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <% if @shelf %>
-      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45" id="plus"></i>'.html_safe, shelf_path(@shelf) %>
+      <%= link_to image_tag("Plus.png", width: 45).html_safe, shelf_path(@shelf), class: 'rotated' %>
     <% elsif @space %>
-      <%= link_to '<i class="fas fa-plus fa-lg fa-rotate-45" id="plus"></i>'.html_safe, space_path(@space) %>
+      <%= link_to image_tag("Plus.png", width: 45).html_safe, space_path(@space), class: 'rotated' %>
     <% end %>
   </div>
 </div>
