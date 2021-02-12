@@ -21,7 +21,7 @@
     </h1>
 
     <div class="buttons-ctn-item-show">
-      <i class="fas fa-ellipsis-v fa-2x options"></i>
+      <i class="fas fa-ellipsis-v fa-2x options" id="options-btn"></i>
       <% if @shelf %>
         <%= link_to '<i class="fas fa-plus fa-2x fa-rotate-45"></i>'.html_safe, shelf_path(@shelf) %>
       <% elsif @space %>
@@ -32,7 +32,7 @@
 <!-- END OF NAVBAR -->
 
 <!-- OPTIONS -->
-    <div class="options-ctn">
+    <div class="options-ctn" id="options" style="display:none;">
       <div>
         <%= image_tag "Arrow - Right.png", alt: "Move", width: 19 %>
         <a class="option">Move object</a>

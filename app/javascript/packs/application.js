@@ -27,6 +27,7 @@ import "bootstrap";
 import { updateStatus } from '../components/update';
 import { displayAddBtns } from '../components/navbar';
 import { displaySave } from '../components/display-save';
+import { displayOptions } from '../components/options';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -43,6 +44,10 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector("#plus")) {
     displayAddBtns();
+  }
+
+  if (document.querySelector("#options-btn")) {
+    displayOptions();
   }
 
 });
