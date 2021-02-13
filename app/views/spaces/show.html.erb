@@ -9,14 +9,14 @@
     <h1 class="space-title"> <%= link_to @parent.name.capitalize, space_path(@parent) %> / <%= @space.name.capitalize %> </h1>
   <% end %>
 
-  <% if policy(@space).destroy? %>
+<!--   <% if policy(@space).destroy? %>
     <% if @space.shelves.empty? == false %>
       <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, data: {confirm: "Are you sure?"} %>
     <% elsif @space.connections.first.parent.space.present? == true %>
       <%= link_to 'Delete subspace', space_path(@space, parent_id: @space.connections.first.parent.space.id), method: :delete, data: {confirm: "Are you sure?"} %>
     <% end %>
   <% end %>
-
+ -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
    <div class="btns" style="display:none;">
@@ -37,7 +37,15 @@
       <br>
     </div>
 
-  <%= image_tag "Plus.png", id: 'plus', alt: "Plus", width: 37 %>
+    <div class="buttons-ctn-item-show">
+      <div>
+        <div class="options" id="options-btn">
+          <%= image_tag "options.png", alt: "Options", width: 33 %>
+        </div>
+      </div>
+      <%= image_tag "Plus.png", id: 'plus', alt: "Plus", width: 37 %>
+    </div>
+
   </div>
 </div>
 <!-- END OF NAVBAR -->
