@@ -28,9 +28,9 @@
         </div>
       </div>
       <% if @shelf %>
-        <%= link_to image_tag("Plus.png", width: 45).html_safe, shelf_path(@shelf), class: 'rotated' %>
+        <%= link_to image_tag("Plus.png", width: 40).html_safe, shelf_path(@shelf), class: 'rotated' %>
       <% elsif @space %>
-        <%= link_to image_tag("Plus.png", width: 45).html_safe, space_path(@space), class: 'rotated' %>
+        <%= link_to image_tag("Plus.png", width: 40).html_safe, space_path(@space), class: 'rotated' %>
       <% end %>
     </div>
 </div>
