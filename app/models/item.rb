@@ -4,8 +4,8 @@ class Item < ApplicationRecord
 
   before_validation :ensure_item_has_a_name
 
-  validates_inclusion_of :rank, in: [1, 2, 3], allow_nil: true
-  validates_inclusion_of :status, in: [1, 2, 3], allow_nil: true
+  validates :rank, :inclusion => 1..3, allow_nil: true
+  validates :status, :inclusion => 1..3, allow_nil: true
 
 
   MEDIUM = ['book', 'podcast', 'video', 'web', 'other']
