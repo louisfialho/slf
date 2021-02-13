@@ -65,21 +65,21 @@
 <!-- UPDATE BUTTONS -->
 <div class='update-btns'>
   <button class='update-btn active-btn' id='update-status'>
-    <% if @item.status == 'not started'%>
+    <% if @item.status == 1%>
       🙅 Not started
-    <% elsif @item.status == 'in progress'%>
+    <% elsif @item.status == 2%>
       🧑‍💻 In progress
-    <% elsif @item.status == 'finished'%>
+    <% elsif @item.status == 3%>
       💆 Finished
     <% end %>
   </button>
 
   <button class='update-btn active-btn' id='update-rank'>
-    <% if @item.rank == 'low'%>
+    <% if @item.rank == 3%>
       😴 Low rank
-    <% elsif @item.rank == 'medium'%>
+    <% elsif @item.rank == 2%>
       🤔 Medium rank
-    <% elsif @item.rank == 'high'%>
+    <% elsif @item.rank == 1%>
       😱 High rank
     <% end %>
 
@@ -90,8 +90,8 @@
 <% if @shelf %>
   <%= simple_form_for (@item) do |f| %>
     <div class='filter-boxes'>
-      <div class='buttons-ctn' id='opts-status' style="display:none;"> <%= f.input :status, label: false, collection: [['🙅 Not started', 'not started'], ['🧑‍💻 In progress', 'in progress'], ['💆 Finished', 'finished']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" } %> </div>
-      <div class='buttons-ctn' id='opts-rank' style="display:none;"><%= f.input :rank, label: false, collection: [['😴 Low rank', 'low'], ['🤔 Medium rank', 'medium'], ['😱 High rank', 'high']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" }%> </div>
+      <div class='buttons-ctn' id='opts-status' style="display:none;"> <%= f.input :status, label: false, collection: [['🙅 Not started', 1], ['🧑‍💻 In progress', 2], ['💆 Finished', 3]], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" } %> </div>
+      <div class='buttons-ctn' id='opts-rank' style="display:none;"><%= f.input :rank, label: false, collection: [['😴 Low rank', 3], ['🤔 Medium rank', 2], ['😱 High rank', 1]], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" }%> </div>
     </div>
     <div class='notes'> <!-- A remplacer par une div + globale main-container pr tt edit -->
       <h1 class="item-notes"><%= f.label :notes %></h1>
@@ -106,8 +106,8 @@
 <% elsif @space %>
  <%= simple_form_for (@item) do |f| %>
     <div class='filter-boxes'>
-      <div class='buttons-ctn' id='opts-status' style="display:none;"> <%= f.input :status, label: false, collection: [['🙅 Not started', 'not started'], ['🧑‍💻 In progress', 'in progress'], ['💆 Finished', 'finished']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" } %> </div>
-      <div class='buttons-ctn' id='opts-rank' style="display:none;"><%= f.input :rank, label: false, collection: [['😴 Low rank', 'low'], ['🤔 Medium rank', 'medium'], ['😱 High rank', 'high']], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" }%> </div>
+      <div class='buttons-ctn' id='opts-status' style="display:none;"> <%= f.input :status, label: false, collection: [['🙅 Not started', 1], ['🧑‍💻 In progress', 2], ['💆 Finished', 3]], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" } %> </div>
+      <div class='buttons-ctn' id='opts-rank' style="display:none;"><%= f.input :rank, label: false, collection: [['😴 Low rank', 3], ['🤔 Medium rank', 2], ['😱 High rank', 1]], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" }%> </div>
     </div>
     <div class='notes'> <!-- A remplacer par une div + globale main-container pr tt edit -->
       <h1 class="item-notes"><%= f.label :notes %></h1>

@@ -5,8 +5,8 @@
     <%= f.input :medium, collection: ["book", "podcast", "video", "web", "other"] %>
     <%= f.label :name %>
     <%= f.text_field :name %>
-    <%= f.input :status, collection: ["not sarted", "in progress", "finished"] %>
-    <%= f.input :rank, collection: ['low', 'medium', 'high'] %>
+    <%= f.input :status, collection: [1, 2, 3] %>
+    <%= f.input :rank, collection: [1, 2, 3] %>
     <%= f.label :notes %>
     <%= f.text_field :notes %>
     <%= f.hidden_field :shelf_id, :value => @shelf.id %>
@@ -19,8 +19,8 @@
     <%= f.input :medium, collection: ["book", "podcast", "video", "web", "other"] %>
     <%= f.label :name %>
     <%= f.text_field :name %>
-    <%= f.input :status, collection: ["not sarted", "in progress", "finished"] %>
-    <%= f.input :rank, collection: ['low', 'medium', 'high'] %>
+    <%= f.input :status, collection: [1, 2, 3] %>
+    <%= f.input :rank, collection: [1, 2, 3] %>
     <%= f.label :notes %>
     <%= f.text_field :notes %>
     <%= f.hidden_field :space_id, :value => @space.id %>

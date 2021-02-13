@@ -4,9 +4,13 @@ class Item < ApplicationRecord
 
   before_validation :ensure_item_has_a_name
 
+  validates_inclusion_of :rank, in: [1, 2, 3], allow_nil: true
+  validates_inclusion_of :status, in: [1, 2, 3], allow_nil: true
+
+
   MEDIUM = ['book', 'podcast', 'video', 'web', 'other']
-  STATUS = ['not sarted', 'in progress', 'finished']
-  RANK = ['low', 'medium', 'high']
+  STATUS = [1, 2, 3]
+  RANK = [1, 2, 3]
 
   cattr_accessor :form_steps do
     %w(url medium name status rank notes) #can now be accessed using Item.form_steps.
