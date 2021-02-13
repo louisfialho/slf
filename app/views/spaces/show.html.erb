@@ -9,6 +9,14 @@
     <h1 class="space-title"> <%= link_to @parent.name.capitalize, space_path(@parent) %> / <%= @space.name.capitalize %> </h1>
   <% end %>
 
+  <% if policy(@space).destroy? %>
+    <% if @space.shelves.empty? == false %>
+      <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, data: {confirm: "Are you sure?"} %>
+    <% elsif @space.connections.first.parent.space.present? == true %>
+      <%= link_to 'Delete subspace', space_path(@space, parent_id: @space.connections.first.parent.space.id), method: :delete, data: {confirm: "Are you sure?"} %>
+    <% end %>
+  <% end %>
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
    <div class="btns" style="display:none;">
@@ -21,7 +29,7 @@
         <%= link_to 'Add an object', items_path(space_id: @space.id, parent_id: @space.id), method: :post, class: "add-btn" %> <!-- space_id for the controller, parent_id for pundit-->
       <% end %>
 
-<!--       <% if user_signed_in? %>
+<!--  <% if user_signed_in? %>
         <%= link_to "t", destroy_user_session_path, method: :delete %>
       <% else %>
         <%= link_to "Log in", new_user_session_path %>
@@ -44,27 +52,6 @@
 <% if @space.children.empty? && @space.items.empty? %>
   <div class="center"><p class="msg">This space is empty.</p></div>
 <% end %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--
