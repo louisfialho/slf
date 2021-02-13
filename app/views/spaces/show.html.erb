@@ -9,14 +9,6 @@
     <h1 class="space-title"> <%= link_to @parent.name.capitalize, space_path(@parent) %> / <%= @space.name.capitalize %> </h1>
   <% end %>
 
-<!--   <% if policy(@space).destroy? %>
-    <% if @space.shelves.empty? == false %>
-      <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, data: {confirm: "Are you sure?"} %>
-    <% elsif @space.connections.first.parent.space.present? == true %>
-      <%= link_to 'Delete subspace', space_path(@space, parent_id: @space.connections.first.parent.space.id), method: :delete, data: {confirm: "Are you sure?"} %>
-    <% end %>
-  <% end %>
- -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
    <div class="btns" style="display:none;">
@@ -50,6 +42,31 @@
 </div>
 <!-- END OF NAVBAR -->
 
+  <div class="indicator" id="actions" style="display:none;">Actions</div>
+
+<!-- OPTIONS -->
+    <div class="options-ctn" id="options" style="display:none;">
+      <div>
+        <%= image_tag "Arrow - Right.png", alt: "Move", width: 19 %>
+        <a class="option">Move space</a>
+      </div>
+      <div>
+    <% if policy(@space).destroy? %>
+      <% if @space.shelves.empty? == false %>
+        <%= link_to image_tag("Delete.png", width: 19), space_path(@space, shelf_id: @space.shelves.first.id), method: :delete %>
+        <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option" %>
+      <% elsif @space.connections.first.parent.space.present? == true %>
+        <%= link_to image_tag("Delete.png", width: 19), space_path(@space, parent_id: @space.connections.first.parent.space.id), method: :delete %>
+        <%= link_to 'Delete space', space_path(@space, parent_id: @space.connections.first.parent.space.id), method: :delete, class: "option" %>
+    <% end %>
+  <% end %>
+      </div>
+<!--       <div>
+      <%= image_tag "Edit.png", alt: "Edit", width: 19 %>
+      <a class="option">Edit space</a>
+      </div> -->
+    </div>
+<!-- END OF OPTIONS -->
 
 
 
@@ -102,7 +119,7 @@
   <% if @space.children.empty? == false %>
     <% @space.connections.first.space.children.each do |connection| %>
       <div class="object">
-        <%= link_to image_tag("space.png", width: 95), space_path(connection.space) %>
+        <%= link_to image_tag("space.png", width: 85), space_path(connection.space) %>
         <%= link_to truncate(connection.space.name, length: 45), space_path(connection.space),  class: "object_name" %>
       </div>
     <% end %>
