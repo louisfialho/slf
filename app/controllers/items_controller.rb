@@ -66,7 +66,6 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
     spaces_on_shelf = shelf.spaces #this can be changed using order by, for instance to display most popular spaces!
 
     for s in spaces_on_shelf do
-      $spaces << s
       if s.connections.empty? == false
         connections = s.connections
         recursive_space_search(connections)

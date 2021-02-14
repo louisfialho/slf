@@ -41,7 +41,7 @@
     <div class="options-ctn" id="options" style="display:none;">
       <div>
         <%= image_tag "Arrow - Right.png", alt: "Move", width: 19 %>
-        <a class="option">Move object</a>
+        <a class="option" id="move-to">Move object</a>
       </div>
       <div>
         <% if @shelf %>
@@ -58,6 +58,25 @@
       </div>
     </div>
 <!-- END OF OPTIONS -->
+
+<div class="options-ctn" id="move-to-list" style="display:none;">
+  <ul>
+    <% if @space %>
+      <li>
+        <%= link_to "🗄 Shelf", { controller: "items", action: "move_to_shelf", item_id: @item.id }, {class: "option"} %>
+      </li>
+    <% end %>
+  <% move_to_space_list.each do |space| %>
+    <li>
+    <%= link_to "🗄 #{space.name.capitalize}", { controller: "items", action: "move_to_space", item_id: @item.id, space_id: space.id }, {class: "option"} %>
+    </li>
+  <% end %>
+  </ul>
+</div>
+
+<!-- MOVING AN ITEM TO A SPACE OR SHELF-->
+
+<!-- END OF MOVING AN ITEM TO A SPACE OR SHELF -->
 
 
 <!-- UPDATE BUTTONS -->
@@ -84,21 +103,6 @@
   </button>
 </div>
 <!-- END OF UPDATE BUTTONS -->
-
-<!-- MOVING AN ITEM TO A SPACE -->
-<ul>
-  <% if @space %>
-    <li>
-      <%= link_to "Shelf", controller: "items", action: "move_to_shelf", item_id: @item.id %>
-    </li>
-  <% end %>
-<%= move_to_space_list.each do |space| %>
-  <li>
-  <%= link_to space.name, controller: "items", action: "move_to_space", item_id: @item.id, space_id: space.id %>
-  </li>
-<% end %>
-</ul>
-<!-- END OF MOVING AN ITEM TO A SPACE -->
 
 <% if @shelf %>
   <%= simple_form_for (@item) do |f| %>
