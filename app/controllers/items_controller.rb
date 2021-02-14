@@ -66,6 +66,7 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
     spaces_on_shelf = shelf.spaces
 
     for s in spaces_on_shelf do
+      $spaces << s.name
       connections = s.connections
       recursive_space_search(connections)
     end
