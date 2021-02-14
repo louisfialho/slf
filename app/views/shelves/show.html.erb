@@ -6,22 +6,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-<!--    <div class="btns" style="display:none;">
-      <% if policy(Space).create? %>
-        <%= link_to 'Add a space', new_space_path(shelf_id: params[:id]), class: "add-btn" %>
-      <% end %>
-
-      <% if policy(Item).create? %>
-        <%= link_to 'Add an object', items_path(shelf_id: params[:id]), method: :post, class: "add-btn" %>
-      <% end %>
-
-   <% if user_signed_in? %>
+<!--    <% if user_signed_in? %>
         <%= link_to "t", destroy_user_session_path, method: :delete %>
       <% else %>
         <%= link_to "Log in", new_user_session_path %>
       <% end %>
       <br>
-    </div> -->
+    </div>  -->
 
 
         <div class="options" id="options-btn">
@@ -35,7 +26,7 @@
   <div class="indicator add" id="actions" style="display:none;">Add</div>
 
 <!-- OPTIONS -->
-    <div class="options-ctn" id="options" style="display:none;">
+    <div class="options-ctn options-ctn-shelf-space" id="options" style="display:none;">
       <div>
       <% if policy(Item).create? %>
         <%= link_to '📚 New object', items_path(shelf_id: params[:id]), method: :post, class: "option add-option" %>

@@ -1,7 +1,8 @@
 <!-- BEGINNING OF NAVBAR -->
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-
   <%= link_to "shelf", root_path, class: "logo" %>
+
+   <div class="collapse navbar-collapse" id="navbarSupportedContent"> </div>
 
   <% if @space.shelves.empty? == false %>
     <h1 class="space-title"> <%= @space.name.capitalize %> </h1>
@@ -9,25 +10,14 @@
     <h1 class="space-title"> <%= link_to @parent.name.capitalize, space_path(@parent) %> / <%= @space.name.capitalize %> </h1>
   <% end %>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-   <div class="btns" style="display:none;">
 
-      <% if policy(Space).create? %>
-        <%= link_to 'Add a space', new_space_path(parent_id: @space.id), class: "add-btn" %>
-      <% end %>
-
-      <% if policy(Item).create? %>
-        <%= link_to 'Add an object', items_path(space_id: @space.id, parent_id: @space.id), method: :post, class: "add-btn" %> <!-- space_id for the controller, parent_id for pundit-->
-      <% end %>
-
-<!--  <% if user_signed_in? %>
+<!--   <% if user_signed_in? %>
         <%= link_to "t", destroy_user_session_path, method: :delete %>
       <% else %>
         <%= link_to "Log in", new_user_session_path %>
       <% end %> -->
-      <br>
-    </div>
+
 
     <div class="buttons-ctn-item-show">
       <div>
@@ -35,17 +25,22 @@
           <%= image_tag "options.png", alt: "Options", width: 33 %>
         </div>
       </div>
-      <%= image_tag "Plus.png", id: 'plus', alt: "Plus", width: 37 %>
+      <div class="options" id="options-btn-2">
+        <%= image_tag "Plus.png", alt: "Plus", width: 33 %>
+      </div>
     </div>
 
   </div>
 </div>
 <!-- END OF NAVBAR -->
 
-  <div class="indicator" id="actions" style="display:none;">Actions</div>
+<!-- INDICATORS -->
+  <div class="indicator options-show" id="actions" style="display:none;">Actions</div>
+  <div class="indicator add" id="actions-2" style="display:none;">Add</div>
+<!-- END OF INDICATORS -->
 
-<!-- OPTIONS -->
-    <div class="options-ctn" id="options" style="display:none;">
+<!-- OPTIONS SPACE -->
+    <div class="options-ctn options-ctn-shelf-space" id="options" style="display:none;">
       <div>
         <%= image_tag "Arrow - Right.png", alt: "Move", width: 19 %>
         <a class="option">Move space</a>
@@ -66,12 +61,22 @@
       <a class="option">Edit space</a>
       </div> -->
     </div>
-<!-- END OF OPTIONS -->
+<!-- END OF OPTIONS SPACE -->
 
-
-
-
-
+<!-- OPTIONS ADD -->
+    <div class="options-ctn options-ctn-shelf-space" id="options-2" style="display:none;">
+      <div>
+      <% if policy(Item).create? %>
+        <%= link_to '📚 New object', items_path(space_id: @space.id, parent_id: @space.id), method: :post, class: "option add-option" %>
+      <% end %>
+      </div>
+      <div>
+      <% if policy(Space).create? %>
+        <%= link_to '🗄 New space', new_space_path(parent_id: @space.id), class: "option add-option" %>
+      <% end %>
+      </div>
+    </div>
+<!-- END OF OPTIONS ADD -->
 
 <!-- IF SPACE IS EMPTY -->
 <% if @space.children.empty? && @space.items.empty? %>

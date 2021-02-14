@@ -235,7 +235,6 @@ a {
 .buttons-ctn-item-show {
   display: flex;
   margin-left: auto;
-  margin-top: 16px;
 }
 
 // creating a div for update buttons
@@ -434,7 +433,13 @@ textarea {
   margin-left: 0px; // removig the margin left that I introduced for the icon pics (now using emojis: margin no longer useful)
 }
 
+.options-show {
+  right: 145px;
+  top: 54px;
+}
 
-
+.options-ctn-shelf-space {
+  top: 54px !important;
+}
 
 

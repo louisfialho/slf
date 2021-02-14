@@ -25,9 +25,9 @@ require("channels")
 // External imports
 import "bootstrap";
 import { updateStatus } from '../components/update';
-import { displayAddBtns } from '../components/navbar';
 import { displaySave } from '../components/display-save';
 import { displayOptions } from '../components/options';
+import { displayOptions2 } from '../components/options2';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -42,12 +42,12 @@ document.addEventListener('turbolinks:load', () => {
      displaySave();
   }
 
-  if (document.querySelector("#plus")) {
-    displayAddBtns();
-  }
-
   if (document.querySelector("#options-btn")) {
     displayOptions();
+  }
+
+  if (document.querySelector("#options-btn-2")) {
+    displayOptions2();
   }
 
 });
