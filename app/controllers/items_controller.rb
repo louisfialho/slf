@@ -63,12 +63,14 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
     $spaces = []
 
     shelf = @current_user.shelves.first
-    spaces_on_shelf = shelf.spaces
+    spaces_on_shelf = shelf.spaces #this can be changed using order by, for instance to display most popular spaces!
 
     for s in spaces_on_shelf do
-      $spaces << s.name
-      connections = s.connections
-      recursive_space_search(connections)
+      $spaces << s
+      if s.connections.empty? == false
+        connections = s.connections
+        recursive_space_search(connections)
+      end
     end
 
     return $spaces
@@ -76,12 +78,35 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
 
   def recursive_space_search(array_of_connections)
     for c in array_of_connections do
-      $spaces << c.space.name
+      $spaces << c.space
       if c.space.children.empty? == false
         children = c.space.children
         recursive_space_search(children)
       end
     end
+  end
+
+  def move_to_space
+  # si on veut mettre item dans un space (faisable depuis un autre space ou depuis shelf)
+    @item = Item.find(params[:item_id])
+    authorize @item
+    @new_space = Space.find(params[:space_id])
+    if @item.spaces.empty? == false   # si l'item est sur un space
+      @item.spaces.destroy_all
+    elsif @item.shelves.empty? == false # si l'item est sur une shelf
+      @item.shelves.destroy_all
+    end
+    @new_space.items << @item
+    redirect_to item_path(@item, space_id: @new_space.id)
+  end
+
+  def move_to_shelf
+    @item = Item.find(params[:item_id])
+    authorize @item
+    @shelf = current_user.shelves.first
+    @item.spaces.destroy_all
+    @shelf.items << @item
+    redirect_to item_path(@item, shelf_id: @shelf.id)
   end
 
   helper_method :move_to_space_list

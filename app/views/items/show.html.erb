@@ -85,7 +85,20 @@
 </div>
 <!-- END OF UPDATE BUTTONS -->
 
-<%= move_to_space_list %>
+<!-- MOVING AN ITEM TO A SPACE -->
+<ul>
+  <% if @space %>
+    <li>
+      <%= link_to "Shelf", controller: "items", action: "move_to_shelf", item_id: @item.id %>
+    </li>
+  <% end %>
+<%= move_to_space_list.each do |space| %>
+  <li>
+  <%= link_to space.name, controller: "items", action: "move_to_space", item_id: @item.id, space_id: space.id %>
+  </li>
+<% end %>
+</ul>
+<!-- END OF MOVING AN ITEM TO A SPACE -->
 
 <% if @shelf %>
   <%= simple_form_for (@item) do |f| %>

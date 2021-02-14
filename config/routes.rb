@@ -9,5 +9,9 @@ Rails.application.routes.draw do
   resources :spaces
   resources :items do
     resources :steps, only: [:show, :update], controller: 'item/steps' #/items/1/steps/identity
+    collection do
+      get :move_to_space
+      get :move_to_shelf
+    end
   end
 end
