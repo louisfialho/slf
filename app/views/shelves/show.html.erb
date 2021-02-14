@@ -38,12 +38,12 @@
     <div class="options-ctn" id="options" style="display:none;">
       <div>
       <% if policy(Item).create? %>
-        <%= link_to '📚 New object', items_path(shelf_id: params[:id]), method: :post, class: "option" %>
+        <%= link_to '📚 New object', items_path(shelf_id: params[:id]), method: :post, class: "option add-option" %>
       <% end %>
       </div>
       <div>
       <% if policy(Space).create? %>
-        <%= link_to '🗄 New space', new_space_path(shelf_id: params[:id]), class: "option" %>
+        <%= link_to '🗄 New space', new_space_path(shelf_id: params[:id]), class: "option add-option" %>
       <% end %>
       </div>
     </div>
