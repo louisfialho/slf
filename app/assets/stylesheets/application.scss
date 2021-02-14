@@ -232,10 +232,15 @@ a {
   align-items: start;
 }
 
-.buttons-ctn-item-show {
+.buttons-ctn-show {
   display: flex;
   margin-left: auto;
 }
+
+.buttons-ctn-item-show {
+  padding-top: 16px;
+}
+
 
 // creating a div for update buttons
 .update-btns {
