@@ -6,7 +6,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-   <div class="btns" style="display:none;">
+<!--    <div class="btns" style="display:none;">
       <% if policy(Space).create? %>
         <%= link_to 'Add a space', new_space_path(shelf_id: params[:id]), class: "add-btn" %>
       <% end %>
@@ -15,19 +15,39 @@
         <%= link_to 'Add an object', items_path(shelf_id: params[:id]), method: :post, class: "add-btn" %>
       <% end %>
 
-<!--  -->   <% if user_signed_in? %>
+   <% if user_signed_in? %>
         <%= link_to "t", destroy_user_session_path, method: :delete %>
       <% else %>
         <%= link_to "Log in", new_user_session_path %>
-      <% end %>  <!-- -->
+      <% end %>
       <br>
-    </div>
+    </div> -->
 
-  <%= image_tag "Plus.png", id: 'plus', alt: "Plus", width: 37 %>
+
+        <div class="options" id="options-btn">
+          <%= image_tag "Plus.png", alt: "Plus", width: 33 %>
+        </div>
+
   </div>
 </div>
 <!-- END OF NAVBAR -->
 
+  <div class="indicator add" id="actions" style="display:none;">Add</div>
+
+<!-- OPTIONS -->
+    <div class="options-ctn" id="options" style="display:none;">
+      <div>
+      <% if policy(Item).create? %>
+        <%= link_to '📚 New object', items_path(shelf_id: params[:id]), method: :post, class: "option" %>
+      <% end %>
+      </div>
+      <div>
+      <% if policy(Space).create? %>
+        <%= link_to '🗄 New space', new_space_path(shelf_id: params[:id]), class: "option" %>
+      <% end %>
+      </div>
+    </div>
+<!-- END OF OPTIONS -->
 
 
 
@@ -35,10 +55,6 @@
 <% if @shelf.spaces.empty? && @shelf.items.empty? %>
   <div class="center"><p class="msg">Your shelf is empty.</p></div>
 <% end %>
-
-
-
-
 
 
 <!-- IF SHELF HAS OBJECTS -->
