@@ -21,7 +21,7 @@
 
     <div class="buttons-ctn-show">
       <div>
-        <div > <!-- ajouter class="options" id="options-btn" -->
+        <div class="options" id="options-btn"> <!-- ajouter class="options" id="options-btn" -->
           <%= image_tag "options.png", alt: "Options", width: 33 %>
         </div>
       </div>
@@ -43,7 +43,7 @@
     <div class="options-ctn options-ctn-shelf-space" id="options" style="display:none;">
       <div>
         <%= image_tag "Arrow - Right.png", alt: "Move", width: 19 %>
-        <a class="option">Move space</a>
+        <a class="option" id="move-to">Move space</a>
       </div>
       <div>
     <% if policy(@space).destroy? %>
@@ -62,6 +62,13 @@
       </div> -->
     </div>
 <!-- END OF OPTIONS SPACE -->
+
+
+<!-- MOVING A SPACE TO A SPACE OR SHELF-->
+<div class="options-ctn" id="move-to-list" style="display:none;">
+</div>
+<!-- END OF MOVING A SPACE TO A SPACE OR SHELF -->
+
 
 <!-- OPTIONS ADD -->
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">

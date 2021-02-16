@@ -23,14 +23,11 @@ const displayAddOptions = () => {
   });
 
 document.addEventListener('click', function(event) {
-
     var isClickInsideOpt = addOptions.contains(event.target) ||  addBtn.contains(event.target);
     if (!isClickInsideOpt) {
       addOptions.style.display = "none";
     }
-
 });
-
 }
 
 export { displayAddOptions };
