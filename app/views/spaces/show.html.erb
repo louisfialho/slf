@@ -66,6 +66,20 @@
 
 <!-- MOVING A SPACE TO A SPACE OR SHELF-->
 <div class="options-ctn" id="move-to-list" style="display:none;">
+  <ul>
+    <% if @space.shelves.empty? %>
+      <li>
+        <p class="option">🗄 Shelf</p>
+      </li>
+    <% end %>
+  <% move_to_space_list.each do |space| %>
+    <% if space != @space %>
+      <li>
+        <p class="option">🗄 <%= space.name.capitalize %></p>
+      </li>
+    <% end %>
+  <% end %>
+  </ul>
 </div>
 <!-- END OF MOVING A SPACE TO A SPACE OR SHELF -->
 

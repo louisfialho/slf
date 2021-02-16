@@ -2,6 +2,37 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   include Pundit
 
+  def move_to_space_list
+    $spaces = []
+
+    shelf = current_user.shelves.first
+    spaces_on_shelf = shelf.spaces #this can be changed using order by, for instance to display most popular spaces!
+
+    for s in spaces_on_shelf do
+      if s.connections.empty? == false
+        connections = s.connections
+        recursive_space_search(connections)
+      else
+        $spaces << s
+      end
+    end
+
+    return $spaces
+  end
+
+  def recursive_space_search(array_of_connections)
+    for c in array_of_connections do
+      $spaces << c.space
+      if c.space.children.empty? == false
+        children = c.space.children
+        recursive_space_search(children)
+      end
+    end
+  end
+
+  helper_method :move_to_space_list
+
+
 def pundit_user
   CurrentContext.new(current_user, current_context)
 end

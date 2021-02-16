@@ -59,6 +59,7 @@
     </div>
 <!-- END OF OPTIONS -->
 
+<!-- MOVING AN ITEM TO A SPACE OR SHELF-->
 <div class="options-ctn" id="move-to-list" style="display:none;">
   <ul>
     <% if @space %>
@@ -67,15 +68,14 @@
       </li>
     <% end %>
   <% move_to_space_list.each do |space| %>
-    <li>
-      <%= link_to "🗄 #{space.name.capitalize}", { controller: "items", action: "move_to_space", item_id: @item.id, space_id: space.id }, {class: "option"} %>
-    </li>
+    <% if @space != space %>
+      <li>
+        <%= link_to "🗄 #{space.name.capitalize}", { controller: "items", action: "move_to_space", item_id: @item.id, space_id: space.id }, {class: "option"} %>
+      </li>
+    <% end %>
   <% end %>
   </ul>
 </div>
-
-<!-- MOVING AN ITEM TO A SPACE OR SHELF-->
-
 <!-- END OF MOVING AN ITEM TO A SPACE OR SHELF -->
 
 
