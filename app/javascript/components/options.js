@@ -29,13 +29,17 @@ const displayOptions = () => {
   });
 
 document.addEventListener('click', function(event) {
-  var isClickInsideOpt = options.contains(event.target) ||  optionsBtn.contains(event.target);
 
-  if (!isClickInsideOpt) {
-    if (options.style === "") {
+  if (list.style.display === "none") {
+    var isClickInsideOpt = options.contains(event.target) ||  optionsBtn.contains(event.target);
+    if (!isClickInsideOpt) {
       options.style.display = "none";
     }
   }
+
+
+
+
 });
 
   moveTo.addEventListener('click', (event) => {
