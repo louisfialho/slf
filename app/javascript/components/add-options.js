@@ -14,14 +14,12 @@ const displayAddOptions = () => {
   });
 
  addBtn.addEventListener("click", (event) => {
-
     if (addOptions.style.display === "none") {
       actions.style.display = "none"
       addOptions.style.display = "";
     } else {
       addOptions.style.display = "none";
     }
-
   });
 
 document.addEventListener('click', function(event) {
