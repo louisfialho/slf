@@ -21,11 +21,11 @@
 
     <div class="buttons-ctn-show">
       <div>
-        <div class="options" id="options-btn">
+        <div > <!-- ajouter class="options" id="options-btn" -->
           <%= image_tag "options.png", alt: "Options", width: 33 %>
         </div>
       </div>
-      <div class="options" id="options-btn-2">
+      <div class="options" id="add-btn">
         <%= image_tag "Plus.png", alt: "Plus", width: 33 %>
       </div>
     </div>
@@ -36,7 +36,7 @@
 
 <!-- INDICATORS -->
   <div class="indicator options-show" id="actions" style="display:none;">Actions</div>
-  <div class="indicator add" id="actions-2" style="display:none;">Add</div>
+  <div class="indicator add" id="add-action" style="display:none;">Add</div>
 <!-- END OF INDICATORS -->
 
 <!-- OPTIONS SPACE -->
@@ -64,7 +64,7 @@
 <!-- END OF OPTIONS SPACE -->
 
 <!-- OPTIONS ADD -->
-    <div class="options-ctn options-ctn-shelf-space" id="options-2" style="display:none;">
+    <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
       <div>
       <% if policy(Item).create? %>
         <%= link_to '📚 New object', items_path(space_id: @space.id, parent_id: @space.id), method: :post, class: "option add-option" %>
