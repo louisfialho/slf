@@ -28,23 +28,27 @@ const displayOptions = () => {
   }
   });
 
-document.addEventListener('click', function(event) {
-
-  if (list.style.display === "none") {
-    var isClickInsideOpt = options.contains(event.target) ||  optionsBtn.contains(event.target);
-    if (!isClickInsideOpt) {
-      options.style.display = "none";
+  document.addEventListener('click', function(event) {
+    if (list.style.display === "none") {
+      var isClickInsideOpt = options.contains(event.target) ||  optionsBtn.contains(event.target);
+      if (!isClickInsideOpt) {
+        options.style.display = "none";
+      }
     }
-  }
-
-
-
-
-});
+  });
 
   moveTo.addEventListener('click', (event) => {
     options.style.display = "none";
     list.style.display = "";
+  });
+
+  document.addEventListener('click', function(event) {
+    if (list.style.display === "") {
+      var isClickInsideList = list.contains(event.target) ||  optionsBtn.contains(event.target) || moveTo.contains(event.target);
+      if (!isClickInsideList) {
+        list.style.display = "none";
+      }
+    }
   });
 
 }
