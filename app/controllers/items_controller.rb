@@ -62,13 +62,15 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
   def move_to_space_list
     $spaces = []
 
-    shelf = @current_user.shelves.first
+    shelf = current_user.shelves.first
     spaces_on_shelf = shelf.spaces #this can be changed using order by, for instance to display most popular spaces!
 
     for s in spaces_on_shelf do
       if s.connections.empty? == false
         connections = s.connections
         recursive_space_search(connections)
+      else
+        $spaces << s
       end
     end
 
