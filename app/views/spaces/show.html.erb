@@ -73,7 +73,7 @@
       </li>
     <% end %>
   <% move_to_space_list.each do |space| %>
-    <% if space != @space %>
+    <% if (space != @space) && (space != @parent) %>
       <li>
         <p class="option">🗄 <%= space.name.capitalize %></p>
       </li>
