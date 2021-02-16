@@ -15,7 +15,7 @@
     </div>  -->
 
 
-        <div class="options" id="options-btn">
+        <div class="options" id="add-btn">
           <%= image_tag "Plus.png", alt: "Plus", width: 33 %>
         </div>
 
@@ -23,10 +23,10 @@
 </div>
 <!-- END OF NAVBAR -->
 
-  <div class="indicator add" id="actions" style="display:none;">Add</div>
+  <div class="indicator add" id="add-action" style="display:none;">Add</div>
 
 <!-- OPTIONS -->
-    <div class="options-ctn options-ctn-shelf-space" id="options" style="display:none;">
+    <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
       <div>
       <% if policy(Item).create? %>
         <%= link_to '📚 New object', items_path(shelf_id: params[:id]), method: :post, class: "option add-option" %>

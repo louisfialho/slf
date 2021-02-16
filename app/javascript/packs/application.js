@@ -28,6 +28,7 @@ import { updateStatus } from '../components/update';
 import { displaySave } from '../components/display-save';
 import { displayOptions } from '../components/options';
 import { displayOptions2 } from '../components/options2';
+import { displayAddOptions } from '../components/add-options';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -44,6 +45,10 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector("#options-btn")) {
     displayOptions();
+  }
+
+  if (document.querySelector("#add-btn")) {
+    displayAddOptions();
   }
 
   if (document.querySelector("#options-btn-2")) {
