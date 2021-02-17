@@ -72,13 +72,13 @@
         <p class="option">🗄 Shelf</p>
       </li>
     <% end %>
-  <% move_to_space_list.each do |space| %>
-    <% if (space != @space) && (space != @parent) %>
-      <li>
-        <p class="option">🗄 <%= space.name.capitalize %></p>
-      </li>
+    <% move_to_space_list.each do |space| %>
+      <% if (space != @space) && (space != @parent) %>
+        <li>
+          <%= link_to "🗄 #{space.name.capitalize}", { controller: "spaces", action: "move_space_to_space", current_space_id: @space.id, destination_space_id: space.id }, {class: "option"} %>
+        </li>
+      <% end %>
     <% end %>
-  <% end %>
   </ul>
 </div>
 <!-- END OF MOVING A SPACE TO A SPACE OR SHELF -->

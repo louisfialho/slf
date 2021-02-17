@@ -81,6 +81,28 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
     end
   end
 
+  def move_space_to_space
+    @current_space = Space.find(params[:current_space_id])
+    authorize @current_space
+    @destination_space = Space.find(params[:destination_space_id])
+    if @current_space.shelves.empty? == false
+      @current_space.shelves.destroy_all # ASSUMES THAT A SPACE HAS ONLY ONE SHELF. ANOTHER SOLUTION WOULD BE TO DELETE THE SPACE ONLY FROM THE SHELF OF THE CURRENT USER.
+    elsif @current_space.connections.nil? == false
+      @current_space.connections.destroy_all
+    end
+    @destination_space.connections.first.children.create(space: @current_space)
+    redirect_to space_path(@destination_space)
+  end
+
+  # def move_space_to_shelf
+  #   current_space = Space.find(current_space_id)
+  #   # ce space est forcément en dehors de la shelf (i.e. il a un space parent)
+  #   # je trouve le space parent et je le suppr
+  #   # je trouve la shelf du current user et j'ajoute current_space
+  # end
+
+
+
   private
 
   def space_params
