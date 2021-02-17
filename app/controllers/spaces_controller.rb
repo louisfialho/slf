@@ -90,7 +90,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
     elsif @current_space.connections.nil? == false
       @current_space.connections.destroy_all
     end
-    if !@parent.shelves.empty? && @parent.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
+    if !@destination_space.shelves.empty? && @destination_space.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
       s1 = Connection.create(space: @destination_space)
       s1.children.create(space: @current_space)
     else
