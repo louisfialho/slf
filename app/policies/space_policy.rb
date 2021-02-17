@@ -30,7 +30,11 @@ class SpacePolicy < ApplicationPolicy
   end
 
   def destroy?
-
+    if !record.shelves.empty?
+      record.shelves.first.user == user
+    elsif !record.connections.first.parent.nil?
+      record.connections.first.root.space.shelves.first.user == user #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
+    end
   end
 
   def move_space_to_space?
