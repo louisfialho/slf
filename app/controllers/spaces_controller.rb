@@ -99,12 +99,18 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
     redirect_to space_path(@destination_space)
   end
 
-  # def move_space_to_shelf
-  #   current_space = Space.find(current_space_id)
-  #   # ce space est forcément en dehors de la shelf (i.e. il a un space parent)
-  #   # je trouve le space parent et je le suppr
-  #   # je trouve la shelf du current user et j'ajoute current_space
-  # end
+  def move_space_to_shelf
+    # on prend un space qui n'est PAS sur la shelf
+    @space = Space.find(params[:current_space_id])
+    authorize @space
+    # on supprime sa relation au space parent
+    @space.connections.destroy_all # ce space est forcément en dehors de la shelf (i.e. il a un space parent). here we assume that the space only has a connection with its parent. Are there cases where the space has connections other than the connection with its parent that shouldn't be deleted?
+    # on trouve la shelf correspondante
+    @shelf = current_user.shelves.first
+    # on ajoute le space à la shelf
+    @shelf.spaces << @space
+    redirect_to shelf_path(@shelf)
+  end
 
 
 

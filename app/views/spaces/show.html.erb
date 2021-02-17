@@ -66,7 +66,7 @@
   <ul>
     <% if @space.shelves.empty? %>
       <li>
-        <p class="option">🗄 Shelf</p>
+        <%= link_to "🗄 Shelf", { controller: "spaces", action: "move_space_to_shelf", current_space_id: @space.id }, {class: "option"} %>
       </li>
     <% end %>
     <% move_to_space_list.each do |space| %>

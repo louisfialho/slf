@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :spaces do
     collection do
       get :move_space_to_space
+      get :move_space_to_shelf
     end
   end
   resources :items do
