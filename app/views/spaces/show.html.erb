@@ -85,7 +85,7 @@
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
       <div>
       <% if policy(Item).create? %>
-        <%= link_to '📚 New object', items_path(space_id: @space.id, parent_id: @space.id), method: :post, class: "option add-option" %>
+        <%= link_to '📚 New object', new_item_path(space_id: @space.id, parent_id: @space.id), class: "option add-option" %>
       <% end %>
       </div>
       <div>

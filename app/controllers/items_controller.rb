@@ -2,29 +2,24 @@ class ItemsController < ApplicationController
 before_action :set_item, only: [:show, :edit, :update, :destroy]
 before_action :set_shelf_space, only: [:new, :show, :edit]
 
-  # def new
-  #   @item = Item.new
-  #   authorize @item
-  # end
-
-  def create
+  def new
     @item = Item.new
     authorize @item
-    @item.save(validate: false)
-    if params[:shelf_id].present?
-      redirect_to item_step_path(@item, 'url', shelf_id: params[:shelf_id])
-    elsif params[:space_id].present?
-      redirect_to item_step_path(@item, 'url', space_id: params[:space_id])
+  end
+
+  def create
+    @item = Item.new(item_params)
+    @item.save
+    authorize @item
+    if params[:item][:shelf_id].present?
+      @shelf = Shelf.find(params[:item][:shelf_id])
+      @shelf.items << @item
+      redirect_to item_path(@item, shelf_id: @shelf.id)
+    elsif params[:item][:space_id].present?
+      @space = Space.find(params[:item][:space_id])
+      @space.items << @item
+      redirect_to item_path(@item, space_id: @space.id)
     end
-    # if params[:item][:shelf_id].present?
-    #   @shelf = Shelf.find(params[:item][:shelf_id])
-    #   @shelf.items << @item
-    #   redirect_to item_path(@item, shelf_id: @shelf.id)
-    # elsif params[:item][:space_id].present?
-    #   @space = Space.find(params[:item][:space_id])
-    #   @space.items << @item
-    #   redirect_to item_path(@item, space_id: @space.id)
-    # end
   end
 
   def index
@@ -59,34 +54,6 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
     end
   end
 
-  def move_to_space_list
-    $spaces = []
-
-    shelf = current_user.shelves.first
-    spaces_on_shelf = shelf.spaces #this can be changed using order by, for instance to display most popular spaces!
-
-    for s in spaces_on_shelf do
-      if s.connections.empty? == false
-        connections = s.connections
-        recursive_space_search(connections)
-      else
-        $spaces << s
-      end
-    end
-
-    return $spaces
-  end
-
-  def recursive_space_search(array_of_connections)
-    for c in array_of_connections do
-      $spaces << c.space
-      if c.space.children.empty? == false
-        children = c.space.children
-        recursive_space_search(children)
-      end
-    end
-  end
-
   def move_to_space
   # si on veut mettre item dans un space (faisable depuis un autre space ou depuis shelf)
     @item = Item.find(params[:item_id])
@@ -109,8 +76,6 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
     @shelf.items << @item
     redirect_to item_path(@item, shelf_id: @shelf.id)
   end
-
-  helper_method :move_to_space_list
 
   private
 

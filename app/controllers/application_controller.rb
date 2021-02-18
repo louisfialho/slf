@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :move_to_space_list
 
-
 def pundit_user
   CurrentContext.new(current_user, current_context)
 end
