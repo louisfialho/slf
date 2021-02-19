@@ -6,59 +6,7 @@ require 'uri'
 require 'open-uri'
 require 'nokogiri'
 
-
 token = ENV['TELEGRAM_TOKEN']
-
-# def item_name(url)
-#   html_file = URI.open(url)
-#   html_doc = Nokogiri::HTML(html_file)
-#   if url.include? 'www.youtube'
-#     return html_doc.at('meta[name="title"]')['content'] # works for YouTube
-#   else
-#     return html_doc.css('head title').inner_text # works for spotify and more
-#   # does not work for Techcrunch
-#   end
-# end
-
-# def item_medium(url)
-#   if url.include? 'www.youtube'
-#     return 'video'
-#   elsif url.include?('spotify.com/episode') || url.include?('podcasts.apple')
-#     return 'podcast'
-#   elsif url.include? 'www.amazon'
-#     return 'book'
-#   else
-#     return 'other'
-#   end
-# end
-
-# def uri?(string)
-#   uri = URI.parse(string)
-#   %w( http https ).include?(uri.scheme)
-# rescue URI::BadURIError
-#   false
-# rescue URI::InvalidURIError
-#   false
-# end
-
-# def working_url?(url_str)
-#   Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPSuccess)
-#   rescue
-#     false
-# end
-
-
-# def is_redirect?(url_str)
-#   Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPRedirection)
-#   rescue
-#     false
-# end
-
-# def final_url(url_str)
-#   URI.open(url_str) do |resp|
-#     return resp.base_uri.to_s
-#   end
-# end
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
@@ -99,7 +47,7 @@ Telegram::Bot::Client.run(token) do |bot|
             end
           else
             shelf.items << item
-            bot.api.send_message(chat_id: message.chat.id, text: "This object was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
+            bot.api.send_message(chat_id: message.chat.id, text: "#{item.name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
           end
         else
           bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, I cannot find you. Please try to open this chat using the link provided by Shelf so that I can know who you are! 💆‍♂️")

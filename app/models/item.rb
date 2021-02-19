@@ -79,3 +79,14 @@ class Item < ApplicationRecord
       "other"
     end
 end
+
+# User input, peut être dirty
+# 1. Before val:
+# -extraction url si il y a: on persiste l'url
+# -redirection url si il y a: on persiste le final redirect.
+# 2. During val:
+# -si pas un url: error
+# -si url marche pas: error
+# 3. After val:
+# -on a un url qui marche, et si redirect redirect.
+# -on prend le name et medium a partir de cet url.
