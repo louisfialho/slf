@@ -47,7 +47,7 @@ class Item < ApplicationRecord
 
     def set_params
       self.name = item_name(url) if name.blank?
-      self.medium = "other" if medium.blank?
+      self.medium = item_medium(url) if medium.blank?
       self.status = 1 if status.blank?
       self.rank = 2 if rank.blank?
     end
@@ -63,5 +63,19 @@ class Item < ApplicationRecord
       end
     rescue
       "No name found"
+    end
+
+    def item_medium(url)
+      if url.include? 'www.youtube'
+        return 'video'
+      elsif url.include?('spotify.com/episode') || url.include?('podcasts.apple')
+        return 'podcast'
+      elsif url.include? 'www.amazon' || url.include?('ww.goodreads')
+        return 'book'
+      else
+        return 'other'
+      end
+    rescue
+      "other"
     end
 end
