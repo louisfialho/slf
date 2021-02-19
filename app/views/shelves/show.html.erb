@@ -4,20 +4,24 @@
 
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-   <% if user_signed_in? %>
-        <%= link_to "t", destroy_user_session_path, method: :delete %>
+     <% if user_signed_in? %>
+          <%= link_to "t", destroy_user_session_path, method: :delete %>
       <% else %>
-        <%= link_to "Log in", new_user_session_path %>
+          <%= link_to "Log in", new_user_session_path %>
       <% end %>
       <br>
     </div>
 
+    <%= simple_form_for (@item) do |f| %>
+      <%= f.label :url %>
+      <%= f.text_field :url %>
+      <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+      <%= f.submit "Add item" %>
+    <% end %>
 
-        <div class="options" id="add-btn">
-          <%= image_tag "Plus.png", alt: "Plus", width: 33 %>
-        </div>
+    <div class="options" id="add-btn">
+      <%= image_tag "Plus.png", alt: "Plus", width: 33 %>
+    </div>
 
   </div>
 </div>
