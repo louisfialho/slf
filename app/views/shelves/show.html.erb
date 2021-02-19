@@ -12,12 +12,14 @@
       <br>
     </div>
 
-    <%= simple_form_for (@item) do |f| %>
-      <%= f.label :url %>
-      <%= f.text_field :url %>
-      <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-      <%= f.submit "Add item" %>
-    <% end %>
+    <div class="new-url-ctn">
+      <p class="option prompt" > Copy and paste the URL 🌐 for this new object </p>
+      <%= simple_form_for (@item) do |f| %>
+        <%= f.text_field :url, autofocus: true, onpaste: 'setTimeout(function(){ form.submit(); }, 0.1);', onblur: 'this.focus()', class: 'txt-inpt' %>
+        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+        <%= f.submit "Add item", style: "display: none;" %>
+      <% end %>
+    </div>
 
     <div class="options" id="add-btn">
       <%= image_tag "Plus.png", alt: "Plus", width: 33 %>

@@ -457,3 +457,57 @@ ul {
     max-height: 550px;
     overflow:auto;
 }
+
+// styling the add-url ctn
+
+.new-url-ctn {
+    // margin-left: 1660px;
+    position: absolute;
+    top: 10px;
+    right: 400px;
+    background-color: white;
+    border: 1px solid #E8E8E8;
+    border-radius: 20px;
+    box-shadow: 2px 2px 11px rgba(0,0,0,0.2);
+    z-index: 10;
+    display: grid;
+    grid-gap: 3px;
+    padding: 11px 17px 11px 17px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+.txt-inpt {
+  border: 0;
+  width: 100%;
+}
+
+input[type=text]:focus {
+  font-family: "Helvetica Neue";
+  font-size: larger;
+  color: #282828;
+  font-weight: 400;
+}
+
+input[type=text] {
+  font-family: "Helvetica Neue";
+  font-size: larger;
+  color: #282828;
+  font-weight: 400;
+}
+
+.prompt {
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
