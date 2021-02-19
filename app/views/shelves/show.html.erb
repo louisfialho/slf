@@ -33,14 +33,14 @@
 
 <!-- OPTIONS -->
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
-      <div>
+      <div class="option add-option">
       <% if policy(Item).create? %>
-        <%= link_to '📚 New object', new_item_path(shelf_id: params[:id]), class: "option add-option" %>
+        📚 New object
       <% end %>
       </div>
-      <div>
+      <div class="option add-option">
       <% if policy(Space).create? %>
-        <%= link_to '🗄 New space', new_space_path(shelf_id: params[:id]), class: "option add-option" %>
+        🗄 New space
       <% end %>
       </div>
     </div>
