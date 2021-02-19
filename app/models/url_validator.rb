@@ -1,9 +1,14 @@
 class UrlValidator < ActiveModel::EachValidator
 
-require 'net/http'
-require 'uri'
-require 'open-uri'
-require 'nokogiri'
+  # summary: 3 steps:
+  # 1. We extract the URL if there is one before validation, and end up with a string
+  # 2. We test that the string is a valid url (here)
+  # 3. We test that the valid url is a working url (here)
+
+  require 'net/http'
+  require 'uri'
+  require 'open-uri'
+  require 'nokogiri'
 
   def self.url?(value)
     uri = URI.parse(value)
