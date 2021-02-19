@@ -6,16 +6,14 @@ class Item < ApplicationRecord
   STATUS = [1, 2, 3] # 1 = not started
   RANK = [1, 2, 3] # 1 = high prio
 
-  validates :url, presence: true
+  validates :url, presence: true, url: true # see custom class
   validates :rank, :inclusion => 1..3, allow_nil: true
   validates :status, :inclusion => 1..3, allow_nil: true
 
-  before_validation :set_item_parameters, on: :create
-
-  def set_item_parameters
-    self.name = "no name" if name.blank?
-    self.medium = "other" if medium.blank?
-    self.status = 1 if status.blank?
-    self.rank = 2 if rank.blank?
-  end
+  # def set_item_parameters
+  #   self.name = "no name" if name.blank?
+  #   self.medium = "other" if medium.blank?
+  #   self.status = 1 if status.blank?
+  #   self.rank = 2 if rank.blank?
+  # end
 end

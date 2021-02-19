@@ -42,20 +42,16 @@ rescue URI::InvalidURIError
 end
 
 def working_url?(url_str)
-    begin
-      Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPSuccess)
-    rescue
-      false
-    end
+  Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPSuccess)
+  rescue
+    false
 end
 
 
 def is_redirect?(url_str)
-  begin
-    Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPRedirection)
+  Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPRedirection)
   rescue
     false
-  end
 end
 
 def final_url(url_str)
