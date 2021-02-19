@@ -12,10 +12,10 @@
       <br>
     </div>
 
-    <div class="new-url-ctn">
+    <div class="add-url-ctn" id="add-url" style="display:none;">
       <p class="option prompt" > Copy and paste the URL 🌐 for this new object </p>
       <%= simple_form_for (@item) do |f| %>
-        <%= f.text_field :url, autofocus: true, onpaste: 'setTimeout(function(){ form.submit(); }, 0.1);', onblur: 'this.focus()', class: 'txt-inpt' %>
+        <%= f.text_field :url, onpaste: 'setTimeout(function(){ form.submit(); }, 0.1);', class: 'txt-inpt' %> <!-- autofocus: true, onblur: 'this.focus()' -->
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
         <%= f.submit "Add item", style: "display: none;" %>
       <% end %>
@@ -33,14 +33,14 @@
 
 <!-- OPTIONS -->
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
-      <div class="option add-option">
+      <div class="option add-option" id="new-object">
       <% if policy(Item).create? %>
-        📚 New object
+        <a>📚 New object</a>
       <% end %>
       </div>
       <div class="option add-option">
       <% if policy(Space).create? %>
-        🗄 New space
+        <a>🗄 New space</a>
       <% end %>
       </div>
     </div>
