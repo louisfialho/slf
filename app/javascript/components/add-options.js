@@ -2,6 +2,8 @@ const displayAddOptions = () => {
   const addBtn = document.getElementById('add-btn');
   const addOptionsBox = document.getElementById('add-options');
   const actions = document.getElementById('add-action');
+  const newObjectBtn = document.getElementById('new-object');
+  const addUrlBox = document.getElementById('add-url');
 
   addBtn.addEventListener("mouseover", (event) => {
     addBtn.className = "grey-circle options";
@@ -14,12 +16,16 @@ const displayAddOptions = () => {
   });
 
  addBtn.addEventListener("click", (event) => {
+  if (addUrlBox.style.display === "none") {
     if (addOptionsBox.style.display === "none") {
       actions.style.display = "none"
       addOptionsBox.style.display = "";
     } else {
       addOptionsBox.style.display = "none";
     }
+  } else {
+    addUrlBox.style.display = "none"
+  }
   });
 
 document.addEventListener('click', function(event) {
@@ -28,9 +34,6 @@ document.addEventListener('click', function(event) {
       addOptionsBox.style.display = "none";
     }
 });
-
-  const addUrlBox = document.getElementById('add-url');
-  const newObjectBtn = document.getElementById('new-object');
 
   newObjectBtn.addEventListener("click", (event) => {
     addOptionsBox.style.display = "none";
