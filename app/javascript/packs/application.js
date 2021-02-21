@@ -26,7 +26,7 @@ require("channels")
 import "bootstrap";
 import { updateStatus } from '../components/update';
 import { displaySave } from '../components/display-save';
-import { displayOptions } from '../components/options';
+import { displayItemOptions } from '../components/item-options';
 import { displayAddOptions } from '../components/add-options';
 import { displayAddUrl } from '../components/add-url';
 
@@ -44,7 +44,7 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   if (document.querySelector("#options-btn")) {
-    displayOptions();
+    displayItemOptions();
   }
 
   if (document.querySelector("#add-btn")) {

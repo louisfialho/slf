@@ -1,4 +1,4 @@
-const displayOptions = () => {
+const displayItemOptions = () => {
   const optionsBtn = document.getElementById('options-btn');
   const options = document.getElementById('options');
   const actions = document.getElementById('actions');
@@ -53,4 +53,4 @@ const displayOptions = () => {
 
 }
 
-export { displayOptions };
+export { displayItemOptions };
