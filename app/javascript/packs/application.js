@@ -28,7 +28,6 @@ import { updateStatus } from '../components/update';
 import { displaySave } from '../components/display-save';
 import { displayItemOptions } from '../components/item-options';
 import { displayAddOptions } from '../components/add-options';
-import { displayAddUrl } from '../components/add-url';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -49,10 +48,6 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector("#add-btn")) {
     displayAddOptions();
-  }
-
-  if (document.querySelector("#add-url")) {
-    displayAddUrl();
   }
 
 });

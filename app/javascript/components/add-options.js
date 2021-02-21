@@ -1,6 +1,6 @@
 const displayAddOptions = () => {
   const addBtn = document.getElementById('add-btn');
-  const addOptions = document.getElementById('add-options');
+  const addOptionsBox = document.getElementById('add-options');
   const actions = document.getElementById('add-action');
 
   addBtn.addEventListener("mouseover", (event) => {
@@ -14,20 +14,33 @@ const displayAddOptions = () => {
   });
 
  addBtn.addEventListener("click", (event) => {
-    if (addOptions.style.display === "none") {
+    if (addOptionsBox.style.display === "none") {
       actions.style.display = "none"
-      addOptions.style.display = "";
+      addOptionsBox.style.display = "";
     } else {
-      addOptions.style.display = "none";
+      addOptionsBox.style.display = "none";
     }
   });
 
 document.addEventListener('click', function(event) {
-    var isClickInsideOpt = addOptions.contains(event.target) ||  addBtn.contains(event.target);
+    var isClickInsideOpt = addOptionsBox.contains(event.target) ||  addBtn.contains(event.target);
     if (!isClickInsideOpt) {
-      addOptions.style.display = "none";
+      addOptionsBox.style.display = "none";
     }
 });
+
+  const addUrlBox = document.getElementById('add-url');
+  const newObjectBtn = document.getElementById('new-object');
+
+  newObjectBtn.addEventListener("click", (event) => {
+    addOptionsBox.style.display = "none";
+    addUrlBox.style.display = "";
+    document.getElementById('item_url').focus()
+  });
+
 }
 
 export { displayAddOptions };
+
+
+
