@@ -6,7 +6,7 @@ const displayAddUrl = () => {
   newObjectBtn.addEventListener("click", (event) => {
     addOptionsBox.style.display = "none";
     addUrlBox.style.display = "";
-    document.getElementById('item_url').autofocus;
+    document.getElementById('item_url').focus()
   });
 }
 
