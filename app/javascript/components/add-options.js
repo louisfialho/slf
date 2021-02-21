@@ -28,17 +28,28 @@ const displayAddOptions = () => {
   }
   });
 
-document.addEventListener('click', function(event) {
-    var isClickInsideOpt = addOptionsBox.contains(event.target) ||  addBtn.contains(event.target);
-    if (!isClickInsideOpt) {
-      addOptionsBox.style.display = "none";
+  document.addEventListener('click', function(event) {
+    if (addUrlBox.style.display === "none") {
+      var isClickInsideOpt = addOptionsBox.contains(event.target) ||  addBtn.contains(event.target);
+      if (!isClickInsideOpt) {
+        addOptionsBox.style.display = "none";
+      }
     }
-});
+  });
 
   newObjectBtn.addEventListener("click", (event) => {
     addOptionsBox.style.display = "none";
     addUrlBox.style.display = "";
     document.getElementById('item_url').focus()
+  });
+
+  document.addEventListener('click', function(event) {
+    if (addUrlBox.style.display === "") {
+      var isClickInsideUrlBox = addUrlBox.contains(event.target) ||  addBtn.contains(event.target) || newObjectBtn.contains(event.target);
+      if (!isClickInsideUrlBox) {
+        addUrlBox.style.display = "none";
+      }
+    }
   });
 
 }
