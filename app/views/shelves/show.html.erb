@@ -12,15 +12,6 @@
       <br>
     </div>
 
-    <div class="options-ctn options-ctn-shelf-space" id="add-url" style="display:none;">
-      <p class="option prompt" > Copy and paste the URL 🌐 for this new object </p>
-      <%= simple_form_for (@item) do |f| %>
-        <%= f.text_field :url, onpaste: 'setTimeout(function(){ form.submit(); }, 0.1);', class: 'txt-inpt' %> <!-- autofocus: true, onblur: 'this.focus()' -->
-        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-        <%= f.submit "Add item", style: "display: none;" %>
-      <% end %>
-    </div>
-
     <div class="options" id="add-btn">
       <%= image_tag "Plus.png", alt: "Plus", width: 33 %>
     </div>
@@ -46,7 +37,16 @@
     </div>
 <!-- END OF OPTIONS -->
 
-
+<!-- ADD URL BOX -->
+    <div class="options-ctn options-ctn-shelf-space" id="add-url" style="display:none;">
+      <p class="option prompt" > Copy and paste the URL 🌐 for this new object </p>
+      <%= simple_form_for (@item) do |f| %>
+        <%= f.text_field :url, onpaste: 'setTimeout(function(){ form.submit(); }, 0.1);', class: 'txt-inpt' %> <!-- autofocus: true, onblur: 'this.focus()' -->
+        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+        <%= f.submit "Add item", style: "display: none;" %>
+      <% end %>
+    </div>
+<!-- END OF ADD URL BOX -->
 
 <!-- IF SHELF IS EMPTY -->
 <% if @shelf.spaces.empty? && @shelf.items.empty? %>
