@@ -9,16 +9,23 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
 
   def create
     @item = Item.new(item_params)
-    @item.save
     authorize @item
-    if params[:item][:shelf_id].present?
-      @shelf = Shelf.find(params[:item][:shelf_id])
-      @shelf.items << @item
-      redirect_to item_path(@item, shelf_id: @shelf.id)
-    elsif params[:item][:space_id].present?
-      @space = Space.find(params[:item][:space_id])
-      @space.items << @item
-      redirect_to item_path(@item, space_id: @space.id)
+    if @item.save
+      if params[:item][:shelf_id].present?
+        @shelf = Shelf.find(params[:item][:shelf_id])
+        @shelf.items << @item
+        redirect_to item_path(@item, shelf_id: @shelf.id)
+      elsif params[:item][:space_id].present?
+        @space = Space.find(params[:item][:space_id])
+        @space.items << @item
+        redirect_to item_path(@item, space_id: @space.id)
+      end
+    else
+      if params[:item][:shelf_id].present?
+        redirect_to shelf_path(Shelf.find(params[:item][:shelf_id]))
+      elsif params[:item][:space_id].present?
+        redirect_to space_path(Space.find(params[:item][:space_id]))
+      end
     end
   end
 
