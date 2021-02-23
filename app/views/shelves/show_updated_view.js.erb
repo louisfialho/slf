@@ -1,0 +1,17 @@
+var element = document.querySelector("#new_item");
+var addUrlPrompt = document.querySelector("#add-url-prompt");
+element.addEventListener("ajax:success", (event) => {
+          addUrlPrompt.innerHTML = "Please paste a valid URL 🌐 to create an object";
+});
+element.addEventListener("ajax:error", () => {
+          addUrlPrompt.innerHTML = "err!";
+});
+
+  // const element = document.querySelector("#new-article");
+  // element.addEventListener("ajax:success", (event) => {
+  //   const [_data, _status, xhr] = event.detail;
+  //   element.insertAdjacentHTML("beforeend", xhr.responseText);
+  // });
+  // element.addEventListener("ajax:error", () => {
+  //   element.insertAdjacentHTML("beforeend", "<p>ERROR</p>");
+  // });

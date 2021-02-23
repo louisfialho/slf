@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
 before_action :set_item, only: [:show, :edit, :update, :destroy]
 before_action :set_shelf_space, only: [:new, :show, :edit]
+skip_before_action :verify_authenticity_token
+
 
   def new
     @item = Item.new
@@ -10,24 +12,29 @@ before_action :set_shelf_space, only: [:new, :show, :edit]
   def create
     @item = Item.new(item_params)
     authorize @item
-    if @item.save
-      if params[:item][:shelf_id].present?
-        @shelf = Shelf.find(params[:item][:shelf_id])
-        @shelf.items << @item
-        redirect_to item_path(@item, shelf_id: @shelf.id)
-      elsif params[:item][:space_id].present?
-        @space = Space.find(params[:item][:space_id])
-        @space.items << @item
-        redirect_to item_path(@item, space_id: @space.id)
-      end
-    else
-      if params[:item][:shelf_id].present?
-        redirect_to shelf_path(Shelf.find(params[:item][:shelf_id]))
-      elsif params[:item][:space_id].present?
-        redirect_to space_path(Space.find(params[:item][:space_id]))
+    respond_to do |format|
+      if @item.valid?
+        if params[:item][:shelf_id].present?
+          @shelf = Shelf.find(params[:item][:shelf_id])
+          @shelf.items << @item
+          format.html do
+            redirect_to item_path(@item, shelf_id: @shelf.id)
+          end
+        elsif params[:item][:space_id].present?
+          @space = Space.find(params[:item][:space_id])
+          @space.items << @item
+          format.html do
+            redirect_to item_path(@item, space_id: @space.id)
+          end
+        end
+      else
+        format.js { render 'shelves/show_updated_view' }
+        format.json { head :ok }
       end
     end
   end
+
+
 
   def index
     @items = policy_scope(Item)
