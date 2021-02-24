@@ -40,7 +40,12 @@ const displayAddOptions = () => {
   newObjectBtn.addEventListener("click", (event) => {
     addOptionsBox.style.display = "none";
     addUrlBox.style.display = "";
-    document.getElementById('item_url').focus()
+    const form = document.getElementById('new_item')
+    const txtInpt = document.getElementById('item_url')
+    txtInpt.focus();
+    txtInpt.addEventListener('paste', function(event) {
+      setTimeout(function(){ Rails.fire(form, 'submit'); }, 0.1);
+    });
   });
 
   document.addEventListener('click', function(event) {

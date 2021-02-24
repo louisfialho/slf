@@ -42,7 +42,7 @@
     <div class="options-ctn options-ctn-shelf-space" id="add-url" style="display:none;">
       <p class="option prompt" id="add-url-prompt" > Copy and paste the URL 🌐 for this new object </p>
       <%= form_for @item, remote: true, :html => { "data-type" => :js } do |f| %>
-        <%= f.text_field :url, onpaste: 'setTimeout(function(){ form.submit(); }, 0.1);', class: 'txt-inpt' %> <!-- autofocus: true, onblur: 'this.focus()' -->
+        <%= f.text_field :url, class: 'txt-inpt' %> <!-- autofocus: true, onblur: 'this.focus()' --> <!-- onpaste: 'setTimeout(function(){ form.submit(); }, 0.1); -->
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
         <%= f.submit "Add item", style: "display: none;" %>
       <% end %>
