@@ -42,9 +42,11 @@ const displayAddOptions = () => {
     addUrlBox.style.display = "";
     const form = document.getElementById('new_item')
     const txtInpt = document.getElementById('item_url')
+    const loading = document.getElementById('loading')
     txtInpt.focus();
     txtInpt.addEventListener('paste', function(event) {
       setTimeout(function(){ Rails.fire(form, 'submit'); }, 0.1);
+      loading.style.display = ""
     });
   });
 
