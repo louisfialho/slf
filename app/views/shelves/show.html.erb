@@ -72,7 +72,7 @@
       <% if policy(space).show? %>
         <div class="object">
           <%= link_to image_tag("space.png", width: 85), space_path(space, shelf_id: @shelf.id) %>
-          <%= link_to truncate(space.name.capitalize, length: 45), space_path(space, shelf_id: @shelf.id), class: "object_name" %>
+          <%= link_to truncate(space.name.split.map(&:capitalize).join(' '), length: 45), space_path(space, shelf_id: @shelf.id), class: "object_name" %>
         </div>
       <% end %>
   <% end %>

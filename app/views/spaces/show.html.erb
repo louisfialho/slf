@@ -5,9 +5,9 @@
    <div class="collapse navbar-collapse" id="navbarSupportedContent"> </div>
 
   <% if @space.shelves.empty? == false %>
-    <h1 class="space-title"> <%= @space.name.capitalize %> </h1>
+    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
   <% elsif @parent %>
-    <h1 class="space-title"> <%= link_to @parent.name.capitalize, space_path(@parent) %> / <%= @space.name.capitalize %> </h1>
+    <h1 class="space-title"> <%= link_to @parent.name.split.map(&:capitalize).join(' '), space_path(@parent) %> / <%= @space.name.capitalize %> </h1>
   <% end %>
 
 <!--   <% if user_signed_in? %>
@@ -165,7 +165,7 @@
     <% @space.connections.first.space.children.each do |connection| %>
       <div class="object">
         <%= link_to image_tag("space.png", width: 85), space_path(connection.space) %>
-        <%= link_to truncate(connection.space.name.capitalize, length: 45), space_path(connection.space),  class: "object_name" %>
+        <%= link_to truncate(connection.space.name.split.map(&:capitalize).join(' '), length: 45), space_path(connection.space),  class: "object_name" %>
       </div>
     <% end %>
   <% end %>
