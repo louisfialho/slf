@@ -18,15 +18,17 @@ const displayAddOptions = () => {
   });
 
  addBtn.addEventListener("click", (event) => {
-  if (addUrlBox.style.display === "none") {
+  if (addUrlBox.style.display === "none" && addSpaceBox.style.display === "none") {
     if (addOptionsBox.style.display === "none") {
       actions.style.display = "none"
       addOptionsBox.style.display = "";
     } else {
       addOptionsBox.style.display = "none";
     }
-  } else {
+  } else if (addUrlBox.style.display === "" && addSpaceBox.style.display === "none") {
     addUrlBox.style.display = "none"
+  } else if (addUrlBox.style.display === "none" && addSpaceBox.style.display === "") {
+    addSpaceBox.style.display = "none"
   }
   });
 
@@ -71,6 +73,15 @@ const displayAddOptions = () => {
     spaceTxtInpt.addEventListener('paste', function(event) {
       setTimeout(function(){ spaceForm.submit() }, 0.1);
     });
+  });
+
+  document.addEventListener('click', function(event) {
+    if (addSpaceBox.style.display === "") {
+      var isClickInsideSpaceBox = addSpaceBox.contains(event.target) ||  addBtn.contains(event.target) || newSpaceBtn.contains(event.target);
+      if (!isClickInsideSpaceBox) {
+        addSpaceBox.style.display = "none";
+      }
+    }
   });
 
 
