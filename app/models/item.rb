@@ -54,7 +54,7 @@ class Item < ApplicationRecord
 
     def item_name(url)
       html_file = URI.open(url)
-      html_doc = Nokogiri::HTML(html_file)
+      html_doc = Nokogiri::HTML(html_file, nil, Encoding::UTF_8.to_s) # should manage UTF8 html_doc.encoding = 'UTF-8'
       if url.include? 'www.youtube'
         item_name = html_doc.at('meta[name="title"]')['content'] # works for YouTube
       else
