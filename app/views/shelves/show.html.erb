@@ -29,7 +29,7 @@
         <a>📚 New object</a>
       <% end %>
       </div>
-      <div class="option add-option">
+      <div class="option add-option" id="new-space">
       <% if policy(Space).create? %>
         <a>🗄 New space</a>
       <% end %>
@@ -47,6 +47,17 @@
       <% end %>
     </div>
 <!-- END OF ADD URL BOX -->
+
+<!-- ADD SPACE NAME BOX -->
+    <div class="options-ctn options-ctn-shelf-space" id="add-space" style="display:none;">
+      <p class="option prompt" id="add-space-prompt" > What is the name of this new space? 🗄 </p>
+      <%= simple_form_for @space, html: { autocomplete: 'off' } do |f| %>
+        <%= f.text_field :name, class: 'txt-inpt' %> <!-- autofocus: true, onblur: 'this.focus()' --> <!-- onpaste: 'setTimeout(function(){ form.submit(); }, 0.1); -->
+        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+        <%= f.submit "Add space", style: "display: none;" %>
+      <% end %>
+    </div>
+<!-- END OF ADD SPACE NAME BOX -->
 
 <!-- IF SHELF IS EMPTY -->
 <% if @shelf.spaces.empty? && @shelf.items.empty? %>

@@ -3,7 +3,9 @@ const displayAddOptions = () => {
   const addOptionsBox = document.getElementById('add-options');
   const actions = document.getElementById('add-action');
   const newObjectBtn = document.getElementById('new-object');
+  const newSpaceBtn = document.getElementById('new-space');
   const addUrlBox = document.getElementById('add-url');
+  const addSpaceBox = document.getElementById('add-space');
 
   addBtn.addEventListener("mouseover", (event) => {
     addBtn.className = "grey-circle options";
@@ -40,14 +42,14 @@ const displayAddOptions = () => {
   newObjectBtn.addEventListener("click", (event) => {
     addOptionsBox.style.display = "none";
     addUrlBox.style.display = "";
-    const form = document.getElementById('new_item')
-    const txtInpt = document.getElementById('item_url')
+    const itemForm = document.getElementById('new_item')
+    const itemTxtInpt = document.getElementById('item_url')
     const loading = document.getElementById('loading')
-    const prompt = document.getElementById('add-url-prompt')
-    txtInpt.focus();
-    txtInpt.addEventListener('paste', function(event) {
-      prompt.innerHTML = "Adding this new object 📚 to your shelf..."
-      setTimeout(function(){ Rails.fire(form, 'submit'); }, 0.1);
+    const itemPrompt = document.getElementById('add-url-prompt')
+    itemTxtInpt.focus();
+    itemTxtInpt.addEventListener('paste', function(event) {
+      itemPrompt.innerHTML = "Adding this new object 📚 to your shelf..."
+      setTimeout(function(){ Rails.fire(itemForm, 'submit'); }, 0.1);
     });
   });
 
@@ -59,6 +61,18 @@ const displayAddOptions = () => {
       }
     }
   });
+
+  newSpaceBtn.addEventListener("click", (event) => {
+    addOptionsBox.style.display = "none";
+    addSpaceBox.style.display = "";
+    const spaceForm = document.getElementById('new_space')
+    const spaceTxtInpt = document.getElementById('space_name')
+    spaceTxtInpt.focus();
+    spaceTxtInpt.addEventListener('paste', function(event) {
+      setTimeout(function(){ spaceForm.submit() }, 0.1);
+    });
+  });
+
 
 }
 
