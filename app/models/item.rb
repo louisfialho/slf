@@ -71,7 +71,7 @@ class Item < ApplicationRecord
         return 'video'
       elsif url.include?('spotify.com/episode') || url.include?('podcasts.apple')
         return 'podcast'
-      elsif url.include? 'www.amazon' || url.include?('ww.goodreads')
+      elsif url.include?('www.amazon') || url.include?('ww.goodreads')
         return 'book'
       else
         return 'other'
