@@ -5,7 +5,6 @@
 
     <h1 class="item-title">
       <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
-        <%= @item.name   %>
         <% if @item.medium == "book" %>
           📕
         <% elsif @item.medium == "podcast" %>
@@ -17,6 +16,7 @@
         <% elsif @item.medium == "other" %>
           🔍
         <% end %>
+        <%= @item.name   %>
       </a>
     </h1>
 
