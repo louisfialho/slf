@@ -43,10 +43,11 @@ const displayAddOptions = () => {
     const form = document.getElementById('new_item')
     const txtInpt = document.getElementById('item_url')
     const loading = document.getElementById('loading')
+    const prompt = document.getElementById('add-url-prompt')
     txtInpt.focus();
     txtInpt.addEventListener('paste', function(event) {
+      prompt.innerHTML = "Adding this new object 📚 to your shelf..."
       setTimeout(function(){ Rails.fire(form, 'submit'); }, 0.1);
-      loading.style.display = ""
     });
   });
 
