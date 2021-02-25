@@ -1,7 +1,9 @@
 var element = document.querySelector("#new_item");
 var addUrlPrompt = document.querySelector("#add-url-prompt");
+var txtInpt = document.getElementById('item_url')
 element.addEventListener("ajax:success", (event) => {
-          addUrlPrompt.innerHTML = "Please paste a valid URL 🌐 to create an object";
+          addUrlPrompt.innerHTML = "Could not find this URL 🌐 ... Please paste a valid URL ";
+          txtInpt.value = '';
 });
 element.addEventListener("ajax:error", () => {
           addUrlPrompt.innerHTML = "err!";
