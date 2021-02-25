@@ -70,7 +70,7 @@
   <% move_to_space_list.each do |space| %>
     <% if @space != space %>
       <li>
-        <%= link_to "🗄 #{space.name.capitalize}", { controller: "items", action: "move_to_space", item_id: @item.id, space_id: space.id }, {class: "option"} %>
+        <%= link_to "🗄 #{space.name.split.map(&:capitalize).join(' ')}", { controller: "items", action: "move_to_space", item_id: @item.id, space_id: space.id }, {class: "option"} %>
       </li>
     <% end %>
   <% end %>

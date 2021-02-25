@@ -182,7 +182,7 @@
           <% else item.medium == "web" %>
             <%= link_to image_tag("web.png", width: 80), item_path(item, space_id: @space.id) %>
           <% end %>
-          <%= link_to truncate(item.name.capitalize, length: 45), item_path(item, space_id: @space.id), class: "object_name" %>
+          <%= link_to truncate(item.name.split.map(&:capitalize).join(' '), length: 45), item_path(item, space_id: @space.id), class: "object_name" %>
         </div>
       <% end %>
   <% end %>
