@@ -71,7 +71,7 @@
 <% @shelf.spaces.each do |space| %>
       <% if policy(space).show? %>
         <div class="object">
-          <%= link_to image_tag("space.png", width: 85), space_path(space, shelf_id: @shelf.id) %>
+          <%= link_to image_tag("space.png", width: 95), space_path(space, shelf_id: @shelf.id) %>
           <%= link_to truncate(space.name.split.map(&:capitalize).join(' '), length: 45), space_path(space, shelf_id: @shelf.id), class: "object_name" %>
         </div>
       <% end %>
@@ -81,13 +81,13 @@
       <% if policy(item).show? %>
         <div class="object">
           <% if item.medium == "book" %>
-            <%= link_to image_tag("book.png", width: 80), item_path(item, shelf_id: @shelf.id) %>
+            <%= link_to image_tag("book.png", width: 90), item_path(item, shelf_id: @shelf.id) %>
           <% elsif item.medium == "podcast" %>
-            <%= link_to image_tag("podcast.png", width: 80), item_path(item, shelf_id: @shelf.id) %>
+            <%= link_to image_tag("podcast.png", width: 90), item_path(item, shelf_id: @shelf.id) %>
           <% elsif item.medium == "video" %>
-            <%= link_to image_tag("video.png", width: 80), item_path(item, shelf_id: @shelf.id) %>
+            <%= link_to image_tag("video.png", width: 90), item_path(item, shelf_id: @shelf.id) %>
           <% else item.medium == "web" %>
-            <%= link_to image_tag("web.png", width: 80), item_path(item, shelf_id: @shelf.id) %>
+            <%= link_to image_tag("web.png", width: 90), item_path(item, shelf_id: @shelf.id) %>
           <% end %>
           <%= link_to truncate(item.name, length: 45), item_path(item, shelf_id: @shelf.id), class: "object_name" %>
         </div>

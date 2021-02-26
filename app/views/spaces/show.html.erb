@@ -164,7 +164,7 @@
   <% if @space.children.empty? == false %>
     <% @space.connections.first.space.children.each do |connection| %>
       <div class="object">
-        <%= link_to image_tag("space.png", width: 85), space_path(connection.space) %>
+        <%= link_to image_tag("space.png", width: 95), space_path(connection.space) %>
         <%= link_to truncate(connection.space.name.split.map(&:capitalize).join(' '), length: 45), space_path(connection.space),  class: "object_name" %>
       </div>
     <% end %>
@@ -174,13 +174,13 @@
       <% if policy(item).show? %>
         <div class="object">
           <% if item.medium == "book" %>
-            <%= link_to image_tag("book.png", width: 80), item_path(item, space_id: @space.id) %>
+            <%= link_to image_tag("book.png", width: 90), item_path(item, space_id: @space.id) %>
           <% elsif item.medium == "podcast" %>
-            <%= link_to image_tag("podcast.png", width: 80), item_path(item, space_id: @space.id) %>
+            <%= link_to image_tag("podcast.png", width: 90), item_path(item, space_id: @space.id) %>
           <% elsif item.medium == "video" %>
-            <%= link_to image_tag("video.png", width: 80), item_path(item, space_id: @space.id) %>
+            <%= link_to image_tag("video.png", width: 90), item_path(item, space_id: @space.id) %>
           <% else item.medium == "web" %>
-            <%= link_to image_tag("web.png", width: 80), item_path(item, space_id: @space.id) %>
+            <%= link_to image_tag("web.png", width: 90), item_path(item, space_id: @space.id) %>
           <% end %>
           <%= link_to truncate(item.name.split.map(&:capitalize).join(' '), length: 45), item_path(item, space_id: @space.id), class: "object_name" %>
         </div>
