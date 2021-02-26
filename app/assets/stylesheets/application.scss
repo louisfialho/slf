@@ -59,6 +59,10 @@ body {
   flex-grow: 0;
 }
 
+.navbar {
+  padding: 1.5rem 1.75rem;
+}
+
 // container
 
 .grid-container {
@@ -66,9 +70,9 @@ body {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
     row-gap: 50px;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-top: 50px;
+    margin-left: 120px;
+    margin-right: 120px;
+    margin-top: 10px;
     grid-gap: 100px;
 }
 
