@@ -64,12 +64,12 @@ body {
 .grid-container {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     row-gap: 50px;
     margin-left: 100px;
     margin-right: 100px;
     margin-top: 50px;
-    grid-gap: 80px;
+    grid-gap: 100px;
 }
 
 // object
