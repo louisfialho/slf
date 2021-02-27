@@ -85,10 +85,28 @@ const displayAddOptions = () => {
   });
 
   const notStarted = document.getElementById('not-started');
+  const started = document.getElementById('started');
+  const finished = document.getElementById('finished');
 
   notStarted.addEventListener("click", (event) => {
-    document.querySelectorAll("[data-status='2']")[0].style.display = "none";
-    document.querySelectorAll("[data-status='3']")[0].style.display = "none";
+    var elems = document.querySelectorAll('div[data-status]:not([data-status="1"])');
+    for (var i=0;i<elems.length;i+=1){
+      elems[i].style.display = "none";
+    }
+  });
+
+  started.addEventListener("click", (event) => {
+    var elems = document.querySelectorAll('div[data-status]:not([data-status="2"])');
+    for (var i=0;i<elems.length;i+=1){
+      elems[i].style.display = "none";
+    }
+  });
+
+  finished.addEventListener("click", (event) => {
+    var elems = document.querySelectorAll('div[data-status]:not([data-status="3"])');
+    for (var i=0;i<elems.length;i+=1){
+      elems[i].style.display = "none";
+    }
   });
 
 }
