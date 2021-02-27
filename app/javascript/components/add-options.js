@@ -84,6 +84,11 @@ const displayAddOptions = () => {
     }
   });
 
+  const notStarted = document.getElementById('not-started');
+
+  notStarted.addEventListener("click", (event) => {
+    console.log('Not started!')
+  });
 
 }
 
