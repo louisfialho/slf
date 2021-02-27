@@ -12,12 +12,6 @@
       <br>
     </div> -->
 
-    <button type="button" class="update-btn" id="not-started">Not started</button>
-    <button type="button" class="update-btn" id="started">Started</button>
-    <button type="button" class="update-btn" id="finished">Finished</button>
-
-
-
     <div class="options" id="add-btn">
       <%= image_tag "Plus.png", alt: "Plus", width: 45 %>
     </div>
@@ -27,6 +21,13 @@
 <!-- END OF NAVBAR -->
 
   <div class="indicator add" id="add-action" style="display:none;">Add</div>
+
+
+    <div class="status-buttons-ctn">
+      <button type="button" class="status-update-btn" id="not-started">🙅 Not started</button>
+      <button type="button" class="status-update-btn" id="started">🧑‍💻 In progress</button>
+      <button type="button" class="status-update-btn" id="finished">💆 Finished</button>
+    </div>
 
 <!-- OPTIONS -->
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">

@@ -501,3 +501,28 @@ input[type=text] {
     margin-bottom: 0;
 }
 
+// styling filters
+
+// styling status buttons
+
+.status-buttons-ctn {
+    width: 200px;
+    background-color: white;
+    border: 1px solid #E8E8E8;
+    border-radius: 20px;
+    box-shadow: 2px 2px 11px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 10;
+}
+
+.status-update-btn {
+  padding: 5px 10px;
+  margin: 8px;
+  width: 150px;
+  color: #282828;
+  border: 2px solid #000000;
+  border-radius: 50px; /* 50rem; ? */
+  font-weight: lighter;
+  font-weight: 400;
+  background-color: white;
+}
