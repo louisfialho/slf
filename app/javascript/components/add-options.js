@@ -87,7 +87,8 @@ const displayAddOptions = () => {
   const notStarted = document.getElementById('not-started');
 
   notStarted.addEventListener("click", (event) => {
-    console.log('Not started!')
+    document.querySelectorAll("[data-status='2']")[0].style.display = "none";
+    document.querySelectorAll("[data-status='3']")[0].style.display = "none";
   });
 
 }
