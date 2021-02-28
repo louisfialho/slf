@@ -108,7 +108,6 @@ const displayAddOptions = () => {
     }
   });
 
-
   const notStarted = document.getElementById('not-started');
   const started = document.getElementById('started');
   const finished = document.getElementById('finished');
@@ -118,6 +117,7 @@ const displayAddOptions = () => {
     for (var i=0;i<elems.length;i+=1){
       elems[i].style.display = "none";
     }
+    statusOptionsCtn.style.display = "none"
   });
 
   started.addEventListener("click", (event) => {
@@ -125,6 +125,7 @@ const displayAddOptions = () => {
     for (var i=0;i<elems.length;i+=1){
       elems[i].style.display = "none";
     }
+    statusOptionsCtn.style.display = "none"
   });
 
   finished.addEventListener("click", (event) => {
@@ -132,6 +133,7 @@ const displayAddOptions = () => {
     for (var i=0;i<elems.length;i+=1){
       elems[i].style.display = "none";
     }
+    statusOptionsCtn.style.display = "none"
   });
 
 }
