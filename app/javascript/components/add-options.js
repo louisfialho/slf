@@ -84,6 +84,22 @@ const displayAddOptions = () => {
     }
   });
 
+  // filters
+
+  // status
+
+  const statusFilterBtn = document.getElementById('status-filter-btn');
+  const statusOptionsCtn = document.getElementById('status-options-ctn');
+
+  statusFilterBtn.addEventListener("click", (event) => {
+    if (statusOptionsCtn.style.display === "none") {
+      statusOptionsCtn.style.display = ""
+    } else if (statusOptionsCtn.style.display === "") {
+      statusOptionsCtn.style.display = "none"
+    }
+  });
+
+
   const notStarted = document.getElementById('not-started');
   const started = document.getElementById('started');
   const finished = document.getElementById('finished');

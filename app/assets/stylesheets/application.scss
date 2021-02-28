@@ -381,6 +381,7 @@ textarea {
 
 .options {
   margin-left: auto;
+  margin-right: 50px;
   height: 32px;
   width: 32px;
 }
@@ -505,7 +506,7 @@ input[type=text] {
 
 // styling status buttons
 
-.status-buttons-ctn {
+.filter-options-ctn {
     position: absolute;
     width: 190px;
     background-color: white;
@@ -515,9 +516,10 @@ input[type=text] {
     padding: 8px;
     z-index: 10;
     margin-left: 225px;
+    top: 95px;
 }
 
-.status-update-btn {
+.filter-btn {
   margin: 8px;
   padding: 5px 10px;
   width: 150px;
