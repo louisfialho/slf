@@ -111,9 +111,20 @@ const displayAddOptions = () => {
   const notStarted = document.getElementById('not-started');
   const started = document.getElementById('started');
   const finished = document.getElementById('finished');
+  const objects = document.querySelectorAll(".object");
+  const filterBtns = document.querySelectorAll(".filter-btn");
+
 
   notStarted.addEventListener("click", (event) => {
     if (!notStarted.classList.contains("active-btn")) {
+      for (var i=0;i<objects.length;i+=1) {
+        objects[i].style.display = "";
+      }
+      for (var i=0;i<filterBtns.length;i+=1) {
+        if (filterBtns[i].classList.contains("active-btn")) {
+          filterBtns[i].classList.remove("active-btn");
+        }
+      }
       var elems = document.querySelectorAll('div[data-status]:not([data-status="1"])');
       for (var i=0;i<elems.length;i+=1){
         elems[i].style.display = "none";
@@ -135,26 +146,66 @@ const displayAddOptions = () => {
   });
 
   started.addEventListener("click", (event) => {
-    var elems = document.querySelectorAll('div[data-status]:not([data-status="2"])');
-    for (var i=0;i<elems.length;i+=1){
-      elems[i].style.display = "none";
+    if (!started.classList.contains("active-btn")) {
+      for (var i=0;i<objects.length;i+=1){
+        objects[i].style.display = "";
+      }
+      for (var i=0;i<filterBtns.length;i+=1) {
+        if (filterBtns[i].classList.contains("active-btn")) {
+          filterBtns[i].classList.remove("active-btn");
+        }
+      }
+      var elems = document.querySelectorAll('div[data-status]:not([data-status="2"])');
+      for (var i=0;i<elems.length;i+=1){
+        elems[i].style.display = "none";
+      }
+      statusOptionsCtn.style.display = "none";
+      statusFilterBtn.classList.add("active-btn");
+      statusFilterBtn.innerHTML = "Status (1)";
+      started.classList.add("active-btn");
+    } else if (started.classList.contains("active-btn")) {
+      var elems = document.querySelectorAll('div[data-status]:not([data-status="2"])');
+      for (var i=0;i<elems.length;i+=1){
+        elems[i].style.display = "";
+      }
+      statusOptionsCtn.style.display = "none";
+      statusFilterBtn.classList.remove("active-btn");
+      statusFilterBtn.innerHTML = "Status";
+      started.classList.remove("active-btn");
     }
-    statusOptionsCtn.style.display = "none";
-    statusFilterBtn.classList.add("active-btn");
-    statusFilterBtn.innerHTML = "Status (1)";
-    started.classList.add("active-btn");
   });
 
   finished.addEventListener("click", (event) => {
-    var elems = document.querySelectorAll('div[data-status]:not([data-status="3"])');
-    for (var i=0;i<elems.length;i+=1){
-      elems[i].style.display = "none";
+    if (!finished.classList.contains("active-btn")) {
+      for (var i=0;i<objects.length;i+=1) {
+        objects[i].style.display = "";
+      }
+      for (var i=0;i<filterBtns.length;i+=1) {
+        if (filterBtns[i].classList.contains("active-btn")) {
+          filterBtns[i].classList.remove("active-btn");
+        }
+      }
+      var elems = document.querySelectorAll('div[data-status]:not([data-status="3"])');
+      for (var i=0;i<elems.length;i+=1) {
+        elems[i].style.display = "none";
+      }
+      statusOptionsCtn.style.display = "none";
+      statusFilterBtn.classList.add("active-btn");
+      statusFilterBtn.innerHTML = "Status (1)";
+      finished.classList.add("active-btn");
+    } else if (finished.classList.contains("active-btn")) {
+      var elems = document.querySelectorAll('div[data-status]:not([data-status="3"])');
+      for (var i=0;i<elems.length;i+=1){
+        elems[i].style.display = "";
+      }
+      statusOptionsCtn.style.display = "none";
+      statusFilterBtn.classList.remove("active-btn");
+      statusFilterBtn.innerHTML = "Status";
+      finished.classList.remove("active-btn");
     }
-    statusOptionsCtn.style.display = "none";
-    statusFilterBtn.classList.add("active-btn");
-    statusFilterBtn.innerHTML = "Status (1)";
-    finished.classList.add("active-btn");
   });
+
+  // The above code is not DRY: needs refactoring.
 
 }
 
