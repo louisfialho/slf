@@ -113,13 +113,25 @@ const displayAddOptions = () => {
   const finished = document.getElementById('finished');
 
   notStarted.addEventListener("click", (event) => {
-    var elems = document.querySelectorAll('div[data-status]:not([data-status="1"])');
-    for (var i=0;i<elems.length;i+=1){
-      elems[i].style.display = "none";
+    if (!notStarted.classList.contains("active-btn")) {
+      var elems = document.querySelectorAll('div[data-status]:not([data-status="1"])');
+      for (var i=0;i<elems.length;i+=1){
+        elems[i].style.display = "none";
+      }
+      statusOptionsCtn.style.display = "none";
+      statusFilterBtn.classList.add("active-btn");
+      statusFilterBtn.innerHTML = "Status (1)";
+      notStarted.classList.add("active-btn");
+    } else if (notStarted.classList.contains("active-btn")) {
+      var elems = document.querySelectorAll('div[data-status]:not([data-status="1"])');
+      for (var i=0;i<elems.length;i+=1){
+        elems[i].style.display = "";
+      }
+      statusOptionsCtn.style.display = "none";
+      statusFilterBtn.classList.remove("active-btn");
+      statusFilterBtn.innerHTML = "Status";
+      notStarted.classList.remove("active-btn");
     }
-    statusOptionsCtn.style.display = "none";
-    statusFilterBtn.classList.add("active-btn");
-    statusFilterBtn.innerHTML = "Status (1)";
   });
 
   started.addEventListener("click", (event) => {
@@ -130,6 +142,7 @@ const displayAddOptions = () => {
     statusOptionsCtn.style.display = "none";
     statusFilterBtn.classList.add("active-btn");
     statusFilterBtn.innerHTML = "Status (1)";
+    started.classList.add("active-btn");
   });
 
   finished.addEventListener("click", (event) => {
@@ -140,6 +153,7 @@ const displayAddOptions = () => {
     statusOptionsCtn.style.display = "none";
     statusFilterBtn.classList.add("active-btn");
     statusFilterBtn.innerHTML = "Status (1)";
+    finished.classList.add("active-btn");
   });
 
 }
