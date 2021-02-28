@@ -99,6 +99,15 @@ const displayAddOptions = () => {
     }
   });
 
+  document.addEventListener('click', function(event) {
+    if (statusOptionsCtn.style.display === "") {
+      var isClickInsideOptionsCtn = statusOptionsCtn.contains(event.target) ||  statusFilterBtn.contains(event.target);
+      if (!isClickInsideOptionsCtn) {
+        statusOptionsCtn.style.display = "none";
+      }
+    }
+  });
+
 
   const notStarted = document.getElementById('not-started');
   const started = document.getElementById('started');
