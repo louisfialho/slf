@@ -51,7 +51,7 @@ body {
 // navbar le wag
 
 .navbar-lewagon {
-  justify-content: space-between;
+  // justify-content: space-between;
   background: white;
 }
 
@@ -380,7 +380,7 @@ textarea {
 // positioning the options button on item show
 
 .options {
-  margin-right: 58px;
+  margin-left: auto;
   height: 32px;
   width: 32px;
 }
@@ -506,6 +506,7 @@ input[type=text] {
 // styling status buttons
 
 .status-buttons-ctn {
+    position: absolute;
     width: 190px;
     background-color: white;
     border: 1px solid #E8E8E8;
@@ -513,6 +514,7 @@ input[type=text] {
     box-shadow: 2px 2px 11px rgba(0,0,0,0.2);
     padding: 8px;
     z-index: 10;
+    margin-left: 225px;
 }
 
 .status-update-btn {
@@ -525,4 +527,10 @@ input[type=text] {
   font-weight: lighter;
   font-weight: 400;
   background-color: white;
+}
+
+// styling the container of the filter buttons
+
+.filter-options {
+  margin-left: 85px;
 }
