@@ -254,11 +254,10 @@ a {
 }
 
 .active-btn {
-    color:white;
-    background-color: #282828;
+    color:white !important;
+    background-color: #282828 !important;
     width: 163px;
 }
-
 
 // creating a container for the buttons on item show
 .buttons-ctn {
