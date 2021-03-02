@@ -15,7 +15,7 @@ class ItemPolicy < ApplicationPolicy
     elsif @parent
       if !@parent.shelves.empty?
         @parent.shelves.first.user == user
-      else
+      elsif !@parent.connections.first.root.space.shelves.first.user.empty?
         @parent.connections.first.root.space.shelves.first.user == user
       end
     end
