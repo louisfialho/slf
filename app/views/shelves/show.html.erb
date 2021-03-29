@@ -18,17 +18,19 @@
       <!-- <button type="button" class="rank-filter-btn">Rank</button> -->
     </div>
 
-    <div class="options" id="add-btn">
-      <%= image_tag "Plus.png", alt: "Plus", width: 45 %>
-    </div>
+    <% if policy(Item).create? && policy(Space).create? %>
+      <div class="options" id="add-btn">
+        <%= image_tag "Plus.png", alt: "Plus", width: 45 %>
+      </div>
+    <% end %>
+
+
 
   </div>
 </div>
 <!-- END OF NAVBAR -->
 
-<% if policy(Item).create? && policy(Space).create? %>
   <div class="indicator add" id="add-action" style="display:none;">Add</div>
-<% end %>
 
 
     <div class="filter-options-ctn" id="status-options-ctn" style="display:none;">
@@ -41,11 +43,9 @@
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
       <div class="option add-option" id="new-object">
         <a>📚 New object</a>
-      <% end %>
       </div>
       <div class="option add-option" id="new-space">
         <a>🗄 New space</a>
-      <% end %>
       </div>
     </div>
 <!-- END OF OPTIONS -->
