@@ -10,15 +10,16 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def create?
-    if @shelf
-      @shelf.user == user
-    elsif @parent
-      if !@parent.shelves.empty?
-        @parent.shelves.first.user == user
-      elsif !@parent.connections.first.root.space.shelves.empty?
-        @parent.connections.first.root.space.shelves.first.user == user
-      end
-    end
+    true
+    # if @shelf
+    #   @shelf.user == user
+    # elsif @parent
+    #   if !@parent.shelves.empty?
+    #     @parent.shelves.first.user == user
+    #   elsif !@parent.connections.first.root.space.shelves.empty?
+    #     @parent.connections.first.root.space.shelves.first.user == user
+    #   end
+    # end
   end
 
   def update?
