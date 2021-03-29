@@ -18,7 +18,7 @@
 
     <div class="buttons-ctn-show">
       <div>
-        <% if policy(@space).destroy? %>
+        <% if policy(@space).create? %>
           <div class="options" id="options-btn"> <!-- ajouter class="options" id="options-btn" -->
             <%= image_tag "options.png", alt: "Options", width: 45 %>
           </div>
@@ -28,7 +28,6 @@
         <%= image_tag "Plus.png", alt: "Plus", width: 45 %>
       </div>
     </div>
-
   </div>
 </div>
 <!-- END OF NAVBAR -->
