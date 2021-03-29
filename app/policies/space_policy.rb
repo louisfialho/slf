@@ -10,15 +10,16 @@ class SpacePolicy < ApplicationPolicy
   end
 
   def create?
-    if @shelf
-      @shelf.user == user
-    elsif @parent
-      if !@parent.shelves.empty?
-        @parent.shelves.first.user == user
-      else
-        @parent.connections.first.root.space.shelves.first.user == user  #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
-      end
-    end
+    true
+    # if @shelf
+    #   @shelf.user == user
+    # elsif @parent
+    #   if !@parent.shelves.empty?
+    #     @parent.shelves.first.user == user
+    #   else
+    #     @parent.connections.first.root.space.shelves.first.user == user  #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
+    #   end
+    # end
   end
 
   def update?
