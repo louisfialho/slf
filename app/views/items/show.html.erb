@@ -20,12 +20,13 @@
       </a>
     </h1>
 
-  <% if policy(@item).destroy? %>
     <div class="buttons-ctn-show buttons-ctn-item-show">
       <div>
-        <div class="options" id="options-btn">
-          <%= image_tag "options.png", alt: "Options", width: 33 %>
-        </div>
+        <% if policy(@item).destroy? %>
+          <div class="options" id="options-btn">
+            <%= image_tag "options.png", alt: "Options", width: 33 %>
+          </div>
+        <% end %>
       </div>
       <% if @shelf %>
         <%= link_to image_tag("Plus.png", width: 40).html_safe, shelf_path(@shelf), class: 'rotated' %>
@@ -33,7 +34,6 @@
         <%= link_to image_tag("Plus.png", width: 40).html_safe, space_path(@space), class: 'rotated' %>
       <% end %>
     </div>
-  <% end %>
 </div>
 <!-- END OF NAVBAR -->
 

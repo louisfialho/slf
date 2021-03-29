@@ -16,6 +16,7 @@
         <%= link_to "Log in", new_user_session_path %>
       <% end %> -->
 
+  <% if policy(@space).destroy? %>
     <div class="buttons-ctn-show">
       <div>
         <div class="options" id="options-btn"> <!-- ajouter class="options" id="options-btn" -->
@@ -26,7 +27,7 @@
         <%= image_tag "Plus.png", alt: "Plus", width: 45 %>
       </div>
     </div>
-
+  <% end %>
   </div>
 </div>
 <!-- END OF NAVBAR -->
