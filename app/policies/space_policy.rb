@@ -10,16 +10,15 @@ class SpacePolicy < ApplicationPolicy
   end
 
   def create?
-    true
-    # if @shelf
-    #   @shelf.user == user
-    # elsif @parent
-    #   if !@parent.shelves.empty?
-    #     @parent.shelves.first.user == user
-    #   else
-    #     @parent.connections.first.root.space.shelves.first.user == user  #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
-    #   end
-    # end
+    if @shelf
+      @shelf.user == user
+    elsif @parent
+      if !@parent.shelves.empty?
+        @parent.shelves.first.user == user
+      else
+        @parent.connections.last.root.space.shelves.first.user == user  #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
+      end
+    end
   end
 
   def update?
@@ -31,12 +30,11 @@ class SpacePolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
-    # if !record.shelves.empty?
-    #   record.shelves.first.user == user
-    # elsif !record.connections.first.parent.nil?
-    #   record.connections.first.root.space.shelves.first.user == user #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
-    # end
+    if !record.shelves.empty?
+      record.shelves.first.user == user
+    elsif !record.connections.first.parent.nil?
+      record.connections.last.root.space.shelves.first.user == user #assuming a child space can have only one parent space, a parent space can have only one shelf, a shelf can belong only to one user.
+    end
   end
 
   def move_space_to_space?
