@@ -37,27 +37,27 @@
 <!-- END OF INDICATORS -->
 
 <!-- OPTIONS SPACE -->
+  <% if policy(@space).destroy? %>
     <div class="options-ctn options-ctn-shelf-space" id="options" style="display:none;">
       <div>
         <%= image_tag "Arrow - Right.png", alt: "Move", width: 19 %>
         <a class="option" id="move-to">Move space</a>
       </div>
       <div>
-    <% if policy(@space).destroy? %>
       <% if @space.shelves.empty? == false %>
         <%= link_to image_tag("Delete.png", width: 19), space_path(@space, shelf_id: @space.shelves.first.id), method: :delete %>
         <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option" %>
       <% elsif @space.connections.last.parent.space.present? == true %>
         <%= link_to image_tag("Delete.png", width: 19), space_path(@space, parent_id: @space.connections.last.parent.space.id), method: :delete %>
         <%= link_to 'Delete space', space_path(@space, parent_id: @space.connections.last.parent.space.id), method: :delete, class: "option" %>
-    <% end %>
-  <% end %>
+      <% end %>
       </div>
 <!--       <div>
       <%= image_tag "Edit.png", alt: "Edit", width: 19 %>
       <a class="option">Edit space</a>
       </div> -->
     </div>
+  <% end %>
 <!-- END OF OPTIONS SPACE -->
 
 
