@@ -49,7 +49,7 @@
         <%= link_to 'Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option" %>
       <% elsif @space.connections.last.parent.space.present? == true %>
         <%= link_to image_tag("Delete.png", width: 19), space_path(@space, parent_id: @space.connections.first.parent.space.id), method: :delete %>
-        <%= link_to 'Delete space', space_path(@space, parent_id: @space.connections.first.parent.space.id), method: :delete, class: "option" %>
+        <%= link_to 'Delete space', space_path(@space, parent_id: @space.connections.last.parent.space.id), method: :delete, class: "option" %>
     <% end %>
   <% end %>
       </div>
