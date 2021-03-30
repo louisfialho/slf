@@ -35,27 +35,29 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def move_to_space?
-    if !record.shelves.empty?
-      record.shelves.first.user == user # Only shelf holder can update it
-    elsif !record.spaces.empty?
-      if !record.spaces.first.shelves.empty?
-        record.spaces.first.shelves.first.user == user
-      else
-        record.spaces.first.connections.first.root.space.shelves.first.user == user
-      end
-    end
+    true
+    # if !record.shelves.empty?
+    #   record.shelves.first.user == user # Only shelf holder can update it
+    # elsif !record.spaces.empty?
+    #   if !record.spaces.first.shelves.empty?
+    #     record.spaces.first.shelves.first.user == user
+    #   else
+    #     record.spaces.first.connections.first.root.space.shelves.first.user == user
+    #   end
+    # end
   end
 
   def move_to_shelf?
-    if !record.shelves.empty?
-      record.shelves.first.user == user # Only shelf holder can update it
-    elsif !record.spaces.empty?
-      if !record.spaces.first.shelves.empty?
-        record.spaces.first.shelves.first.user == user
-      else
-        record.spaces.first.connections.first.root.space.shelves.first.user == user
-      end
-    end
+    true
+    # if !record.shelves.empty?
+    #   record.shelves.first.user == user # Only shelf holder can update it
+    # elsif !record.spaces.empty?
+    #   if !record.spaces.first.shelves.empty?
+    #     record.spaces.first.shelves.first.user == user
+    #   else
+    #     record.spaces.first.connections.first.root.space.shelves.first.user == user
+    #   end
+    # end
   end
 
   def destroy?
