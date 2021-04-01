@@ -12,11 +12,9 @@
       <br>
     </div> -->
 
-    <div class="filter-options">
-      <!-- <button type="button" class="medium-filter-btn">Medium</button> -->
+<!--     <div class="filter-options">
       <button class="filter-btn" id="status-filter-btn">Status</button>
-      <!-- <button type="button" class="rank-filter-btn">Rank</button> -->
-    </div>
+    </div> -->
 
     <% if policy(Item).create? && policy(Space).create? %>
       <div class="options" id="add-btn">
@@ -90,7 +88,7 @@
       <% end %>
   <% end %>
 
-  <% @shelf.items.order(:rank, :status, created_at: :desc).each do |item| %>
+  <% @shelf.items.order(created_at: :desc).each do |item| %>
       <% if policy(item).show? %>
         <%= content_tag :div, class: "object", style: "", data: {status: item.status} do %>
           <% if item.medium == "book" %>

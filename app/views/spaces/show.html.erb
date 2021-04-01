@@ -135,7 +135,7 @@
     <% end %>
   <% end %>
 
-  <% @space.items.order(:rank, :status, created_at: :desc).each do |item| %>
+  <% @space.items.order(created_at: :desc).each do |item| %>
       <% if policy(item).show? %>
         <div class="object">
           <% if item.medium == "book" %>
