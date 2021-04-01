@@ -6,13 +6,16 @@ class User < ApplicationRecord
 
 has_many :shelves
 
-after_create :create_shelf, :add_telegram_hash
+after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash
 
 require "base64"
 
-def create_shelf
+def create_shelf_and_space_for_Telegram_items
     shelf = Shelf.new(user_id: self.id)
     shelf.save
+    space = Space.new(name: "Objects added by Shelf Bot 🤖")
+    space.save
+    shelf.spaces << space
 end
 
 def add_telegram_hash
