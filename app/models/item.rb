@@ -13,8 +13,6 @@ class Item < ApplicationRecord
   RANK = [1, 2, 3] # 1 = high prio
 
   validates :url, presence: true, url: true # see custom class
-  validates :rank, :inclusion => 1..3, allow_nil: true
-  validates :status, :inclusion => 1..3, allow_nil: true
 
   before_validation :extract_url, :get_redirect_if_exists, on: :create # makes sure the persisted value is a url (no additional character), and, in case of a redirect, the final redirect
   after_validation :set_params
@@ -48,8 +46,6 @@ class Item < ApplicationRecord
     def set_params
       self.name = item_name(url) if name.blank?
       self.medium = item_medium(url) if medium.blank?
-      self.status = 1 if status.blank?
-      self.rank = 2 if rank.blank?
     end
 
     def item_name(url)

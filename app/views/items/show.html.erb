@@ -80,38 +80,8 @@
 </div>
 <!-- END OF MOVING AN ITEM TO A SPACE OR SHELF -->
 
-
-<!-- UPDATE BUTTONS -->
-<!-- <div class='update-btns'>
-  <button class='update-btn active-btn' id='update-status'>
-    <% if @item.status == 1%>
-      🙅 Not started
-    <% elsif @item.status == 2%>
-      🧑‍💻 In progress
-    <% elsif @item.status == 3%>
-      💆 Finished
-    <% end %>
-  </button>
-
-  <button class='update-btn active-btn' id='update-rank'>
-    <% if @item.rank == 3%>
-      😴 Low rank
-    <% elsif @item.rank == 2%>
-      🤔 Medium rank
-    <% elsif @item.rank == 1%>
-      😱 High rank
-    <% end %>
-
-  </button>
-</div> -->
-<!-- END OF UPDATE BUTTONS -->
-
 <% if @shelf %>
   <%= simple_form_for (@item) do |f| %>
-<!--     <div class='filter-boxes'>
-      <div class='buttons-ctn' id='opts-status' style="display:none;"> <%= f.input :status, label: false, collection: [['🙅 Not started', 1], ['🧑‍💻 In progress', 2], ['💆 Finished', 3]], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" } %> </div>
-      <div class='buttons-ctn' id='opts-rank' style="display:none;"><%= f.input :rank, label: false, collection: [['😴 Low rank', 3], ['🤔 Medium rank', 2], ['😱 High rank', 1]], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" }%> </div>
-    </div> -->
     <div class='notes'> <!-- A remplacer par une div + globale main-container pr tt edit -->
       <h1 class="item-notes"><%= f.label :notes %></h1>
       <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area" } %>
@@ -124,10 +94,6 @@
 
 <% elsif @space %>
  <%= simple_form_for (@item) do |f| %>
-<!--     <div class='filter-boxes'>
-      <div class='buttons-ctn' id='opts-status' style="display:none;"> <%= f.input :status, label: false, collection: [['🙅 Not started', 1], ['🧑‍💻 In progress', 2], ['💆 Finished', 3]], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" } %> </div>
-      <div class='buttons-ctn' id='opts-rank' style="display:none;"><%= f.input :rank, label: false, collection: [['😴 Low rank', 3], ['🤔 Medium rank', 2], ['😱 High rank', 1]], as: :radio_buttons, input_html: { onchange: "this.form.submit()", class: "tag-selector select-btn" }%> </div>
-    </div> -->
     <div class='notes'> <!-- A remplacer par une div + globale main-container pr tt edit -->
       <h1 class="item-notes"><%= f.label :notes %></h1>
       <%= f.input :notes, as: :text, placeholder: 'Click to add notes', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area" } %>
