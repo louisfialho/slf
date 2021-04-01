@@ -124,7 +124,7 @@
   <div class="center"><p class="msg">This space is empty.</p></div>
 <% end %>
 
-<div class="grid-container">
+<div class="grid-container" id="results">
 
   <% if @space.children.empty? == false %>
     <% @space.connections.first.space.children.each do |connection| %>
