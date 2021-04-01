@@ -75,7 +75,7 @@
 
 
 <!-- IF SHELF HAS OBJECTS -->
-<div class="grid-container">
+<div class="grid-container" id="results">
 
 <% @shelf.spaces.each do |space| %>
       <% if policy(space).show? %>
