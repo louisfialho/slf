@@ -34,7 +34,7 @@ const initSortableSpace = () => {
   Sortable.create(list, {
   animation: 500,
   swapThreshold: 1,
-  group: "localStorage-example2",
+  group: `localStorage-example${list.dataset.sid}`,
   store: {
     /**
      * Get the order of elements. Called once during initialization.
