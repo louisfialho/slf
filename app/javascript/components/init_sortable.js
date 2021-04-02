@@ -3,6 +3,8 @@ import Sortable from 'sortablejs';
 const initSortable = () => {
   const list = document.querySelector('#results');
   Sortable.create(list, {
+  animation: 500,
+  swapThreshold: 1,
   group: "localStorage-example",
   store: {
     /**
