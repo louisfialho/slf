@@ -124,13 +124,13 @@
   <div class="center"><p class="msg">This space is empty.</p></div>
 <% end %>
 
-<div class="grid-container" id="results">
+<div class="grid-container" id="results-space">
 
   <% index = 0 %>
 
   <% if @space.children.empty? == false %>
     <% @space.connections.first.space.children.each do |connection| %>
-      <div class="object" data-id="<%= connection.space.id %>">
+      <div class="object" data-id="<%= index %>">
         <%= link_to image_tag("space.png", width: 100), space_path(connection.space) %>
         <%= link_to truncate(connection.space.name.split.map(&:capitalize).join(' '), length: 45), space_path(connection.space),  class: "object_name" %>
       </div>
@@ -140,7 +140,7 @@
 
   <% @space.items.order(created_at: :desc).each do |item| %>
       <% if policy(item).show? %>
-        <div class="object" data-id="<%= item.id %>">
+        <div class="object" data-id="<%= index %>">
           <% if item.medium == "book" %>
             <%= link_to image_tag("book.png", width: 100), item_path(item, space_id: @space.id) %>
           <% elsif item.medium == "podcast" %>

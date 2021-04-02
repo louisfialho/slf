@@ -75,13 +75,13 @@
 
 
 <!-- IF SHELF HAS OBJECTS -->
-<div class="grid-container" id="results">
+<div class="grid-container" id="results-shelf">
 
   <% index = 0 %>
 
   <% @shelf.spaces.each do |space| %>
       <% if policy(space).show? %>
-        <div class="object" data-id="<%= space.id %>">
+        <div class="object" data-id="<%= index %>">
           <%= link_to image_tag("space.png", width: 100), space_path(space, shelf_id: @shelf.id) %>
           <%= link_to truncate(space.name.split.map(&:capitalize).join(' '), length: 45), space_path(space, shelf_id: @shelf.id), class: "object_name" %>
         </div>
@@ -91,7 +91,7 @@
 
   <% @shelf.items.order(created_at: :desc).each do |item| %>
       <% if policy(item).show? %>
-        <div class="object" data-id="<%= item.id %>">
+        <div class="object" data-id="<%= index %>">
           <% if item.medium == "book" %>
             <%= link_to image_tag("book.png", width: 100), item_path(item, shelf_id: @shelf.id) %>
           <% elsif item.medium == "podcast" %>

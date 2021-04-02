@@ -29,7 +29,9 @@ import { displaySave } from '../components/display-save';
 import { displayItemOptions } from '../components/item-options';
 import { displayAddOptions } from '../components/add-options';
 
-import { initSortable } from '../components/init_sortable';
+import { initSortableShelf } from '../components/init_sortable';
+import { initSortableSpace } from '../components/init_sortable';
+
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -52,8 +54,12 @@ document.addEventListener('turbolinks:load', () => {
     displayAddOptions();
   }
 
-  if (document.querySelector("#results")) {
-    initSortable();
+  if (document.querySelector("#results-shelf")) {
+    initSortableShelf();
+  }
+
+  if (document.querySelector("#results-space")) {
+    initSortableSpace();
   }
 
 });
