@@ -28,7 +28,6 @@ import { updateStatus } from '../components/update';
 import { displaySave } from '../components/display-save';
 import { displayItemOptions } from '../components/item-options';
 import { displayAddOptions } from '../components/add-options';
-
 import { initSortableShelf } from '../components/init_sortable';
 import { initSortableSpace } from '../components/init_sortable';
 
@@ -61,7 +60,6 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector("#results-space")) {
     initSortableSpace();
   }
-
 });
 
 
