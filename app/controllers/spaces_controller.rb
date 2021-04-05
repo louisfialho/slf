@@ -131,14 +131,16 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
     current_position = @space.position
     new_position = params[:position].to_i
 
-    # SI L'ITEM EST SUR LA SHELF, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CETTE SHELF
-    # SI L'ITEM EST SUR UN SPACE, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CE SPACE
+    # SI LE SPACE EST SUR LA SHELF, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CETTE SHELF
+    # SI LE SPACE EST DANS UN SPACE, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CE SPACE
     if @space.shelves.empty? == false
       @shelf = @space.shelves.first
       objects = @shelf.items + @shelf.spaces # array of rails objects
-    elsif @space.children.empty? == false #mmh
-      @space = @item.spaces.first # PARENT
-      objects = @space.items + @space.children.map { |connection| connection.space }
+    else
+      # sélectionner le space parent
+      @parent = @space.connections.first.parent.space
+      # sélectionner tous les objest du space parent
+      objects = @parent.items + @parent.children.map { |connection| connection.space }
     end
 
     objects.each do |object|
