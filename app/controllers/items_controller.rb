@@ -65,12 +65,22 @@ skip_before_action :verify_authenticity_token
   end
 
   def destroy
+    position = @item.position
     @item.destroy
     if params[:shelf_id].present?
       @shelf = Shelf.find(params[:shelf_id])
+      # Tous les spaces et objets sur shelf avec index > index obj perdent 1
+      @shelf.items.where('position > ?', position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
+      @shelf.spaces.where('position > ?', position).update_all('position = position - 1')
       redirect_to shelf_path(@shelf)
     elsif params[:space_id].present?
       @space = Space.find(params[:space_id])
+      # Tous les spaces et objets sur space avec index > index obj perdent 1
+      @space.items.where('position > ?', position).update_all('position = position - 1')
+      @space.children.each do |connection|
+        connection.space.position = connection.space.position - 1
+        connection.space.save
+      end
       redirect_to space_path(@space)
     end
   end

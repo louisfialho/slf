@@ -70,6 +70,7 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
   end
 
   def destroy
+    position = @space.position
     ids = []
     ids << @space.id
     if !@space.connections.empty?
@@ -83,9 +84,16 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
     Space.where(id: ids).destroy_all
     if params[:shelf_id].present?
       @shelf = Shelf.find(params[:shelf_id])
+      @shelf.items.where('position > ?', position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
+      @shelf.spaces.where('position > ?', position).update_all('position = position - 1')
       redirect_to shelf_path(@shelf)
     elsif params[:parent_id].present?
       @space = Space.find(params[:parent_id])
+      @space.items.where('position > ?', position).update_all('position = position - 1')
+      @space.children.each do |connection|
+        connection.space.position = connection.space.position - 1
+        connection.space.save
+      end
       redirect_to space_path(@space)
     end
   end
