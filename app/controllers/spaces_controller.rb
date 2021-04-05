@@ -130,10 +130,19 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
       @shelf = @space.shelves.first
       objects = @shelf.items + @shelf.spaces # array of rails objects
     else
+      # si le @space n'est pas parent (.children.empty?), alors il a une seule connection qui indique son parent
+      if @space.children.empty?
       # sélectionner le space parent
-      @parent = @space.connections.first.parent.space
-      # sélectionner tous les objest du space parent
-      objects = @parent.items + @parent.children.map { |connection| connection.space }
+        @parent = @space.connections.first.parent.space
+      else
+      # si le @space est lui-même parent, alors il a une connection 'nil' pour indiquer qu'il est parent. il faut regarder toutes les connections et trouver celle qui mentionne son parent.
+        @space.connections.each do |connection|
+          if connection.parent_id.nil? == false
+            @parent = connection.parent.space
+          end
+        end
+      # sélectionner tous les objets du space parent
+        objects = @parent.items + @parent.children.map { |connection| connection.space }
     end
 
     objects.each do |object|
