@@ -91,8 +91,10 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
       @space = Space.find(params[:parent_id])
       @space.items.where('position > ?', position).update_all('position = position - 1')
       @space.children.each do |connection|
-        connection.space.position = connection.space.position - 1
-        connection.space.save
+        if connection.space.position > position
+          connection.space.position = connection.space.position - 1
+          connection.space.save
+        end
       end
       redirect_to space_path(@space)
     end
