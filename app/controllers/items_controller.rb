@@ -103,8 +103,6 @@ skip_before_action :verify_authenticity_token
     current_position = @item.position
     new_position = params[:position].to_i
 
-    # SI L'ITEM EST SUR LA SHELF, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CETTE SHELF
-    # SI L'ITEM EST SUR UN SPACE, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CE SPACE
     if @item.shelves.empty? == false
       @shelf = @item.shelves.first
       objects = @shelf.items + @shelf.spaces # array of rails objects

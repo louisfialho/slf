@@ -121,18 +121,11 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
     redirect_to shelf_path(@shelf)
   end
 
-  # def move
-  #   @space.position = params[:position].to_i
-  #   @space.save
-  # end
-
   def move
     @space = Space.find(params[:id].to_i)
     current_position = @space.position
     new_position = params[:position].to_i
 
-    # SI LE SPACE EST SUR LA SHELF, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CETTE SHELF
-    # SI LE SPACE EST DANS UN SPACE, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CE SPACE
     if @space.shelves.empty? == false
       @shelf = @space.shelves.first
       objects = @shelf.items + @shelf.spaces # array of rails objects
