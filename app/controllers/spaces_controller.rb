@@ -141,8 +141,9 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
             @parent = connection.parent.space
           end
         end
+      end
       # sélectionner tous les objets du space parent
-        objects = @parent.items + @parent.children.map { |connection| connection.space }
+      objects = @parent.items + @parent.children.map { |connection| connection.space }
     end
 
     objects.each do |object|
