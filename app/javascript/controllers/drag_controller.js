@@ -8,7 +8,8 @@
 // </div>
 
 import { Controller } from "stimulus"
-import Sortable from 'sortablejs'
+import { Sortable, AutoScroll } from 'sortablejs';
+Sortable.mount(new AutoScroll());
 
 export default class extends Controller {
   static targets = [ "output" ]
