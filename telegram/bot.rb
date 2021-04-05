@@ -49,9 +49,16 @@ Telegram::Bot::Client.run(token) do |bot|
             if shelf.spaces.empty? == false
               if shelf.spaces.where(name: "Objects added by Shelf Bot 🤖").length == 1 #user did not create another one nor deleted it
                 space = shelf.spaces.where(name: "Objects added by Shelf Bot 🤖").first
+                space.items.update_all('position = position + 1')
+                space.children.each do |connection|
+                  connection.space.position += 1
+                  connection.space.save
+                end
                 space.items << item
                 bot.api.send_message(chat_id: message.chat.id, text: "#{item.name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?space_id=#{space.id}")
               else
+                shelf.items.update_all('position = position + 1')
+                shelf.spaces.update_all('position = position + 1')
                 shelf.items << item
                 bot.api.send_message(chat_id: message.chat.id, text: "#{item.name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
               end
