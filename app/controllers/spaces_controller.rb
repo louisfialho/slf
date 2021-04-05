@@ -130,8 +130,6 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
     @space = Space.find(params[:id].to_i)
     current_position = @space.position
     new_position = params[:position].to_i
-    @space.position = new_position
-    @space.save
 
     # SI L'ITEM EST SUR LA SHELF, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CETTE SHELF
     # SI L'ITEM EST SUR UN SPACE, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CE SPACE
@@ -147,26 +145,18 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
       if new_position < current_position
         if (object.position < current_position) && (object.position >= new_position)
           object.position += 1
-          object.save
+          object.save(validate: false)
         end
       elsif new_position > current_position
         if (object.position > current_position) && (object.position <= new_position)
           object.position = object.position - 1
-          object.save
+          object.save(validate: false)
         end
       end
     end
-    # # si je décale l'item vers la gauche (i1 < i0)
-    # if new_position < current_position
-    #   # les éléments dont l'index actuel est <i0 et >= i1 prennent +1
-    #   objects.where('position < ?', current_position).where('position >= ?', new_position).update_all('position = position + 1')
-    # # si je décale l'item vers la droite (i1 > i0)
-    # elsif new_position > current_position
-    #   # les éléments dont l'index actuel est >i0 et <= i1 prennent -1
-    #   objects.where('position > ?', current_position).where('position <= ?', new_position).update_all('position = position - 1')
-    # end
-    # # @item.insert_at(params[:position].to_i)
-    # # head :ok
+
+    @space.position = new_position
+    @space.save
   end
 
   private
