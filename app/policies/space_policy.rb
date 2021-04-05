@@ -57,4 +57,8 @@ class SpacePolicy < ApplicationPolicy
     # end
   end
 
+  def move? #intéressant il faut se poser la question: est-ce qu'un utilisateur peut move objects sur une autre shelf --> non
+    true
+  end
+
 end

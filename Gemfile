@@ -11,6 +11,8 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 gem 'acts_as_tree'
 
+gem 'acts_as_list'
+
 gem 'wicked'
 
 gem 'open-uri'

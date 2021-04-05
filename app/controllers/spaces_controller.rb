@@ -1,5 +1,5 @@
 class SpacesController < ApplicationController
-before_action :set_space, only: [:show, :edit, :update, :destroy]
+before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
 
   def new
     if params[:shelf_id].present?
@@ -19,6 +19,8 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
       authorize @space
       @space.save
       @shelf = Shelf.find(params[:space][:shelf_id])
+      @shelf.items.update_all('position = position + 1') # every new object has position 1 by default --> pushes all other positions to the right
+      @shelf.spaces.update_all('position = position + 1')
       @shelf.spaces << @space
       redirect_to shelf_path(@shelf)
     elsif params[:space][:parent_id].present?
@@ -26,6 +28,11 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
       authorize @child, policy_class: SpacePolicy
       @child.save
       @parent = Space.find(params[:space][:parent_id])
+      @parent.items.update_all('position = position + 1')
+      @parent.children.each do |connection|
+        connection.space.position += 1
+        connection.space.save
+      end
       if !@parent.shelves.empty? && @parent.connections.empty?
         s1 = Connection.create(space: @parent)
         s2 = s1.children.create(space: @child)
@@ -114,7 +121,53 @@ before_action :set_space, only: [:show, :edit, :update, :destroy]
     redirect_to shelf_path(@shelf)
   end
 
+  # def move
+  #   @space.position = params[:position].to_i
+  #   @space.save
+  # end
 
+  def move
+    @space = Space.find(params[:id].to_i)
+    current_position = @space.position
+    new_position = params[:position].to_i
+    @space.position = new_position
+    @space.save
+
+    # SI L'ITEM EST SUR LA SHELF, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CETTE SHELF
+    # SI L'ITEM EST SUR UN SPACE, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CE SPACE
+    if @space.shelves.empty? == false
+      @shelf = @space.shelves.first
+      objects = @shelf.items + @shelf.spaces # array of rails objects
+    elsif @space.children.empty? == false #mmh
+      @space = @item.spaces.first # PARENT
+      objects = @space.items + @space.children.map { |connection| connection.space }
+    end
+
+    objects.each do |object|
+      if new_position < current_position
+        if (object.position < current_position) && (object.position >= new_position)
+          object.position += 1
+          object.save
+        end
+      elsif new_position > current_position
+        if (object.position > current_position) && (object.position <= new_position)
+          object.position = object.position - 1
+          object.save
+        end
+      end
+    end
+    # # si je décale l'item vers la gauche (i1 < i0)
+    # if new_position < current_position
+    #   # les éléments dont l'index actuel est <i0 et >= i1 prennent +1
+    #   objects.where('position < ?', current_position).where('position >= ?', new_position).update_all('position = position + 1')
+    # # si je décale l'item vers la droite (i1 > i0)
+    # elsif new_position > current_position
+    #   # les éléments dont l'index actuel est >i0 et <= i1 prennent -1
+    #   objects.where('position > ?', current_position).where('position <= ?', new_position).update_all('position = position - 1')
+    # end
+    # # @item.insert_at(params[:position].to_i)
+    # # head :ok
+  end
 
   private
 

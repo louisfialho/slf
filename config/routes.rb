@@ -7,11 +7,17 @@ Rails.application.routes.draw do
       get :move_space_to_space
       get :move_space_to_shelf
     end
+    member do
+      patch :move
+    end
   end
   resources :items do
     collection do
       get :move_to_space
       get :move_to_shelf
+    end
+    member do
+      patch :move
     end
   end
 end

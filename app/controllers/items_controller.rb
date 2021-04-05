@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-before_action :set_item, only: [:show, :edit, :update, :destroy]
-before_action :set_shelf_space, only: [:new, :show, :edit]
+before_action :set_item, only: [:show, :edit, :update, :destroy, :move]
+before_action :set_shelf_space, only: [:new, :show, :edit, :move]
 skip_before_action :verify_authenticity_token
 
 
@@ -16,12 +16,21 @@ skip_before_action :verify_authenticity_token
       if @item.valid?
         if params[:item][:shelf_id].present?
           @shelf = Shelf.find(params[:item][:shelf_id])
+          @shelf.items.update_all('position = position + 1') # every new object has position 1 by default --> pushes all other positions to the right
+          @shelf.spaces.update_all('position = position + 1')
           @shelf.items << @item
           format.html do
             redirect_to item_path(@item, shelf_id: @shelf.id)
           end
         elsif params[:item][:space_id].present?
           @space = Space.find(params[:item][:space_id])
+          @space.items.update_all('position = position + 1') # every new space has position 1 by default --> pushes all other positions to the right
+          # GET ALL SPACE CHILDREN OF THIS SPACE AND UPDATE THEIR POSTITION +1
+          # space.children
+          @space.children.each do |connection|
+            connection.space.position += 1
+            connection.space.save
+          end
           @space.items << @item
           format.html do
             redirect_to item_path(@item, space_id: @space.id)
@@ -33,8 +42,6 @@ skip_before_action :verify_authenticity_token
       end
     end
   end
-
-
 
   def index
     @items = policy_scope(Item)
@@ -88,7 +95,40 @@ skip_before_action :verify_authenticity_token
     @shelf = current_user.shelves.first
     @item.spaces.destroy_all
     @shelf.items << @item
-    redirect_to item_path(@item, shelf_id: @shelf.id)
+    redirect_to
+  end
+
+  def move
+    @item = Item.find(params[:id].to_i)
+    current_position = @item.position
+    new_position = params[:position].to_i
+
+    # SI L'ITEM EST SUR LA SHELF, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CETTE SHELF
+    # SI L'ITEM EST SUR UN SPACE, SÉLECTIONNER LES OBJETS (SPACES ET ITEMS) QUI SONT SUR CE SPACE
+    if @item.shelves.empty? == false
+      @shelf = @item.shelves.first
+      objects = @shelf.items + @shelf.spaces # array of rails objects
+    elsif @item.spaces.empty? == false
+      @space = @item.spaces.first
+      objects = @space.items + @space.children.map { |connection| connection.space }
+    end
+
+    objects.each do |object|
+      if new_position < current_position
+        if (object.position < current_position) && (object.position >= new_position)
+          object.position = object.position + 1
+          object.save(validate: false)
+        end
+      elsif new_position > current_position
+        if (object.position > current_position) && (object.position <= new_position)
+          object.position = object.position - 1
+          object.save(validate: false)
+        end
+      end
+    end
+
+    @item.position = new_position
+    @item.save(validate: false)
   end
 
   private

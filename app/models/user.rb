@@ -13,7 +13,7 @@ require "base64"
 def create_shelf_and_space_for_Telegram_items
     shelf = Shelf.new(user_id: self.id)
     shelf.save
-    space = Space.new(name: "Objects added by Shelf Bot 🤖")
+    space = Space.new(name: "Objects added by Shelf Bot 🤖", position: 1)
     space.save
     shelf.spaces << space
 end

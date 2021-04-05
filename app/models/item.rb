@@ -1,5 +1,7 @@
 class Item < ApplicationRecord
 
+  #acts_as_list
+
   require 'net/http'
   require 'uri'
   require 'open-uri'
@@ -12,9 +14,8 @@ class Item < ApplicationRecord
   STATUS = [1, 2, 3] # 1 = not started
   RANK = [1, 2, 3] # 1 = high prio
 
-  validates :url, presence: true, url: true # see custom class
-
   before_validation :extract_url, :get_redirect_if_exists, on: :create # makes sure the persisted value is a url (no additional character), and, in case of a redirect, the final redirect
+  validates :url, presence: true, url: true # see custom class
   after_validation :set_params
 
   private
@@ -46,6 +47,7 @@ class Item < ApplicationRecord
     def set_params
       self.name = item_name(url) if name.blank?
       self.medium = item_medium(url) if medium.blank?
+      self.position = 1
     end
 
     def item_name(url)

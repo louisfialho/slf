@@ -75,23 +75,48 @@
 
 
 <!-- IF SHELF HAS OBJECTS -->
-<div class="grid-container" id="results-shelf">
+<div class="grid-container" data-controller="drag" data-drag-url="/:type/:id/move">
 
-  <% index = 0 %>
+  <% objects = @shelf.spaces + @shelf.items %>
+  <% objects.sort_by(&:position).each do |object| %>
+    <% if object.class.name == "Space" %>
+      <% if policy(object).show? %>
+        <div class="object" data-type="spaces" data-id="<%= object.id %>">
+          <%= link_to image_tag("space.png", width: 100), space_path(object, shelf_id: @shelf.id) %>
+          <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object, shelf_id: @shelf.id), class: "object_name" %>
+        </div>
+      <% end %>
+    <% elsif object.class.name == "Item" %>
+      <% if policy(object).show? %>
+        <div class="object" data-type="items" data-id="<%= object.id %>">
+          <% if object.medium == "book" %>
+            <%= link_to image_tag("book.png", width: 100), item_path(object, shelf_id: @shelf.id) %>
+          <% elsif object.medium == "podcast" %>
+            <%= link_to image_tag("podcast.png", width: 100), item_path(object, shelf_id: @shelf.id) %>
+          <% elsif object.medium == "video" %>
+            <%= link_to image_tag("video.png", width: 100), item_path(object, shelf_id: @shelf.id) %>
+          <% else object.medium == "web" %>
+            <%= link_to image_tag("web.png", width: 100), item_path(object, shelf_id: @shelf.id) %>
+          <% end %>
+          <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 40), item_path(object, shelf_id: @shelf.id), class: "object_name" %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
 
-  <% @shelf.spaces.each do |space| %>
+
+<!--   <% @shelf.spaces.each do |space| %>
       <% if policy(space).show? %>
-        <div class="object" data-id="<%= index %>">
+        <div class="object" data-type="space" data-id="<%= space.id %>">
           <%= link_to image_tag("space.png", width: 100), space_path(space, shelf_id: @shelf.id) %>
           <%= link_to truncate(space.name.split.map(&:capitalize).join(' '), length: 45), space_path(space, shelf_id: @shelf.id), class: "object_name" %>
         </div>
       <% end %>
-      <% index += 1 %>
-  <% end %>
+  <% end %> -->
 
-  <% @shelf.items.order(created_at: :desc).each do |item| %>
+<!--   <% @shelf.items.each do |item| %>
       <% if policy(item).show? %>
-        <div class="object" data-id="<%= index %>">
+        <div class="object" data-type="item" data-id="<%= item.id %>">
           <% if item.medium == "book" %>
             <%= link_to image_tag("book.png", width: 100), item_path(item, shelf_id: @shelf.id) %>
           <% elsif item.medium == "podcast" %>
@@ -104,7 +129,6 @@
           <%= link_to truncate(item.name, length: 40), item_path(item, shelf_id: @shelf.id), class: "object_name" %>
         </div>
       <% end %>
-      <% index += 1 %>
-  <% end %>
+  <% end %> -->
 
 </div>

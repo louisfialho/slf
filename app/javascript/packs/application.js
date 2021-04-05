@@ -28,8 +28,8 @@ import { updateStatus } from '../components/update';
 import { displaySave } from '../components/display-save';
 import { displayItemOptions } from '../components/item-options';
 import { displayAddOptions } from '../components/add-options';
-import { initSortableShelf } from '../components/init_sortable';
-import { initSortableSpace } from '../components/init_sortable';
+// import { initSortableShelf } from '../components/init_sortable';
+// import { initSortableSpace } from '../components/init_sortable';
 
 
 // Internal imports, e.g:
@@ -53,14 +53,16 @@ document.addEventListener('turbolinks:load', () => {
     displayAddOptions();
   }
 
-  if (document.querySelector("#results-shelf")) {
-    initSortableShelf();
-  }
+  // // if (document.querySelector("#results-shelf")) {
+  // //   initSortableShelf();
+  // // }
 
-  if (document.querySelector("#results-space")) {
-    initSortableSpace();
-  }
+  // // if (document.querySelector("#results-space")) {
+  // //   initSortableSpace();
+  // }
 });
 
 
 
+
+import "controllers"

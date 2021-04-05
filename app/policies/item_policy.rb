@@ -73,4 +73,9 @@ class ItemPolicy < ApplicationPolicy
     #   end
     # end
   end
+
+  def move?
+    true
+  end
+
 end
