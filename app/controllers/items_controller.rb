@@ -104,8 +104,14 @@ skip_before_action :verify_authenticity_token
   def move_to_shelf
     @item = Item.find(params[:item_id])
     authorize @item
+    # setting item position to 1
+    @item.position = 1
+    @item.save
     @shelf = current_user.shelves.first
     @item.spaces.destroy_all
+    # incrementing the position of all other objects and spaces on the shelf by +1
+    @shelf.items.update_all('position = position + 1')
+    @shelf.spaces.update_all('position = position + 1')
     @shelf.items << @item
     redirect_to
   end
