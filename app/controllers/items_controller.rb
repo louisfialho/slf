@@ -113,7 +113,7 @@ skip_before_action :verify_authenticity_token
     @shelf.items.update_all('position = position + 1')
     @shelf.spaces.update_all('position = position + 1')
     @shelf.items << @item
-    redirect_to
+    redirect_to item_path(@item, shelf_id: @shelf.id)
   end
 
   def move
