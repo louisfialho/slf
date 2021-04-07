@@ -122,7 +122,11 @@ skip_before_action :verify_authenticity_token
       @shelf = @item.spaces.first.shelves.first
     # if space is in space
     else
-      @shelf = @item.spaces.first.connections.first.parent.space.shelves.first # ca va break
+      @item.spaces.first.connections.each do |connection|
+        if connection.parent_id.nil? == false
+            @shelf = connection.parent.space.shelves.first
+        end
+      end
     end
     @item.spaces.destroy_all
     # incrementing the position of all other objects and spaces on the shelf by +1
