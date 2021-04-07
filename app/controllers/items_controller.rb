@@ -91,11 +91,20 @@ skip_before_action :verify_authenticity_token
   # si on veut mettre item dans un space (faisable depuis un autre space ou depuis shelf)
     @item = Item.find(params[:item_id])
     authorize @item
+    # setting item position to 1
+    @item.position = 1
+    @item.save(validate: false)
     @new_space = Space.find(params[:space_id])
     if @item.spaces.empty? == false   # si l'item est sur un space
       @item.spaces.destroy_all
     elsif @item.shelves.empty? == false # si l'item est sur une shelf
       @item.shelves.destroy_all
+    end
+    # finding all objects and spaces in the space and incrementing their position by one
+    @space.items.update_all('position = position + 1')
+    @space.children.each do |connection|
+      connection.space.position += 1
+      connection.space.save
     end
     @new_space.items << @item
     redirect_to item_path(@item, space_id: @new_space.id)
@@ -106,8 +115,15 @@ skip_before_action :verify_authenticity_token
     authorize @item
     # setting item position to 1
     @item.position = 1
-    @item.save
-    @shelf = current_user.shelves.first
+    @item.save(validate: false)
+    #@shelf = current_user.shelves.first
+    # if space is on shelf
+    if @item.spaces.first.shelves.empty? == false
+      @shelf = @item.spaces.first.shelves.first
+    # if space is in space
+    else
+      @shelf = @item.spaces.first.connections.first.parent.space.shelves.first # ca va break
+    end
     @item.spaces.destroy_all
     # incrementing the position of all other objects and spaces on the shelf by +1
     @shelf.items.update_all('position = position + 1')
@@ -142,7 +158,6 @@ skip_before_action :verify_authenticity_token
         end
       end
     end
-
     @item.position = new_position
     @item.save(validate: false)
   end
