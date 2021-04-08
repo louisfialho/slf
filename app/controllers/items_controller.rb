@@ -116,18 +116,15 @@ skip_before_action :verify_authenticity_token
     # setting item position to 1
     @item.position = 1
     @item.save(validate: false)
-    #@shelf = current_user.shelves.first
-    # if space is on shelf
-    if @item.spaces.first.shelves.empty? == false
-      @shelf = @item.spaces.first.shelves.first
-    # if space is in space
+    # @shelf = current_user.shelves.first marche pas
+
+    @space = @item.spaces.first
+    if @space.shelves.empty? == false
+      @shelf = @space.shelves.first
     else
-      @item.spaces.first.connections.each do |connection|
-        if connection.parent_id.nil? == false
-            @shelf = connection.parent.space.shelves.first
-        end
-      end
+      @shelf = recursive_parent_search(@space).shelves.first
     end
+
     @item.spaces.destroy_all
     # incrementing the position of all other objects and spaces on the shelf by +1
     @shelf.items.update_all('position = position + 1')
@@ -183,6 +180,17 @@ skip_before_action :verify_authenticity_token
     elsif params[:space_id].present?
       @space = Space.find(params[:space_id])
     end
+  end
+
+  def recursive_parent_search(space)
+    while @space.shelves.empty?
+      @space.connections.each do |connection|
+        if connection.parent_id.nil? == false
+            @space = connection.parent.space
+        end
+      end
+    end
+    return @space
   end
 end
 
