@@ -130,11 +130,11 @@ skip_before_action :verify_authenticity_token
       @shelf = @connection.root.space.shelves.first
     end
 
-    @item.spaces.destroy_all
     # incrementing the position of all other objects and spaces on the shelf by +1
     @shelf.items.update_all('position = position + 1')
     @shelf.spaces.update_all('position = position + 1')
     @shelf.items << @item
+    @item.spaces.destroy_all
     redirect_to item_path(@item, shelf_id: @shelf.id)
   end
 
