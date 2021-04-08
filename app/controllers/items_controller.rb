@@ -113,11 +113,13 @@ skip_before_action :verify_authenticity_token
     @item = Item.find(params[:item_id])
     authorize @item
     # setting item position to 1
+
+    @space = @item.spaces.first
+
     @item.position = 1
     @item.save(validate: false)
     # @shelf = current_user.shelves.first marche pas
 
-    @space = @item.spaces.first
     if @space.shelves.empty? == false
        @shelf = @space.shelves.first
     else
