@@ -114,17 +114,15 @@ skip_before_action :verify_authenticity_token
     authorize @item
     # setting item position to 1
 
-    @space = @item.spaces.first
-
     @item.position = 1
     @item.save(validate: false)
     # @shelf = current_user.shelves.first marche pas
 
-    if @space.shelves.empty? == false
-       @shelf = @space.shelves.first
+    if @item.spaces.first.shelves.empty? == false
+       @shelf = @item.spaces.first.shelves.first
     else
     #   @shelf = recursive_parent_search(@space).shelves.first
-      @space.connections.each do |connection|
+      @item.spaces.first.connections.each do |connection|
         if connection.parent_id.nil? == false
             @connection = connection
         end
