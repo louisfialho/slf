@@ -94,17 +94,20 @@ skip_before_action :verify_authenticity_token
     @item.position = 1
     @item.save(validate: false)
     @new_space = Space.find(params[:space_id])
-    if @item.spaces.empty? == false   # si l'item est sur un space
-      @item.spaces.destroy_all
-    elsif @item.shelves.empty? == false # si l'item est sur une shelf
-      @item.shelves.destroy_all
-    end
+
     # finding all objects and spaces in the space and incrementing their position by one
     @new_space.items.update_all('position = position + 1')
     @new_space.children.each do |connection|
       connection.space.position += 1
       connection.space.save
     end
+
+    if @item.spaces.empty? == false   # si l'item est sur un space
+      @item.spaces.destroy_all
+    elsif @item.shelves.empty? == false # si l'item est sur une shelf
+      @item.shelves.destroy_all
+    end
+
     @new_space.items << @item
     redirect_to item_path(@item, space_id: @new_space.id)
   end
@@ -119,12 +122,12 @@ skip_before_action :verify_authenticity_token
     # @shelf = current_user.shelves.first marche pas
 
     if @item.spaces.first.shelves.empty? == false
-       @shelf = @item.spaces.first.shelves.first
+      @shelf = @item.spaces.first.shelves.first
     else
     #   @shelf = recursive_parent_search(@space).shelves.first
       @item.spaces.first.connections.each do |connection|
         if connection.parent_id.nil? == false
-            @connection = connection
+          @connection = connection
         end
       end
       @shelf = @connection.root.space.shelves.first
@@ -133,8 +136,8 @@ skip_before_action :verify_authenticity_token
     # incrementing the position of all other objects and spaces on the shelf by +1
     @shelf.items.update_all('position = position + 1')
     @shelf.spaces.update_all('position = position + 1')
-    @shelf.items << @item
     @item.spaces.destroy_all
+    @shelf.items << @item
     redirect_to item_path(@item, shelf_id: @shelf.id)
   end
 
