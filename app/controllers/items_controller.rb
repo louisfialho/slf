@@ -100,8 +100,8 @@ skip_before_action :verify_authenticity_token
       @item.shelves.destroy_all
     end
     # finding all objects and spaces in the space and incrementing their position by one
-    @space.items.update_all('position = position + 1')
-    @space.children.each do |connection|
+    @new_space.items.update_all('position = position + 1')
+    @new_space.children.each do |connection|
       connection.space.position += 1
       connection.space.save
     end
