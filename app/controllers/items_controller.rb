@@ -3,7 +3,6 @@ before_action :set_item, only: [:show, :edit, :update, :destroy, :move]
 before_action :set_shelf_space, only: [:new, :show, :edit, :move]
 skip_before_action :verify_authenticity_token
 
-
   def new
     @item = Item.new
     authorize @item
@@ -120,9 +119,15 @@ skip_before_action :verify_authenticity_token
 
     @space = @item.spaces.first
     if @space.shelves.empty? == false
-      @shelf = @space.shelves.first
+       @shelf = @space.shelves.first
     else
-      @shelf = recursive_parent_search(@space).shelves.first
+    #   @shelf = recursive_parent_search(@space).shelves.first
+      @space.connections.each do |connection|
+        if connection.parent_id.nil? == false
+            @connection = connection
+        end
+      end
+      @shelf = @connection.root.space.shelves.first
     end
 
     @item.spaces.destroy_all
@@ -182,15 +187,15 @@ skip_before_action :verify_authenticity_token
     end
   end
 
-  def recursive_parent_search(space)
-    while @space.shelves.empty?
-      @space.connections.each do |connection|
-        if connection.parent_id.nil? == false
-            @space = connection.parent.space
-        end
-      end
-    end
-    return @space
-  end
+  # def recursive_parent_search(space)
+  #   while @space.shelves.empty?
+  #     @space.connections.each do |connection|
+  #       if connection.parent_id.nil? == false
+  #           @space = connection.parent.space
+  #       end
+  #     end
+  #   end
+  #   return @space
+  # end
 end
 
