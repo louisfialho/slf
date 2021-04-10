@@ -1,5 +1,6 @@
 class SpacesController < ApplicationController
 before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
+skip_after_action :verify_authorized, only: [:space_name, :space_children]
 
   def new
     if params[:shelf_id].present?
@@ -194,6 +195,17 @@ before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
 
     @space.position = new_position
     @space.save
+  end
+
+  def space_name
+    space_name = Space.find(params[:id]).name
+    render json: {space_name: space_name}
+  end
+
+  def space_children
+    space = Space.find(params[:id])
+    space_children = space.children.map { |connection| connection.space }
+    render json: {space_children: space_children}
   end
 
   private

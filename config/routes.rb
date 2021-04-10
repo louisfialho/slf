@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     end
     member do
       patch :move
+      get 'space_name'
+      get 'space_children'
     end
   end
   resources :items do

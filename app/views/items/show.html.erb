@@ -61,8 +61,19 @@
     </div>
 <!-- END OF OPTIONS -->
 
-<!-- MOVING AN ITEM TO A SPACE OR SHELF-->
 <div class="options-ctn" id="move-to-list" style="display:none;">
+  <p class="option" id="top-element"> 🗄 Shelf </p>
+  <ul id="children-spaces">
+  <% move_to_space_list.each do |space| %>
+    <li>
+      <a class="option" id="child-space-<%= space.id %>" data-space-id="<%= space.id %>">  🗄 <%= space.name.split.map(&:capitalize).join(' ') %> </a>
+    </li>
+  <% end %>
+  </ul>
+</div>
+
+<!-- MOVING AN ITEM TO A SPACE OR SHELF-->
+<!-- <div class="options-ctn" id="move-to-list" style="display:none;">
   <ul>
     <% if @space %>
       <li>
@@ -77,7 +88,7 @@
     <% end %>
   <% end %>
   </ul>
-</div>
+</div> -->
 <!-- END OF MOVING AN ITEM TO A SPACE OR SHELF -->
 
 <% if @shelf %>

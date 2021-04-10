@@ -28,6 +28,7 @@ import { updateStatus } from '../components/update';
 import { displaySave } from '../components/display-save';
 import { displayItemOptions } from '../components/item-options';
 import { displayAddOptions } from '../components/add-options';
+import { moveToSpaceList } from '../components/move-to-space-list';
 // import { initSortableShelf } from '../components/init_sortable';
 // import { initSortableSpace } from '../components/init_sortable';
 
@@ -51,6 +52,10 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector("#add-btn")) {
     displayAddOptions();
+  }
+
+  if (document.getElementById('top-element')) {
+    moveToSpaceList();
   }
 
   // // if (document.querySelector("#results-shelf")) {
