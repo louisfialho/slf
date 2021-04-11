@@ -17,9 +17,9 @@ const moveToSpaceList = () => {
           success: function(data) { topElement.innerHTML = data.space_name },
         })
 
-        var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1].substring(0,2);
-        form.setAttribute("action", "/items/move_to_space?item_id=" + itemId + "&space_id=" + elementId);
-        input.setAttribute("value", "👉 Move to this space")
+        var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
+        form.setAttribute("action", "/items/move_to_space?space_id=" + elementId + "&item_id=" + itemId);
+        input.setAttribute("value", "👉 Move to this space") // can add the space name if needed
 
         Rails.ajax({
           url: "/spaces/:id/space_children".replace(':id', elementId),
