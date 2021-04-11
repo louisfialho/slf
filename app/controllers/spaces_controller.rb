@@ -205,6 +205,7 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
   def space_children
     space = Space.find(params[:id])
     space_children = space.children.map { |connection| connection.space }
+    space_children = space_children.sort_by {|space| space.position}
     render json: {space_children: space_children}
   end
 
