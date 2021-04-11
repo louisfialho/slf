@@ -120,25 +120,35 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
   end
 
   def move_space_to_shelf
-    # on prend un space qui n'est PAS sur la shelf
     @space = Space.find(params[:current_space_id])
-    # authorize @space
+    authorize @space
 
-    # @shelf = recursive_parent_search2(@space).shelves.first
-    # @space = Space.find(params[:current_space_id])
+    # trouver space parent et mettre -1 à ts les objets et spaces après position
+    position = @space.position
+    @space.connections.each do |connection|
+      if connection.parent_id.nil? == false
+        @parent = connection.parent.space
+      end
+    end
+    @parent.items.where('position > ?', position).update_all('position = position - 1')
+    @parent.children.each do |connection|
+      if connection.space.position > position
+        connection.space.position = connection.space.position - 1
+        connection.space.save
+      end
+    end
 
     # on trouve la shelf correspondante
-    @shelf = current_user.shelves.first #ok
-    # @shelf.items.update_all('position = position + 1')
-    # @shelf.spaces.update_all('position = position + 1')
+    @shelf = current_user.shelves.first # @shelf = recursive_parent_search2(@space).shelves.first
+    @shelf.items.update_all('position = position + 1')
+    @shelf.spaces.update_all('position = position + 1')
 
     # on supprime sa relation au space parent
-    @space.connections.destroy_all #ok # ce space est forcément en dehors de la shelf (i.e. il a un space parent). here we assume that the space only has a connection with its parent. Are there cases where the space has connections other than the connection with its parent that shouldn't be deleted?
-    # @space.position = 1 # setting space position to 1
-    # @space.save
+    @space.connections.destroy_all
+    @space.position = 1
+    @space.save
 
-    # on ajoute le space à la shelf
-    @shelf.spaces << @space #ok
+    @shelf.spaces << @space
     redirect_to shelf_path(@shelf)
   end
 

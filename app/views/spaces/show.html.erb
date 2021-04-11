@@ -61,9 +61,21 @@
   <% end %>
 <!-- END OF OPTIONS SPACE -->
 
+<div class="options-ctn" id="move-to-list" style="display:none;">
+  <p class="option" id="top-element">Shelf</p>
+  <hr/>
+  <ul id="children-spaces">
+  <% move_to_space_list.each do |space| %>
+    <li>
+      <a class="option" id="child-space-<%= space.id %>" data-space-id="<%= space.id %>">🗄 <%= truncate(space.name, length: 25) %></a>
+    </li>
+  <% end %>
+  </ul>
+  <%= button_to "👉 Move to shelf", { controller: "spaces", action: "move_space_to_shelf", current_space_id: @space.id }, id: 'move-to-button' %>
+</div>
 
 <!-- MOVING A SPACE TO A SPACE OR SHELF-->
-<div class="options-ctn" id="move-to-list" style="display:none;">
+<!-- <div class="options-ctn" id="move-to-list" style="display:none;">
   <ul>
     <% if @space.shelves.empty? %>
       <li>
@@ -78,7 +90,7 @@
       <% end %>
     <% end %>
   </ul>
-</div>
+</div> -->
 <!-- END OF MOVING A SPACE TO A SPACE OR SHELF -->
 
 <!-- ADD OPTIONS -->
