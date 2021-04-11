@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :shelves, only: [:new, :create, :show]
   resources :spaces do
     collection do
-      get :move_space_to_space
-      get :move_space_to_shelf
+      post :move_space_to_space
+      post :move_space_to_shelf
     end
     member do
       patch :move

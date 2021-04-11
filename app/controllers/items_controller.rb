@@ -87,33 +87,43 @@ skip_before_action :verify_authenticity_token
   end
 
   def move_to_space
-  # si on veut mettre item dans un space (faisable depuis un autre space ou depuis shelf)
     @item = Item.find(params[:item_id])
     authorize @item
-    # setting item position to 1
     @item.position = 1
     @item.save(validate: false)
 
-    @new_space = Space.find(params[:space_id])
     if @item.spaces.empty? == false   # si l'item est sur un space
       @item.spaces.destroy_all
     elsif @item.shelves.empty? == false # si l'item est sur une shelf
       @item.shelves.destroy_all
     end
-    # finding all objects and spaces in the space and incrementing their position by one
+
+    @new_space = Space.find(params[:space_id])
     @new_space.items.update_all('position = position + 1')
     @new_space.children.each do |connection|
       connection.space.position += 1
       connection.space.save
     end
     @new_space.items << @item
-    redirect_to item_path(@item, space_id: @new_space.id)
+    # redirect_to item_path(@item, space_id: @new_space.id)
+    redirect_to space_path(@new_space)
   end
 
   def move_to_shelf
     @item = Item.find(params[:item_id])
     authorize @item
-    # setting item position to 1
+
+    # -1 to all spaces or objects AFTER the item on the initial space
+    position = @item.position
+    @initial_space = @item.spaces.first
+    @initial_space.items.where('position > ?', position).update_all('position = position - 1')
+    @initial_space.children.each do |connection|
+      if connection.space.position > position
+        connection.space.position = connection.space.position - 1
+        connection.space.save
+      end
+    end
+
     @item.position = 1
     @item.save(validate: false)
 
@@ -126,12 +136,14 @@ skip_before_action :verify_authenticity_token
     #   @shelf = recursive_parent_search(@space).shelves.first
     # end
 
-    @item.spaces.destroy_all
     # incrementing the position of all other objects and spaces on the shelf by +1
     @shelf.items.update_all('position = position + 1')
     @shelf.spaces.update_all('position = position + 1')
+
+    @item.spaces.destroy_all
     @shelf.items << @item
-    redirect_to item_path(@item, shelf_id: @shelf.id)
+    #redirect_to item_path(@item, shelf_id: @shelf.id)
+    redirect_to shelf_path(@shelf)
   end
 
   def move
