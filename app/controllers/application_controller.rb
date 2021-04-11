@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   def move_to_space_list
     shelf = current_user.shelves.first
-    shelf.spaces
+    shelf.spaces.sort_by {|space| space.position}
   end
 
   # def move_to_space_list
