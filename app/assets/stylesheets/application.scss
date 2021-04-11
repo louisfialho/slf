@@ -552,7 +552,8 @@ input[type=text] {
 #move-to-button {
     color: #202020;
     border: 1px solid #686868;
-    padding: 3px 60px; // breaks if I decide to display the name of the space
+    padding: 3px;
+    width: 250px;
     border-radius: 50px;
     background-color: white;
     font-size: larger;
