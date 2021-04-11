@@ -17,8 +17,14 @@ const moveToSpaceList = () => {
           success: function(data) { topElement.innerHTML = truncate(data.space_name) },
         })
 
-        var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
-        form.setAttribute("action", "/items/move_to_space?space_id=" + elementId + "&item_id=" + itemId);
+        if (topElement.dataset.type === "item") {
+          var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
+          form.setAttribute("action", "/items/move_to_space?space_id=" + elementId + "&item_id=" + itemId);
+        } else {
+          var currentSpaceId = form.getAttribute("action").match(/current_space_id=(.*)/)[1];
+          form.setAttribute("action", "/spaces/move_space_to_space?destination_space_id=" + elementId + "&amp;current_space_id=" + currentSpaceId);
+        }
+
         input.setAttribute("value", "👉 Move here") // can add the space name if needed
 
         Rails.ajax({
