@@ -116,14 +116,15 @@ skip_before_action :verify_authenticity_token
     # setting item position to 1
     @item.position = 1
     @item.save(validate: false)
-    # @shelf = current_user.shelves.first marche pas
 
-    @space = @item.spaces.first
-    if @space.shelves.empty? == false
-      @shelf = @space.shelves.first
-    else
-      @shelf = recursive_parent_search(@space).shelves.first
-    end
+    @shelf = current_user.shelves.first
+
+    # @space = @item.spaces.first
+    # if @space.shelves.empty? == false
+    #   @shelf = @space.shelves.first
+    # else
+    #   @shelf = recursive_parent_search(@space).shelves.first
+    # end
 
     @item.spaces.destroy_all
     # incrementing the position of all other objects and spaces on the shelf by +1

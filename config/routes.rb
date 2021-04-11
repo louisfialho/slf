@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   end
   resources :items do
     collection do
-      get :move_to_space
-      get :move_to_shelf
+      post :move_to_space
+      post :move_to_shelf
     end
     member do
       patch :move

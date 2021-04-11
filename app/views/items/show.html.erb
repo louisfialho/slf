@@ -62,7 +62,7 @@
 <!-- END OF OPTIONS -->
 
 <div class="options-ctn" id="move-to-list" style="display:none;">
-  <p class="option" id="top-element">Shelf </p>
+  <p class="option" id="top-element">Shelf</p>
   <ul id="children-spaces">
   <% move_to_space_list.each do |space| %>
     <li>
@@ -70,6 +70,7 @@
     </li>
   <% end %>
   </ul>
+  <div id="move-to-button"> <%= button_to "👉 Move to shelf", { controller: "items", action: "move_to_shelf", item_id: @item.id } %> </div>
 </div>
 
 <!-- MOVING AN ITEM TO A SPACE OR SHELF-->
