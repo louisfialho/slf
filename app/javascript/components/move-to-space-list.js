@@ -14,7 +14,7 @@ const moveToSpaceList = () => {
           url: "/spaces/:id/space_name".replace(':id', elementId),
           type: 'GET',
           data: "",
-          success: function(data) { topElement.innerHTML = data.space_name },
+          success: function(data) { topElement.innerHTML = truncate(data.space_name) },
         })
 
         var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
@@ -28,13 +28,15 @@ const moveToSpaceList = () => {
           success: function(data) {
             list.innerHTML = "";
             data.space_children.forEach(space =>
-              list.insertAdjacentHTML("beforeend", "<li><a class='option' id='child-space-" + space.id + "' data-space-id='" + space.id + "'> 🗄" + space.name + "</a></li>")
+              list.insertAdjacentHTML("beforeend", "<li><a class='option' id='child-space-" + space.id + "' data-space-id='" + space.id + "'> 🗄" + truncate(space.name) + "</a></li>")
             )
             moveToSpaceList()
           }
         })
       })
     )
+
+    const truncate = (input) => input.length > 23 ? `${input.substring(0, 23)}...` : input;
 
 }
 
