@@ -71,7 +71,8 @@
     </li>
   <% end %>
   </ul>
-  <%= button_to "👉 Move to shelf", { controller: "spaces", action: "move_space_to_shelf", current_space_id: @space.id }, id: 'move-to-button' %>
+<!--   <%= button_to "👉 Move to shelf", { controller: "spaces", action: "move_space_to_shelf", current_space_id: @space.id }, id: 'move-to-button' %> -->
+  <%= button_to "👉 Move to test", { controller: "spaces", action: "move_space_to_space", current_space_id: @space.id, destination_space_id: 59 }, id: 'move-to-button' %>
 </div>
 
 <!-- MOVING A SPACE TO A SPACE OR SHELF-->

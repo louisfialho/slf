@@ -102,20 +102,54 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
   end
 
   def move_space_to_space
+    # soit current space est dans shelf --> vers dest space. soit current space est dans parent space --> vers dest space
     @current_space = Space.find(params[:current_space_id])
     authorize @current_space
-    @destination_space = Space.find(params[:destination_space_id])
+
+    position = @current_space.position
+
     if @current_space.shelves.empty? == false
-      @current_space.shelves.destroy_all # ASSUMES THAT A SPACE HAS ONLY ONE SHELF. ANOTHER SOLUTION WOULD BE TO DELETE THE SPACE ONLY FROM THE SHELF OF THE CURRENT USER.
+    # si sur shelf, trouver shelf, mettre -1 à ts les objets ou spaces après position dans shelf
+      @shelf = @current_space.shelves.first
+      @shelf.items.where('position > ?', position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
+      @shelf.spaces.where('position > ?', position).update_all('position = position - 1')
+      @current_space.shelves.destroy_all
     elsif @current_space.connections.nil? == false
+    # si sur space, trouver space parent, mettre -1 à ts les objets ou spaces après position dans space PARENT
+      @current_space.connections.each do |connection|
+        if connection.parent_id.nil? == false
+          @parent = connection.parent.space
+        end
+      end
+      @parent.items.where('position > ?', position).update_all('position = position - 1')
+      @parent.children.each do |connection|
+        if connection.space.position > position
+          connection.space.position = connection.space.position - 1
+          connection.space.save
+        end
+      end
       @current_space.connections.destroy_all
     end
+
+    # mettre +1 à ts les objets ou spaces dans destination space
+    @destination_space = Space.find(params[:destination_space_id])
+    @destination_space.items.update_all('position = position + 1')
+    @destination_space.children.each do |connection|
+      connection.space.position += 1
+      connection.space.save
+    end
+
+    # mettre position = 1 à space et save
+    @current_space.position = 1
+    @current_space.save
+
     if !@destination_space.shelves.empty? && @destination_space.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
       s1 = Connection.create(space: @destination_space)
       s1.children.create(space: @current_space)
     else
       @destination_space.connections.first.children.create(space: @current_space)
     end
+
     redirect_to space_path(@destination_space)
   end
 
