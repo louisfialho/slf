@@ -89,14 +89,29 @@ skip_before_action :verify_authenticity_token
   def move_to_space
     @item = Item.find(params[:item_id])
     authorize @item
-    @item.position = 1
-    @item.save(validate: false)
+    position = @item.position
 
     if @item.spaces.empty? == false   # si l'item est sur un space
+      # -1 to all spaces or objects AFTER the item on the initial space
+      @initial_space = @item.spaces.first
+      @initial_space.items.where('position > ?', position).update_all('position = position - 1')
+      @initial_space.children.each do |connection|
+        if connection.space.position > position
+          connection.space.position = connection.space.position - 1
+          connection.space.save
+        end
+      end
       @item.spaces.destroy_all
     elsif @item.shelves.empty? == false # si l'item est sur une shelf
+      # -1 to all spaces or objects AFTER the item on the shelf
+      @shelf = @item.shelves.first
+      @shelf.items.where('position > ?', position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
+      @shelf.spaces.where('position > ?', position).update_all('position = position - 1')
       @item.shelves.destroy_all
     end
+
+    @item.position = 1
+    @item.save(validate: false)
 
     @new_space = Space.find(params[:space_id])
     @new_space.items.update_all('position = position + 1')
