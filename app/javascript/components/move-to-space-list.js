@@ -36,7 +36,7 @@ const moveToSpaceList = () => {
       })
     )
 
-    const truncate = (input) => input.length > 23 ? `${input.substring(0, 23)}...` : input;
+    const truncate = (input) => input.length > 22 ? `${input.substring(0, 22)}...` : input;
 
 }
 
