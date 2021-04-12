@@ -566,8 +566,13 @@ input[type=text] {
      background-color: #202020;
 }
 
+#top-line {
+  display: flex;
+  margin-bottom: 0px;
+  margin-left: 10px;
+}
+
 #top-element {
-  margin-left: 35px;
   margin-bottom: 0px;
 }
 

@@ -55,7 +55,10 @@
 <!-- END OF OPTIONS -->
 
 <div class="options-ctn" id="move-to-list" style="display:none;">
-  <p class="option" id="top-element" data-type="item">Shelf</p>
+  <div id="top-line">
+    <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
+    <p class="option" id="top-element" data-type="item">Shelf</p>
+  </div>
   <hr/>
   <ul id="children-spaces">
   <% move_to_space_list.each do |space| %>

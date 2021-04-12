@@ -4,6 +4,7 @@ const moveToSpaceList = () => {
   var list = document.getElementById('children-spaces');
   var form = document.querySelector('.button_to');
   var input = document.getElementById('move-to-button');
+  var leftArrowImg = document.getElementById('left-arrow-img');
 
     childSpaces.forEach(element =>
       element.addEventListener("click", (event) => {
@@ -16,6 +17,8 @@ const moveToSpaceList = () => {
           data: "",
           success: function(data) { topElement.innerHTML = truncate(data.space_name) },
         })
+
+        leftArrowImg.style.display = ""
 
         if (topElement.dataset.type === "item") {
           var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
@@ -42,7 +45,7 @@ const moveToSpaceList = () => {
       })
     )
 
-    const truncate = (input) => input.length > 22 ? `${input.substring(0, 22)}...` : input;
+    const truncate = (input) => input.length > 21 ? `${input.substring(0, 21)}...` : input;
 
 }
 
