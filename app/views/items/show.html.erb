@@ -42,21 +42,14 @@
 <!-- OPTIONS -->
     <div class="options-ctn" id="options" style="display:none;">
       <div>
-        <%= image_tag "Arrow - Right.png", alt: "Move", width: 19 %>
-        <a class="option" id="move-to">Move object</a>
+        <a class="option" id="move-to"> 👉  Move object</a>
       </div>
       <div>
         <% if @shelf %>
-          <%= link_to image_tag("Delete.png", width: 19), item_path(@item, shelf_id: @shelf.id), method: :delete %>
-          <%= link_to "Delete object", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option" %>
+          <%= link_to "🗑  Delete object", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option" %>
         <% elsif @space %>
-          <%= link_to image_tag("Delete.png", width: 19), item_path(@item, space_id: @space.id), method: :delete %>
-          <%= link_to "Delete object", item_path(@item, space_id: @space.id), method: :delete, class: "option" %>
+          <%= link_to "🗑  Delete object", item_path(@item, space_id: @space.id), method: :delete, class: "option" %>
         <% end %>
-      </div>
-      <div>
-      <%= image_tag "Edit.png", alt: "Edit", width: 19 %>
-      <a class="option">Edit object</a>
       </div>
     </div>
 <!-- END OF OPTIONS -->
