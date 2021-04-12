@@ -6,46 +6,58 @@ const moveToSpaceList = () => {
   var input = document.getElementById('move-to-button');
   var leftArrowImg = document.getElementById('left-arrow-img');
 
-    childSpaces.forEach(element =>
-      element.addEventListener("click", (event) => {
 
-        var elementId = element.dataset.spaceId
+  function displayNewBox(spaceId) {
 
-        Rails.ajax({
-          url: "/spaces/:id/space_name".replace(':id', elementId),
-          type: 'GET',
-          data: "",
-          success: function(data) { topElement.innerHTML = truncate(data.space_name) },
-        })
+    Rails.ajax({
+      url: "/spaces/:id/space_name".replace(':id', spaceId),
+      type: 'GET',
+      data: "",
+      success: function(data) { topElement.innerHTML = truncate(data.space_name) },
+    })
 
-        leftArrowImg.style.display = ""
+    leftArrowImg.style.display = ""
 
-        if (topElement.dataset.type === "item") {
-          var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
-          form.setAttribute("action", "/items/move_to_space?space_id=" + elementId + "&item_id=" + itemId);
-        } else {
-          var currentSpaceId = form.getAttribute("action").match(/current_space_id=(.*)/)[1];
-          form.setAttribute("action", "/spaces/move_space_to_space?destination_space_id=" + elementId + "&amp;current_space_id=" + currentSpaceId);
-        }
+    if (topElement.dataset.type === "item") {
+      var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
+      form.setAttribute("action", "/items/move_to_space?space_id=" + spaceId + "&item_id=" + itemId);
+    } else {
+      var currentSpaceId = form.getAttribute("action").match(/current_space_id=(.*)/)[1];
+      form.setAttribute("action", "/spaces/move_space_to_space?destination_space_id=" + spaceId + "&amp;current_space_id=" + currentSpaceId);
+    }
 
-        input.setAttribute("value", "👉 Move here") // can add the space name if needed
+    input.setAttribute("value", "👉 Move here") // can add the space name if needed
 
-        Rails.ajax({
-          url: "/spaces/:id/space_children".replace(':id', elementId),
-          type: 'GET',
-          data: "",
-          success: function(data) {
-            list.innerHTML = "";
-            data.space_children.forEach(space =>
-              list.insertAdjacentHTML("beforeend", "<li><a class='option' id='child-space-" + space.id + "' data-space-id='" + space.id + "'> 🗄" + truncate(space.name) + "</a></li>")
-            )
-            moveToSpaceList()
-          }
-        })
-      })
-    )
+    Rails.ajax({
+      url: "/spaces/:id/space_children".replace(':id', spaceId),
+      type: 'GET',
+      data: "",
+      success: function(data) {
+        list.innerHTML = "";
+        data.space_children.forEach(space =>
+          list.insertAdjacentHTML("beforeend", "<li><a class='option' id='child-space-" + space.id + "' data-space-id='" + space.id + "'> 🗄" + truncate(space.name) + "</a></li>")
+        )
+        moveToSpaceList()
+      }
+    })
+  }
 
-    const truncate = (input) => input.length > 21 ? `${input.substring(0, 21)}...` : input;
+  childSpaces.forEach(element =>
+
+    element.addEventListener("click", (event) => {
+
+      var clickedSpaceId = element.dataset.spaceId
+      var refresh = window.location + `/selected=${clickedSpaceId}`;
+      history.pushState({clickedSpaceId}, `Selected: ${clickedSpaceId}`, refresh)
+      displayNewBox(clickedSpaceId);
+    })
+  )
+
+  window.addEventListener('popstate', e => {
+    displayNewBox(e.state.clickedSpaceId);
+  });
+
+  const truncate = (input) => input.length > 21 ? `${input.substring(0, 21)}...` : input;
 
 }
 
