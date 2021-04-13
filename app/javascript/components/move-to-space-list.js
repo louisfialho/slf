@@ -50,8 +50,8 @@ const moveToSpaceList = () => {
       var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
       form.setAttribute("action", "/items/move_to_shelf?item_id=" + itemId);
     } else {
-      // var currentSpaceId = form.getAttribute("action").match(/current_space_id=(.*)/)[1];
-      // form.setAttribute("action", "/spaces/move_space_to_space?destination_space_id=" + spaceId + "&amp;current_space_id=" + currentSpaceId);
+      var currentSpaceId = form.getAttribute("action").match(/current_space_id=(.*)/)[1];
+      form.setAttribute("action", "/spaces/move_space_to_shelf?current_space_id=" + currentSpaceId);
     }
     input.setAttribute("value", "👉 Move to shelf")
     // replace elements by shelf children

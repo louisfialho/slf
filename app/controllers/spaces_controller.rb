@@ -57,6 +57,7 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
   def show
     @item = Item.new
     @child = Space.new
+    @shelf = current_user.shelves.first
     if @space.connections.empty? == false && @space.connections.first.parent_id.nil? == false
       @parent = Space.find(Connection.find(@space.connections.first.parent_id).space_id)
     end
