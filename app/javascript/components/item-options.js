@@ -40,6 +40,8 @@ const displayItemOptions = () => {
   moveTo.addEventListener('click', (event) => {
     options.style.display = "none";
     list.style.display = "";
+    var refresh = window.location + `/selected=$shelf`;
+    history.replaceState({id: null}, 'Default State', refresh);
   });
 
   document.addEventListener('click', function(event) {

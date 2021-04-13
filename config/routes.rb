@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'shelves#shelf'
-  resources :shelves, only: [:new, :create, :show]
+  resources :shelves, only: [:new, :create, :show] do
+    member do
+      get 'shelf_children'
+    end
+  end
   resources :spaces do
     collection do
       post :move_space_to_space

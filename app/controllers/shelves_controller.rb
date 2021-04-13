@@ -1,5 +1,6 @@
 class ShelvesController < ApplicationController
   before_action :set_shelf, only: [:show, :edit, :update, :destroy]
+  skip_after_action :verify_authorized, only: [:shelf_children]
 
   # def new
   #   @shelf = Shelf.new
@@ -55,6 +56,12 @@ class ShelvesController < ApplicationController
   #   @shelf.destroy
   #   redirect_to shelves_path
   # end
+
+  def shelf_children
+    shelf = current_user.shelves.first
+    shelf_children = shelf.spaces.sort_by {|space| space.position}
+    render json: {shelf_children: shelf_children}
+  end
 
   private
 

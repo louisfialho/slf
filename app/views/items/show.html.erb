@@ -57,7 +57,7 @@
 <div class="options-ctn" id="move-to-list" style="display:none;">
   <div id="top-line">
     <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
-    <p class="option" id="top-element" data-type="item">Shelf</p>
+    <p class="option" id="top-element" data-type="item" data-shelf-id="<%= @shelf.id %>">Shelf</p>
   </div>
   <hr/>
   <ul id="children-spaces">
