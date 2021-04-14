@@ -67,7 +67,10 @@
     </li>
   <% end %>
   </ul>
-    <a id="new-space">New</a>
+    <div id="new-space">
+      <%= image_tag("grey_plus.png", width: 18, height: 18, id: 'grey-plus-img').html_safe %>
+      <p id="new-space-txt">New</p>
+    </div>
   <%= button_to "👉 Move to shelf", { controller: "items", action: "move_to_shelf", item_id: @item.id }, id: 'move-to-button' %>
 </div>
 

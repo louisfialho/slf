@@ -6,7 +6,7 @@ const moveToSpaceList = () => {
   var form = document.querySelector('.button_to');
   var input = document.getElementById('move-to-button');
   var leftArrowImg = document.getElementById('left-arrow-img');
-  var newSpace = document.getElementById('new-space');
+  var newSpace = document.getElementById('new-space-txt');
   var addSpaceBox = document.getElementById('add-space');
 
   var itemId = moveToBox.dataset.itemId
