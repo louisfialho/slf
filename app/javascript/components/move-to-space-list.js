@@ -1,10 +1,15 @@
 const moveToSpaceList = () => {
+  var moveToBox = document.getElementById('move-to-list');
   var topElement = document.getElementById('top-element');
   var childSpaces = document.querySelectorAll('*[id^="child-space"]');
   var list = document.getElementById('children-spaces');
   var form = document.querySelector('.button_to');
   var input = document.getElementById('move-to-button');
   var leftArrowImg = document.getElementById('left-arrow-img');
+  var newSpace = document.getElementById('new-space');
+  var addSpaceBox = document.getElementById('add-space');
+
+  var itemId = moveToBox.dataset.itemId
 
 
   function displayNewBox(spaceId) {
@@ -18,8 +23,7 @@ const moveToSpaceList = () => {
 
     leftArrowImg.style.display = ""
 
-    if (topElement.dataset.type === "item") {
-      var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
+    if (moveToBox.dataset.type === "item") {
       form.setAttribute("action", "/items/move_to_space?space_id=" + spaceId + "&item_id=" + itemId);
     } else {
       var currentSpaceId = form.getAttribute("action").match(/current_space_id=(.*)/)[1];
@@ -46,8 +50,7 @@ const moveToSpaceList = () => {
     // replace top by shelf
     topElement.innerHTML = "Shelf"
     // replace button bottom
-    if (topElement.dataset.type === "item") {
-      var itemId = form.getAttribute("action").match(/item_id=(.*)/)[1];
+    if (moveToBox.dataset.type === "item") {
       form.setAttribute("action", "/items/move_to_shelf?item_id=" + itemId);
     } else {
       var currentSpaceId = form.getAttribute("action").match(/current_space_id=(.*)/)[1];
@@ -56,7 +59,7 @@ const moveToSpaceList = () => {
     input.setAttribute("value", "👉 Move to shelf")
     // replace elements by shelf children
 
-    var shelfId = topElement.dataset.shelfId
+    var shelfId = moveToBox.dataset.shelfId
 
     Rails.ajax({
       url: "/shelves/:id/shelf_children".replace(':id', shelfId),
@@ -69,6 +72,32 @@ const moveToSpaceList = () => {
         )
         moveToSpaceList()
       }
+    })
+  }
+
+  function displayNewSpaceBox(spaceId) {
+
+    newSpace.addEventListener("click", (event) => {
+      moveToBox.style.display = "none"
+      addSpaceBox.style.display = ""
+
+      var spaceParentId = document.getElementById('space_parent_id');
+      spaceParentId.setAttribute("value", spaceId);
+
+      var para = document.createElement("input");
+      para.setAttribute("value", itemId)
+      para.setAttribute("type", "hidden")
+      para.setAttribute("name", "space[item_id]")
+      para.setAttribute("id", "space_item_id")
+
+      spaceParentId.parentNode.insertBefore(para, spaceParentId.nextSibling);
+
+      const spaceForm = document.getElementById('new_space')
+      const spaceTxtInpt = document.getElementById('space_name')
+      spaceTxtInpt.focus();
+      spaceTxtInpt.addEventListener('paste', function(event) {
+        setTimeout(function(){ spaceForm.submit() }, 0.1);
+      });
     })
 
   }
@@ -83,6 +112,7 @@ const moveToSpaceList = () => {
 
       displayNewBox(clickedSpaceId);
 
+      displayNewSpaceBox(clickedSpaceId);
     })
   )
 
@@ -93,6 +123,8 @@ const moveToSpaceList = () => {
       displayNewBox(e.state.clickedSpaceId);
     }
   });
+
+
 
   const truncate = (input) => input.length > 21 ? `${input.substring(0, 21)}...` : input;
 

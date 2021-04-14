@@ -48,6 +48,9 @@ skip_before_action :verify_authenticity_token
 
   def show
     @shelf = current_user.shelves.first
+    @child = Space.new
+    @parent_id = Space.new
+    @space = Space.new
   end
 
   def edit

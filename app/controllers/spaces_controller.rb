@@ -23,6 +23,10 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
       @shelf.items.update_all('position = position + 1') # every new object has position 1 by default --> pushes all other positions to the right
       @shelf.spaces.update_all('position = position + 1')
       @shelf.spaces << @space
+      if params[:space][:item_id]
+        @item = Item.find(params[:space][:item_id])
+        @space.items << @item
+      end
       redirect_to shelf_path(@shelf)
     elsif params[:space][:parent_id].present?
       @child = Space.new(space_params)
@@ -40,7 +44,13 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
       else
         s2 = @parent.connections.first.children.create(space: @child)
       end
-      redirect_to space_path(@parent)
+      if params[:space][:item_id]
+        @item = Item.find(params[:space][:item_id])
+        @child.items << @item
+        redirect_to space_path(@child)
+      else
+        redirect_to space_path(@parent)
+      end
     end
   end
 
