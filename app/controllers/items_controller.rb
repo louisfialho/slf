@@ -47,6 +47,7 @@ skip_before_action :verify_authenticity_token
   end
 
   def show
+    @shelf = current_user.shelves.first
   end
 
   def edit
