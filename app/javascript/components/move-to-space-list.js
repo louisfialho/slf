@@ -15,13 +15,17 @@ const moveToSpaceList = () => {
     moveToBox.style.display = "none"
     addSpaceBox.style.display = ""
 
+    getSpaceBoxReady()
+  })
+
+  function getSpaceBoxReady() {
     const spaceForm = document.getElementById('new_space')
     const spaceTxtInpt = document.getElementById('space_name')
     spaceTxtInpt.focus();
     spaceTxtInpt.addEventListener('paste', function(event) {
       setTimeout(function(){ spaceForm.submit() }, 0.1);
     });
-  })
+  };
 
   function displayNewBox(spaceId) {
 
@@ -102,15 +106,10 @@ const moveToSpaceList = () => {
       para.setAttribute("name", "space[parent_id]")
       para.setAttribute("id", "space_parent_id")
 
-      shelfIdElement.parentNode.insertBefore(para, spaceParentId.nextSibling);
+      shelfIdElement.parentNode.insertBefore(para, shelfIdElement.nextSibling);
       shelfIdElement.parentNode.removeChild(shelfIdElement);
 
-      const spaceForm = document.getElementById('new_space')
-      const spaceTxtInpt = document.getElementById('space_name')
-      spaceTxtInpt.focus();
-      spaceTxtInpt.addEventListener('paste', function(event) {
-        setTimeout(function(){ spaceForm.submit() }, 0.1);
-      });
+      getSpaceBoxReady()
     })
 
   }
@@ -136,8 +135,6 @@ const moveToSpaceList = () => {
       displayNewBox(e.state.clickedSpaceId);
     }
   });
-
-
 
   const truncate = (input) => input.length > 21 ? `${input.substring(0, 21)}...` : input;
 
