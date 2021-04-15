@@ -24,10 +24,11 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
       @shelf.spaces.update_all('position = position + 1')
       @shelf.spaces << @space
       if params[:space][:item_id]
-        @item = Item.find(params[:space][:item_id])
-        @space.items << @item
+        add_item_to(@space)
+        redirect_to space_path(@space)
+      else
+        redirect_to shelf_path(@shelf)
       end
-      redirect_to shelf_path(@shelf)
     elsif params[:space][:parent_id].present?
       @child = Space.new(space_params)
       authorize @child, policy_class: SpacePolicy
@@ -45,13 +46,36 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
         s2 = @parent.connections.first.children.create(space: @child)
       end
       if params[:space][:item_id]
-        @item = Item.find(params[:space][:item_id])
-        @child.items << @item
+        add_item_to(@child)
         redirect_to space_path(@child)
       else
         redirect_to space_path(@parent)
       end
     end
+  end
+
+  def add_item_to(space)
+    @item = Item.find(params[:space][:item_id])
+    item_position = @item.position
+    if @item.shelves.empty? == false
+      @shelf = current_user.shelves.first
+      @shelf.items.where('position > ?', item_position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
+      @shelf.spaces.where('position > ?', item_position).update_all('position = position - 1')
+      @item.shelves.destroy_all
+    else
+      @initial_space = @item.spaces.first
+      @initial_space.items.where('position > ?', item_position).update_all('position = position - 1')
+      @initial_space.children.each do |connection|
+        if connection.space.position > item_position
+          connection.space.position = connection.space.position - 1
+          connection.space.save
+        end
+      end
+      @item.spaces.destroy_all
+    end
+    @item.position = 1
+    @item.save(validate: false)
+    space.items << @item
   end
 
   # not dry!

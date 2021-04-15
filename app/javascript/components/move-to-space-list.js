@@ -11,6 +11,17 @@ const moveToSpaceList = () => {
 
   var itemId = moveToBox.dataset.itemId
 
+  newSpace.addEventListener("click", (event) => {
+    moveToBox.style.display = "none"
+    addSpaceBox.style.display = ""
+
+    const spaceForm = document.getElementById('new_space')
+    const spaceTxtInpt = document.getElementById('space_name')
+    spaceTxtInpt.focus();
+    spaceTxtInpt.addEventListener('paste', function(event) {
+      setTimeout(function(){ spaceForm.submit() }, 0.1);
+    });
+  })
 
   function displayNewBox(spaceId) {
 
@@ -81,16 +92,18 @@ const moveToSpaceList = () => {
       moveToBox.style.display = "none"
       addSpaceBox.style.display = ""
 
-      var spaceParentId = document.getElementById('space_parent_id');
-      spaceParentId.setAttribute("value", spaceId);
+      // enlever la ligne id="space_shelf_id"
+      var shelfIdElement = document.getElementById('space_shelf_id');
 
+      // ajouter <input type="hidden" name="space[parent_id]" id="space_parent_id">
       var para = document.createElement("input");
-      para.setAttribute("value", itemId)
+      para.setAttribute("value", spaceId)
       para.setAttribute("type", "hidden")
-      para.setAttribute("name", "space[item_id]")
-      para.setAttribute("id", "space_item_id")
+      para.setAttribute("name", "space[parent_id]")
+      para.setAttribute("id", "space_parent_id")
 
-      spaceParentId.parentNode.insertBefore(para, spaceParentId.nextSibling);
+      shelfIdElement.parentNode.insertBefore(para, spaceParentId.nextSibling);
+      shelfIdElement.parentNode.removeChild(shelfIdElement);
 
       const spaceForm = document.getElementById('new_space')
       const spaceTxtInpt = document.getElementById('space_name')
