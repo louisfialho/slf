@@ -54,6 +54,7 @@
     </div>
 <!-- END OF OPTIONS -->
 
+<!-- MOVE TO LIST -->
 <div class="options-ctn" id="move-to-list" style="display:none;" data-type="item" data-item-id="<%= @item.id %>" data-shelf-id="<%= @shelf.id %>">
   <div id="top-line">
     <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
@@ -73,6 +74,8 @@
     </div>
   <%= button_to "👉 Move to shelf", { controller: "items", action: "move_to_shelf", item_id: @item.id }, id: 'move-to-button' %>
 </div>
+<!-- END OF MOVE TO LIST -->
+
 
 <!-- ADD SPACE NAME BOX -->
     <div class="options-ctn options-ctn-shelf-space" id="add-space" style="display:none;">

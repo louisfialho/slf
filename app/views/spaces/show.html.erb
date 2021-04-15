@@ -54,10 +54,10 @@
   <% end %>
 <!-- END OF OPTIONS SPACE -->
 
-<div class="options-ctn" id="move-to-list" style="display:none;">
+<div class="options-ctn" id="move-to-list" style="display:none;" data-type="space" data-space-id="<%= @space.id %>" data-shelf-id="<%= @shelf.id %>">
   <div id="top-line">
     <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
-    <p class="option" id="top-element" data-type="space" data-shelf-id="<%= @shelf.id %>">Shelf</p>
+    <p class="option" id="top-element">Shelf</p>
   </div>
   <hr/>
   <ul id="children-spaces">
@@ -67,6 +67,10 @@
     </li>
   <% end %>
   </ul>
+    <div id="new-space">
+      <%= image_tag("grey_plus.png", width: 18, height: 18, id: 'grey-plus-img').html_safe %>
+      <div id="new-space-txt">New</div>
+    </div>
   <%= button_to "👉 Move to shelf", { controller: "spaces", action: "move_space_to_shelf", current_space_id: @space.id }, id: 'move-to-button' %>
 <!--   <%= button_to "👉 Move to test", { controller: "spaces", action: "move_space_to_space", current_space_id: @space.id, destination_space_id: 1 }, id: 'move-to-button' %>
  -->
