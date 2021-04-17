@@ -56,6 +56,24 @@ const moveToSpaceList = () => {
         data.space_children.forEach(space =>
           list.insertAdjacentHTML("beforeend", "<li><a class='option' id='child-space-" + space.id + "' data-space-id='" + space.id + "'> 🗄" + truncate(space.name) + "</a></li>")
         )
+
+        // update the form of the new space box
+        var shelfIdElement = document.getElementById('space_shelf_id');
+        var parentIdElement = document.getElementById('space_parent_id');
+        // if the form has a shelf, we replace it by the parent space (i.e. space in which we create the new space)
+        if (shelfIdElement) {
+          // ajouter <input type="hidden" name="space[parent_id]" id="space_parent_id">
+          var para = document.createElement("input");
+          para.setAttribute("value", spaceId)
+          para.setAttribute("type", "hidden")
+          para.setAttribute("name", "space[parent_id]")
+          para.setAttribute("id", "space_parent_id")
+          shelfIdElement.parentNode.insertBefore(para, shelfIdElement.nextSibling);
+          shelfIdElement.parentNode.removeChild(shelfIdElement);
+        } else if (parentIdElement) {
+          // if the form has a parent id, we simply replace the value
+          parentIdElement.setAttribute("value", spaceId)
+        }
         moveToSpaceList()
       }
     })
@@ -90,30 +108,6 @@ const moveToSpaceList = () => {
     })
   }
 
-  function displayNewSpaceBox(spaceId) {
-
-    newSpace.addEventListener("click", (event) => {
-      moveToBox.style.display = "none"
-      addSpaceBox.style.display = ""
-
-      // enlever la ligne id="space_shelf_id"
-      var shelfIdElement = document.getElementById('space_shelf_id');
-
-      // ajouter <input type="hidden" name="space[parent_id]" id="space_parent_id">
-      var para = document.createElement("input");
-      para.setAttribute("value", spaceId)
-      para.setAttribute("type", "hidden")
-      para.setAttribute("name", "space[parent_id]")
-      para.setAttribute("id", "space_parent_id")
-
-      shelfIdElement.parentNode.insertBefore(para, shelfIdElement.nextSibling);
-      shelfIdElement.parentNode.removeChild(shelfIdElement);
-
-      getSpaceBoxReady()
-    })
-
-  }
-
   childSpaces.forEach(element =>
     element.addEventListener("click", (event) => {
 
@@ -123,8 +117,6 @@ const moveToSpaceList = () => {
       history.pushState({clickedSpaceId}, `Selected: ${clickedSpaceId}`, refresh)
 
       displayNewBox(clickedSpaceId);
-
-      displayNewSpaceBox(clickedSpaceId);
     })
   )
 
