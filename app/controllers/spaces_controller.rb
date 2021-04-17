@@ -48,6 +48,49 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
       if params[:space][:item_id]
         add_item_to(@child)
         redirect_to space_path(@child)
+      elsif params[:space][:space_id]
+        # child (nouveau space créé) est déjà dans parent. goal: mettre grand_child dans child
+        # trouver grand_child
+        @grand_child = Space.find(params[:space][:space_id])
+        # trouver sa position
+        grand_child_position = @grand_child.position
+        # si grand_child est sur la shelf
+        if @grand_child.shelves.empty? == false
+          # copier code pr trouver la shelf, mettre -1 à ts les objets et spaces, détruire co
+          @shelf = current_user.shelves.first
+          @shelf.items.where('position > ?', grand_child_position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
+          @shelf.spaces.where('position > ?', grand_child_position).update_all('position = position - 1')
+          @grand_child.shelves.destroy_all
+        # si grand_child est dans un space: initial_space
+        else # elsif...)
+          # trouver ce space initial_space
+          @grand_child.connections.each do |connection|
+            if connection.parent_id.nil? == false
+              @initial_space = connection.parent.space
+            end
+          end
+          # mettre -1 à ts les objets et spaces dans @initial_space
+          @initial_space.items.where('position > ?', grand_child_position).update_all('position = position - 1')
+          @initial_space.children.each do |connection|
+            if connection.space.position > grand_child_position
+              connection.space.position = connection.space.position - 1
+              connection.space.save
+            end
+          end
+          # détruire connections de grand_child
+          @grand_child.connections.destroy_all
+        end
+        # mettre pos 1 à grand_child, save
+        @grand_child.position = 1
+        @grand_child.save
+        # mettre grand_child dans child
+        if !@child.shelves.empty? && @child.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
+          s1 = Connection.create(space: @child)
+          s1.children.create(space: @grand_child)
+        else
+          @child.connections.first.children.create(space: @grand_child)
+        end
+        redirect_to space_path(@child)
       else
         redirect_to space_path(@parent)
       end
