@@ -1,6 +1,7 @@
 class SpacesController < ApplicationController
 before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
 skip_after_action :verify_authorized, only: [:space_name, :space_children]
+skip_before_action :verify_authenticity_token # vulnerability?
 
   def new
     if params[:shelf_id].present?
@@ -26,6 +27,8 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
       if params[:space][:item_id]
         add_item_to(@space)
         redirect_to space_path(@space)
+      elsif params[:space][:space_id]
+        # space est déjà créé dans shelf. il faut ajouter child dans space.
       else
         redirect_to shelf_path(@shelf)
       end
@@ -77,8 +80,7 @@ skip_after_action :verify_authorized, only: [:space_name, :space_children]
               connection.space.save
             end
           end
-          # détruire connections de grand_child
-          @grand_child.connections.destroy_all
+          # détruire connection de grand_child au parent direct initial space (mais préserver connection de grand child a ses enfants s'il en a)
         end
         # mettre pos 1 à grand_child, save
         @grand_child.position = 1
