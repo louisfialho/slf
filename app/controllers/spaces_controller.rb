@@ -28,7 +28,56 @@ skip_before_action :verify_authenticity_token # vulnerability?
         add_item_to(@space)
         redirect_to space_path(@space)
       elsif params[:space][:space_id]
-        # space est déjà créé dans shelf. il faut ajouter child dans space.
+        # space est déjà créé dans shelf. il faut juste ajouter le space child dans space.
+        # trouver child
+        @child = Space.find(params[:space][:space_id])
+        # trouver sa position
+        child_position = @child.position
+        @child.connections.each do |connection|
+          if connection.parent_id.nil? == false
+            @initial_space = connection.parent.space
+          end
+        end
+        # si child est dans un space initial_space
+        if @child.shelves.empty?
+          # créer nvelle connection de child à space
+          s1 = Connection.create(space: @space)
+          co = s1.children.create(space: @child)
+          # si child a des enfants
+          if @child.children.empty? == false
+            # rediriger toutes les co avec les enfants de child vers cette nvelle co
+            @child.children.each do |connection|
+              connection.parent_id = co.id
+              connection.save
+            end
+          end
+          # supprimer la co de child à initial_space
+          @child.connections.each do |connection|
+            if (connection.parent.nil? == false) && (connection.parent.space == @initial_space)
+              connection.destroy
+            end
+          end
+          # mettre -1 à ts les objets et spaces après child dans initial_space
+          @initial_space.items.where('position > ?', child_position).update_all('position = position - 1')
+          @initial_space.children.each do |connection|
+            if connection.space.position > child_position
+              connection.space.position = connection.space.position - 1
+              connection.space.save
+            end
+          end
+        # si child est sur la shelf // ca n'a pas trop de sens de le mettre dans un nv space sur la shelf...
+        else
+          # rompre co avec la shelf
+          @child.shelves.destroy_all
+          # créer la connection à space
+          s1 = Connection.create(space: @space)
+          co = s1.children.create(space: @child)
+          # mettre -1 à ts les éléments après lui sur la shelf
+          @shelf.items.where('position > ?', grand_child_position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
+          @shelf.spaces.where('position > ?', grand_child_position).update_all('position = position - 1')
+          # vérif que ca tient s'il a des enfants
+        end
+        redirect_to space_path(@space)
       else
         redirect_to shelf_path(@shelf)
       end
