@@ -83,7 +83,8 @@
       <% if policy(object).show? %>
         <div class="object" data-type="spaces" data-id="<%= object.id %>">
           <%= link_to image_tag("space.png", width: 100), space_path(object, shelf_id: @shelf.id) %>
-          <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object, shelf_id: @shelf.id), class: "object_name" %>
+<!--           <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object, shelf_id: @shelf.id), class: "object_name" %>
+ -->          <%= link_to truncate(object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object, shelf_id: @shelf.id), class: "object_name" %>
         </div>
       <% end %>
     <% elsif object.class.name == "Item" %>
@@ -98,7 +99,8 @@
           <% else object.medium == "web" %>
             <%= link_to image_tag("web.png", width: 100), item_path(object, shelf_id: @shelf.id) %>
           <% end %>
-          <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 40), item_path(object, shelf_id: @shelf.id), class: "object_name" %>
+<!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 40), item_path(object, shelf_id: @shelf.id), class: "object_name" %>
+ -->          <%= link_to truncate(object.name, length: 40), item_path(object, shelf_id: @shelf.id), class: "object_name" %>
         </div>
       <% end %>
     <% end %>
