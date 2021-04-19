@@ -44,10 +44,16 @@
         <a class="option" id="move-to">👉  Move space</a>
       </div>
       <div>
+      <% parent = nil %>
+      <% @space.connections.each do |connection| %>
+        <% if connection.parent_id.nil? == false %>
+          <% parent = connection.parent.space %>
+        <% end %>
+      <% end %>
       <% if @space.shelves.empty? == false %>
         <%= link_to '🗑  Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option" %>
-      <% elsif @space.connections.last.parent.space.present? == true %>
-        <%= link_to '🗑  Delete space', space_path(@space, parent_id: @space.connections.last.parent.space.id), method: :delete, class: "option" %>
+      <% elsif parent.nil? == false %>
+        <%= link_to '🗑  Delete space', space_path(@space, parent_id: parent.id), method: :delete, class: "option" %>
       <% end %>
       </div>
     </div>

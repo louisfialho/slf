@@ -64,6 +64,12 @@ skip_before_action :verify_authenticity_token # vulnerability?
           @shelf.items.where('position > ?', grand_child_position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
           @shelf.spaces.where('position > ?', grand_child_position).update_all('position = position - 1')
           @grand_child.shelves.destroy_all
+          if !@child.shelves.empty? && @child.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
+            s1 = Connection.create(space: @child)
+            s1.children.create(space: @grand_child)
+          else
+            @child.children.create(space: @grand_child)
+          end
         # si grand_child est dans un space: initial_space
         else # elsif...)
           # trouver ce space initial_space
@@ -80,18 +86,49 @@ skip_before_action :verify_authenticity_token # vulnerability?
               connection.space.save
             end
           end
-          # détruire connection de grand_child au parent direct initial space (mais préserver connection de grand child a ses enfants s'il en a)
+          # si grand child has children
+          if @grand_child.children.empty? == false
+            # d'abord créer la co de grand child à child
+            parent_connection = nil
+            @child.connections.each do |connection|
+              if connection.parent_id == nil
+                parent_connection = connection
+              end
+            end
+            if parent_connection
+              co = parent_connection.children.create(space: @grand_child)
+            else
+              # recréer connection ou destination space est parent
+              s1 = Connection.create(space: @child)
+              co = s1.children.create(space: @grand_child)
+            end
+            # pour chaque child de grand child, mettre à jour la co
+            @grand_child.children.each do |connection|
+              connection.parent_id = co.id
+              connection.save
+            end
+            # suppr la co de grand child à initial space
+            @grand_child.connections.each do |connection|
+              if (connection.parent.nil? == false) && (connection.parent.space == @initial_space)
+                connection.destroy
+              end
+            end
+          # sinon
+          else
+            # destroy all connections
+            @grand_child.connections.destroy_all
+            # créer co grand child à child
+            if !@child.shelves.empty? && @child.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
+              s1 = Connection.create(space: @child)
+              s1.children.create(space: @grand_child)
+            else
+              @child.children.create(space: @grand_child)
+            end
+          end
         end
         # mettre pos 1 à grand_child, save
         @grand_child.position = 1
         @grand_child.save
-        # mettre grand_child dans child
-        if !@child.shelves.empty? && @child.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
-          s1 = Connection.create(space: @child)
-          s1.children.create(space: @grand_child)
-        else
-          @child.connections.first.children.create(space: @grand_child)
-        end
         redirect_to space_path(@child)
       else
         redirect_to space_path(@parent)
@@ -188,12 +225,20 @@ skip_before_action :verify_authenticity_token # vulnerability?
 
     position = @current_space.position
 
+    @destination_space = Space.find(params[:destination_space_id])
+
     if @current_space.shelves.empty? == false
     # si sur shelf, trouver shelf, mettre -1 à ts les objets ou spaces après position dans shelf
       @shelf = @current_space.shelves.first
       @shelf.items.where('position > ?', position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
       @shelf.spaces.where('position > ?', position).update_all('position = position - 1')
       @current_space.shelves.destroy_all
+      if !@destination_space.shelves.empty? && @destination_space.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
+        s1 = Connection.create(space: @destination_space)
+        s1.children.create(space: @current_space)
+      else
+        @destination_space.connections.first.children.create(space: @current_space)
+      end
     elsif @current_space.connections.nil? == false
     # si sur space, trouver space parent, mettre -1 à ts les objets ou spaces après position dans space PARENT
       @current_space.connections.each do |connection|
@@ -208,11 +253,48 @@ skip_before_action :verify_authenticity_token # vulnerability?
           connection.space.save
         end
       end
-      @current_space.connections.destroy_all
+
+      if @current_space.children.empty? == false
+      # Si @current_space a des enfants.
+      # Si dans la co qui lie les enfants de @current_space à @current_space, le parent n'est pas une co ou @current_space est parent
+      # Je crée d'abord une nouvelle connection entre @current_space et @destination_space
+        # si @destination_space a déjà une co ou il est parent, j'utilise directement cette co et lui ajoute une co enfant (hi.connections.first.children.create(space: eship)))
+        parent_connection = nil
+        @destination_space.connections.each do |connection|
+          if connection.parent_id == nil
+            parent_connection = connection
+          end
+        end
+        if parent_connection
+          co = parent_connection.children.create(space: @current_space)
+        else
+          # recréer connection ou destination space est parent
+          s1 = Connection.create(space: @destination_space)
+          co = s1.children.create(space: @current_space)
+        end
+      # Ensuite, pour chaque enfant de @current_space, je définis c la connection de enfant à la co de current space et remplace la valeur de parent_id par la connection si dessus, puis c.save
+        @current_space.children.each do |connection|
+          connection.parent_id = co.id
+          connection.save
+        end
+      # Enfin, je suppr la connection de @current_space à @parent.
+        @current_space.connections.each do |connection|
+          if (connection.parent.nil? == false) && (connection.parent.space == @parent)
+            connection.destroy
+          end
+        end
+      else
+        @current_space.connections.destroy_all
+        if !@destination_space.shelves.empty? && @destination_space.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
+          s1 = Connection.create(space: @destination_space)
+          s1.children.create(space: @current_space)
+        else
+          @destination_space.connections.first.children.create(space: @current_space)
+        end
+      end
     end
 
     # mettre +1 à ts les objets ou spaces dans destination space
-    @destination_space = Space.find(params[:destination_space_id])
     @destination_space.items.update_all('position = position + 1')
     @destination_space.children.each do |connection|
       connection.space.position += 1
@@ -222,13 +304,6 @@ skip_before_action :verify_authenticity_token # vulnerability?
     # mettre position = 1 à space et save
     @current_space.position = 1
     @current_space.save
-
-    if !@destination_space.shelves.empty? && @destination_space.connections.empty? # si un space est sur une shelf, et n'est pas encore parent (i.e. n'a aucune connection)
-      s1 = Connection.create(space: @destination_space)
-      s1.children.create(space: @current_space)
-    else
-      @destination_space.connections.first.children.create(space: @current_space)
-    end
 
     redirect_to space_path(@destination_space)
   end
