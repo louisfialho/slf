@@ -558,6 +558,7 @@ input[type=text] {
     background-color: white;
     font-size: larger;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #move-to-button:hover
@@ -603,4 +604,17 @@ hr {
 #grey-plus-img {
   margin-left: 10px;
   margin-top: 4px;
+}
+
+#new-space-txt:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#grey-plus-img:hover {
+  cursor: pointer;
+}
+
+#left-arrow-img:hover {
+  cursor: pointer;
 }

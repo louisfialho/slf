@@ -6,7 +6,7 @@ const moveToSpaceList = () => {
   var form = document.querySelector('.button_to');
   var input = document.getElementById('move-to-button');
   var leftArrowImg = document.getElementById('left-arrow-img');
-  var newSpace = document.getElementById('new-space-txt');
+  var newSpace = document.getElementById('button-new-space-parent');
   var addSpaceBox = document.getElementById('add-space');
 
   var itemId = moveToBox.dataset.itemId
@@ -80,6 +80,7 @@ const moveToSpaceList = () => {
   }
 
   function mountShelf() {
+    leftArrowImg.style.display = "none"
     // replace top by shelf
     topElement.innerHTML = "Shelf"
     // replace button bottom
