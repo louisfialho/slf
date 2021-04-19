@@ -223,8 +223,13 @@ skip_before_action :verify_authenticity_token # vulnerability?
     @item = Item.new
     @child = Space.new
     @shelf = current_user.shelves.first
-    if @space.connections.empty? == false && @space.connections.first.parent_id.nil? == false
-      @parent = Space.find(Connection.find(@space.connections.first.parent_id).space_id)
+    # if @space.connections.empty? == false && @space.connections.first.parent_id.nil? == false
+    #   @parent = Space.find(Connection.find(@space.connections.first.parent_id).space_id)
+    # end
+    @space.connections.each do |connection|
+      if connection.parent_id.nil? == false
+        @parent = connection.parent.space
+      end
     end
   end
 
