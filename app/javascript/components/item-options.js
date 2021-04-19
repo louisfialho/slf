@@ -4,6 +4,8 @@ const displayItemOptions = () => {
   const actions = document.getElementById('actions');
   const moveTo = document.getElementById("move-to");
   const list = document.getElementById("move-to-list");
+  const addSpaceBox = document.getElementById('add-space');
+
 
   optionsBtn.addEventListener("mouseover", (event) => {
     optionsBtn.className = "grey-circle options";
@@ -49,6 +51,15 @@ const displayItemOptions = () => {
       var isClickInsideList = list.contains(event.target) ||  optionsBtn.contains(event.target) || moveTo.contains(event.target);
       if (!isClickInsideList) {
         list.style.display = "none";
+      }
+    }
+  });
+
+  document.addEventListener('click', function(event) {
+    if (addSpaceBox.style.display === "") {
+      var isClickInsideSpaceBox = addSpaceBox.contains(event.target) ||  list.contains(event.target);
+      if (!isClickInsideSpaceBox) {
+        addSpaceBox.style.display = "none";
       }
     }
   });
