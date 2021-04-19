@@ -53,10 +53,11 @@ const moveToSpaceList = () => {
       data: "",
       success: function(data) {
         list.innerHTML = "";
-        data.space_children.forEach(space =>
-          list.insertAdjacentHTML("beforeend", "<li><a class='option' id='child-space-" + space.id + "' data-space-id='" + space.id + "'> 🗄" + truncate(space.name) + "</a></li>")
-        )
-
+        data.space_children.forEach(function(space) {
+          if (space.id != currentSpaceId) {
+            list.insertAdjacentHTML("beforeend", "<li><a class='option' id='child-space-" + space.id + "' data-space-id='" + space.id + "'> 🗄" + truncate(space.name) + "</a></li>")
+          }
+        });
         // update the form of the new space box
         var shelfIdElement = document.getElementById('space_shelf_id');
         var parentIdElement = document.getElementById('space_parent_id');
