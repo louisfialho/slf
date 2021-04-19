@@ -40,7 +40,7 @@
       <div class="option add-option" id="new-object">
         <a>📚 New object</a>
       </div>
-      <div class="option add-option" id="new-space">
+      <div class="option add-option" id="button-new-space-child">
         <a>🗄 New space</a>
       </div>
     </div>
@@ -58,7 +58,7 @@
 <!-- END OF ADD URL BOX -->
 
 <!-- ADD SPACE NAME BOX -->
-    <div class="options-ctn options-ctn-shelf-space" id="add-space" style="display:none;">
+    <div class="options-ctn options-ctn-shelf-space" id="add-space" data-location="shelf" style="display:none;">
       <p class="option prompt" id="add-space-prompt" > What is the name of this new space? 🗄 </p>
       <%= simple_form_for @space, html: { autocomplete: 'off' } do |f| %>
         <%= f.text_field :name, class: 'txt-inpt' %> <!-- autofocus: true, onblur: 'this.focus()' --> <!-- onpaste: 'setTimeout(function(){ form.submit(); }, 0.1); -->

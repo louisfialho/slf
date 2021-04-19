@@ -3,9 +3,10 @@ const displayAddOptions = () => {
   const addOptionsBox = document.getElementById('add-options');
   const actions = document.getElementById('add-action');
   const newObjectBtn = document.getElementById('new-object');
-  const newSpaceBtn = document.getElementById('new-space');
+  const newSpaceBtn = document.getElementById('button-new-space-child');
   const addUrlBox = document.getElementById('add-url');
   const addSpaceBox = document.getElementById('add-space');
+  var newSpace = document.getElementById('new-space-txt');
 
   addBtn.addEventListener("mouseover", (event) => {
     addBtn.className = "grey-circle options";
@@ -67,6 +68,27 @@ const displayAddOptions = () => {
   newSpaceBtn.addEventListener("click", (event) => {
     addOptionsBox.style.display = "none";
     addSpaceBox.style.display = "";
+    // si addSpaceBox data space
+    if (addSpaceBox.dataset.location === "space") {
+      // Enlever
+      // <input value="1" type="hidden" name="space[shelf_id]" id="space_shelf_id">
+      document.getElementById("space_shelf_id").remove();
+
+      // garder value
+      // <input value="57" type="hidden" name="space[space_id]" id="space_space_id">
+      var spaceIdNode = document.getElementById("space_space_id")
+      var parentId = spaceIdNode.getAttribute('value');
+
+      // Ajouter
+      // <input value="57" type="hidden" name="space[parent_id]" id="space_parent_id">
+      var para = document.createElement("input");
+      para.setAttribute("value", parentId)
+      para.setAttribute("type", "hidden")
+      para.setAttribute("name", "space[parent_id]")
+      para.setAttribute("id", "space_parent_id")
+      spaceIdNode.parentNode.insertBefore(para, spaceIdNode.nextSibling);
+      spaceIdNode.parentNode.removeChild(spaceIdNode);
+    }
     const spaceForm = document.getElementById('new_space')
     const spaceTxtInpt = document.getElementById('space_name')
     spaceTxtInpt.focus();
@@ -77,7 +99,7 @@ const displayAddOptions = () => {
 
   document.addEventListener('click', function(event) {
     if (addSpaceBox.style.display === "") {
-      var isClickInsideSpaceBox = addSpaceBox.contains(event.target) ||  addBtn.contains(event.target) || newSpaceBtn.contains(event.target);
+      var isClickInsideSpaceBox = addSpaceBox.contains(event.target) ||  addBtn.contains(event.target) || newSpaceBtn.contains(event.target) || newSpace.contains(event.target);
       if (!isClickInsideSpaceBox) {
         addSpaceBox.style.display = "none";
       }
