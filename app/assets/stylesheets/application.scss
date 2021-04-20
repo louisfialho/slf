@@ -78,7 +78,19 @@ body {
 
 @media(max-width: 576px) {
   .grid-container {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media(max-width: 768px) {
+  .grid-container {
     grid-template-columns: auto auto auto;
+  }
+}
+
+@media(max-width: 992px) {
+  .grid-container {
+    grid-template-columns: auto auto auto auto;
   }
 }
 
