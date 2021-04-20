@@ -76,6 +76,12 @@ body {
     grid-gap: 100px;
 }
 
+@media(max-width: 576px) {
+  .grid-container {
+    grid-template-columns: auto auto auto;
+  }
+}
+
 // object
 .object{
   display: grid;

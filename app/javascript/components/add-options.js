@@ -97,6 +97,7 @@ const displayAddOptions = () => {
     });
   });
 
+  // following if else statement is super unclean (should creat a dedicated add-options-shelf js file)
   if (newSpace) {
     document.addEventListener('click', function(event) {
       if (addSpaceBox.style.display === "") {
