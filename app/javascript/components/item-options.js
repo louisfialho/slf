@@ -7,15 +7,15 @@ const displayItemOptions = () => {
   const addSpaceBox = document.getElementById('add-space');
 
 
-  optionsBtn.addEventListener("mouseover", (event) => {
-    optionsBtn.className = "grey-circle options";
-    setTimeout(function(){ actions.style.display = ""; }, 250);
-  });
+  // optionsBtn.addEventListener("mouseover", (event) => {
+  //   optionsBtn.className = "grey-circle options";
+  //   setTimeout(function(){ actions.style.display = ""; }, 250);
+  // });
 
-  optionsBtn.addEventListener("mouseout", (event) => {
-    optionsBtn.className = "options";
-    actions.style.display = "none"
-  });
+  // optionsBtn.addEventListener("mouseout", (event) => {
+  //   optionsBtn.className = "options";
+  //   actions.style.display = "none"
+  // });
 
  optionsBtn.addEventListener("click", (event) => {
   if (list.style.display === "none") {

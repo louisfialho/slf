@@ -385,6 +385,10 @@ textarea {
   width: 32px;
 }
 
+#options.item-options {
+  margin-top: 20px;
+}
+
 .options-ctn {
     // margin-left: 1660px;
     position: absolute;
@@ -406,6 +410,10 @@ textarea {
   color: #282828;
   font-weight: 400;
   margin-left: 10px;
+}
+
+#leave-shelf {
+  margin-left: 0px;
 }
 
 .rotated img {
@@ -449,8 +457,12 @@ textarea {
 }
 
 .options-ctn-shelf-space {
-  top: 54px !important;
+  top: 85px !important;
   text-align: center;
+}
+
+#add-options{
+  margin-right: 85px;
 }
 
 #add-url {

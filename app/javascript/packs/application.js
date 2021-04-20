@@ -27,6 +27,8 @@ import "bootstrap";
 import { updateStatus } from '../components/update';
 import { displaySave } from '../components/display-save';
 import { displayItemOptions } from '../components/item-options';
+import { displayShelfOptions } from '../components/shelf-options';
+import { displaySpaceOptions } from '../components/space-options';
 import { displayAddOptions } from '../components/add-options';
 import { moveToSpaceList } from '../components/move-to-space-list';
 import { backArrow } from '../components/back-arrow';
@@ -47,12 +49,20 @@ document.addEventListener('turbolinks:load', () => {
      displaySave();
   }
 
-  if (document.querySelector("#options-btn")) {
+  if (document.querySelector(".item-options")) {
     displayItemOptions();
   }
 
   if (document.querySelector("#add-btn")) {
     displayAddOptions();
+  }
+
+  if (document.querySelector(".shelf-options")) {
+    displayShelfOptions();
+  }
+
+  if (document.querySelector(".space-options")) {
+    displaySpaceOptions();
   }
 
   if (document.getElementById('top-element')) {

@@ -2,25 +2,39 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <%= link_to "shelf", root_path, class: "logo" %>
 
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-     <% if user_signed_in? %>
-          <%= link_to "t", destroy_user_session_path, method: :delete %>
-      <% else %>
-          <%= link_to "Log in", new_user_session_path %>
+<!-- OPTIONS SPACE -->
+    <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
+      <div>
+      <% if user_signed_in? %>
+        <%= link_to '🚪 Leave shelf', destroy_user_session_path, method: :delete, class: "option", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
       <% end %>
-      <br>
+      </div>
     </div>
+<!-- END OF OPTIONS SPACE -->
+
 
 <!--     <div class="filter-options">
       <button class="filter-btn" id="status-filter-btn">Status</button>
     </div> -->
-
+<!--
     <% if policy(Item).create? && policy(Space).create? %>
       <div class="options" id="add-btn">
         <%= image_tag "Plus.png", alt: "Plus", width: 45 %>
       </div>
-    <% end %>
+    <% end %> -->
+
+    <div class="buttons-ctn-show">
+      <% if policy(Item).create? && policy(Space).create? %>
+        <div class="options" id="add-btn">
+          <a><%= image_tag "Plus.png", alt: "Plus", width: 37 %></a>
+        </div>
+      <% end %>
+      <div>
+        <div class="options" id="options-btn">
+          <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>

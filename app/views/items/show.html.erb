@@ -24,14 +24,14 @@
       <div>
         <% if policy(@item).destroy? %>
           <div class="options" id="options-btn">
-            <%= image_tag "options.png", alt: "Options", width: 33 %>
+            <%= image_tag "options.png", alt: "Options", width: 37 %>
           </div>
         <% end %>
       </div>
       <% if @parent_space %>
-        <%= link_to image_tag("Plus.png", width: 40).html_safe, space_path(@parent_space), class: 'rotated' %>
+        <%= link_to image_tag("Plus.png", width: 44).html_safe, space_path(@parent_space), class: 'rotated' %>
       <% else %>
-        <%= link_to image_tag("Plus.png", width: 40).html_safe, shelf_path(@shelf), class: 'rotated' %>
+        <%= link_to image_tag("Plus.png", width: 44).html_safe, shelf_path(@shelf), class: 'rotated' %>
       <% end %>
     </div>
 </div>
@@ -40,7 +40,7 @@
     <div class="indicator" id="actions" style="display:none;">Actions</div>
 
 <!-- OPTIONS -->
-    <div class="options-ctn" id="options" style="display:none;">
+    <div class="options-ctn item-options" id="options" style="display:none;">
       <div>
         <a class="option" id="move-to"> 👉  Move object</a>
       </div>

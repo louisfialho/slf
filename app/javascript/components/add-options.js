@@ -8,15 +8,15 @@ const displayAddOptions = () => {
   const addSpaceBox = document.getElementById('add-space');
   var newSpace = document.getElementById('new-space-txt');
 
-  addBtn.addEventListener("mouseover", (event) => {
-    addBtn.className = "grey-circle options";
-    setTimeout(function(){ actions.style.display = ""; }, 250);
-  });
+  // addBtn.addEventListener("mouseover", (event) => {
+  //   addBtn.className = "grey-circle options";
+  //   setTimeout(function(){ actions.style.display = ""; }, 250);
+  // });
 
-  addBtn.addEventListener("mouseout", (event) => {
-    addBtn.className = "options";
-    actions.style.display = "none"
-  });
+  // addBtn.addEventListener("mouseout", (event) => {
+  //   addBtn.className = "options";
+  //   actions.style.display = "none"
+  // });
 
  addBtn.addEventListener("click", (event) => {
   if (addUrlBox.style.display === "none" && addSpaceBox.style.display === "none") {

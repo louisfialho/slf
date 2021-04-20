@@ -17,17 +17,18 @@
       <% end %> -->
 
     <div class="buttons-ctn-show">
+      <% if policy(Item).create? && policy(Space).create? %>
+        <div class="options" id="add-btn">
+          <a><%= image_tag "Plus.png", alt: "Plus", width: 37 %></a>
+        </div>
+      <% end %>
       <div>
-        <% if policy(Space).create? %>
-          <div class="options" id="options-btn"> <!-- ajouter class="options" id="options-btn" -->
-            <%= image_tag "options.png", alt: "Options", width: 45 %>
-          </div>
-        <% end %>
-      </div>
-      <div class="options" id="add-btn">
-        <%= image_tag "Plus.png", alt: "Plus", width: 45 %>
+        <div class="options" id="options-btn"> <!-- ajouter class="options" id="options-btn" -->
+          <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
 <!-- END OF NAVBAR -->
@@ -39,9 +40,9 @@
 
 <!-- OPTIONS SPACE -->
   <% if policy(@space).destroy? %>
-    <div class="options-ctn options-ctn-shelf-space" id="options" style="display:none;">
+    <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
       <div>
-        <a class="option" id="move-to">👉  Move space</a>
+        <a class="option" id="move-to">👉 Move space</a>
       </div>
       <div>
       <% parent = nil %>
@@ -51,9 +52,14 @@
         <% end %>
       <% end %>
       <% if @space.shelves.empty? == false %>
-        <%= link_to '🗑  Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option" %>
+        <%= link_to '🗑 Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option" %>
       <% elsif parent.nil? == false %>
-        <%= link_to '🗑  Delete space', space_path(@space, parent_id: parent.id), method: :delete, class: "option" %>
+        <%= link_to '🗑 Delete space', space_path(@space, parent_id: parent.id), method: :delete, class: "option" %>
+      <% end %>
+      </div>
+      <div>
+      <% if user_signed_in? %>
+        <%= link_to '🚪 Leave shelf', destroy_user_session_path, method: :delete, class: "option", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
       <% end %>
       </div>
     </div>
