@@ -97,14 +97,26 @@ const displayAddOptions = () => {
     });
   });
 
-  document.addEventListener('click', function(event) {
-    if (addSpaceBox.style.display === "") {
-      var isClickInsideSpaceBox = addSpaceBox.contains(event.target) ||  addBtn.contains(event.target) || newSpaceBtn.contains(event.target) || newSpace.contains(event.target);
-      if (!isClickInsideSpaceBox) {
-        addSpaceBox.style.display = "none";
+  if (newSpace) {
+    document.addEventListener('click', function(event) {
+      if (addSpaceBox.style.display === "") {
+        var isClickInsideSpaceBox = addSpaceBox.contains(event.target) ||  addBtn.contains(event.target) || newSpaceBtn.contains(event.target) || newSpace.contains(event.target);
+        if (!isClickInsideSpaceBox) {
+          addSpaceBox.style.display = "none";
+        }
       }
-    }
-  });
+    });
+  }
+  else {
+    document.addEventListener('click', function(event) {
+      if (addSpaceBox.style.display === "") {
+        var isClickInsideSpaceBox = addSpaceBox.contains(event.target) ||  addBtn.contains(event.target) || newSpaceBtn.contains(event.target);
+        if (!isClickInsideSpaceBox) {
+          addSpaceBox.style.display = "none";
+        }
+      }
+    });
+  }
 
   // filters
 
