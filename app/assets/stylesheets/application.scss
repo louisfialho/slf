@@ -76,9 +76,9 @@ body {
     grid-gap: 100px;
 }
 
-@media(max-width: 576px) {
+@media(max-width: 992px) {
   .grid-container {
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto auto;
   }
 }
 
@@ -88,9 +88,9 @@ body {
   }
 }
 
-@media(max-width: 992px) {
+@media(max-width: 576px) {
   .grid-container {
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto;
   }
 }
 
