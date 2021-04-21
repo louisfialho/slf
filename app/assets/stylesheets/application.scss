@@ -132,6 +132,15 @@ body {
 }
 
 
+@media(max-width: 400px) {
+  .grid-container {
+    grid-template-columns: auto auto;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
+
 
 
 
