@@ -68,7 +68,7 @@ body {
 .grid-container {
     flex-grow: 1;
     display: grid;
-    margin-top: 12px;
+    margin-top: 15px;
     grid-row-gap: 84px;
     grid-column-gap: 50px;
 }
@@ -163,7 +163,7 @@ body {
   }
 }
 
-@media(max-width: 400px) {
+@media(max-width: 450px) {
   .grid-container {
     grid-template-columns: auto;
     margin-right: 125px;
