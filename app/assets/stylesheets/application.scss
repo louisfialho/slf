@@ -69,7 +69,8 @@ body {
     flex-grow: 1;
     display: grid;
     margin-top: 12px;
-    grid-row-gap: 75px;
+    grid-row-gap: 84px;
+    grid-column-gap: 50px;
 }
 
 
@@ -78,43 +79,38 @@ body {
     grid-template-columns: auto auto auto auto auto;
     margin-right: 240px;
     margin-left: 240px;
-    grid-column-gap: 50px;
+  }
+}
+
+@media(max-width: 1750px) {
+  .grid-container {
+    grid-template-columns: auto auto auto auto auto;
+    margin-right: 200px;
+    margin-left: 200px;
+  }
+}
+
+@media(max-width: 1650px) {
+  .grid-container {
+    grid-template-columns: auto auto auto auto;
+    margin-right: 170px;
+    margin-left: 170px;
   }
 }
 
 @media(max-width: 1500px) {
   .grid-container {
     grid-template-columns: auto auto auto auto;
-    margin-right: 175px;
-    margin-left: 175px;
-    grid-column-gap: 75px;
-  }
-}
-
-@media(max-width: 1500px) {
-  .grid-container {
-    grid-template-columns: auto auto auto auto;
-    margin-right: 150px;
-    margin-left: 150px;
-    grid-column-gap: 75px;
+    margin-right: 140px;
+    margin-left: 140px;
   }
 }
 
 @media(max-width: 1300px) {
   .grid-container {
     grid-template-columns: auto auto auto auto;
-    margin-right: 125px;
-    margin-left: 125px;
-    grid-column-gap: 75px;
-  }
-}
-
-@media(max-width: 1200px) {
-  .grid-container {
-    grid-template-columns: auto auto auto;
-    margin-right: 110px;
-    margin-left: 110px;
-    grid-column-gap: 63px;
+    margin-right: 115px;
+    margin-left: 115px;
   }
 }
 
@@ -123,7 +119,14 @@ body {
     grid-template-columns: auto auto auto;
     margin-right: 100px;
     margin-left: 100px;
-    grid-column-gap: 63px;
+  }
+}
+
+@media(max-width: 1200px) {
+  .grid-container {
+    grid-template-columns: auto auto auto;
+    margin-right: 100px;
+    margin-left: 100px;
   }
 }
 
@@ -132,7 +135,6 @@ body {
     grid-template-columns: auto auto auto;
     margin-right: 75px;
     margin-left: 75px;
-    grid-column-gap: 50px;
   }
 }
 
@@ -142,7 +144,6 @@ body {
     grid-template-columns: auto auto auto;
     margin-right: 60px;
     margin-left: 60px;
-    grid-column-gap: 30px;
   }
 }
 
@@ -151,7 +152,6 @@ body {
     grid-template-columns: auto auto auto;
     margin-right: 35px;
     margin-left: 35px;
-    grid-column-gap: 25px;
   }
 }
 
@@ -160,7 +160,6 @@ body {
     grid-template-columns: auto auto;
     margin-right: 30px;
     margin-left: 30px;
-    grid-column-gap: 25px;
   }
 }
 
@@ -169,7 +168,6 @@ body {
     grid-template-columns: auto;
     margin-right: 10px;
     margin-left: 10px;
-    grid-column-gap: 25px;
   }
 }
 
