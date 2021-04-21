@@ -69,8 +69,8 @@ body {
     flex-grow: 1;
     display: grid;
     row-gap: 50px;
-    margin-left: 225px;
     margin-right: 250px;
+    margin-left: 250px;
     margin-top: 12px;
     grid-gap: 100px;
 }
@@ -84,24 +84,32 @@ body {
 @media(max-width: 1200px) {
   .grid-container {
     grid-template-columns: auto auto auto auto;
+    margin-right: 250px;
+    margin-left: 250px;
   }
 }
 
 @media(max-width: 992px) {
   .grid-container {
     grid-template-columns: auto auto auto;
+    margin-right: 250px;
+    margin-left: 250px;
   }
 }
 
 @media(max-width: 768px) {
   .grid-container {
     grid-template-columns: auto auto;
+    margin-right: 250px;
+    margin-left: 250px;
   }
 }
 
 @media(max-width: 576px) {
   .grid-container {
     grid-template-columns: auto;
+    margin-right: 250px;
+    margin-left: 250px;
   }
 }
 
