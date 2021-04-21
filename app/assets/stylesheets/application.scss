@@ -106,6 +106,14 @@ body {
   }
 }
 
+@media(max-width: 550px) {
+  .grid-container {
+    grid-template-columns: auto auto;
+    margin-right: 25px;
+    margin-left: 25px;
+  }
+}
+
 
 
 
