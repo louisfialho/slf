@@ -155,7 +155,7 @@ body {
   }
 }
 
-@media(max-width: 600px) {
+@media(max-width: 640px) {
   .grid-container {
     grid-template-columns: auto auto;
     margin-right: 30px;
@@ -169,6 +169,10 @@ body {
     margin-right: 125px;
     margin-left: 125px;
     grid-row-gap: 100px;
+  }
+
+  .options {
+    margin-right: 0px !important;
   }
 }
 
