@@ -65,6 +65,10 @@ body {
 
 // container
 
+.object-picture {
+  width: 100px;
+}
+
 .grid-container {
     flex-grow: 1;
     display: grid;
@@ -165,10 +169,15 @@ body {
 
 @media(max-width: 450px) {
   .grid-container {
-    grid-template-columns: auto;
-    margin-right: 125px;
-    margin-left: 125px;
-    grid-row-gap: 100px;
+    grid-template-columns: auto auto auto;
+    margin-right: 10px;
+    margin-left: 10px;
+    grid-row-gap: 50px;
+    grid-col-gap: 0px;
+  }
+
+  .object-picture {
+    width: 70px;
   }
 
   .options {
