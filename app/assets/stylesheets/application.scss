@@ -176,8 +176,14 @@ body {
   }
 }
 
-
-
+@media(max-width: 340px) {
+  .grid-container {
+    grid-template-columns: auto;
+    margin-right: 110px;
+    margin-left: 110px;
+    grid-row-gap: 100px;
+  }
+}
 
 
 
