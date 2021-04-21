@@ -17,7 +17,7 @@ export default class extends Controller {
     this.sortable = Sortable.create(this.element, {
       animation: 500,
       onEnd: this.end.bind(this)
-      delay: 500, // time in milliseconds to define when the sorting should start
+      delay: 250, // time in milliseconds to define when the sorting should start
       delayOnTouchOnly: true, // only delay if user is using touch
     })
   }
