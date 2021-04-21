@@ -69,15 +69,16 @@ body {
     flex-grow: 1;
     display: grid;
     margin-top: 12px;
+    grid-row-gap: 75px;
 }
 
 
 @media(min-width: 1200px) {
   .grid-container {
     grid-template-columns: auto auto auto auto auto;
-    margin-right: 200px;
-    margin-left: 200px;
-    grid-gap: 100px;
+    margin-right: 250px;
+    margin-left: 250px;
+    grid-column-gap: 50px;
   }
 }
 
@@ -86,7 +87,7 @@ body {
     grid-template-columns: auto auto auto auto;
     margin-right: 175px;
     margin-left: 175px;
-    grid-gap: 75px;
+    grid-column-gap: 75px;
   }
 }
 
@@ -95,7 +96,7 @@ body {
     grid-template-columns: auto auto auto auto;
     margin-right: 150px;
     margin-left: 150px;
-    grid-gap: 75px;
+    grid-column-gap: 75px;
   }
 }
 
@@ -104,7 +105,7 @@ body {
     grid-template-columns: auto auto auto auto;
     margin-right: 125px;
     margin-left: 125px;
-    grid-gap: 75px;
+    grid-column-gap: 75px;
   }
 }
 
@@ -113,7 +114,7 @@ body {
     grid-template-columns: auto auto auto;
     margin-right: 110px;
     margin-left: 110px;
-    grid-gap: 63px;
+    grid-column-gap: 63px;
   }
 }
 
@@ -122,16 +123,16 @@ body {
     grid-template-columns: auto auto auto;
     margin-right: 100px;
     margin-left: 100px;
-    grid-gap: 63px;
+    grid-column-gap: 63px;
   }
 }
 
 @media(max-width: 1000px) {
   .grid-container {
     grid-template-columns: auto auto auto;
-    margin-right: 90px;
-    margin-left: 90px;
-    grid-gap: 50px;
+    margin-right: 75px;
+    margin-left: 75px;
+    grid-column-gap: 50px;
   }
 }
 
@@ -141,7 +142,7 @@ body {
     grid-template-columns: auto auto auto;
     margin-right: 60px;
     margin-left: 60px;
-    grid-gap: 30px;
+    grid-column-gap: 30px;
   }
 }
 
@@ -150,7 +151,7 @@ body {
     grid-template-columns: auto auto auto;
     margin-right: 35px;
     margin-left: 35px;
-    grid-gap: 25px;
+    grid-column-gap: 25px;
   }
 }
 
@@ -159,7 +160,7 @@ body {
     grid-template-columns: auto auto;
     margin-right: 30px;
     margin-left: 30px;
-    grid-gap: 25px;
+    grid-column-gap: 25px;
   }
 }
 
@@ -168,7 +169,7 @@ body {
     grid-template-columns: auto;
     margin-right: 10px;
     margin-left: 10px;
-    grid-gap: 25px;
+    grid-column-gap: 25px;
   }
 }
 
@@ -486,7 +487,7 @@ textarea {
 
 .options {
   margin-left: auto;
-  margin-right: 50px;
+  margin-right: 38px;
   height: 32px;
   width: 32px;
 }
