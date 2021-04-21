@@ -142,7 +142,6 @@ body {
   }
 }
 
-
 @media(max-width: 850px) {
   .grid-container {
     grid-template-columns: auto auto auto;
@@ -193,7 +192,7 @@ body {
     grid-template-columns: auto auto;
     margin-right: 10px;
     margin-left: 10px;
-    grid-row-gap: 100px;
+    grid-row-gap: 50px;
     grid-column-gap: 0px;
   }
 
