@@ -169,9 +169,9 @@ body {
 @media(max-width: 450px) {
   .grid-container {
     grid-template-columns: auto auto auto;
-    margin-left: 3px;
+    margin-left: 6px;
     grid-row-gap: 50px;
-    grid-column-gap: 0px;
+    grid-column-gap: 7px;
   }
 
   .object-picture {
@@ -184,6 +184,10 @@ body {
 
   .options {
     margin-right: 0px !important;
+  }
+
+  #add-btn {
+    margin-right: 10px;
   }
 }
 
