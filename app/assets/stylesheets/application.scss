@@ -170,7 +170,7 @@ body {
 @media(max-width: 450px) {
   .grid-container {
     grid-template-columns: auto auto auto;
-    margin-left: 0px;
+    margin-left: 3px;
     grid-row-gap: 50px;
     grid-column-gap: 0px;
   }
