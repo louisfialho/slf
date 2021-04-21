@@ -173,7 +173,7 @@ body {
     margin-right: 10px;
     margin-left: 10px;
     grid-row-gap: 50px;
-    grid-col-gap: 0px;
+    grid-column-gap: 0px;
   }
 
   .object-picture {
@@ -187,10 +187,19 @@ body {
 
 @media(max-width: 340px) {
   .grid-container {
-    grid-template-columns: auto;
-    margin-right: 110px;
-    margin-left: 110px;
+    grid-template-columns: auto auto;
+    margin-right: 10px;
+    margin-left: 10px;
     grid-row-gap: 100px;
+    grid-column-gap: 0px;
+  }
+
+  .object-picture {
+    width: 70px;
+  }
+
+  .options {
+    margin-right: 0px !important;
   }
 }
 
