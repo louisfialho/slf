@@ -169,9 +169,11 @@ body {
 @media(max-width: 450px) {
   .grid-container {
     grid-template-columns: auto auto auto;
-    margin-left: -6px;
+    // margin-left: -6px;
+    margin-left: 28px;
     grid-row-gap: 50px;
-    grid-column-gap: 7px;
+    // grid-column-gap: 7px;
+    grid-column-gap: 50px;
   }
 
   .object-picture {
@@ -188,6 +190,13 @@ body {
 
   #add-btn {
     margin-right: 10px;
+  }
+
+  .object_name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
   }
 }
 
