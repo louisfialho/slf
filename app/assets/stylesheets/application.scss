@@ -73,6 +73,7 @@ body {
     grid-gap: 100px;
 }
 
+
 @media(min-width: 1200px) {
   .grid-container {
     grid-template-columns: auto auto auto auto auto;
@@ -89,15 +90,15 @@ body {
   }
 }
 
-@media(max-width: 992px) {
+@media(max-width: 1050px) {
   .grid-container {
     grid-template-columns: auto auto auto;
-    margin-right: 100px;
-    margin-left: 100px;
+    margin-right: 150px;
+    margin-left: 150px;
   }
 }
 
-@media(max-width: 768px) {
+@media(max-width: 600px) {
   .grid-container {
     grid-template-columns: auto auto;
     margin-right: 50px;
@@ -105,13 +106,15 @@ body {
   }
 }
 
-@media(max-width: 576px) {
-  .grid-container {
-    grid-template-columns: auto;
-    margin-right: 25px;
-    margin-left: 25px;
-  }
-}
+
+
+
+
+
+
+
+
+
 
 // object
 .object{
