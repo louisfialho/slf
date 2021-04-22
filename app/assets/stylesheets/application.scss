@@ -88,16 +88,17 @@ body {
 @media(max-width: 1650px) {
   .grid-container {
     grid-template-columns: 200px 200px 200px 200px;
+    grid-column-gap: 100px;
   }
 }
 
-@media(max-width: 1200px) {
+@media(max-width: 1500px) {
   .grid-container {
     grid-template-columns: 200px 200px 200px;
   }
 }
 
-@media(max-width: 640px) {
+@media(max-width: 950px) {
   .grid-container {
     grid-template-columns: 200px 200px;  }
 }
