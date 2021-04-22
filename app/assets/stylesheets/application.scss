@@ -73,8 +73,8 @@ body {
     // flex-grow: 1;
     grid-auto-flow: dense;
     display: grid;
-    margin-top: 1.5%;
-    grid-row-gap: 1.5%;
+    margin-top: 1rem;
+    grid-row-gap: 4.5rem;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-column-gap: 3%;
     margin-left: 13%;
@@ -438,8 +438,8 @@ textarea {
 // styling the title of the space on top of the space show
 
 .space-title {
-  position: absolute;
-  margin-left: 120px;
+  // position: absolute;
+  margin-left: 5%; //120 px
   font-weight: 600;
 }
 
