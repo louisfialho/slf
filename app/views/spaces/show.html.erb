@@ -188,9 +188,7 @@
             <%= link_to image_tag("web.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
           <% end %>
 <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), item_path(object, space_id: @space.id), class: "object_name" %> -->
-          <div>
             <%= link_to truncate(object.name.split.map(&:capitalize).join(' '), length: 40), item_path(object, space_id: @space.id), class: "object_name" %>
-          </div>
         </div>
       <% end %>
     <% end %>
