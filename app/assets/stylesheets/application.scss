@@ -181,6 +181,9 @@ body {
   margin-top: 12px;
   font-size: 17px;
   height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 a:hover
