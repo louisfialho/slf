@@ -163,36 +163,37 @@
 <% if @space.children.empty? && @space.items.empty? %>
   <div class="center"><p class="msg">This space is empty.</p></div>
 <% end %>
-
-<div class="grid-container" data-controller="drag" data-drag-url="/:type/:id/move">
-  <% objects = @space.children.map { |connection| connection.space } + @space.items %> <!-- syntax à verif -->
-  <% objects.sort_by(&:position).each do |object| %>
-    <% if object.class.name == "Space" %>
-      <% if policy(object).show? %>
-        <div class="object" data-type="spaces" data-id="<%= object.id %>">
-          <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object) %>
-<!--           <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object),  class: "object_name" %> -->
-          <%= link_to truncate(object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object),  class: "object_name" %>
-        </div>
-      <% end %>
-    <% elsif object.class.name == "Item" %>
-      <% if policy(object).show? %>
-        <div class="object" data-type="items" data-id="<%= object.id %>">
-          <% if object.medium == "book" %>
-            <%= link_to image_tag("book.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
-          <% elsif object.medium == "podcast" %>
-            <%= link_to image_tag("podcast.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
-          <% elsif object.medium == "video" %>
-            <%= link_to image_tag("video.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
-          <% else object.medium == "web" %>
-            <%= link_to image_tag("web.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
-          <% end %>
-<!--           <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), item_path(object, space_id: @space.id), class: "object_name" %> -->
-            <%= link_to truncate(object.name.split.map(&:capitalize).join(' '), length: 40), item_path(object, space_id: @space.id), class: "object_name" %>
-        </div>
+<div>
+  <div class="grid-container" data-controller="drag" data-drag-url="/:type/:id/move">
+    <% objects = @space.children.map { |connection| connection.space } + @space.items %> <!-- syntax à verif -->
+    <% objects.sort_by(&:position).each do |object| %>
+      <% if object.class.name == "Space" %>
+        <% if policy(object).show? %>
+          <div class="object" data-type="spaces" data-id="<%= object.id %>">
+            <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object) %>
+  <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object),  class: "object_name" %> -->
+            <%= link_to truncate(object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object),  class: "object_name" %>
+          </div>
+        <% end %>
+      <% elsif object.class.name == "Item" %>
+        <% if policy(object).show? %>
+          <div class="object" data-type="items" data-id="<%= object.id %>">
+            <% if object.medium == "book" %>
+              <%= link_to image_tag("book.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+            <% elsif object.medium == "podcast" %>
+              <%= link_to image_tag("podcast.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+            <% elsif object.medium == "video" %>
+              <%= link_to image_tag("video.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+            <% else object.medium == "web" %>
+              <%= link_to image_tag("web.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+            <% end %>
+  <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), item_path(object, space_id: @space.id), class: "object_name" %> -->
+              <%= link_to truncate(object.name.split.map(&:capitalize).join(' '), length: 40), item_path(object, space_id: @space.id), class: "object_name" %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
 
 
