@@ -75,7 +75,7 @@ body {
     margin-top: 15px;
     justify-content: center;
     grid-row-gap: 84px;
-    grid-column-gap: 65px;
+    grid-column-gap: 4%;
 }
 
 
@@ -88,11 +88,11 @@ body {
 @media(max-width: 1650px) {
   .grid-container {
     grid-template-columns: 200px 200px 200px 200px;
-    grid-column-gap: 100px;
+    grid-column-gap: 4%;
   }
 }
 
-@media(max-width: 1500px) {
+@media(max-width: 1400px) {
   .grid-container {
     grid-template-columns: 200px 200px 200px;
   }
@@ -107,7 +107,7 @@ body {
   }
 }
 
-@media(max-width: 700px) {
+@media(max-width: 550px) {
   .grid-container {
     grid-template-columns: 100px 100px 100px;
   }
