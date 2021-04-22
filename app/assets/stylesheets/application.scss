@@ -89,6 +89,14 @@ body {
   }
 }
 
+@media(max-width: 857px) {
+  .object_name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 @media(max-width: 800px) {
   .grid-container {
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
@@ -181,9 +189,6 @@ body {
   margin-top: 12px;
   font-size: 17px;
   height: 22px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 a:hover
