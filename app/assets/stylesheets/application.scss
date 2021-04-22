@@ -73,7 +73,7 @@ body {
     // flex-grow: 1;
     grid-auto-flow: dense;
     display: grid;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     grid-row-gap: 4.5rem;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-column-gap: 3%;
