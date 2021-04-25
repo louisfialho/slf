@@ -508,15 +508,11 @@ textarea {
   width: 32px;
 }
 
-#options.item-options {
-  margin-top: 20px;
-}
-
 .options-ctn {
     // margin-left: 1660px;
     position: absolute;
-    top: 70px;
-    right: 45px;
+    top: 9%;
+    right: 2%;
     background-color: white;
     border: 1px solid #E8E8E8;
     border-radius: 20px;
@@ -603,7 +599,6 @@ ul {
 }
 
 #move-to-list {
-    max-height: 550px;
     overflow:auto;
 }
 

@@ -1,7 +1,6 @@
 const displayItemOptions = () => {
   const optionsBtn = document.getElementById('options-btn');
   const options = document.getElementById('options');
-  const actions = document.getElementById('actions');
   const moveTo = document.getElementById("move-to");
   const list = document.getElementById("move-to-list");
   const addSpaceBox = document.getElementById('add-space');
@@ -20,7 +19,6 @@ const displayItemOptions = () => {
  optionsBtn.addEventListener("click", (event) => {
   if (list.style.display === "none") {
     if (options.style.display === "none") {
-      actions.style.display = "none"
       options.style.display = "";
     } else {
       options.style.display = "none";
