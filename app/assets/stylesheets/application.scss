@@ -330,7 +330,7 @@ a {
 .item-title, .space-title {
   font-family: Charter;
   font-size: xx-large;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 
@@ -426,6 +426,26 @@ button:hover,
 #txt-area {
   text-align: left;
   padding-left: 0px;
+}
+
+textarea::-webkit-input-placeholder {
+  color:  #D3D3D3;
+}
+
+textarea:-moz-placeholder { /* Firefox 18- */
+  color:  #D3D3D3;
+}
+
+textarea::-moz-placeholder {  /* Firefox 19+ */
+  color:  #D3D3D3;
+}
+
+textarea:-ms-input-placeholder {
+  color:  #D3D3D3;
+}
+
+textarea::placeholder {
+  color:  #D3D3D3 !important;
 }
 
 .notes {

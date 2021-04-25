@@ -1,20 +1,14 @@
 <!-- BEGINNING OF NAVBAR -->
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to "shelf", root_path, class: "logo" %>
+  <div>
+    <% if @parent %>
+      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
+    <% else %>
+      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf) %>
+    <% end %>
+  </div>
 
-   <div class="collapse navbar-collapse" id="navbarSupportedContent"> </div>
-
-  <% if @space.shelves.empty? == false %>
-    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
-  <% elsif @parent %>
-    <h1 class="space-title"> <%= link_to @parent.name.split.map(&:capitalize).join(' '), space_path(@parent) %> / <%= @space.name.capitalize %> </h1>
-  <% end %>
-
-<!--   <% if user_signed_in? %>
-        <%= link_to "t", destroy_user_session_path, method: :delete %>
-      <% else %>
-        <%= link_to "Log in", new_user_session_path %>
-      <% end %> -->
+  <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
 
     <div class="buttons-ctn-show">
       <% if policy(Item).create? && policy(Space).create? %>
@@ -28,8 +22,6 @@
         </div>
       </div>
     </div>
-
-  </div>
 </div>
 <!-- END OF NAVBAR -->
 
