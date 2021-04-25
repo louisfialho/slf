@@ -83,19 +83,6 @@ body {
 
 //  3 cols: ajuster taille grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
-#txt-area-touch {
-  display: none;
-}
-
-@media (hover: none) {
-  #txt-area-desktop {
-    display: none;
-  }
-  #txt-area-touch {
-    display: block;
-  }
-}
-
 @media(max-width: 900px) {
   .grid-container {
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
@@ -338,11 +325,6 @@ a {
   margin-top: 1%
 }
 
-#txt-area-desktop, #txt-area-touch {
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
 // container for the title
 
 .item-title, .space-title {
@@ -443,10 +425,11 @@ button:hover,
 
 #txt-area {
   text-align: left;
+  padding-left: 0px;
 }
 
 .notes {
-  margin-top: 30px;
+  margin-top: 35px;
 }
 
 // remove styling textarea

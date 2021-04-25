@@ -45,7 +45,7 @@ document.addEventListener('turbolinks:load', () => {
     updateStatus();
   }
 
-  if (document.querySelector("#txt-area")) {
+  if (document.querySelector(".txt-area")) {
      displaySave();
   }
 

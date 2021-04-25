@@ -38,8 +38,7 @@
   <div class='notes'>
     <% if @shelf %>
       <%= simple_form_for (@item) do |f| %>
-        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area-desktop" } %>
-        <%= f.input :notes, as: :text, placeholder: 'Tap to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area-touch" } %>
+        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area" } %>
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
         <div class='buttonHolder'>
           <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
@@ -49,8 +48,7 @@
     <% elsif @space %>
       <%= simple_form_for (@item) do |f| %>
         <h1 class="item-notes"><%= f.label :notes %></h1>
-        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area-desktop" } %>
-        <%= f.input :notes, as: :text, placeholder: 'Tap to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area-touch" } %>
+        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', :rows => 14, class: "txt-area", id: "txt-area" } %>
         <%= f.hidden_field :space_id, :value => @space.id %>
         <div class='buttonHolder'>
           <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
@@ -113,24 +111,6 @@
     </div>
 <!-- END OF ADD SPACE NAME BOX -->
 
-<!-- MOVING AN ITEM TO A SPACE OR SHELF-->
-<!-- <div class="options-ctn" id="move-to-list" style="display:none;">
-  <ul>
-    <% if @space %>
-      <li>
-        <%= link_to "🗄 Shelf", { controller: "items", action: "move_to_shelf", item_id: @item.id }, {class: "option"} %>
-      </li>
-    <% end %>
-  <% move_to_space_list.each do |space| %>
-    <% if @space != space %>
-      <li>
-        <%= link_to "🗄 #{space.name.split.map(&:capitalize).join(' ')}", { controller: "items", action: "move_to_space", item_id: @item.id, space_id: space.id }, {class: "option"} %>
-      </li>
-    <% end %>
-  <% end %>
-  </ul>
-</div> -->
-<!-- END OF MOVING AN ITEM TO A SPACE OR SHELF -->
 
 
 
