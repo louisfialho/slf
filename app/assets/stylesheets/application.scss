@@ -316,15 +316,18 @@ a {
 
 // now focusing on the item show
 
+.main-container {
+  width: 80%;
+  margin: auto;
+  padding: 10px;
+}
+
 // container for the title
 
 .item-title, .space-title {
   font-family: Charter;
   font-size: xx-large;
   font-weight: 500;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 8px;
 }
 
 
@@ -422,7 +425,6 @@ button:hover,
 }
 
 .notes {
-  margin-left: 130px;
 }
 
 // remove styling textarea
