@@ -1,41 +1,40 @@
 <!-- BEGINNING OF NAVBAR -->
 <div class="navbar navbar-expand-sm navbar-light" id="navshow">
+  <div>
+    <% if @parent_space %>
+      <%= link_to image_tag("Plus.png", width: 44).html_safe, space_path(@parent_space), class: 'rotated' %>
+    <% else %>
+      <%= link_to image_tag("Plus.png", width: 44).html_safe, shelf_path(@shelf), class: 'rotated' %>
+    <% end %>
+  </div>
 
-  <%= link_to "shelf", root_path, class: "logo" %>
+  <div>
+    <% if @item.medium == "book" %>
+      <%= image_tag "book.png", width: 37 %>
+    <% elsif @item.medium == "podcast" %>
+      <%= image_tag "podcast.png", width: 37 %>
+    <% elsif @item.medium == "video" %>
+      <%= image_tag "video.png", width: 37 %>
+    <% elsif @item.medium == "web" %>
+      <%= image_tag "web.png", width: 37 %>
+    <% elsif @item.medium == "other" %>
+      <%= image_tag "web.png", width: 37 %>
+    <% end %>
+  </div>
 
-    <h1 class="item-title">
-      <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
-        <% if @item.medium == "book" %>
-          📕
-        <% elsif @item.medium == "podcast" %>
-          🎙
-        <% elsif @item.medium == "video" %>
-          📺
-        <% elsif @item.medium == "web" %>
-          💻
-        <% elsif @item.medium == "other" %>
-          🔍
-        <% end %>
-        <%= @item.name %>
-      </a>
-    </h1>
-
-    <div class="buttons-ctn-show buttons-ctn-item-show">
-      <div>
-        <% if policy(@item).destroy? %>
-          <div class="options" id="options-btn">
-            <%= image_tag "options.png", alt: "Options", width: 37 %>
-          </div>
-        <% end %>
-      </div>
-      <% if @parent_space %>
-        <%= link_to image_tag("Plus.png", width: 44).html_safe, space_path(@parent_space), class: 'rotated' %>
-      <% else %>
-        <%= link_to image_tag("Plus.png", width: 44).html_safe, shelf_path(@shelf), class: 'rotated' %>
-      <% end %>
-    </div>
+<!--   <div class="buttons-ctn-show buttons-ctn-item-show">
+ -->
+  <% if policy(@item).destroy? %>
+      <%= image_tag "options.png", alt: "Options", width: 37 %>
+  <% end %>
 </div>
 <!-- END OF NAVBAR -->
+
+  <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+    <h1 class="item-title">
+      <%= @item.name %>
+    </h1>
+  </a>
 
     <div class="indicator" id="actions" style="display:none;">Actions</div>
 

@@ -331,7 +331,9 @@ a {
 // navbar
 
 #navshow {
-  align-items: start;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .buttons-ctn-show {
