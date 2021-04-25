@@ -60,7 +60,7 @@ body {
 }
 
 .navbar {
-  padding: 1.5rem 4rem;
+  padding: 1.5rem 4.5rem;
 }
 
 // container
@@ -82,6 +82,19 @@ body {
 }
 
 //  3 cols: ajuster taille grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+#txt-area-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  #txt-area-desktop {
+    display: none;
+  }
+  #txt-area-touch {
+    display: block;
+  }
+}
 
 @media(max-width: 900px) {
   .grid-container {
@@ -138,6 +151,9 @@ body {
   }
   .object-picture {
     width: 60%; // 100px
+  }
+  .navbar {
+      padding: 1.5rem 2rem;
   }
 }
 
@@ -322,7 +338,7 @@ a {
   margin-top: 1%
 }
 
-#txt-area {
+#txt-area-desktop, #txt-area-touch {
   padding-left: 0px;
   padding-right: 0px;
 }
