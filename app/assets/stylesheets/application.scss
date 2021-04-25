@@ -319,7 +319,12 @@ a {
 .main-container {
   width: 80%;
   margin: auto;
-  padding: 10px;
+  margin-top: 1%
+}
+
+#txt-area {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 // container for the title
@@ -425,6 +430,7 @@ button:hover,
 }
 
 .notes {
+  margin-top: 30px;
 }
 
 // remove styling textarea
