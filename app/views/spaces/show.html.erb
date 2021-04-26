@@ -8,9 +8,7 @@
     <% end %>
   </div>
 
-  <div>
-    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
-  </div>
+  <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
 
   <div id="options-btn">
     <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>

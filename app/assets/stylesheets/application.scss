@@ -121,14 +121,6 @@ body {
   }
 }
 
-@media(max-width: 500px) {
-  .grid-container {
-    grid-template-columns: 175px 175px 175px;
-    margin-left: 3%;
-    margin-right: 3%;
-  }
-}
-
 @media(max-width: 450px) {
   .grid-container {
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
@@ -503,9 +495,12 @@ textarea {
 
 .space-title {
   font-weight: 600;
+  max-height: 50px;
+  // max-width: 200px;
+  max-width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
-overflow: hidden;
-white-space: nowrap;
 }
 
 // positioning the options button on item show
