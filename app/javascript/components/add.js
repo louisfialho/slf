@@ -1,18 +1,5 @@
 const displayAdd = () => {
-  const plusBtn = document.getElementById('plus-btn');
   const options = document.getElementById('options-plus');
-
-  plusBtn.addEventListener("mouseout", (event) => {
-    plusBtn.className = "options";
-  });
-
- plusBtn.addEventListener("click", (event) => {
-    if (options.style.display === "none") {
-      options.style.display = "";
-    } else {
-      options.style.display = "none";
-    }
-  });
 
 document.addEventListener('click', function(event) {
   var isClickInsideOpt = options.contains(event.target) ||  plusBtn.contains(event.target);

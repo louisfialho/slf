@@ -1,42 +1,28 @@
 <!-- BEGINNING OF NAVBAR -->
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to "shelf", root_path, class: "logo" %>
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon" id="navshow">
+  <p class="logo">shelf</p>
 
-<!-- OPTIONS SPACE -->
-    <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
-      <div>
-      <% if user_signed_in? %>
-        <%= link_to '🚪 Leave shelf', destroy_user_session_path, method: :delete, class: "option", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-      <% end %>
-      </div>
-    </div>
-<!-- END OF OPTIONS SPACE -->
-
-    <div class="buttons-ctn-shelf-show">
-      <% if policy(Item).create? && policy(Space).create? %>
-        <div class="options" id="add-btn">
-          <a><%= image_tag "Plus.png", alt: "Plus", width: 37 %></a>
-        </div>
-      <% end %>
-      <div>
-        <div class="options" id="options-btn">
-          <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
-        </div>
-      </div>
-    </div>
-
+  <div id="options-btn">
+    <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
   </div>
 </div>
 <!-- END OF NAVBAR -->
 
-  <div class="indicator add" id="add-action" style="display:none;">Add</div>
-
-
-    <div class="filter-options-ctn" id="status-options-ctn" style="display:none;">
-      <button type="button" class="filter-btn" id="not-started">🙅 Not started</button>
-      <button type="button" class="filter-btn" id="started">🧑‍💻 In progress</button>
-      <button type="button" class="filter-btn" id="finished">💆 Finished</button>
+<!-- OPTIONS SPACE -->
+    <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
+      <div class="option-ctn">
+        <a>➕</a>
+        <a class="option-label" id="new-object-or-space">New...</a>
+      </div>
+      <div class="option-ctn">
+        <a>🚪</a>
+        <% if user_signed_in? %>
+          <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+        <% end %>
+      </div>
     </div>
+<!-- END OF OPTIONS SPACE -->
+
 
 <!-- OPTIONS -->
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
