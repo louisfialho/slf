@@ -342,7 +342,11 @@ a {
   align-items: center;
 }
 
-.buttons-ctn-show {
+.buttons-ctn-space-show {
+  display: flex;
+}
+
+.buttons-ctn-shelf-show {
   display: flex;
   margin-left: auto;
 }
@@ -429,19 +433,19 @@ button:hover,
 }
 
 textarea::-webkit-input-placeholder {
-  color:  #D3D3D3;
+  color:  #D3D3D3 !important;
 }
 
 textarea:-moz-placeholder { /* Firefox 18- */
-  color:  #D3D3D3;
+  color:  #D3D3D3 !important;
 }
 
 textarea::-moz-placeholder {  /* Firefox 19+ */
-  color:  #D3D3D3;
+  color:  #D3D3D3 !important;
 }
 
 textarea:-ms-input-placeholder {
-  color:  #D3D3D3;
+  color:  #D3D3D3 !important;
 }
 
 textarea::placeholder {
@@ -497,9 +501,10 @@ textarea {
 // styling the title of the space on top of the space show
 
 .space-title {
-  // position: absolute;
-  margin-left: 5%; //120 px
   font-weight: 600;
+  text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
 }
 
 // positioning the options button on item show
@@ -534,8 +539,16 @@ textarea {
   margin-left: 10px;
 }
 
-#leave-shelf {
-  margin-left: 0px;
+.option-label {
+  font-family: "Helvetica Neue";
+  font-size: larger;
+  color: #282828;
+  font-weight: 400;
+  margin-left: 10px;
+}
+
+.option-ctn {
+  display: flex;
 }
 
 .rotated img {

@@ -5,17 +5,6 @@ const displayItemOptions = () => {
   const list = document.getElementById("move-to-list");
   const addSpaceBox = document.getElementById('add-space');
 
-
-  // optionsBtn.addEventListener("mouseover", (event) => {
-  //   optionsBtn.className = "grey-circle options";
-  //   setTimeout(function(){ actions.style.display = ""; }, 250);
-  // });
-
-  // optionsBtn.addEventListener("mouseout", (event) => {
-  //   optionsBtn.className = "options";
-  //   actions.style.display = "none"
-  // });
-
  optionsBtn.addEventListener("click", (event) => {
   if (list.style.display === "none") {
     if (options.style.display === "none") {

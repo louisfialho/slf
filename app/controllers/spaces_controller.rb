@@ -117,7 +117,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
             s1 = Connection.create(space: @child)
             s1.children.create(space: @grand_child)
           else
-            @child.children.create(space: @grand_child)
+            @child.connections.first.children.create(space: @grand_child)
           end
         # si grand_child est dans un space: initial_space
         else # elsif...)

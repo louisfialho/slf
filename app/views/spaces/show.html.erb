@@ -1,5 +1,5 @@
 <!-- BEGINNING OF NAVBAR -->
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon" id="navshow">
   <div>
     <% if @parent %>
       <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
@@ -8,20 +8,22 @@
     <% end %>
   </div>
 
-  <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+  <div>
+    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+  </div>
 
-    <div class="buttons-ctn-show">
-      <% if policy(Item).create? && policy(Space).create? %>
-        <div class="options" id="add-btn">
-          <a><%= image_tag "Plus.png", alt: "Plus", width: 37 %></a>
-        </div>
-      <% end %>
-      <div>
-        <div class="options" id="options-btn"> <!-- ajouter class="options" id="options-btn" -->
-          <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
-        </div>
+  <div class="buttons-ctn-space-show">
+    <% if policy(Item).create? && policy(Space).create? %>
+      <div class="options" id="add-btn">
+        <a><%= image_tag "Plus.png", alt: "Plus", width: 37 %></a>
+      </div>
+    <% end %>
+    <div>
+      <div class="options" id="options-btn"> <!-- ajouter class="options" id="options-btn" -->
+        <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
       </div>
     </div>
+  </div>
 </div>
 <!-- END OF NAVBAR -->
 
@@ -33,26 +35,33 @@
 <!-- OPTIONS SPACE -->
   <% if policy(@space).destroy? %>
     <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
-      <div>
-        <a class="option" id="move-to">👉 Move space</a>
+      <div class="option-ctn">
+        <a >➕</a>
+        <a class="option-label" id="new">New...</a>
       </div>
-      <div>
-      <% parent = nil %>
-      <% @space.connections.each do |connection| %>
-        <% if connection.parent_id.nil? == false %>
-          <% parent = connection.parent.space %>
+      <div class="option-ctn">
+        <a>👉</a>
+        <a class="option-label" id="move-to">Move</a>
+      </div>
+      <div class="option-ctn">
+        <a>🗑</a>
+        <% parent = nil %>
+        <% @space.connections.each do |connection| %>
+          <% if connection.parent_id.nil? == false %>
+            <% parent = connection.parent.space %>
+          <% end %>
         <% end %>
-      <% end %>
-      <% if @space.shelves.empty? == false %>
-        <%= link_to '🗑 Delete space', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option" %>
-      <% elsif parent.nil? == false %>
-        <%= link_to '🗑 Delete space', space_path(@space, parent_id: parent.id), method: :delete, class: "option" %>
-      <% end %>
+        <% if @space.shelves.empty? == false %>
+          <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
+        <% elsif parent.nil? == false %>
+          <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
+        <% end %>
       </div>
-      <div>
-      <% if user_signed_in? %>
-        <%= link_to '🚪 Leave shelf', destroy_user_session_path, method: :delete, class: "option", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-      <% end %>
+      <div class="option-ctn">
+        <a>🚪</a>
+        <% if user_signed_in? %>
+          <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+        <% end %>
       </div>
     </div>
   <% end %>
