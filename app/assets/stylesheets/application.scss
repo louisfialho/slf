@@ -319,6 +319,13 @@ a {
 
 // container for the title
 
+.item-title {
+  overflow: auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
 .item-title, .space-title {
   font-family: Charter;
   font-size: xx-large;
