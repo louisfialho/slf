@@ -12,32 +12,18 @@
     <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
   </div>
 
-  <div class="buttons-ctn-space-show">
-    <% if policy(Item).create? && policy(Space).create? %>
-      <div class="options" id="add-btn">
-        <a><%= image_tag "Plus.png", alt: "Plus", width: 37 %></a>
-      </div>
-    <% end %>
-    <div>
-      <div class="options" id="options-btn"> <!-- ajouter class="options" id="options-btn" -->
-        <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
-      </div>
-    </div>
+  <div id="options-btn">
+    <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
   </div>
 </div>
 <!-- END OF NAVBAR -->
-
-<!-- INDICATORS -->
-  <div class="indicator options-show" id="actions" style="display:none;">Actions</div>
-  <div class="indicator add" id="add-action" style="display:none;">Add</div>
-<!-- END OF INDICATORS -->
 
 <!-- OPTIONS SPACE -->
   <% if policy(@space).destroy? %>
     <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
       <div class="option-ctn">
         <a >➕</a>
-        <a class="option-label" id="new">New...</a>
+        <a class="option-label" id="new-object-or-space">New...</a>
       </div>
       <div class="option-ctn">
         <a>👉</a>
@@ -67,6 +53,7 @@
   <% end %>
 <!-- END OF OPTIONS SPACE -->
 
+<!-- MOVE TO LIST -->
 <div class="options-ctn" id="move-to-list" style="display:none;" data-type="space" data-space-id="<%= @space.id %>" data-shelf-id="<%= @shelf.id %>">
   <div id="top-line">
     <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
@@ -90,25 +77,7 @@
 <!--   <%= button_to "👉 Move to test", { controller: "spaces", action: "move_space_to_space", current_space_id: @space.id, destination_space_id: 1 }, id: 'move-to-button' %>
  -->
   </div>
-
-<!-- MOVING A SPACE TO A SPACE OR SHELF-->
-<!-- <div class="options-ctn" id="move-to-list" style="display:none;">
-  <ul>
-    <% if @space.shelves.empty? %>
-      <li>
-        <%= link_to "🗄 Shelf", { controller: "spaces", action: "move_space_to_shelf", current_space_id: @space.id }, {class: "option"} %>
-      </li>
-    <% end %>
-    <% move_to_space_list.each do |space| %>
-      <% if (space != @space) && (space != @parent) %>
-        <li>
-          <%= link_to "🗄 #{space.name.capitalize}", { controller: "spaces", action: "move_space_to_space", current_space_id: @space.id, destination_space_id: space.id }, {class: "option"} %>
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
-</div> -->
-<!-- END OF MOVING A SPACE TO A SPACE OR SHELF -->
+<!-- END OF MOVE TO LIST -->
 
 <!-- ADD OPTIONS -->
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
@@ -148,17 +117,6 @@
       <% end %>
     </div>
 <!-- END OF ADD SPACE BOX -->
-
-
-<!--     <div class="options-ctn options-ctn-shelf-space" id="add-space" style="display:none;">
-      <p class="option prompt" id="add-space-prompt" > What is the name of this new space? 🗄 </p>
-      <%= simple_form_for @child, html: { autocomplete: 'off' } do |f| %>
-        <%= f.text_field :name, class: 'txt-inpt' %>
-        <%= f.hidden_field :parent_id, :value => @space.id %>
-        <%= f.submit "Add space", style: "display: none;" %>
-      <% end %>
-    </div> -->
-
 
 <!-- IF SPACE IS EMPTY -->
 <% if @space.children.empty? && @space.items.empty? %>

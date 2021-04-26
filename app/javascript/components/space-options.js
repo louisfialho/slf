@@ -42,14 +42,14 @@ const displaySpaceOptions = () => {
     }
   });
 
-  document.addEventListener('click', function(event) {
-    if (addSpaceBox.style.display === "") {
-      var isClickInsideSpaceBox = addSpaceBox.contains(event.target) ||  list.contains(event.target);
-      if (!isClickInsideSpaceBox) {
-        addSpaceBox.style.display = "none";
-      }
-    }
-  });
+  // document.addEventListener('click', function(event) {
+  //   if (addSpaceBox.style.display === "") {
+  //     var isClickInsideSpaceBox = addSpaceBox.contains(event.target) ||  list.contains(event.target);
+  //     if (!isClickInsideSpaceBox) {
+  //       addSpaceBox.style.display = "none";
+  //     }
+  //   }
+  // });
 }
 
 export { displaySpaceOptions };

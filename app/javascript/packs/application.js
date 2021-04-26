@@ -53,7 +53,7 @@ document.addEventListener('turbolinks:load', () => {
     displayItemOptions();
   }
 
-  if (document.querySelector("#add-btn")) {
+  if (document.querySelector("#new-object-or-space")) {
     displayAddOptions();
   }
 

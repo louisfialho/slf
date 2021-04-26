@@ -1,7 +1,6 @@
 const displayShelfOptions = () => {
   const optionsBtn = document.getElementById('options-btn');
   const options = document.getElementById('options');
-  const actions = document.getElementById('actions');
 
   optionsBtn.addEventListener("click", (event) => {
     if (options.style.display === "none") {

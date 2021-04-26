@@ -1,17 +1,18 @@
 const displayAddOptions = () => {
-  const addBtn = document.getElementById('add-btn');
+  const addBtn = document.getElementById('new-object-or-space');
   const addOptionsBox = document.getElementById('add-options');
-  const actions = document.getElementById('add-action');
   const newObjectBtn = document.getElementById('new-object');
   const newSpaceBtn = document.getElementById('button-new-space-child');
   const addUrlBox = document.getElementById('add-url');
   const addSpaceBox = document.getElementById('add-space');
   var newSpace = document.getElementById('new-space-txt');
+  const options = document.getElementById('options');
+
 
  addBtn.addEventListener("click", (event) => {
+  options.style.display = "none";
   if (addUrlBox.style.display === "none" && addSpaceBox.style.display === "none") {
     if (addOptionsBox.style.display === "none") {
-      actions.style.display = "none"
       addOptionsBox.style.display = "";
     } else {
       addOptionsBox.style.display = "none";
