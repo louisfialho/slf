@@ -1,5 +1,7 @@
 class SpacesController < ApplicationController
+skip_before_action :authenticate_user!, :only => [:show]
 before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
+before_action :set_shelf, only: [:create, :add_item_to, :show, :destroy, :move_space_to_space, :move_space_to_shelf, :move]
 skip_after_action :verify_authorized, only: [:space_name, :space_children]
 skip_before_action :verify_authenticity_token # vulnerability?
 
@@ -109,7 +111,6 @@ skip_before_action :verify_authenticity_token # vulnerability?
         # si grand_child est sur la shelf
         if @grand_child.shelves.empty? == false
           # copier code pr trouver la shelf, mettre -1 à ts les objets et spaces, détruire co
-          @shelf = current_user.shelves.first
           @shelf.items.where('position > ?', grand_child_position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
           @shelf.spaces.where('position > ?', grand_child_position).update_all('position = position - 1')
           @grand_child.shelves.destroy_all
@@ -189,7 +190,6 @@ skip_before_action :verify_authenticity_token # vulnerability?
     @item = Item.find(params[:space][:item_id])
     item_position = @item.position
     if @item.shelves.empty? == false
-      @shelf = current_user.shelves.first
       @shelf.items.where('position > ?', item_position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
       @shelf.spaces.where('position > ?', item_position).update_all('position = position - 1')
       @item.shelves.destroy_all
@@ -222,7 +222,6 @@ skip_before_action :verify_authenticity_token # vulnerability?
   def show
     @item = Item.new
     @child = Space.new
-    @shelf = current_user.shelves.first
     @space.connections.each do |connection|
       if connection.parent_id.nil? == false
         @parent = connection.parent.space
@@ -384,7 +383,6 @@ skip_before_action :verify_authenticity_token # vulnerability?
     end
 
     # on trouve la shelf correspondante
-    @shelf = current_user.shelves.first # @shelf = recursive_parent_search2(@space).shelves.first
     @shelf.items.update_all('position = position + 1')
     @shelf.spaces.update_all('position = position + 1')
 
@@ -473,5 +471,11 @@ skip_before_action :verify_authenticity_token # vulnerability?
   def set_space
     @space = Space.find(params[:id])
     authorize @space
+  end
+
+  def set_shelf
+    if user_signed_in?
+      @shelf = current_user.shelves.first
+    end
   end
 end

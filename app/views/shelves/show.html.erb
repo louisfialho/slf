@@ -1,21 +1,30 @@
 <!-- BEGINNING OF NAVBAR -->
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon" id="navshow">
-  <% if @current_user == @shelf.user %>
-    <p class="logo">shelf</p>
+  <% if user_signed_in? %>
+    <% if @current_user == @shelf.user %>
+      <p class="logo">shelf</p>
+    <% else %>
+      <div id="user-id-ctn">
+        <%= image_tag "couch.png", alt: "Options", width: 37 %>
+        <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
+      </div>
+    <% end %>
+
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+    </div>
   <% else %>
     <div id="user-id-ctn">
       <%= image_tag "couch.png", alt: "Options", width: 37 %>
       <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
     </div>
+    <p class="add-btn"> Login </p>
   <% end %>
-
-  <div id="options-btn">
-    <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
-  </div>
 </div>
 <!-- END OF NAVBAR -->
 
 <!-- OPTIONS SPACE -->
+  <% if user_signed_in? %>
     <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
       <% if @current_user == @shelf.user %>
         <div class="option-ctn">
@@ -24,9 +33,7 @@
         </div>
         <div class="option-ctn">
           <a>🚪</a>
-          <% if user_signed_in? %>
-            <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-          <% end %>
+          <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
         </div>
       <% else %>
         <div class="option-ctn">
@@ -35,6 +42,7 @@
         </div>
       <% end %>
     </div>
+  <% end %>
 <!-- END OF OPTIONS SPACE -->
 
 

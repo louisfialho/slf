@@ -3,8 +3,10 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   def move_to_space_list
-    shelf = current_user.shelves.first
-    shelf.spaces.sort_by {|space| space.position}
+    if user_signed_in?
+      shelf = current_user.shelves.first
+      shelf.spaces.sort_by {|space| space.position}
+    end
   end
 
   def recursive_space_search(array_of_connections)

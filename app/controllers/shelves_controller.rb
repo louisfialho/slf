@@ -1,11 +1,7 @@
 class ShelvesController < ApplicationController
+  skip_before_action :authenticate_user!, :only => [:show]
   before_action :set_shelf, only: [:show, :edit, :update, :destroy]
   skip_after_action :verify_authorized, only: [:shelf_children]
-
-  # def new
-  #   @shelf = Shelf.new
-  #   authorize @shelf
-  # end
 
   def create
     @shelf = Shelf.new(shelf_params)

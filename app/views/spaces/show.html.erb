@@ -10,76 +10,84 @@
 
   <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
 
-  <div id="options-btn">
-    <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
-  </div>
+  <% if user_signed_in? %>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+    </div>
+  <% else %>
+    <p class="add-btn"> Login </p>
+  <% end %>
 </div>
 <!-- END OF NAVBAR -->
 
 <!-- OPTIONS SPACE -->
     <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
-      <% if @current_user == @shelf_mother.user %>
-        <div class="option-ctn">
-          <a >➕</a>
-          <a class="option-label" id="new-object-or-space">New...</a>
-        </div>
-        <div class="option-ctn">
-          <a>👉</a>
-          <a class="option-label" id="move-to">Move</a>
-        </div>
-        <div class="option-ctn">
-          <a>🗑</a>
-          <% parent = nil %>
-          <% @space.connections.each do |connection| %>
-            <% if connection.parent_id.nil? == false %>
-              <% parent = connection.parent.space %>
+      <% if user_signed_in? %>
+        <% if @current_user == @shelf_mother.user %>
+          <div class="option-ctn">
+            <a >➕</a>
+            <a class="option-label" id="new-object-or-space">New...</a>
+          </div>
+          <div class="option-ctn">
+            <a>👉</a>
+            <a class="option-label" id="move-to">Move</a>
+          </div>
+          <div class="option-ctn">
+            <a>🗑</a>
+            <% parent = nil %>
+            <% @space.connections.each do |connection| %>
+              <% if connection.parent_id.nil? == false %>
+                <% parent = connection.parent.space %>
+              <% end %>
             <% end %>
-          <% end %>
-          <% if @space.shelves.empty? == false %>
-            <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
-          <% elsif parent.nil? == false %>
-            <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
-          <% end %>
-        </div>
-        <div class="option-ctn">
-          <a>🚪</a>
-          <% if user_signed_in? %>
-            <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-          <% end %>
-        </div>
-      <% else %>
-        <div class="option-ctn">
-          <a>🏠</a>
-          <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
-        </div>
+            <% if @space.shelves.empty? == false %>
+              <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
+            <% elsif parent.nil? == false %>
+              <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
+            <% end %>
+          </div>
+          <div class="option-ctn">
+            <a>🚪</a>
+            <% if user_signed_in? %>
+              <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+            <% end %>
+          </div>
+        <% else %>
+          <div class="option-ctn">
+            <a>🏠</a>
+            <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
+          </div>
+        <% end %>
       <% end %>
     </div>
 <!-- END OF OPTIONS SPACE -->
 
 <!-- MOVE TO LIST -->
-<div class="options-ctn" id="move-to-list" style="display:none;" data-type="space" data-space-id="<%= @space.id %>" data-shelf-id="<%= @shelf.id %>">
-  <div id="top-line">
-    <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
-    <p class="option" id="top-element">Shelf</p>
-  </div>
-  <hr/>
-  <ul id="children-spaces">
-  <% move_to_space_list.each do |space| %>
-    <% if space != @space %>
-      <li>
-        <a class="option" id="child-space-<%= space.id %>" data-space-id="<%= space.id %>">🗄 <%= truncate(space.name, length: 25) %></a>
-      </li>
-    <% end %>
-  <% end %>
-  </ul>
-    <div id="button-new-space-parent">
-      <%= image_tag("grey_plus.png", width: 18, height: 18, id: 'grey-plus-img').html_safe %>
-      <div id="new-space-txt">New</div>
+<% if user_signed_in? %>
+  <div class="options-ctn" id="move-to-list" style="display:none;" data-type="space" data-space-id="<%= @space.id %>" data-shelf-id="<%= @shelf_mother.id %>">
+    <div id="top-line">
+      <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
+      <p class="option" id="top-element">Shelf</p>
     </div>
-  <%= button_to "👉 Move to shelf", { controller: "spaces", action: "move_space_to_shelf", current_space_id: @space.id }, id: 'move-to-button' %>
-<!--   <%= button_to "👉 Move to test", { controller: "spaces", action: "move_space_to_space", current_space_id: @space.id, destination_space_id: 1 }, id: 'move-to-button' %>
- -->
+    <hr/>
+    <ul id="children-spaces">
+    <% move_to_space_list.each do |space| %>
+      <% if space != @space %>
+        <li>
+          <a class="option" id="child-space-<%= space.id %>" data-space-id="<%= space.id %>">🗄 <%= truncate(space.name, length: 25) %></a>
+        </li>
+      <% end %>
+    <% end %>
+    </ul>
+      <div id="button-new-space-parent">
+        <%= image_tag("grey_plus.png", width: 18, height: 18, id: 'grey-plus-img').html_safe %>
+        <div id="new-space-txt">New</div>
+      </div>
+    <%= button_to "👉 Move to shelf", { controller: "spaces", action: "move_space_to_shelf", current_space_id: @space.id }, id: 'move-to-button' %>
+  <!--   <%= button_to "👉 Move to test", { controller: "spaces", action: "move_space_to_space", current_space_id: @space.id, destination_space_id: 1 }, id: 'move-to-button' %>
+   -->
   </div>
+<% end %>
 <!-- END OF MOVE TO LIST -->
 
 <!-- ADD OPTIONS -->
@@ -114,7 +122,7 @@
       <p class="option prompt" id="add-space-prompt" > What is the name of this new space? 🗄 </p>
       <%= simple_form_for @child, html: { autocomplete: 'off' } do |f| %>
         <%= f.text_field :name, class: 'txt-inpt' %>
-        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+        <%= f.hidden_field :shelf_id, :value => @shelf_mother.id %>
         <%= f.hidden_field :space_id, :value => @space.id %>
         <%= f.submit "Add space", style: "display: none;" %>
       <% end %>
