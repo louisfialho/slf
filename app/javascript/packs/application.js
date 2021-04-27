@@ -72,14 +72,6 @@ document.addEventListener('turbolinks:load', () => {
   if (document.getElementById('left-arrow-img')) {
     backArrow();
   }
-
-  // // if (document.querySelector("#results-shelf")) {
-  // //   initSortableShelf();
-  // // }
-
-  // // if (document.querySelector("#results-space")) {
-  // //   initSortableSpace();
-  // }
 });
 
 

@@ -40,22 +40,32 @@
   </a>
 
   <div class='notes'>
-    <% if @shelf %>
-      <%= simple_form_for (@item) do |f| %>
-        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
-        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-        <div class='buttonHolder'>
-          <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-        </div>
-    <% end %>
+    <% if @current_user == @shelf_mother.user %>
+      <% if @shelf %>
+        <%= simple_form_for (@item) do |f| %>
+          <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+          <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+          <div class='buttonHolder'>
+            <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+          </div>
+         <% end %>
 
-    <% elsif @space %>
-      <%= simple_form_for (@item) do |f| %>
-        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
-        <%= f.hidden_field :space_id, :value => @space.id %>
-        <div class='buttonHolder'>
-          <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-        </div>
+      <% elsif @space %>
+        <%= simple_form_for (@item) do |f| %>
+          <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+          <%= f.hidden_field :space_id, :value => @space.id %>
+          <div class='buttonHolder'>
+            <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% if @item.notes.nil? %>
+        <p class="txt-area" id="txt-area"> <i> <%= @shelf_mother.user.first_name %> did not add any note to this object 📝 </i></p>
+      <% else %>
+        <p style="white-space: pre-line" class="txt-area" id="txt-area">
+          <%= @item.notes %>
+        </p>
       <% end %>
     <% end %>
   </div>
