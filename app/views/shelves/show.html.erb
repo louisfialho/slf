@@ -1,10 +1,13 @@
 <!-- BEGINNING OF NAVBAR -->
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon" id="navshow">
-
-  <div id="user-id-ctn">
-    <%= image_tag "couch.png", alt: "Options", width: 37 %>
-    <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
-  </div>
+  <% if @current_user == @shelf.user %>
+    <p class="logo">shelf</p>
+  <% else %>
+    <div id="user-id-ctn">
+      <%= image_tag "couch.png", alt: "Options", width: 37 %>
+      <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
+    </div>
+  <% end %>
 
   <div id="options-btn">
     <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
