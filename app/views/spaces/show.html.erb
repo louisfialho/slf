@@ -19,34 +19,41 @@
 <!-- OPTIONS SPACE -->
   <% if policy(@space).destroy? %>
     <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
-      <div class="option-ctn">
-        <a >➕</a>
-        <a class="option-label" id="new-object-or-space">New...</a>
-      </div>
-      <div class="option-ctn">
-        <a>👉</a>
-        <a class="option-label" id="move-to">Move</a>
-      </div>
-      <div class="option-ctn">
-        <a>🗑</a>
-        <% parent = nil %>
-        <% @space.connections.each do |connection| %>
-          <% if connection.parent_id.nil? == false %>
-            <% parent = connection.parent.space %>
+      <% if @current_user == @shelf.user %>
+        <div class="option-ctn">
+          <a >➕</a>
+          <a class="option-label" id="new-object-or-space">New...</a>
+        </div>
+        <div class="option-ctn">
+          <a>👉</a>
+          <a class="option-label" id="move-to">Move</a>
+        </div>
+        <div class="option-ctn">
+          <a>🗑</a>
+          <% parent = nil %>
+          <% @space.connections.each do |connection| %>
+            <% if connection.parent_id.nil? == false %>
+              <% parent = connection.parent.space %>
+            <% end %>
           <% end %>
-        <% end %>
-        <% if @space.shelves.empty? == false %>
-          <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
-        <% elsif parent.nil? == false %>
-          <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
-        <% end %>
-      </div>
-      <div class="option-ctn">
-        <a>🚪</a>
-        <% if user_signed_in? %>
-          <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-        <% end %>
-      </div>
+          <% if @space.shelves.empty? == false %>
+            <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
+          <% elsif parent.nil? == false %>
+            <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
+          <% end %>
+        </div>
+        <div class="option-ctn">
+          <a>🚪</a>
+          <% if user_signed_in? %>
+            <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+          <% end %>
+        </div>
+      <% else %>
+        <div class="option-ctn">
+          <a>🏠</a>
+          <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 <!-- END OF OPTIONS SPACE -->

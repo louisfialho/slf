@@ -10,16 +10,23 @@
 
 <!-- OPTIONS SPACE -->
     <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
-      <div class="option-ctn">
-        <a>➕</a>
-        <a class="option-label" id="new-object-or-space">New...</a>
-      </div>
-      <div class="option-ctn">
-        <a>🚪</a>
-        <% if user_signed_in? %>
-          <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-        <% end %>
-      </div>
+      <% if @current_user == @shelf.user %>
+        <div class="option-ctn">
+          <a>➕</a>
+          <a class="option-label" id="new-object-or-space">New...</a>
+        </div>
+        <div class="option-ctn">
+          <a>🚪</a>
+          <% if user_signed_in? %>
+            <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+          <% end %>
+        </div>
+      <% else %>
+        <div class="option-ctn">
+          <a>🏠</a>
+          <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
+        </div>
+      <% end %>
     </div>
 <!-- END OF OPTIONS SPACE -->
 
