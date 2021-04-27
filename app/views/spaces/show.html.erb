@@ -126,7 +126,11 @@
   <div class="center"><p class="msg">This space is empty.</p></div>
 <% end %>
 <div>
-  <div class="grid-container" data-controller="drag" data-drag-url="/:type/:id/move">
+  <% if @current_user == @shelf_mother.user %>
+    <div class="grid-container" data-controller="drag" data-drag-url="/:type/:id/move">
+  <% else %>
+    <div class="grid-container">
+  <% end %>
     <% objects = @space.children.map { |connection| connection.space } + @space.items %> <!-- syntax à verif -->
     <% objects.sort_by(&:position).each do |object| %>
       <% if object.class.name == "Space" %>
