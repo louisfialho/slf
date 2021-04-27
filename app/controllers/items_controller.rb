@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
+skip_before_action :authenticate_user!, :only => [:show]
 before_action :set_item, only: [:show, :edit, :update, :destroy, :move]
+before_action :set_shelf, only: [:show, :move_to_shelf]
 before_action :set_shelf_space, only: [:new, :show, :edit, :move]
 skip_before_action :verify_authenticity_token
 
@@ -47,7 +49,6 @@ skip_before_action :verify_authenticity_token
   end
 
   def show
-    @shelf = current_user.shelves.first
     @child = Space.new
     @parent_id = Space.new
     @space = Space.new
@@ -154,8 +155,6 @@ skip_before_action :verify_authenticity_token
     @item.position = 1
     @item.save(validate: false)
 
-    @shelf = current_user.shelves.first
-
     # @space = @item.spaces.first
     # if @space.shelves.empty? == false
     #   @shelf = @space.shelves.first
@@ -212,6 +211,12 @@ skip_before_action :verify_authenticity_token
   def set_item
     @item = Item.find(params[:id])
     authorize @item
+  end
+
+  def set_shelf
+    if user_signed_in?
+      @shelf = current_user.shelves.first
+    end
   end
 
   def set_shelf_space

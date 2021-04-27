@@ -18,7 +18,7 @@
       <%= image_tag "couch.png", alt: "Options", width: 37 %>
       <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
     </div>
-    <p class="add-btn"> Login </p>
+    <%= link_to('Login', new_user_session_path, id: 'login-btn') %>
   <% end %>
 </div>
 <!-- END OF NAVBAR -->
