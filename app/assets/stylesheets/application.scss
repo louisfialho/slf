@@ -326,7 +326,7 @@ a {
   -webkit-box-orient: vertical;
 }
 
-.item-title, .space-title {
+.item-title, .space-title, .user-id {
   font-family: Charter;
   font-size: xx-large;
   font-weight: 600;
@@ -501,7 +501,6 @@ textarea {
 // styling the title of the space on top of the space show
 
 .space-title {
-  font-weight: 600;
   max-height: 50px;
   // max-width: 200px;
   max-width: 60%;
@@ -763,3 +762,20 @@ hr {
 #left-arrow-img:hover {
   cursor: pointer;
 }
+
+#user-id-ctn {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 80%;
+}
+
+.user-id {
+  margin-left: 1em;
+  // max-height: 50px;
+  // max-width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
