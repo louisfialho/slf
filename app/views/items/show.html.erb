@@ -9,17 +9,19 @@
   </div>
 
   <div>
-    <% if @item.medium == "book" %>
-      <%= image_tag "book.png", width: 37 %>
-    <% elsif @item.medium == "podcast" %>
-      <%= image_tag "podcast.png", width: 37 %>
-    <% elsif @item.medium == "video" %>
-      <%= image_tag "video.png", width: 37 %>
-    <% elsif @item.medium == "web" %>
-      <%= image_tag "web.png", width: 37 %>
-    <% elsif @item.medium == "other" %>
-      <%= image_tag "web.png", width: 37 %>
-    <% end %>
+    <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+      <% if @item.medium == "book" %>
+        <%= image_tag "book.png", width: 37 %>
+      <% elsif @item.medium == "podcast" %>
+        <%= image_tag "podcast.png", width: 37 %>
+      <% elsif @item.medium == "video" %>
+        <%= image_tag "video.png", width: 37 %>
+      <% elsif @item.medium == "web" %>
+        <%= image_tag "web.png", width: 37 %>
+      <% elsif @item.medium == "other" %>
+        <%= image_tag "web.png", width: 37 %>
+      <% end %>
+    </a>
   </div>
 
   <% if user_signed_in? %>
