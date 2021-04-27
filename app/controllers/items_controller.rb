@@ -54,6 +54,11 @@ skip_before_action :verify_authenticity_token
     if @item.shelves.empty?
       @parent_space = @item.spaces.first
     end
+    if @item.shelves.empty? == false
+      @shelf_mother = @item.shelves.first
+    else
+      @shelf_mother = recursive_parent_search3(@item.spaces.first).shelves.first
+    end
   end
 
   def edit

@@ -7,24 +7,6 @@ class ApplicationController < ActionController::Base
     shelf.spaces.sort_by {|space| space.position}
   end
 
-  # def move_to_space_list
-  #   $spaces = []
-
-  #   shelf = current_user.shelves.first
-  #   spaces_on_shelf = shelf.spaces #this can be changed using order by, for instance to display most popular spaces!
-
-  #   for s in spaces_on_shelf do
-  #     if s.connections.empty? == false
-  #       connections = s.connections
-  #       recursive_space_search(connections)
-  #     else
-  #       $spaces << s
-  #     end
-  #   end
-
-  #   return $spaces
-  # end
-
   def recursive_space_search(array_of_connections)
     for c in array_of_connections do
       $spaces << c.space
@@ -37,35 +19,35 @@ class ApplicationController < ActionController::Base
 
   helper_method :move_to_space_list
 
-def pundit_user
-  CurrentContext.new(current_user, current_context)
-end
+  def pundit_user
+    CurrentContext.new(current_user, current_context)
+  end
 
-def current_context
-  if params[:space].present?
-    if params[:space][:parent_id].present?
-      context = ['parent', Space.find(params[:space][:parent_id])]
-    elsif params[:space][:shelf_id].present?
-      context = ['shelf', Shelf.find(params[:space][:shelf_id])]
-    end
-  elsif params[:item].present?
-    if params[:item][:shelf_id].present?
-      context = ['shelf', Shelf.find(params[:item][:shelf_id])]
-    elsif params[:item][:parent_id].present?
-      context = ['parent', Space.find(params[:item][:parent_id])]
-    end
-  elsif params[:parent_id].present?
-    context = ['parent', Space.find(params[:parent_id])]
-  elsif params[:shelf_id].present?
-    context = ['shelf', Shelf.find(params[:shelf_id])]
-  elsif params[:id].present?
-    if params[:controller] == 'shelves'
-      context = ['shelf', Shelf.find(params[:id])]
-    elsif params[:controller] == 'spaces'
-      context = ['parent', Space.find(params[:id])]
+  def current_context
+    if params[:space].present?
+      if params[:space][:parent_id].present?
+        context = ['parent', Space.find(params[:space][:parent_id])]
+      elsif params[:space][:shelf_id].present?
+        context = ['shelf', Shelf.find(params[:space][:shelf_id])]
+      end
+    elsif params[:item].present?
+      if params[:item][:shelf_id].present?
+        context = ['shelf', Shelf.find(params[:item][:shelf_id])]
+      elsif params[:item][:parent_id].present?
+        context = ['parent', Space.find(params[:item][:parent_id])]
+      end
+    elsif params[:parent_id].present?
+      context = ['parent', Space.find(params[:parent_id])]
+    elsif params[:shelf_id].present?
+      context = ['shelf', Shelf.find(params[:shelf_id])]
+    elsif params[:id].present?
+      if params[:controller] == 'shelves'
+        context = ['shelf', Shelf.find(params[:id])]
+      elsif params[:controller] == 'spaces'
+        context = ['parent', Space.find(params[:id])]
+      end
     end
   end
-end
 
   # Pundit: white-list approach.
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
@@ -75,6 +57,18 @@ end
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
     redirect_to(root_path)
+  end
+
+  def recursive_parent_search3(space)
+    while space.shelves.empty?
+      space.connections.each do |connection|
+        if connection.parent_id.nil? == false
+          @connection = connection
+        end
+      end
+      space = @connection.parent.space
+    end
+    return space
   end
 
   private

@@ -4,7 +4,7 @@
     <% if @parent_space %>
       <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
     <% else %>
-      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf) %>
+      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
     <% end %>
   </div>
 
@@ -63,16 +63,25 @@
 
 <!-- OPTIONS -->
     <div class="options-ctn item-options" id="options" style="display:none;">
-      <div>
-        <a class="option" id="move-to"> 👉  Move object</a>
-      </div>
-      <div>
-        <% if @shelf %>
-          <%= link_to "🗑  Delete object", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option" %>
-        <% elsif @space %>
-          <%= link_to "🗑  Delete object", item_path(@item, space_id: @space.id), method: :delete, class: "option" %>
-        <% end %>
-      </div>
+      <% if @current_user == @shelf_mother.user %>
+        <div class="option-ctn">
+          <a>👉</a>
+          <a class="option-label" id="move-to">Move</a>
+        </div>
+        <div class="option-ctn">
+          <a>🗑</a>
+          <% if @shelf %>
+            <%= link_to "Delete", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option-label" %>
+          <% elsif @space %>
+            <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="option-ctn">
+          <a>🏠</a>
+          <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
+        </div>
+      <% end %>
     </div>
 <!-- END OF OPTIONS -->
 

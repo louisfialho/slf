@@ -4,7 +4,7 @@
     <% if @parent %>
       <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
     <% else %>
-      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf) %>
+      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
     <% end %>
   </div>
 
@@ -17,9 +17,8 @@
 <!-- END OF NAVBAR -->
 
 <!-- OPTIONS SPACE -->
-  <% if policy(@space).destroy? %>
     <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
-      <% if @current_user == @shelf.user %>
+      <% if @current_user == @shelf_mother.user %>
         <div class="option-ctn">
           <a >➕</a>
           <a class="option-label" id="new-object-or-space">New...</a>
@@ -55,7 +54,6 @@
         </div>
       <% end %>
     </div>
-  <% end %>
 <!-- END OF OPTIONS SPACE -->
 
 <!-- MOVE TO LIST -->
