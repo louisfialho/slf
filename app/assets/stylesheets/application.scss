@@ -25,6 +25,7 @@ body {
   font-weight: 900;
   max-height: 15px;
   padding: 0px;
+  margin-bottom: 45px;
 }
 
 // buttons
@@ -51,15 +52,6 @@ body {
 }
 
 // navbar le wag
-
-.navbar-lewagon {
-  // justify-content: space-between;
-  background: white;
-}
-
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
 
 .navbar {
   padding: 1.5rem 4.5rem;
@@ -340,7 +332,7 @@ a {
 #navshow {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   height: 94px;
 }
 
@@ -789,4 +781,42 @@ hr {
     font-weight: lighter;
     font-weight: 400;
     background-color: white;
+}
+
+// Landing page
+
+.login {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+#tagline {
+  margin: auto;
+}
+
+.tagline {
+  text-align: center;
+  font-family: Charter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 60px;
+  margin-top: 10%;
+  max-width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#try-it-now-btn {
+    text-align: center;
+    color: white;
+    border: 2px solid #202020;
+    padding: 5px 20px;
+    border-radius: 50px;
+    font-weight: 400;
+    font-size: 20px;
+    background-color: #202020;
+    width: 9%;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
 }

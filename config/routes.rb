@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'shelves#shelf'
+  root to: 'pages#home'
   resources :shelves, only: [:new, :create, :show] do
     member do
       get 'shelf_children'
