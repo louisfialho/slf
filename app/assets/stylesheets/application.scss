@@ -21,7 +21,7 @@ body {
   color:inherit;
   text-decoration: none;
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-  font-size: 245%;
+  font-size: 4.5vh; //245px
   font-weight: 900;
   max-height: 15px;
   padding: 0px;
@@ -113,6 +113,10 @@ body {
     margin-left: 3%;
     margin-right: 3%;
   }
+  .tagline {
+    font-size: 4.0vh !important;
+    max-width: 80vw !important;
+  }
 }
 
 @media(max-width: 450px) {
@@ -141,25 +145,6 @@ body {
     width: 70%; // 100px
   }
 }
-
-// @media(max-width: 340px) {
-//   .grid-container {
-//     grid-template-columns: auto auto;
-//     margin-right: 10px;
-//     margin-left: 10px;
-//     grid-row-gap: 50px;
-//     grid-column-gap: 0px;
-//   }
-
-//   .object-picture {
-//     width: 60px;
-//   }
-
-//   .options {
-//     margin-right: 0px !important;
-//   }
-// }
-
 
 // object
 .object{
@@ -790,18 +775,15 @@ hr {
   font-size: 20px;
 }
 
-#tagline {
-  margin: auto;
-}
-
 .tagline {
   text-align: center;
   font-family: Charter;
   font-style: normal;
   font-weight: bold;
-  font-size: 60px;
+  // font-size: 6.0vh;
+  font-size: 3.5vmax;
   margin-top: 10%;
-  max-width: 50%;
+  max-width: 61vw;
   margin-left: auto;
   margin-right: auto;
 }
