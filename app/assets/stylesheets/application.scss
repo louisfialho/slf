@@ -836,6 +836,7 @@ hr {
     -ms-flex-pack: center;
     justify-content: center;
     padding-top: 10%;
+    padding-bottom: 13%;
     position: relative;
     max-width: 66%;
     margin: 0 auto;
@@ -858,4 +859,18 @@ hr {
 
 .lp-cta:hover {
   color: white !important;
+}
+
+.lp-section {
+    max-width: 1204px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+.frame {
+    position: relative;
+    padding-bottom: 56.81818181818182%;
+    overflow: hidden;
+    border: 3px solid #2c2c2c;
+    border-radius: 8px;
 }
