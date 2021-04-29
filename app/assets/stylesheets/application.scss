@@ -799,14 +799,14 @@ hr {
 
 .benefit-dsc {
   font-family: Charter;
-  font-size: calc(var(--h1)/2);
+  font-size: calc(var(--h1)*0.55);
   color: #404040;
   padding-bottom: 13px;
   line-height: 1.3;
 }
 
 .lp-section-testimonial {
-    padding: 128px 32px;
+    padding: 40px 32px 180px;
 }
 
 .testimonial-ctn {
@@ -867,7 +867,12 @@ hr {
     color: #404040;
 }
 
-
+.footer {
+  font-family: Charter;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+}
 
 
 
@@ -917,14 +922,24 @@ hr {
   }
 }
 
+@media(max-width: 670px) {
+  .testimonial-picture{
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    width: 100px;
+  }
+  .testimonial-ctn {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+}
+
 @media(max-width: 600px) {
   .grid-container {
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
     margin-left: 3%;
     margin-right: 3%;
-  }
-  .testimonial-picture {
-    width: 100px;
   }
 }
 
