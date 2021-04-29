@@ -120,6 +120,12 @@ body {
   }
 }
 
+@media(max-width: 500px) {
+  .navbar {
+      padding: 1.5rem 2rem;
+  }
+}
+
 @media(max-width: 450px) {
   .grid-container {
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
@@ -130,8 +136,9 @@ body {
   .object-picture {
     width: 60%; // 100px
   }
-  .navbar {
-      padding: 1.5rem 2rem;
+  .tagline {
+    font-size: 35px !important;
+    max-width: 85% !important;
   }
 }
 
@@ -145,7 +152,12 @@ body {
   .object-picture {
     width: 70%; // 100px
   }
+  .tagline {
+    font-size: 30px !important;
+    max-width: 90% !important;
+  }
 }
+
 
 // object
 .object{
