@@ -21,7 +21,7 @@ body {
   color:inherit;
   text-decoration: none;
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-  font-size: 4.5vh; //245px
+  font-size: 33px;
   font-weight: 900;
   max-height: 15px;
   padding: 0px;
@@ -75,7 +75,12 @@ body {
     margin-right: 13%;
 }
 
-//  3 cols: ajuster taille grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+@media(max-width: 1050px) {
+  .tagline {
+    font-size: 40px !important;
+    max-width: 80% !important;
+  }
+}
 
 @media(max-width: 900px) {
   .grid-container {
@@ -112,10 +117,6 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
     margin-left: 3%;
     margin-right: 3%;
-  }
-  .tagline {
-    font-size: 4.0vh !important;
-    max-width: 80vw !important;
   }
 }
 
@@ -772,7 +773,7 @@ hr {
 
 .login {
   font-weight: 500;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .tagline {
@@ -780,25 +781,24 @@ hr {
   font-family: Charter;
   font-style: normal;
   font-weight: bold;
-  // font-size: 6.0vh;
-  font-size: 3.5vmax;
+  font-size: 50px;
   margin-top: 10%;
-  max-width: 61vw;
+  max-width: 66%;
   margin-left: auto;
   margin-right: auto;
 }
 
-#try-it-now-btn {
-    text-align: center;
-    color: white;
-    border: 2px solid #202020;
-    padding: 5px 20px;
-    border-radius: 50px;
-    font-weight: 400;
-    font-size: 20px;
-    background-color: #202020;
-    width: 9%;
-    margin-top: 2%;
-    margin-left: auto;
-    margin-right: auto;
-}
+// #try-it-now-btn {
+//     text-align: center;
+//     color: white;
+//     border: 2px solid #202020;
+//     padding: 5px 20px;
+//     border-radius: 50px;
+//     font-weight: 400;
+//     font-size: 20px;
+//     background-color: #202020;
+//     width: 9%;
+//     margin-top: 2%;
+//     margin-left: auto;
+//     margin-right: auto;
+// }
