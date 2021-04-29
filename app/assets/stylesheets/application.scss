@@ -78,6 +78,8 @@ body {
 @media(max-width: 1050px) {
   .tagline {
     font-size: 40px !important;
+  }
+  .lp-1 {
     max-width: 80% !important;
   }
 }
@@ -138,7 +140,9 @@ body {
   }
   .tagline {
     font-size: 35px !important;
-    max-width: 85% !important;
+  }
+  .lp-1 {
+      max-width: 85% !important;
   }
 }
 
@@ -154,6 +158,8 @@ body {
   }
   .tagline {
     font-size: 30px !important;
+  }
+  .lp-1 {
     max-width: 90% !important;
   }
 }
@@ -794,8 +800,6 @@ hr {
   font-style: normal;
   font-weight: bold;
   font-size: 50px;
-  margin-top: 10%;
-  max-width: 66%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -814,3 +818,27 @@ hr {
 //     margin-left: auto;
 //     margin-right: auto;
 // }
+
+.lp-1 {
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-top: 10%;
+    position: relative;
+    max-width: 66%;
+    margin: 0 auto;
+    text-align: center;
+}
+
