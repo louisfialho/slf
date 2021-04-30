@@ -861,6 +861,8 @@ hr {
   margin-bottom: 30px;
 }
 
+// Login page
+
 .sign-in-ctn {
     margin: 0px auto;
     padding-top: 144px;
@@ -870,9 +872,21 @@ hr {
     text-align: center;
 }
 
+.form-control {
+  display: inline;
+  border-right : 0px;
+  border-left : 0px;
+  border-top : 0px;
+  border-bottom: 2.5px solid black;
+}
 
-
-
+input:focus, input.form-control:focus {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
 
 
 // Media

@@ -1,6 +1,7 @@
 <div class="navbar" id="navshow">
-  <p class="logo">shelf</p>
-  <p class="login">Join</p>
+    <%= link_to('shelf', root_path, class: 'logo') %>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSemiCUohcstS3K8tGcxmV34200dCrA2GnWBWf29gYibXE5PuA/viewform?usp=sf_link
+" class="login">Join</a>
 </div>
 
 <div class="sign-in-ctn">
@@ -12,10 +13,14 @@
       <%= f.input :email,
                   required: false,
                   autofocus: true,
-                  input_html: { autocomplete: "email" } %>
+                  input_html: { autocomplete: "email", style: 'width: 300px', placeholder: 'Email' },
+                  label: false
+                  %>
       <%= f.input :password,
                   required: false,
-                  input_html: { autocomplete: "current-password" } %>
+                  input_html: { autocomplete: "current-password", style: 'width: 300px',  placeholder: 'Password'  },
+                  label: false
+                  %>
   <!--     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %> -->
     </div>
 
