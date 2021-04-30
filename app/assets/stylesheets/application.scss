@@ -717,24 +717,9 @@ hr {
   font-size: var(--h1);
   margin-left: auto;
   margin-right: auto;
-  max-width: 675px;
-  min-height: 200px;
+  max-width: 660px;
+  min-height: 150px;
 }
-
-// #try-it-now-btn {
-//     text-align: center;
-//     color: white;
-//     border: 2px solid #202020;
-//     padding: 5px 20px;
-//     border-radius: 50px;
-//     font-weight: 400;
-//     font-size: 20px;
-//     background-color: #202020;
-//     width: 9%;
-//     margin-top: 2%;
-//     margin-left: auto;
-//     margin-right: auto;
-// }
 
 .lp-1 {
     -webkit-align-items: center;
@@ -892,6 +877,10 @@ hr {
   .lp-1 {
     max-width: 80% !important;
   }
+  .tagline {
+    max-width: 530px;
+    min-height: 120px;
+  }
 }
 
 @media(max-width: 900px) {
@@ -934,6 +923,20 @@ hr {
   .testimonial-ctn {
     grid-template-columns: 1fr;
     gap: 25px;
+  }
+  :root {
+      --h1: 37px;
+  }
+  .tagline {
+    max-width: 489px;
+    min-height: 120px;
+  }
+}
+
+@media(max-width: 610px) {
+  .tagline {
+    max-width: 489px;
+    min-height: 165px;
   }
 }
 
