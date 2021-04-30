@@ -863,9 +863,9 @@ hr {
 
 // Login page
 
-.sign-in-ctn {
+.log-in-ctn {
     margin: 0px auto;
-    padding-top: 144px;
+    padding-top: 10vh;
     padding-bottom: 80px;
     width: 422px;
     max-width: 100%;
@@ -886,6 +886,50 @@ input:focus, input.form-control:focus {
     box-shadow: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
+}
+
+.form-inputs {
+  font-family: Charter;
+  color: black;
+}
+
+#user_email::placeholder, #user_password::placeholder  {
+  color: #DCDCDC;
+}
+
+#user_email, #user_password {
+  width: 65% !important;
+}
+
+.form-control:focus {
+  border-color: black;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px black;
+}
+
+.welcome-back {
+  text-align: center;
+  font-family: Charter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: var(--h1);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10vh;
+}
+
+
+.log-in-cta {
+    margin-top: 10vh;
+    background: #000000;
+    color: #FFFFFF;
+    display: inline-block;
+    border-radius: 40px;
+    padding: 10px 24px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    border: 0;
+    cursor: pointer;
 }
 
 
