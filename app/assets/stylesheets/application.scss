@@ -759,7 +759,7 @@ hr {
     cursor: pointer;
 }
 
-.lp-cta:hover {
+.lp-cta:hover, .log-in-cta:hover {
   color: white !important;
 }
 
@@ -930,6 +930,24 @@ input:focus, input.form-control:focus {
     line-height: 1;
     border: 0;
     cursor: pointer;
+}
+
+.expand{
+  position:relative;
+  text-decoration:none;
+  display:inline-block;
+}
+.expand:after {
+  display:block;
+  content: '';
+  border-bottom: solid 3px #000;
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+  transform-origin:100% 50%
+}
+.expand:hover:after {
+  transform: scaleX(1);
+  transform-origin:0 50%;
 }
 
 
