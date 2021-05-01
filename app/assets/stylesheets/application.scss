@@ -326,10 +326,6 @@ button:hover,
   padding-bottom: 0px;
 }
 
-.form-group {
-    margin-bottom: 10px;
-}
-
 // overriding bootstrap form styling
 
 .form-control.is-valid {
@@ -939,6 +935,43 @@ input:focus, input.form-control:focus {
   margin-bottom: 10vh;
 }
 
+.sign-up-ctn {
+    margin: 0px auto;
+    padding-top: 3vh;
+    padding-bottom: 80px;
+    width: 422px;
+    max-width: 100%;
+    text-align: center;
+}
+
+.welcome {
+  text-align: center;
+  font-family: Charter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: var(--h1);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5vh;
+}
+
+#new_user .form-group {
+  padding-bottom: 2vh;
+}
+
+.sign-up-cta {
+    margin-top: 3vh;
+    background: #000000;
+    color: #FFFFFF;
+    display: inline-block;
+    border-radius: 40px;
+    padding: 10px 24px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    border: 0;
+    cursor: pointer;
+}
 
 // Media
 

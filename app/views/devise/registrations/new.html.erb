@@ -3,9 +3,9 @@
     <%= link_to('Login', new_user_session_path, class: 'login expand') %>
 </div>
 
-<div class="log-in-ctn">
+<div class="sign-up-ctn">
 
-  <h2 class="welcome-back">🛋 Welcome!</h2>
+  <h2 class="welcome">🛋 Welcome!</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
@@ -46,7 +46,7 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Sign up", class: 'log-in-cta' %>
+    <%= f.button :submit, "Sign up", class: 'sign-up-cta' %>
   </div>
 <% end %>
 
