@@ -121,12 +121,13 @@ a:hover
 
 
 // text input in form for space
-input[type="text"].form-control, input[type="text"]:focus, input[type="text"].form-control:focus, input[type="url"].form-control, input[type="url"]:focus, input[type="url"].form-control:focus {
+.txt-inpt-box, .txt-inpt-box:hover {
     border-color: transparent;
     -webkit-box-shadow: none;
-    font-family: Charter;
-    color: black;
-    font-size: 27px;
+    font-family: "Helvetica Neue";
+    font-weight: 400;
+    color: #282828;
+    font-size: larger;
     text-align: center;
 }
 
@@ -539,20 +540,6 @@ button:focus {
   width: 100%;
 }
 
-input[type=text]:focus {
-  font-family: "Helvetica Neue";
-  font-size: larger;
-  color: #282828;
-  font-weight: 400;
-}
-
-input[type=text] {
-  font-family: "Helvetica Neue";
-  font-size: larger;
-  color: #282828;
-  font-weight: 400;
-}
-
 .prompt {
     display: block;
     margin-block-start: 0;
@@ -878,17 +865,16 @@ input:focus, input.form-control:focus {
     -webkit-box-shadow: none;
 }
 
-.form-inputs {
+
+.form-control::placeholder  {
+  color: #DCDCDC;
+  font-family: Charter;
+}
+
+.form-control {
+  width: 65% !important;
   font-family: Charter;
   color: black;
-}
-
-#user_email::placeholder, #user_password::placeholder  {
-  color: #DCDCDC;
-}
-
-#user_email, #user_password {
-  width: 65% !important;
 }
 
 .form-control:focus {
@@ -938,6 +924,19 @@ input:focus, input.form-control:focus {
 .expand:hover:after {
   transform: scaleX(1);
   transform-origin:0 50%;
+}
+
+// Sign up page
+
+.welcome-to-the-club {
+  text-align: center;
+  font-family: Charter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: var(--h1);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10vh;
 }
 
 

@@ -1,25 +1,53 @@
-<h2>Sign up</h2>
+<div class="navbar" id="navshow">
+    <%= link_to('shelf', root_path, class: 'logo') %>
+    <%= link_to('Login', new_user_session_path, class: 'login expand') %>
+</div>
+
+<div class="log-in-ctn">
+
+  <h2 class="welcome-back">🛋 Welcome!</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email,
+    <%= f.input :first_name,
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "email" }%>
+                input_html: { autocomplete: "first_name", style: 'width: 300px', placeholder: 'First name' },
+                label: false %>
+    <%= f.input :last_name,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "last_name", style: 'width: 300px', placeholder: 'Last name' },
+                label: false %>
+    <%= f.input :username,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "username", style: 'width: 300px', placeholder: 'Username' },
+                label: false %>
+    <%= f.input :phone_number,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "phone_number", style: 'width: 300px', placeholder: 'Phone number' },
+                label: false %>
+    <%= f.input :email,
+                required: true,
+                input_html: { autocomplete: "email", style: 'width: 300px', placeholder: 'Email' },
+                label: false %>
     <%= f.input :password,
                 required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
+                input_html: { autocomplete: "new-password", style: 'width: 300px', placeholder: 'Password' },
+                label: false %>
     <%= f.input :password_confirmation,
                 required: true,
-                input_html: { autocomplete: "new-password" } %>
+                input_html: { autocomplete: "new-password", style: 'width: 300px', placeholder: 'Repeat password' },
+                label: false %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+    <%= f.button :submit, "Sign up", class: 'log-in-cta' %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<!-- <%= render "devise/shared/links" %> -->

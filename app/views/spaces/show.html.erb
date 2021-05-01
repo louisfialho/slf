@@ -109,7 +109,7 @@
     <div class="options-ctn options-ctn-shelf-space" id="add-url" style="display:none;">
       <p class="option prompt" id="add-url-prompt"> Copy and paste the URL 🌐 for this new object </p>
       <%= form_for @item, remote: true do |f| %>
-        <%= f.text_field :url, class: 'txt-inpt' %> <!-- autofocus: true, onblur: 'this.focus()' -->
+        <%= f.text_field :url, class: 'txt-inpt txt-inpt-box' %> <!-- autofocus: true, onblur: 'this.focus()' -->
         <%= f.hidden_field :space_id, :value => @space.id %> <!-- for controller -->
         <%= f.hidden_field :parent_id, :value => @space.id %> <!-- for pundit -->
         <%= f.submit "Add item", style: "display: none;" %>
@@ -121,7 +121,7 @@
     <div class="options-ctn options-ctn-shelf-space" id="add-space" data-location="space" style="display:none;">
       <p class="option prompt" id="add-space-prompt" > What is the name of this new space? 🗄 </p>
       <%= simple_form_for @child, html: { autocomplete: 'off' } do |f| %>
-        <%= f.text_field :name, class: 'txt-inpt' %>
+        <%= f.text_field :name, class: 'txt-inpt txt-inpt-box' %>
         <%= f.hidden_field :shelf_id, :value => @shelf_mother.id %>
         <%= f.hidden_field :space_id, :value => @space.id %>
         <%= f.submit "Add space", style: "display: none;" %>

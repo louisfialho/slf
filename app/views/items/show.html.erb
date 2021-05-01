@@ -27,7 +27,7 @@
   <% if user_signed_in? %>
     <%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options', id: 'options-btn' %>
   <% else %>
-    <%= link_to('Login', new_user_session_path, id: 'login-btn') %>
+    <%= link_to('Login', new_user_session_path, class: 'login expand') %>
   <% end %>
 </div>
 <!-- END OF NAVBAR -->
@@ -126,7 +126,7 @@
     <div class="options-ctn options-ctn-shelf-space" id="add-space" style="display:none;">
       <p class="option prompt" id="add-space-prompt" > What is the name of this new space? 🗄 </p>
       <%= simple_form_for @child, html: { autocomplete: 'off' } do |f| %>
-        <%= f.text_field :name, class: 'txt-inpt' %> <!-- autofocus: true, onblur: 'this.focus()' --> <!-- onpaste: 'setTimeout(function(){ form.submit(); }, 0.1); -->
+        <%= f.text_field :name, class: 'txt-inpt txt-inpt-box' %> <!-- autofocus: true, onblur: 'this.focus()' --> <!-- onpaste: 'setTimeout(function(){ form.submit(); }, 0.1); -->
         <%= f.hidden_field :shelf_id, :value => @shelf_mother.id %>
         <%= f.hidden_field :item_id, :value => @item.id %>
         <%= f.submit "Add space", style: "display: none;" %>
