@@ -33,12 +33,7 @@ import { displayAddOptions } from '../components/add-options';
 import { moveToSpaceList } from '../components/move-to-space-list';
 import { backArrow } from '../components/back-arrow';
 import { loadDynamicBannerText } from '../components/banner';
-// import { initSortableShelf } from '../components/init_sortable';
-// import { initSortableSpace } from '../components/init_sortable';
-
-
-// Internal imports, e.g:
-// import { initSelect2 } from '../components/init_select2';
+import { displayIntlTelInpt } from '../components/intl-tel-inpt';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -76,6 +71,10 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.getElementById('banner-typed-text')) {
     loadDynamicBannerText();
+  }
+
+  if (document.getElementById('new_user')) {
+    displayIntlTelInpt();
   }
 });
 

@@ -8,6 +8,7 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+@import 'intl-tel-input/build/css/intlTelInput.css';
 // Your CSS partials
 
 body {
@@ -973,6 +974,12 @@ input:focus, input.form-control:focus {
     cursor: pointer;
 }
 
+// intl tel
+
+.iti {
+  display: inline;
+}
+
 // Media
 
 @media(max-width: 1050px) {
@@ -1093,4 +1100,12 @@ input:focus, input.form-control:focus {
   .lp-1 {
     max-width: 90% !important;
   }
+}
+
+// intl-tel
+
+.iti__flag {background-image: url("flags.png");}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .iti__flag {background-image: url("flags@2x.png");}
 }
