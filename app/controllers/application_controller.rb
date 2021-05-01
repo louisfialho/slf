@@ -73,6 +73,10 @@ class ApplicationController < ActionController::Base
     return space
   end
 
+  def after_sign_in_path_for(resource)
+    shelf_path(current_user.shelves.first) # your path
+  end
+
   private
 
   def skip_pundit?
