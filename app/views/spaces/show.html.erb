@@ -15,7 +15,7 @@
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
   <% else %>
-    <%= link_to('Login', new_user_session_path, id: 'login-btn') %>
+    <%= link_to('Login', new_user_session_path, class: 'login expand') %>
   <% end %>
 </div>
 <!-- END OF NAVBAR -->

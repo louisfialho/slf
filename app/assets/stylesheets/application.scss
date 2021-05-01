@@ -40,7 +40,7 @@ body {
     background-color: white;
 }
 
-.add-btn:hover, #login-btn:hover
+.add-btn:hover
 {
      color:white;
      background-color: #202020;
@@ -686,16 +686,6 @@ hr {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-#login-btn {
-    color: #202020;
-    border: 2px solid #202020;
-    padding: 5px 20px;
-    border-radius: 50px;
-    font-weight: lighter;
-    font-weight: 400;
-    background-color: white;
 }
 
 // Landing page
