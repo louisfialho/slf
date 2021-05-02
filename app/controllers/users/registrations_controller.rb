@@ -2,9 +2,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super
     if @user.persisted?
-      # use @user.telegram_hash
-      # @user.first_name
-      #https://t.me/Shelf_bot?start=vCH1vGWJxfSeofSAs0K5PA
+      # send this sms
+      # "Welcome to Shelf @user.first_name, please open the link below to open your first conversation with Shelf Bot in Telegram.
+      # Once in Telegram, simply hit "Start".
+      # https://t.me/Shelf_bot?start= @user.telegram_hash
+      # If you don't have the Telegram app installed, please do install it in order to join Shelf!
   end
 
   def meet_bot
