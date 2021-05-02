@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.6'
 
+gem 'twilio-ruby'
+
 gem 'pundit'
 
 gem 'turbolinks_render'
