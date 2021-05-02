@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    shelf_path(current_user.shelves.first) # your path
+    shelf_path(current_user.shelves.first)
   end
 
   private
@@ -85,10 +85,10 @@ class ApplicationController < ActionController::Base
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
 
+
   protected
           def configure_permitted_parameters
                devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:first_name, :last_name, :username, :phone_number, :email, :password)}
-
                devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:first_name, :last_name, :username, :phone_number, :email, :password, :current_password)}
           end
 end

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
   root to: 'pages#home'
+  devise_scope :user do
+   get "meet_bot", to: "devise/registrations#meet_bot"
+  end
   resources :shelves, only: [:new, :create, :show] do
     member do
       get 'shelf_children'
