@@ -938,7 +938,6 @@ input:focus, input.form-control:focus {
 
 .sign-up-ctn {
     margin: 0px auto;
-    padding-top: 3vh;
     padding-bottom: 80px;
     width: 422px;
     max-width: 100%;
@@ -960,8 +959,12 @@ input:focus, input.form-control:focus {
   padding-bottom: 2vh;
 }
 
+#new_user .user_password_confirmation {
+  padding-bottom: 0vh !important;
+}
+
 .sign-up-cta {
-    margin-top: 3vh;
+    margin-top: 5vh;
     background: #000000;
     color: #FFFFFF;
     display: inline-block;
@@ -978,6 +981,35 @@ input:focus, input.form-control:focus {
 
 .iti {
   display: inline;
+}
+
+// meet shelf bot
+
+.meet-shelf-bot-ctn {
+    margin: 0px auto;
+    padding-bottom: 80px;
+    width: 1100px;
+    max-width: 90%;
+    text-align: center;
+}
+
+.meet-shelf-bot {
+  text-align: center;
+  font-family: Charter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: var(--h1);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3vh;
+}
+
+.share-telegram-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  border-radius: 20px;
 }
 
 // Media
