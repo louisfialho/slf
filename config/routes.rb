@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   devise_scope :user do
    get "meet_bot", to: "devise/registrations#meet_bot"
+   get "shake_hands", to: "devise/registrations#shake_hands"
   end
   resources :shelves, only: [:new, :create, :show] do
     member do

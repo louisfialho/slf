@@ -28,6 +28,7 @@
                 required: true,
                 input_html: { autocomplete: "phone_number", style: 'width: 300px'},
                 label: false %>
+    <span id="error-msg" class="hide"></span>
     <%= f.input :email,
                 required: true,
                 input_html: { autocomplete: "email", style: 'width: 300px', placeholder: 'Email' },
@@ -41,6 +42,8 @@
                 input_html: { autocomplete: "new-password", style: 'width: 300px', placeholder: 'Repeat password' },
                 label: false %>
   </div>
+
+  <div class="alert alert-info" style="display: none;"></div>
 
   <div class="form-actions">
     <%= f.button :submit, "Next", class: 'sign-up-cta' %>
