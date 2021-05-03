@@ -35,6 +35,7 @@ import { backArrow } from '../components/back-arrow';
 import { loadDynamicBannerText } from '../components/banner';
 import { displayIntlTelInpt } from '../components/intl-tel-inpt';
 import { shakeHandsRedirect } from '../components/shake-hands-redirect';
+import { addFirstResource } from '../components/add-first-resource-redirect';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -80,6 +81,10 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.getElementById('shake-hands')) {
     shakeHandsRedirect();
+  }
+
+  if (document.getElementById('add-first-resource')) {
+    addFirstResource();
   }
 });
 

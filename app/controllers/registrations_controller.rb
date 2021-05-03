@@ -8,6 +8,20 @@ class RegistrationsController < Devise::RegistrationsController
     render json: {is_nil: @user.telegram_chat_id.nil?}
   end
 
+  def stat_added_first_item
+    if current_user
+      @user = current_user
+      render json: {shelf_empty: @user.shelves.first.spaces.first.items.empty?}
+    end
+  end
+
+  def current_shelf
+    if current_user
+      @user = current_user
+    end
+    render json: {shelf_id: @user.shelves.first.id}
+  end
+
   def create
     super
     if @user.persisted?

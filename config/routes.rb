@@ -6,10 +6,14 @@ Rails.application.routes.draw do
     get "shake_hands", to: "registrations#shake_hands"
     get "add_first_resource", to: "registrations#add_first_resource"
     get "/registrations/stat_telegram_chat_id", to: "registrations#stat_telegram_chat_id"
+    get "/registrations/stat_added_first_item", to: "registrations#stat_added_first_item"
+    get "/registrations/current_shelf", to: "registrations#current_shelf"
   end
   resources :registrations, only: [:new, :create] do
     collection do
       get 'stat_telegram_chat_id'
+      get 'stat_added_first_item'
+      get 'current_shelf'
     end
   end
   resources :shelves, only: [:new, :create, :show] do
