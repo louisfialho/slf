@@ -7,6 +7,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       # Once in Telegram, simply hit "Start".
       # https://t.me/Shelf_bot?start= @user.telegram_hash
       # If you don't have the Telegram app installed, please do install it in order to join Shelf!
+    end
   end
 
   def meet_bot
@@ -17,7 +18,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     meet_bot_path
-  end
   end
 end
 
