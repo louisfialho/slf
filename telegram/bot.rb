@@ -54,7 +54,17 @@ Telegram::Bot::Client.run(token) do |bot|
                   connection.space.position += 1
                   connection.space.save
                 end
-                space.items << item
+                if space.items.empty? && (shelf.spaces.length == 1) && (shelf.spaces.first.name == "Objects added by Shelf Bot 🤖") && shelf.items.empty?
+                  space.items << item
+                  item.notes = "Congratulations - you just added your first resource! 🎉
+• All resources added from Telegram will be stored in this space. Note that you can also add resources from desktop either by using the Telegram desktop app, or by adding resources directly in Shelf (go back to your Shelf, click on Options > New > Object and paste the URL).
+• You can use this space as your to-do list. You can drag and reorder resources in order to prioritize. Once you finish a resource, you can archive it by adding it to a new space (once on the object, click on Options > Move to > New...). Go ahead and try to move this object to a new space!
+• Finally, you can add notes to retain key insights. Try removing those notes and adding your own!
+Hopefully this basic workflow will help you learn more 🧠! We would love to get in touch - send feedback 👋 hello@shelf.so."
+                  item.save
+                else
+                  space.items << item
+                end
                 bot.api.send_message(chat_id: message.chat.id, text: "#{item.name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?space_id=#{space.id}")
               else
                 shelf.items.update_all('position = position + 1')
