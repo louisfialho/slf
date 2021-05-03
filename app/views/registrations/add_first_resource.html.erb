@@ -1,0 +1,10 @@
+<div class="navbar" id="navshow">
+    <%= link_to('shelf', root_path, class: 'logo') %>
+</div>
+
+<div class="meet-shelf-bot-ctn"> <!-- sign-up ctn refact -->
+  <h2 class="meet-shelf-bot">Send a resource 📚</h2>
+  <p class="benefit-dsc">From your phone, find a resource you like (a podcast, news article, video...) and hit Share > Telegram > Shelf Bot.</p>
+  <%= image_tag "share_telegram.png", class: 'share-telegram-img'  %>
+  <%= link_to 'Done - now show me my shelf!', shake_hands_path, class: "sign-up-cta"%>
+</div>

@@ -1,6 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  def meet_bot
-  end
 
   def create
     super
@@ -14,11 +12,22 @@ N.B. If you don't have the Telegram app installed, please do install it in order
     end
   end
 
+  def meet_bot
+  end
+
   def shake_hands
+  end
+
+  def add_first_resource
   end
 
   def after_sign_up_path_for(resource)
     meet_bot_path
   end
+
+  def user_telegram_chat_id
+    @user = current_user
+    render json: {is_nil: @user.telegram_chat_id.nil?}
+   end
 end
 

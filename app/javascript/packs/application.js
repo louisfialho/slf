@@ -34,6 +34,7 @@ import { moveToSpaceList } from '../components/move-to-space-list';
 import { backArrow } from '../components/back-arrow';
 import { loadDynamicBannerText } from '../components/banner';
 import { displayIntlTelInpt } from '../components/intl-tel-inpt';
+import { shakeHandsRedirect } from '../components/shake-hands-redirect';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -75,6 +76,10 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.getElementById('new_user')) {
     displayIntlTelInpt();
+  }
+
+  if (document.getElementById('shake-hands')) {
+    shakeHandsRedirect();
   }
 });
 

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_scope :user do
    get "meet_bot", to: "registrations#meet_bot"
    get "shake_hands", to: "registrations#shake_hands"
+   get "add_first_resource", to: "registrations#add_first_resource"
   end
   resources :shelves, only: [:new, :create, :show] do
     member do
