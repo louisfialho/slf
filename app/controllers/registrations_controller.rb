@@ -1,4 +1,12 @@
 class RegistrationsController < Devise::RegistrationsController
+# skip_after_action :verify_authorized, only: [:stat_telegram_chat_id]
+
+  def stat_telegram_chat_id
+    if current_user
+      @user = current_user
+    end
+    render json: {is_nil: @user.telegram_chat_id.nil?}
+  end
 
   def create
     super
@@ -24,10 +32,5 @@ N.B. If you don't have the Telegram app installed, please do install it in order
   def after_sign_up_path_for(resource)
     meet_bot_path
   end
-
-  def user_telegram_chat_id
-    @user = current_user
-    render json: {is_nil: @user.telegram_chat_id.nil?}
-   end
 end
 

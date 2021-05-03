@@ -10,7 +10,7 @@ token = ENV['TELEGRAM_TOKEN']
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
-    if message.text
+    if message
       if message.text == '/start' || message.text.include?('/start ')
         unique_code = message.text.split[1] # add condition if exists
         #si il y a unique_code
@@ -21,7 +21,7 @@ Telegram::Bot::Client.run(token) do |bot|
             user = User.find_by(telegram_hash: unique_code)
             user.telegram_chat_id = message.chat.id
             user.save
-            bot.api.send_message(chat_id: message.chat.id, text: "Hi #{message.from.first_name}, send me a URL and I'll add the object to your shelf!")
+            bot.api.send_message(chat_id: message.chat.id, text: "Hi #{message.from.first_name}, send me a resource and I'll add the object to your shelf!")
         #  si ce unique code ne correspond pas à un user
           else
         #  je ne sais pas qui vous êtes...

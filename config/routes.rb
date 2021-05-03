@@ -2,9 +2,15 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"} # overwrites registrations controllers from devise
   root to: 'pages#home'
   devise_scope :user do
-   get "meet_bot", to: "registrations#meet_bot"
-   get "shake_hands", to: "registrations#shake_hands"
-   get "add_first_resource", to: "registrations#add_first_resource"
+    get "meet_bot", to: "registrations#meet_bot"
+    get "shake_hands", to: "registrations#shake_hands"
+    get "add_first_resource", to: "registrations#add_first_resource"
+    get "/registrations/stat_telegram_chat_id", to: "registrations#stat_telegram_chat_id"
+  end
+  resources :registrations, only: [:new, :create] do
+    collection do
+      get 'stat_telegram_chat_id'
+    end
   end
   resources :shelves, only: [:new, :create, :show] do
     member do
