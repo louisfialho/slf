@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {:registrations => "users/registrations"}
+  devise_for :users, :controllers => {:registrations => "registrations"} # overwrites registrations controllers from devise
   root to: 'pages#home'
   devise_scope :user do
-   get "meet_bot", to: "devise/registrations#meet_bot"
-   get "shake_hands", to: "devise/registrations#shake_hands"
+   get "meet_bot", to: "registrations#meet_bot"
+   get "shake_hands", to: "registrations#shake_hands"
   end
   resources :shelves, only: [:new, :create, :show] do
     member do

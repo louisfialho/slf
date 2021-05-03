@@ -1,4 +1,7 @@
-class Users::RegistrationsController < Devise::RegistrationsController
+class RegistrationsController < Devise::RegistrationsController
+  def meet_bot
+  end
+
   def create
     super
     if @user.persisted?
@@ -8,9 +11,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       # https://t.me/Shelf_bot?start= @user.telegram_hash
       # If you don't have the Telegram app installed, please do install it in order to join Shelf!
     end
-  end
-
-  def meet_bot
   end
 
   def shake_hands
