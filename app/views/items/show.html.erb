@@ -25,7 +25,7 @@
   </div>
 
   <% if user_signed_in? %>
-    <%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options', id: 'options-btn' %>
+    <a><%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options', id: 'options-btn' %></a>
   <% else %>
     <%= link_to('Login', new_user_session_path, class: 'login expand') %>
   <% end %>
