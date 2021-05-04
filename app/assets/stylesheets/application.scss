@@ -873,6 +873,12 @@ input:focus, input.form-control:focus {
   color: black;
 }
 
+.sign-up-form-control {
+  width: 65% !important;
+}
+
+
+
 .form-control:focus {
   border-color: black;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px black;

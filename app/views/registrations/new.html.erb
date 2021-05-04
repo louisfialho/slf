@@ -14,32 +14,32 @@
     <%= f.input :first_name,
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "first_name", style: 'width: 300px', placeholder: 'First name' },
+                input_html: { autocomplete: "first_name", style: 'width: 300px', placeholder: 'First name', class: 'sign-up-form-control' },
                 label: false %>
     <%= f.input :last_name,
                 required: true,
-                input_html: { autocomplete: "last_name", style: 'width: 300px', placeholder: 'Last name' },
+                input_html: { autocomplete: "last_name", style: 'width: 300px', placeholder: 'Last name', class: 'sign-up-form-control' },
                 label: false %>
     <%= f.input :username,
                 required: true,
-                input_html: { autocomplete: "username", style: 'width: 300px', placeholder: 'Username' },
+                input_html: { autocomplete: "username", style: 'width: 300px', placeholder: 'Username', class: 'sign-up-form-control' },
                 label: false %>
     <%= f.input :phone_number,
                 required: true,
-                input_html: { autocomplete: "phone_number", style: 'width: 300px'},
+                input_html: { autocomplete: "phone_number", style: 'width: 300px', class: 'sign-up-form-control' },
                 label: false %>
     <span id="error-msg" class="hide"></span>
     <%= f.input :email,
                 required: true,
-                input_html: { autocomplete: "email", style: 'width: 300px', placeholder: 'Email' },
+                input_html: { autocomplete: "email", style: 'width: 300px', placeholder: 'Email', class: 'sign-up-form-control' },
                 label: false %>
     <%= f.input :password,
                 required: true,
-                input_html: { autocomplete: "new-password", style: 'width: 300px', placeholder: 'Password' },
+                input_html: { autocomplete: "new-password", style: 'width: 300px', placeholder: 'Password', class: 'sign-up-form-control' },
                 label: false %>
     <%= f.input :password_confirmation,
                 required: true,
-                input_html: { autocomplete: "new-password", style: 'width: 300px', placeholder: 'Repeat password' },
+                input_html: { autocomplete: "new-password", style: 'width: 300px', placeholder: 'Repeat password', class: 'sign-up-form-control' },
                 label: false %>
   </div>
 
