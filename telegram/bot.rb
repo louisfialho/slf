@@ -47,14 +47,14 @@ Telegram::Bot::Client.run(token) do |bot|
             end
           else
             if shelf.spaces.empty? == false
-              if shelf.spaces.where(name: "Objects added by Shelf Bot 🤖").length == 1 #user did not create another one nor deleted it
-                space = shelf.spaces.where(name: "Objects added by Shelf Bot 🤖").first
+              if shelf.spaces.where(name: "🤖 Added by Bot").length == 1 #user did not create another one nor deleted it
+                space = shelf.spaces.where(name: "🤖 Added by Bot").first
                 space.items.update_all('position = position + 1')
                 space.children.each do |connection|
                   connection.space.position += 1
                   connection.space.save
                 end
-                if space.items.empty? && (shelf.spaces.length == 1) && (shelf.spaces.first.name == "Objects added by Shelf Bot 🤖") && shelf.items.empty?
+                if space.items.empty? && (shelf.spaces.length == 1) && (shelf.spaces.first.name == "🤖 Added by Bot") && shelf.items.empty?
                   space.items << item
                   item.notes = "Congratulations - you just added your first resource! 🎉
 • All resources added from Telegram will be stored in this space. Note that you can also add resources from desktop either by using the Telegram desktop app, or by adding resources directly in Shelf (go back to your Shelf, click on Options > New > Object and paste the URL).
