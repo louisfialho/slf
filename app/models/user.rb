@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-has_many :shelves
+has_many :shelves, dependent: :destroy
 
 after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash
 

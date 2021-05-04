@@ -65,12 +65,12 @@ Hopefully this basic workflow will help you learn more 🧠! We would love to ge
                 else
                   space.items << item
                 end
-                bot.api.send_message(chat_id: message.chat.id, text: "#{item.name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?space_id=#{space.id}")
+                bot.api.send_message(chat_id: message.chat.id, text: "#{item.name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?space_id=#{space.id} ")
               else
                 shelf.items.update_all('position = position + 1')
                 shelf.spaces.update_all('position = position + 1')
                 shelf.items << item
-                bot.api.send_message(chat_id: message.chat.id, text: "#{item.name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id}")
+                bot.api.send_message(chat_id: message.chat.id, text: "#{item.name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id} ")
               end
             end
           end
