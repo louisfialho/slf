@@ -1,5 +1,5 @@
 const autoplayWhenVisible = () => {
-  var _video = document.querySelector('video');
+  var _video = document.querySelectorAll('.lp-video');
 
   function isScrolledIntoView( element ) {
       var elementTop    = element.getBoundingClientRect().top,
@@ -8,14 +8,16 @@ const autoplayWhenVisible = () => {
       return elementTop >= 0 && elementBottom <= window.innerHeight;
   }
 
-  window.addEventListener("scroll", function(){
-    if (isScrolledIntoView(_video)) {
-      _video.play();
-    }
-    else {
-      _video.pause()
-    }
-  })
+  _video.forEach(function(element) {
+    window.addEventListener("scroll", function(){
+      if (isScrolledIntoView(element)) {
+        element.play();
+      }
+      else {
+        element.pause()
+      }
+    })
+  });
 }
 
 export { autoplayWhenVisible };

@@ -88,7 +88,7 @@ document.addEventListener('turbolinks:load', () => {
     addFirstResource();
   }
 
-  if (document.getElementById('myVideo')) {
+  if (document.querySelector(".lp-video")) {
     autoplayWhenVisible();
   }
 });
