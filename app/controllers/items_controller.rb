@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-skip_before_action :authenticate_user!, :only => [:show, :create]
+skip_before_action :authenticate_user!, :only => [:show, :create, :destroy]
 before_action :set_item, only: [:show, :edit, :update, :destroy, :move]
 before_action :set_shelf, only: [:show, :move_to_shelf]
 before_action :set_shelf_space, only: [:new, :show, :edit, :move]
@@ -55,11 +55,7 @@ skip_before_action :verify_authenticity_token
     if @item.shelves.empty?
       @parent_space = @item.spaces.first
     end
-    if @item.shelves.empty? == false
-      @shelf_mother = @item.shelves.first
-    else
-      @shelf_mother = recursive_parent_search3(@item.spaces.first).shelves.first
-    end
+    @shelf_mother = shelf_mother_of_item(@item)
   end
 
   def edit
@@ -78,9 +74,8 @@ skip_before_action :verify_authenticity_token
 
   def destroy
     position = @item.position
-    @item.destroy
-    if params[:space_id].present?
-      @space = Space.find(params[:space_id])
+    if @item.spaces.empty? == false
+      @space = @item.spaces.first
       # Tous les spaces et objets sur space avec index > index obj perdent 1
       @space.items.where('position > ?', position).update_all('position = position - 1')
       @space.children.each do |connection|
@@ -89,12 +84,14 @@ skip_before_action :verify_authenticity_token
           connection.space.save
         end
       end
+      @item.destroy
       redirect_to space_path(@space)
-    elsif params[:shelf_id].present?
-      @shelf = Shelf.find(params[:shelf_id])
+    elsif @item.shelves.empty? == false
+      @shelf = @item.shelves.first
       # Tous les spaces et objets sur shelf avec index > index obj perdent 1
       @shelf.items.where('position > ?', position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
       @shelf.spaces.where('position > ?', position).update_all('position = position - 1')
+      @item.destroy
       redirect_to shelf_path(@shelf)
     end
   end

@@ -6,13 +6,30 @@ class ApplicationController < ActionController::Base
 
   def move_to_space_list
     if @space
-      if @space.shelves.empty? == false
-        @shelf_mother = @space.shelves.first
+      @shelf_mother = shelf_mother_of_space(@space)
+    elsif @item
+      if @item.shelves.empty? == false
+        @shelf_mother = @item.shelves.first
       else
-        @shelf_mother = recursive_parent_search3(@space).shelves.first
+        @shelf_mother = shelf_mother_of_space(@item.spaces.first)
       end
-      @shelf_mother.spaces.sort_by {|space| space.position}
-    # elsif @item ...
+    end
+    @shelf_mother.spaces.sort_by {|space| space.position}
+  end
+
+  def shelf_mother_of_space(space)
+    if @space.shelves.empty? == false
+      @space.shelves.first
+    else
+      recursive_parent_search3(@space).shelves.first
+    end
+  end
+
+  def shelf_mother_of_item(item)
+    if @item.shelves.empty? == false
+      @item.shelves.first
+    else
+      recursive_parent_search3(@item.spaces.first).shelves.first
     end
   end
 

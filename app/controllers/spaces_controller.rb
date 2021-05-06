@@ -227,11 +227,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
         @parent = connection.parent.space
       end
     end
-    if @space.shelves.empty? == false
-      @shelf_mother = @space.shelves.first
-    else
-      @shelf_mother = recursive_parent_search3(@space).shelves.first
-    end
+    @shelf_mother = shelf_mother_of_space(@space)
   end
 
   def edit
@@ -383,7 +379,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
     end
 
     # on trouve la shelf correspondante
-    @shelf = shelf_mother(@space)
+    @shelf = shelf_mother_of_space(@space)
     @shelf.items.update_all('position = position + 1')
     @shelf.spaces.update_all('position = position + 1')
 
@@ -477,14 +473,6 @@ skip_before_action :verify_authenticity_token # vulnerability?
   def set_shelf
     if user_signed_in?
       @shelf = current_user.shelves.first
-    end
-  end
-
-  def shelf_mother(space)
-    if @space.shelves.empty? == false
-      @space.shelves.first
-    else
-      recursive_parent_search3(@space).shelves.first
     end
   end
 end
