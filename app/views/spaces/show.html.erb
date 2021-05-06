@@ -10,7 +10,11 @@
 
   <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
 
-  <% if user_signed_in? %>
+  <% if @shelf_mother.id = 20 %>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+    </div>
+  <% elsif user_signed_in? %>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
@@ -22,7 +26,30 @@
 
 <!-- OPTIONS SPACE -->
     <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
-      <% if user_signed_in? %>
+      <% if @shelf_mother.id = 20 %>
+          <div class="option-ctn">
+            <a >➕</a>
+            <a class="option-label" id="new-object-or-space">New...</a>
+          </div>
+          <div class="option-ctn">
+            <a>👉</a>
+            <a class="option-label" id="move-to">Move</a>
+          </div>
+          <div class="option-ctn">
+            <a>🗑</a>
+            <% parent = nil %>
+            <% @space.connections.each do |connection| %>
+              <% if connection.parent_id.nil? == false %>
+                <% parent = connection.parent.space %>
+              <% end %>
+            <% end %>
+            <% if @space.shelves.empty? == false %>
+              <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
+            <% elsif parent.nil? == false %>
+              <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
+            <% end %>
+          </div>
+      <% elsif user_signed_in? %>
         <% if @current_user == @shelf_mother.user %>
           <div class="option-ctn">
             <a >➕</a>
@@ -63,7 +90,6 @@
 <!-- END OF OPTIONS SPACE -->
 
 <!-- MOVE TO LIST -->
-<% if user_signed_in? %>
   <div class="options-ctn" id="move-to-list" style="display:none;" data-type="space" data-space-id="<%= @space.id %>" data-shelf-id="<%= @shelf_mother.id %>">
     <div id="top-line">
       <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
@@ -87,7 +113,6 @@
   <!--   <%= button_to "👉 Move to test", { controller: "spaces", action: "move_space_to_space", current_space_id: @space.id, destination_space_id: 1 }, id: 'move-to-button' %>
    -->
   </div>
-<% end %>
 <!-- END OF MOVE TO LIST -->
 
 <!-- ADD OPTIONS -->

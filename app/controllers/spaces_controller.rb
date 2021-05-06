@@ -1,5 +1,5 @@
 class SpacesController < ApplicationController
-skip_before_action :authenticate_user!, :only => [:show, :create]
+skip_before_action :authenticate_user!, :only => [:show, :create, :destroy, :move_space_to_space, :move_space_to_shelf, :space_name, :space_children]
 before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
 before_action :set_shelf, only: [:create, :add_item_to, :show, :destroy, :move_space_to_space, :move_space_to_shelf, :move]
 skip_after_action :verify_authorized, only: [:space_name, :space_children]
@@ -256,7 +256,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
     end
     Space.where(id: ids).destroy_all
     if params[:shelf_id].present?
-      @shelf = Shelf.find(params[:shelf_id])
+      @shelf = Shelf.find(params[:shelf_id]) # trouver shelf_moth
       @shelf.items.where('position > ?', position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
       @shelf.spaces.where('position > ?', position).update_all('position = position - 1')
       redirect_to shelf_path(@shelf)
@@ -383,6 +383,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
     end
 
     # on trouve la shelf correspondante
+    @shelf = shelf_mother(@space)
     @shelf.items.update_all('position = position + 1')
     @shelf.spaces.update_all('position = position + 1')
 
@@ -476,6 +477,14 @@ skip_before_action :verify_authenticity_token # vulnerability?
   def set_shelf
     if user_signed_in?
       @shelf = current_user.shelves.first
+    end
+  end
+
+  def shelf_mother(space)
+    if @space.shelves.empty? == false
+      @space.shelves.first
+    else
+      recursive_parent_search3(@space).shelves.first
     end
   end
 end

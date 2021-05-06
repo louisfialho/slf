@@ -5,9 +5,14 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   def move_to_space_list
-    if user_signed_in?
-      shelf = current_user.shelves.first
-      shelf.spaces.sort_by {|space| space.position}
+    if @space
+      if @space.shelves.empty? == false
+        @shelf_mother = @space.shelves.first
+      else
+        @shelf_mother = recursive_parent_search3(@space).shelves.first
+      end
+      @shelf_mother.spaces.sort_by {|space| space.position}
+    # elsif @item ...
     end
   end
 
