@@ -8,11 +8,7 @@ class ApplicationController < ActionController::Base
     if @space
       @shelf_mother = shelf_mother_of_space(@space)
     elsif @item
-      if @item.shelves.empty? == false
-        @shelf_mother = @item.shelves.first
-      else
-        @shelf_mother = shelf_mother_of_space(@item.spaces.first)
-      end
+      @shelf_mother = shelf_mother_of_item(@item)
     end
     @shelf_mother.spaces.sort_by {|space| space.position}
   end

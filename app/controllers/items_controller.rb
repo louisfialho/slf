@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-skip_before_action :authenticate_user!, :only => [:show, :create, :destroy]
+skip_before_action :authenticate_user!, :only => [:show, :create, :destroy, :move_to_shelf, :move_to_space]
 before_action :set_item, only: [:show, :edit, :update, :destroy, :move]
 before_action :set_shelf, only: [:show, :move_to_shelf]
 before_action :set_shelf_space, only: [:new, :show, :edit, :move]
@@ -160,6 +160,7 @@ skip_before_action :verify_authenticity_token
     # end
 
     # incrementing the position of all other objects and spaces on the shelf by +1
+    @shelf = shelf_mother_of_item(@item)
     @shelf.items.update_all('position = position + 1')
     @shelf.spaces.update_all('position = position + 1')
 
