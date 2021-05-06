@@ -9,6 +9,10 @@ const displaySave = () => {
   txtArea.addEventListener('focus', (event) => {
     saveNotes.style.display = "";
   });
+
+  saveNotes.addEventListener('click', (event) => {
+    saveNotes.style.display = "none";
+  });
 }
 
 export { displaySave };
