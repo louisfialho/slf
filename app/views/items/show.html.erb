@@ -42,8 +42,8 @@
   </a>
 
   <div class='notes'>
-    <% if @current_user == @shelf_mother.user %>
-      <% if @shelf %>
+    <% if @shelf_mother.id == 20 %>
+      <% if @item.shelves.empty? == false %>
         <%= simple_form_for (@item) do |f| %>
           <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
           <%= f.hidden_field :shelf_id, :value => @shelf.id %>
@@ -52,7 +52,26 @@
           </div>
          <% end %>
 
-      <% elsif @space %>
+      <% elsif @item.spaces.empty? == false %>
+        <%= simple_form_for (@item) do |f| %>
+          <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+          <%= f.hidden_field :space_id, :value => @space.id %>
+          <div class='buttonHolder'>
+            <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+          </div>
+        <% end %>
+      <% end %>
+    <% elsif @current_user == @shelf_mother.user %>
+      <% if @item.shelves.empty? == false %>
+        <%= simple_form_for (@item) do |f| %>
+          <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+          <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+          <div class='buttonHolder'>
+            <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+          </div>
+         <% end %>
+
+      <% elsif @item.spaces.empty? == false %>
         <%= simple_form_for (@item) do |f| %>
           <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
           <%= f.hidden_field :space_id, :value => @space.id %>
