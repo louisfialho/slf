@@ -4,12 +4,13 @@ class ApplicationController < ActionController::Base
 
   include Pundit
 
-  def move_to_space_list
-    if @space
-      @shelf_mother = shelf_mother_of_space(@space)
-    elsif @item
-      @shelf_mother = shelf_mother_of_item(@item)
-    end
+  def move_item_to_space_list
+    @shelf_mother = shelf_mother_of_item(@item)
+    @shelf_mother.spaces.sort_by {|space| space.position}
+  end
+
+  def move_space_to_space_list
+    @shelf_mother = shelf_mother_of_space(@space)
     @shelf_mother.spaces.sort_by {|space| space.position}
   end
 
@@ -39,7 +40,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :move_to_space_list
+  helper_method :move_item_to_space_list, :move_space_to_space_list
 
   def pundit_user
     CurrentContext.new(current_user, current_context)

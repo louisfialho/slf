@@ -97,7 +97,7 @@
     </div>
     <hr/>
     <ul id="children-spaces">
-    <% move_to_space_list.each do |space| %>
+    <% move_space_to_space_list.each do |space| %>
       <% if space != @space %>
         <li>
           <a class="option" id="child-space-<%= space.id %>" data-space-id="<%= space.id %>">🗄 <%= truncate(space.name, length: 25) %></a>
