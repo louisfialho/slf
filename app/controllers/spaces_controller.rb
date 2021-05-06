@@ -1,5 +1,5 @@
 class SpacesController < ApplicationController
-skip_before_action :authenticate_user!, :only => [:show]
+skip_before_action :authenticate_user!, :only => [:show, :create]
 before_action :set_space, only: [:show, :edit, :update, :destroy, :move]
 before_action :set_shelf, only: [:create, :add_item_to, :show, :destroy, :move_space_to_space, :move_space_to_shelf, :move]
 skip_after_action :verify_authorized, only: [:space_name, :space_children]

@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-skip_before_action :authenticate_user!, :only => [:show]
+skip_before_action :authenticate_user!, :only => [:show, :create]
 before_action :set_item, only: [:show, :edit, :update, :destroy, :move]
 before_action :set_shelf, only: [:show, :move_to_shelf]
 before_action :set_shelf_space, only: [:new, :show, :edit, :move]

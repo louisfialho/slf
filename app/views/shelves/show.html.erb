@@ -1,6 +1,11 @@
 <!-- BEGINNING OF NAVBAR -->
 <div class="navbar" id="navshow">
-  <% if user_signed_in? %>
+  <% if @shelf.id = 20 %>
+    <p class="logo">shelf</p>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+    </div>
+  <% elsif user_signed_in? %>
     <% if @current_user == @shelf.user %>
       <p class="logo">shelf</p>
     <% else %>
@@ -9,22 +14,28 @@
         <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
       </div>
     <% end %>
-
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
   <% else %>
-    <div id="user-id-ctn">
-      <%= image_tag "couch.png", alt: "Options", width: 37 %>
-      <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
-    </div>
-    <%= link_to('Login', new_user_session_path, class: 'login expand') %>
+      <div id="user-id-ctn">
+        <%= image_tag "couch.png", alt: "Options", width: 37 %>
+        <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
+      </div>
+      <%= link_to('Login', new_user_session_path, class: 'login expand') %>
   <% end %>
 </div>
 <!-- END OF NAVBAR -->
 
 <!-- OPTIONS SPACE -->
-  <% if user_signed_in? %>
+  <% if @shelf.id = 20 %>
+    <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
+      <div class="option-ctn">
+        <a>➕</a>
+        <a class="option-label" id="new-object-or-space">New...</a>
+      </div>
+    </div>
+  <% elsif user_signed_in? %>
     <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
       <% if @current_user == @shelf.user %>
         <div class="option-ctn">
