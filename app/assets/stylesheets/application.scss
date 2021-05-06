@@ -754,7 +754,8 @@ hr {
   font-family: Charter;
   font-size: calc(var(--h1)*0.66);
   font-weight: 600;
-  padding-bottom: 13px
+  padding-bottom: 13px;
+  text-align: center;
 }
 
 .benefit-dsc {
@@ -763,6 +764,7 @@ hr {
   color: #404040;
   padding-bottom: 13px;
   line-height: 1.3;
+  text-align: center;
 }
 
 .lp-section-testimonial {
