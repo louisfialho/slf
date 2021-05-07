@@ -724,12 +724,19 @@ hr {
     color: #FFFFFF;
     display: inline-block;
     border-radius: 40px;
-    padding: 10px 24px;
+    padding: 12px 25px;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 450;
     line-height: 1;
     border: 0;
     cursor: pointer;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
+}
+
+.lp-cta:hover {
+  top: -5px;
 }
 
 .lp-cta:hover, .log-in-cta:hover, .sign-up-cta:hover {
@@ -747,7 +754,7 @@ hr {
     padding-bottom: 56.81818181818182%;
     overflow: hidden;
     border: 3px solid #2c2c2c;
-    border-radius: 8px;
+    border-radius: 38px;
 }
 
 .benefit {
