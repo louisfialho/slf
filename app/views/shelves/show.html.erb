@@ -34,13 +34,13 @@
         <a>➕</a>
         <a class="option-label" id="new-object-or-space">New...</a>
       </div>
+      <% if @current_user == @shelf.user %>
+        <div class="option-ctn">
+          <a>🚪</a>
+          <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+        </div>
+      <% end %>
     </div>
-    <% if @current_user == @shelf.user %>
-      <div class="option-ctn">
-        <a>🚪</a>
-        <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-      </div>
-    <% end %>
   <% elsif user_signed_in? %>
     <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
       <% if @current_user == @shelf.user %>
