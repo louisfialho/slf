@@ -5,6 +5,12 @@
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
+    <% if @current_user == @shelf.user %>
+      <div class="option-ctn">
+        <a>🚪</a>
+        <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+      </div>
+    <% end %>
   <% elsif user_signed_in? %>
     <% if @current_user == @shelf.user %>
       <p class="logo">shelf</p>
