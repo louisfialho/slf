@@ -8,8 +8,9 @@
   <div class="lp-1">
 <!--     <p class="tagline" id='banner-typed-text'>Save, organize and annotate your <span style="white-space:nowrap;">resources 📚</span></p> -->
     <p class="tagline"><span id="banner-typed-text"></span></p>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSemiCUohcstS3K8tGcxmV34200dCrA2GnWBWf29gYibXE5PuA/viewform?usp=sf_link
-" class="lp-cta">Try it now</a>
+<!--     <a href="https://docs.google.com/forms/d/e/1FAIpQLSemiCUohcstS3K8tGcxmV34200dCrA2GnWBWf29gYibXE5PuA/viewform?usp=sf_link
+" class="lp-cta">Try it now</a> -->
+  <%= link_to('Try it now', shelf_path(Shelf.find(20)), class: 'lp-cta') %>
 <!--<div>
       <div>emoji</div>
       <div>emoji</div>
