@@ -1,137 +1,262 @@
-<!-- BEGINNING OF NAVBAR -->
-<div class="navbar" id="navshow">
-  <div>
-    <% if @parent_space %>
-      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
-    <% else %>
-      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
-    <% end %>
+<!-- NAVBAR AND OPTIONS BOX IF USER ON SANDBOX SHELF -->
+<% if @shelf_mother.id == 20 %>
+  <!-- Navbar: Back, item emoji, options -->
+  <div class="navbar" id="navshow">
+    <div>
+      <% if @parent_space %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
+      <% else %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+      <% end %>
+    </div>
+    <div>
+      <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+        <% if @item.medium == "book" %>
+          <%= image_tag "book.png", width: 37 %>
+        <% elsif @item.medium == "podcast" %>
+          <%= image_tag "podcast.png", width: 37 %>
+        <% elsif @item.medium == "video" %>
+          <%= image_tag "video.png", width: 37 %>
+        <% elsif @item.medium == "web" %>
+          <%= image_tag "web.png", width: 37 %>
+        <% elsif @item.medium == "other" %>
+          <%= image_tag "web.png", width: 37 %>
+        <% end %>
+      </a>
+    </div>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options' %></a>
+    </div>
   </div>
-
-  <div>
+  <!-- Options box: Move, destroy -->
+  <div class="options-ctn item-options" id="options" style="display:none;">
+    <div class="option-ctn">
+      <a>👉</a>
+      <a class="option-label" id="move-to">Move</a>
+    </div>
+    <div class="option-ctn">
+      <a>🗑</a>
+      <% if @shelf %>
+        <%= link_to "Delete", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option-label" %>
+      <% elsif @space %>
+        <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
+      <% end %>
+    </div>
+  </div>
+  <!-- Item title and Notes: can be edited -->
+  <div class="main-container">
     <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
-      <% if @item.medium == "book" %>
-        <%= image_tag "book.png", width: 37 %>
-      <% elsif @item.medium == "podcast" %>
-        <%= image_tag "podcast.png", width: 37 %>
-      <% elsif @item.medium == "video" %>
-        <%= image_tag "video.png", width: 37 %>
-      <% elsif @item.medium == "web" %>
-        <%= image_tag "web.png", width: 37 %>
-      <% elsif @item.medium == "other" %>
-        <%= image_tag "web.png", width: 37 %>
-      <% end %>
+      <h1 class="item-title">
+        <%= @item.name %>
+      </h1>
     </a>
-  </div>
 
-  <% if @shelf_mother.id = 20 %>
-    <a><%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options', id: 'options-btn' %></a>
-  <% elsif user_signed_in? %>
-    <a><%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options', id: 'options-btn' %></a>
-  <% else %>
-    <%= link_to('Login', new_user_session_path, class: 'login expand') %>
-  <% end %>
-</div>
-<!-- END OF NAVBAR -->
+    <% if @item.shelves.empty? == false %>
+      <%= simple_form_for (@item) do |f| %>
+        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+        <div class='buttonHolder'>
+          <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+        </div>
+       <% end %>
 
-<div class="main-container">
-  <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
-    <h1 class="item-title">
-      <%= @item.name %>
-    </h1>
-  </a>
-
-  <div class='notes'>
-    <% if @shelf_mother.id == 20 %>
-      <% if @item.shelves.empty? == false %>
-        <%= simple_form_for (@item) do |f| %>
-          <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
-          <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-          <div class='buttonHolder'>
-            <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-          </div>
-         <% end %>
-
-      <% elsif @item.spaces.empty? == false %>
-        <%= simple_form_for (@item) do |f| %>
-          <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
-          <%= f.hidden_field :space_id, :value => @space.id %>
-          <div class='buttonHolder'>
-            <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-          </div>
-        <% end %>
-      <% end %>
-    <% elsif @current_user == @shelf_mother.user %>
-      <% if @item.shelves.empty? == false %>
-        <%= simple_form_for (@item) do |f| %>
-          <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
-          <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-          <div class='buttonHolder'>
-            <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-          </div>
-         <% end %>
-
-      <% elsif @item.spaces.empty? == false %>
-        <%= simple_form_for (@item) do |f| %>
-          <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
-          <%= f.hidden_field :space_id, :value => @space.id %>
-          <div class='buttonHolder'>
-            <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-          </div>
-        <% end %>
-      <% end %>
-    <% else %>
-      <% if @item.notes.nil? %>
-        <p class="txt-area" id="txt-area"> <i> <%= @shelf_mother.user.first_name %> did not add any note to this object 📝 </i></p>
-      <% else %>
-        <p style="white-space: pre-line" class="txt-area" id="txt-area">
-          <%= @item.notes %>
-        </p>
+    <% elsif @item.spaces.empty? == false %>
+      <%= simple_form_for (@item) do |f| %>
+        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+        <%= f.hidden_field :space_id, :value => @space.id %>
+        <div class='buttonHolder'>
+          <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+        </div>
       <% end %>
     <% end %>
   </div>
-</div>
 
-<!-- OPTIONS -->
-  <% if @shelf_mother.id = 20 %>
-    <div class="options-ctn item-options" id="options" style="display:none;">
-        <div class="option-ctn">
-          <a>👉</a>
-          <a class="option-label" id="move-to">Move</a>
-        </div>
-        <div class="option-ctn">
-          <a>🗑</a>
-          <% if @shelf %>
-            <%= link_to "Delete", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option-label" %>
-          <% elsif @space %>
-            <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
-          <% end %>
-        </div>
-    </div>
-  <% elsif user_signed_in? %>
-    <div class="options-ctn item-options" id="options" style="display:none;">
-      <% if @current_user == @shelf_mother.user %>
-        <div class="option-ctn">
-          <a>👉</a>
-          <a class="option-label" id="move-to">Move</a>
-        </div>
-        <div class="option-ctn">
-          <a>🗑</a>
-          <% if @shelf %>
-            <%= link_to "Delete", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option-label" %>
-          <% elsif @space %>
-            <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
-          <% end %>
-        </div>
+<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN ITEM -->
+<% elsif user_signed_in? && (@current_user == @shelf_mother.user) %>
+  <!-- Navbar: Back, item emoji, options -->
+  <div class="navbar" id="navshow">
+    <div>
+      <% if @parent_space %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
       <% else %>
-        <div class="option-ctn">
-          <a>🏠</a>
-          <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
-        </div>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
       <% end %>
     </div>
-  <% end %>
-<!-- END OF OPTIONS -->
+    <div>
+      <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+        <% if @item.medium == "book" %>
+          <%= image_tag "book.png", width: 37 %>
+        <% elsif @item.medium == "podcast" %>
+          <%= image_tag "podcast.png", width: 37 %>
+        <% elsif @item.medium == "video" %>
+          <%= image_tag "video.png", width: 37 %>
+        <% elsif @item.medium == "web" %>
+          <%= image_tag "web.png", width: 37 %>
+        <% elsif @item.medium == "other" %>
+          <%= image_tag "web.png", width: 37 %>
+        <% end %>
+      </a>
+    </div>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options' %></a>
+    </div>
+  </div>
+  <!-- Options box: Move, destroy, leave -->
+  <div class="options-ctn item-options" id="options" style="display:none;">
+    <div class="option-ctn">
+      <a>👉</a>
+      <a class="option-label" id="move-to">Move</a>
+    </div>
+    <div class="option-ctn">
+      <a>🗑</a>
+      <% if @shelf %>
+        <%= link_to "Delete", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option-label" %>
+      <% elsif @space %>
+        <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
+      <% end %>
+    </div>
+    <div class="option-ctn">
+      <a>🚪</a>
+      <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+    </div>
+  </div>
+  <!-- Item title and Notes: can be edited -->
+  <div class="main-container">
+    <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+      <h1 class="item-title">
+        <%= @item.name %>
+      </h1>
+    </a>
+    <% if @item.shelves.empty? == false %>
+      <%= simple_form_for (@item) do |f| %>
+        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+        <div class='buttonHolder'>
+          <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+        </div>
+       <% end %>
+
+    <% elsif @item.spaces.empty? == false %>
+      <%= simple_form_for (@item) do |f| %>
+        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+        <%= f.hidden_field :space_id, :value => @space.id %>
+        <div class='buttonHolder'>
+          <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+
+<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND NOT ON THEIR OWN ITEM -->
+<% elsif user_signed_in? && (@current_user != @shelf_mother.user) %>
+  <!-- Navbar: Back, item emoji, options -->
+  <div class="navbar" id="navshow">
+    <div>
+      <% if @parent_space %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
+      <% else %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+      <% end %>
+    </div>
+    <div>
+      <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+        <% if @item.medium == "book" %>
+          <%= image_tag "book.png", width: 37 %>
+        <% elsif @item.medium == "podcast" %>
+          <%= image_tag "podcast.png", width: 37 %>
+        <% elsif @item.medium == "video" %>
+          <%= image_tag "video.png", width: 37 %>
+        <% elsif @item.medium == "web" %>
+          <%= image_tag "web.png", width: 37 %>
+        <% elsif @item.medium == "other" %>
+          <%= image_tag "web.png", width: 37 %>
+        <% end %>
+      </a>
+    </div>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options' %></a>
+    </div>
+  </div>
+  <!-- Options box: Back to my shelf -->
+  <div class="options-ctn item-options" id="options" style="display:none;">
+    <div class="option-ctn">
+      <a>🏠</a>
+      <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
+    </div>
+  </div>
+  <!-- Item title and Notes: cannot be edited -->
+  <div class="main-container">
+    <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+      <h1 class="item-title">
+        <%= @item.name %>
+      </h1>
+    </a>
+    <% if @item.notes.nil? %>
+      <p class="txt-area" id="txt-area"> <i> <%= @shelf_mother.user.first_name %> did not add any note to this object 📝 </i></p>
+    <% else %>
+      <p style="white-space: pre-line" class="txt-area" id="txt-area">
+        <%= @item.notes %>
+      </p>
+    <% end %>
+<!-- NAVBAR AND OPTIONS BOX IF USER NOT SIGNED IN -->
+<% elsif user_signed_in? == false %>
+  <!-- Navbar: Back, item emoji, login or sign up -->
+  <div class="navbar" id="navshow">
+    <div>
+      <% if @parent_space %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
+      <% else %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+      <% end %>
+    </div>
+    <div>
+      <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+        <% if @item.medium == "book" %>
+          <%= image_tag "book.png", width: 37 %>
+        <% elsif @item.medium == "podcast" %>
+          <%= image_tag "podcast.png", width: 37 %>
+        <% elsif @item.medium == "video" %>
+          <%= image_tag "video.png", width: 37 %>
+        <% elsif @item.medium == "web" %>
+          <%= image_tag "web.png", width: 37 %>
+        <% elsif @item.medium == "other" %>
+          <%= image_tag "web.png", width: 37 %>
+        <% end %>
+      </a>
+    </div>
+    <%= link_to('Login', new_user_session_path, class: 'login expand') %>
+  </div>
+  <!-- Options box: Not needed -->
+  <!-- Item title and Notes: cannot be edited -->
+  <div class="main-container">
+    <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+      <h1 class="item-title">
+        <%= @item.name %>
+      </h1>
+    </a>
+    <% if @item.notes.nil? %>
+      <p class="txt-area" id="txt-area"> <i> <%= @shelf_mother.user.first_name %> did not add any note to this object 📝 </i></p>
+    <% else %>
+      <p style="white-space: pre-line" class="txt-area" id="txt-area">
+        <%= @item.notes %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+
+
+<!-- ADD SPACE NAME BOX -->
+    <div class="options-ctn options-ctn-shelf-space" id="add-space" style="display:none;">
+      <p class="option prompt" id="add-space-prompt" > What is the name of this new space? 🗄 </p>
+      <%= simple_form_for @child, html: { autocomplete: 'off' } do |f| %>
+        <%= f.text_field :name, class: 'txt-inpt txt-inpt-box' %> <!-- autofocus: true, onblur: 'this.focus()' --> <!-- onpaste: 'setTimeout(function(){ form.submit(); }, 0.1); -->
+        <%= f.hidden_field :shelf_id, :value => @shelf_mother.id %>
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        <%= f.submit "Add space", style: "display: none;" %>
+      <% end %>
+    </div>
+<!-- END OF ADD SPACE NAME BOX -->
 
 <!-- MOVE TO LIST -->
   <div class="options-ctn" id="move-to-list" style="display:none;" data-type="item" data-item-id="<%= @item.id %>" data-shelf-id="<%= @shelf_mother.id %>">
@@ -154,19 +279,6 @@
     <%= button_to "👉 Move to shelf", { controller: "items", action: "move_to_shelf", item_id: @item.id }, id: 'move-to-button' %>
   </div>
 <!-- END OF MOVE TO LIST -->
-
-
-<!-- ADD SPACE NAME BOX -->
-    <div class="options-ctn options-ctn-shelf-space" id="add-space" style="display:none;">
-      <p class="option prompt" id="add-space-prompt" > What is the name of this new space? 🗄 </p>
-      <%= simple_form_for @child, html: { autocomplete: 'off' } do |f| %>
-        <%= f.text_field :name, class: 'txt-inpt txt-inpt-box' %> <!-- autofocus: true, onblur: 'this.focus()' --> <!-- onpaste: 'setTimeout(function(){ form.submit(); }, 0.1); -->
-        <%= f.hidden_field :shelf_id, :value => @shelf_mother.id %>
-        <%= f.hidden_field :item_id, :value => @item.id %>
-        <%= f.submit "Add space", style: "display: none;" %>
-      <% end %>
-    </div>
-<!-- END OF ADD SPACE NAME BOX -->
 
 
 
