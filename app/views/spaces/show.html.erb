@@ -1,93 +1,135 @@
-<!-- BEGINNING OF NAVBAR -->
-<div class="navbar" id="navshow">
-  <div>
-    <% if @parent %>
-      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
-    <% else %>
-      <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
-    <% end %>
-  </div>
-
-  <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
-
-  <% if @shelf_mother.id = 20 %>
-    <div id="options-btn">
-      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
-    </div>
-  <% elsif user_signed_in? %>
-    <div id="options-btn">
-      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
-    </div>
-  <% else %>
-    <%= link_to('Login', new_user_session_path, class: 'login expand') %>
-  <% end %>
-</div>
-<!-- END OF NAVBAR -->
-
-<!-- OPTIONS SPACE -->
-    <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
-      <% if @shelf_mother.id = 20 %>
-          <div class="option-ctn">
-            <a >➕</a>
-            <a class="option-label" id="new-object-or-space">New...</a>
-          </div>
-          <div class="option-ctn">
-            <a>👉</a>
-            <a class="option-label" id="move-to">Move</a>
-          </div>
-          <div class="option-ctn">
-            <a>🗑</a>
-            <% parent = nil %>
-            <% @space.connections.each do |connection| %>
-              <% if connection.parent_id.nil? == false %>
-                <% parent = connection.parent.space %>
-              <% end %>
-            <% end %>
-            <% if @space.shelves.empty? == false %>
-              <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
-            <% elsif parent.nil? == false %>
-              <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
-            <% end %>
-          </div>
-      <% elsif user_signed_in? %>
-        <% if @current_user == @shelf_mother.user %>
-          <div class="option-ctn">
-            <a >➕</a>
-            <a class="option-label" id="new-object-or-space">New...</a>
-          </div>
-          <div class="option-ctn">
-            <a>👉</a>
-            <a class="option-label" id="move-to">Move</a>
-          </div>
-          <div class="option-ctn">
-            <a>🗑</a>
-            <% parent = nil %>
-            <% @space.connections.each do |connection| %>
-              <% if connection.parent_id.nil? == false %>
-                <% parent = connection.parent.space %>
-              <% end %>
-            <% end %>
-            <% if @space.shelves.empty? == false %>
-              <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
-            <% elsif parent.nil? == false %>
-              <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
-            <% end %>
-          </div>
-          <div class="option-ctn">
-            <a>🚪</a>
-            <% if user_signed_in? %>
-              <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-            <% end %>
-          </div>
-        <% else %>
-          <div class="option-ctn">
-            <a>🏠</a>
-            <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
-          </div>
-        <% end %>
+<% if @shelf_mother.id == 20 %>
+<!-- NAVBAR AND OPTIONS BOX IF USER ON SANDBOX SHELF -->
+  <!-- Navbar: Back, space title, options -->
+  <div class="navbar" id="navshow">
+    <div>
+      <% if @parent %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
+      <% else %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
       <% end %>
     </div>
-<!-- END OF OPTIONS SPACE -->
+    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+    </div>
+  </div>
+  <!-- Options box: Add, move, destroy -->
+  <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
+    <div class="option-ctn">
+      <a >➕</a>
+      <a class="option-label" id="new-object-or-space">New...</a>
+    </div>
+    <div class="option-ctn">
+      <a>👉</a>
+      <a class="option-label" id="move-to">Move</a>
+    </div>
+    <div class="option-ctn">
+      <a>🗑</a>
+      <% parent = nil %>
+      <% @space.connections.each do |connection| %>
+        <% if connection.parent_id.nil? == false %>
+          <% parent = connection.parent.space %>
+        <% end %>
+      <% end %>
+      <% if @space.shelves.empty? == false %>
+        <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
+      <% elsif parent.nil? == false %>
+        <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
+      <% end %>
+    </div>
+  </div>
+
+<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN SPACE -->
+<% elsif user_signed_in? && (@current_user == @shelf_mother.user) %>
+  <!-- Navbar: Back, space title, options -->
+  <div class="navbar" id="navshow">
+    <div>
+      <% if @parent %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
+      <% else %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+      <% end %>
+    </div>
+    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+    </div>
+  </div>
+  <!-- Options box: Add, move, destroy, leave -->
+  <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
+    <div class="option-ctn">
+      <a >➕</a>
+      <a class="option-label" id="new-object-or-space">New...</a>
+    </div>
+    <div class="option-ctn">
+      <a>👉</a>
+      <a class="option-label" id="move-to">Move</a>
+    </div>
+    <div class="option-ctn">
+      <a>🗑</a>
+      <% parent = nil %>
+      <% @space.connections.each do |connection| %>
+        <% if connection.parent_id.nil? == false %>
+          <% parent = connection.parent.space %>
+        <% end %>
+      <% end %>
+      <% if @space.shelves.empty? == false %>
+        <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
+      <% elsif parent.nil? == false %>
+        <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
+      <% end %>
+    </div>
+    <div class="option-ctn">
+      <a>🚪</a>
+      <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+    </div>
+  </div>
+
+
+<% elsif user_signed_in? && (@current_user != @shelf_mother.user) %>
+<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND NOT ON THEIR OWN SPACE -->
+  <!-- Navbar: Back, space title, options -->
+  <div class="navbar" id="navshow">
+    <div>
+      <% if @parent %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
+      <% else %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+      <% end %>
+    </div>
+    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+    </div>
+  </div>
+  <!-- Options box: Back to my shelf -->
+  <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
+    <div class="option-ctn">
+      <a>🏠</a>
+      <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
+    </div>
+  </div>
+
+<% elsif user_signed_in? == false %>
+<!-- NAVBAR AND OPTIONS BOX IF USER NOT SIGNED IN -->
+  <!-- Navbar: Back, space title, login or sign up -->
+  <div class="navbar" id="navshow">
+    <div>
+      <% if @parent %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
+      <% else %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+      <% end %>
+    </div>
+    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+    <%= link_to('Login', new_user_session_path, class: 'login expand') %>
+  </div>
+  <!-- Options box: Not needed -->
+<% end %>
+
+
+
 
 <!-- MOVE TO LIST -->
   <div class="options-ctn" id="move-to-list" style="display:none;" data-type="space" data-space-id="<%= @space.id %>" data-shelf-id="<%= @shelf_mother.id %>">
