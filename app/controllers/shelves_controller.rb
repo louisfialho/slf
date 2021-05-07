@@ -24,6 +24,7 @@ class ShelvesController < ApplicationController
   end
 
   def show
+    @user_shelf = Shelf.find(params[:id])
     @spaces = Space.all
     @space = Space.new
     @item = Item.new

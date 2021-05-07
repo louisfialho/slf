@@ -111,7 +111,7 @@
   <% else %>
     <div class="grid-container">
   <% end %>
-    <% objects = @shelf.spaces + @shelf.items %>
+    <% objects = @user_shelf.spaces + @user_shelf.items %>
     <% objects.sort_by(&:position).each do |object| %>
       <% if object.class.name == "Space" %>
         <% if policy(object).show? %>
