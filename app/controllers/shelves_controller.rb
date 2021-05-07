@@ -16,15 +16,14 @@ class ShelvesController < ApplicationController
   #   @space = Space.new
   # end
 
-  def shelf
-    @shelf = Shelf.find_by user_id: current_user.id
-    authorize @shelf
-    shelf_id = @shelf.id
-    redirect_to action: "show", id: shelf_id
-  end
+  # def shelf
+  #   @shelf = Shelf.find_by user_id: current_user.id
+  #   authorize @shelf
+  #   shelf_id = @shelf.id
+  #   redirect_to action: "show", id: shelf_id
+  # end
 
   def show
-    @user_shelf = Shelf.find(params[:id])
     @spaces = Space.all
     @space = Space.new
     @item = Item.new

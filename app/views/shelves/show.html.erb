@@ -1,6 +1,6 @@
 <!-- BEGINNING OF NAVBAR -->
 <div class="navbar" id="navshow">
-  <% if @shelf.id = 20 %>
+  <% if @shelf.id == 20 %>
     <%= link_to('shelf', root_path, class: 'logo') %>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
@@ -28,7 +28,7 @@
 <!-- END OF NAVBAR -->
 
 <!-- OPTIONS SPACE -->
-  <% if @shelf.id = 20 %>
+  <% if @shelf.id == 20 %>
     <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
       <div class="option-ctn">
         <a>➕</a>
@@ -104,14 +104,14 @@
 
 <!-- IF SHELF HAS OBJECTS -->
 <div>
-  <% if @shelf.id = 20 %> <!-- the if and elsif conditions are litterally the same - could be refactored but kept as is for lisibiliy -->
+  <% if @shelf.id == 20 %> <!-- the if and elsif conditions are litterally the same - could be refactored but kept as is for lisibiliy -->
     <div class="grid-container" data-controller="drag" data-drag-url="/:type/:id/move">
   <% elsif @current_user == @shelf.user %>
     <div class="grid-container" data-controller="drag" data-drag-url="/:type/:id/move">
   <% else %>
     <div class="grid-container">
   <% end %>
-    <% objects = @user_shelf.spaces + @user_shelf.items %>
+    <% objects = @shelf.spaces + @shelf.items %>
     <% objects.sort_by(&:position).each do |object| %>
       <% if object.class.name == "Space" %>
         <% if policy(object).show? %>
