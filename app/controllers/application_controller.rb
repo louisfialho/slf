@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     CurrentContext.new(current_user, current_context)
   end
 
-  def current_context
+  def current_context # Purpose of this block?? Slows down page loads!!
     if params[:space].present?
       if params[:space][:parent_id].present?
         context = ['parent', Space.find(params[:space][:parent_id])]

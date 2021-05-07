@@ -1,67 +1,73 @@
-<!-- BEGINNING OF NAVBAR -->
-<div class="navbar" id="navshow">
-  <% if @shelf.id == 20 %>
+<!-- NAVBAR AND OPTIONS BOX IF USER ON SANDBOX SHELF -->
+<% if @shelf.id == 20 %>
+  <!-- Navbar: Logo, Options -->
+  <div class="navbar" id="navshow">
     <%= link_to('shelf', root_path, class: 'logo') %>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
-  <% elsif user_signed_in? %>
-    <% if @current_user == @shelf.user %>
-      <p class="logo">shelf</p>
-    <% else %>
-      <div id="user-id-ctn">
-        <%= image_tag "couch.png", alt: "Options", width: 37 %>
-        <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
-      </div>
-    <% end %>
+  </div>
+  <!-- Options box: Add -->
+  <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
+    <div class="option-ctn">
+      <a>➕</a>
+      <a class="option-label" id="new-object-or-space">New...</a>
+    </div>
+  </div>
+
+<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN SHELF -->
+<% elsif user_signed_in? && (@current_user == @shelf.user) %>
+  <!-- Navbar: Logo, Options -->
+  <div class="navbar" id="navshow">
+    <%= link_to('shelf', root_path, class: 'logo') %>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
-  <% else %>
-      <div id="user-id-ctn">
-        <%= image_tag "couch.png", alt: "Options", width: 37 %>
-        <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
-      </div>
-      <%= link_to('Login', new_user_session_path, class: 'login expand') %>
-  <% end %>
-</div>
-<!-- END OF NAVBAR -->
-
-<!-- OPTIONS SPACE -->
-  <% if @shelf.id == 20 %>
-    <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
-      <div class="option-ctn">
-        <a>➕</a>
-        <a class="option-label" id="new-object-or-space">New...</a>
-      </div>
-      <% if @current_user == @shelf.user %>
-        <div class="option-ctn">
-          <a>🚪</a>
-          <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-        </div>
-      <% end %>
+  </div>
+  <!-- Options box: Add and leave -->
+  <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
+    <div class="option-ctn">
+      <a>➕</a>
+      <a class="option-label" id="new-object-or-space">New...</a>
     </div>
-  <% elsif user_signed_in? %>
-    <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
-      <% if @current_user == @shelf.user %>
-        <div class="option-ctn">
-          <a>➕</a>
-          <a class="option-label" id="new-object-or-space">New...</a>
-        </div>
-        <div class="option-ctn">
-          <a>🚪</a>
-          <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-        </div>
-      <% else %>
-        <div class="option-ctn">
-          <a>🏠</a>
-          <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
-        </div>
-      <% end %>
+    <div class="option-ctn">
+      <a>🚪</a>
+      <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
     </div>
-  <% end %>
-<!-- END OF OPTIONS SPACE -->
+  </div>
 
+<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND NOT ON THEIR OWN SHELF -->
+<% elsif user_signed_in? && (@current_user != @shelf.user) %>
+  <!-- Navbar: username of shelf owner, options -->
+  <div class="navbar" id="navshow">
+    <div id="user-id-ctn">
+      <%= image_tag "couch.png", alt: "Options", width: 37 %>
+      <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
+    </div>
+    <div id="options-btn">
+      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
+    </div>
+  </div>
+  <!-- Options box: back to my shelf -->
+  <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
+    <div class="option-ctn">
+      <a>🏠</a>
+      <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
+    </div>
+  </div>
+
+<!-- NAVBAR AND OPTIONS BOX IF USER NOT SIGNED IN -->
+<% elsif user_signed_in? == false %>
+<!-- Navbar: username of shelf owner, login or sign up -->
+  <div class="navbar" id="navshow">
+    <div id="user-id-ctn">
+      <%= image_tag "couch.png", alt: "Options", width: 37 %>
+      <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
+    </div>
+    <%= link_to('Login', new_user_session_path, class: 'login expand') %>
+  </div>
+<!-- Options box: not needed -->
+<% end %>
 
 <!-- OPTIONS -->
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
