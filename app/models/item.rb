@@ -80,7 +80,7 @@ class Item < ApplicationRecord
 
     def send_sms_to_louis
       message_louis = "New object! A #{self.medium} named #{self.name} with URL #{self.url} was added"
-      TwilioClient.new.send_text('+33625019332'), message_louis)
+      TwilioClient.new.send_text('+33625019332', message_louis)
     end
 end
 
