@@ -1,7 +1,10 @@
 <!-- navbar -->
 <div class="navbar" id="navshow">
   <p class="logo">shelf</p>
-  <%= link_to('Login', new_user_session_path, class: 'login expand') %>
+  <div class="lp-login-signup-ctn">
+    <%= link_to('Log in', new_user_session_path, class: 'login expand', id: 'login-lp') %>
+    <%= link_to('Sign up', new_user_registration_path, class: 'lp-cta', id: 'signup-lp', style: 'display:;') %>
+  </div>
 </div>
 
 <div>
@@ -54,6 +57,6 @@
   </div>
 </section>
 
-<p class="footer">Say hello 👋 louis@shelf.so</p>
+<p class="footer">Say hello 👋 hello@shelf.so</p>
 
 

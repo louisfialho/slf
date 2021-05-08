@@ -21,7 +21,7 @@ body {
   color:inherit;
   text-decoration: none;
   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
-  font-size: 31px;
+  font-size: 35px;
   font-weight: 900;
   max-height: 15px;
   padding: 0px;
@@ -54,7 +54,10 @@ body {
 // navbar le wag
 
 .navbar {
-  padding: 1.5rem 4.5rem;
+  padding-top: 0rem;
+  margin-bottom: 2rem;
+  padding-right: 4.5rem;
+  padding-left: 4.5rem;
 }
 
 // container
@@ -248,8 +251,8 @@ a {
 #navshow {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  height: 94px;
+  align-items: flex-end;
+  height: 80px;
 }
 
 .buttons-ctn-space-show {
@@ -754,7 +757,7 @@ hr {
     padding-bottom: 56.81818181818182%;
     overflow: hidden;
     border: 3px solid #2c2c2c;
-    border-radius: 38px;
+    border-radius: calc(var(--h1)*0.8);
 }
 
 .benefit {
@@ -1020,6 +1023,11 @@ input:focus, input.form-control:focus {
   border-radius: 20px;
 }
 
+
+#signup-lp {
+  margin-left: 20px;
+}
+
 // Media
 
 @media(max-width: 1050px) {
@@ -1089,6 +1097,9 @@ input:focus, input.form-control:focus {
   .tagline {
     max-width: 489px;
     min-height: 165px;
+  }
+  #navshow {
+    align-items: center;
   }
 }
 
