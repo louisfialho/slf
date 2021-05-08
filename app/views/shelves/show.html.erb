@@ -19,7 +19,7 @@
 <% elsif user_signed_in? && (@current_user == @shelf.user) %>
   <!-- Navbar: Logo, Options -->
   <div class="navbar" id="navshow">
-    <%= link_to('shelf', root_path, class: 'logo') %>
+    <p class="logo">shelf</p>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
