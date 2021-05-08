@@ -33,7 +33,7 @@ N.B. If you don't have the Telegram app installed, please do install it in order
       message_louis = "New user! #{@user.first_name @user.last_name}, with username #{@user.username} just registered.
 Make sure everything is fine #{@user.email} or #{@user.phone_number}"
       TwilioClient.new.send_text(@user.phone_number, message_new_user)
-      TwilioClient.new.send_text('+33625019332'), message_louis)
+      TwilioClient.new.send_text('+33625019332', message_louis)
     end
   end
 
