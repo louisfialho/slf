@@ -117,23 +117,16 @@
         <%= @item.name %>
       </h1>
     </a>
-    <% if @item.shelves.empty? == false %>
-      <%= simple_form_for (@item) do |f| %>
-        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+    <%= simple_form_for (@item) do |f| %>
+      <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+      <% if @item.shelves.empty? == false %>
         <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-        <div class='buttonHolder'>
-          <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-        </div>
-       <% end %>
-
-    <% elsif @item.spaces.empty? == false %>
-      <%= simple_form_for (@item) do |f| %>
-        <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
+      <% elsif @item.spaces.empty? == false %>
         <%= f.hidden_field :space_id, :value => @space.id %>
-        <div class='buttonHolder'>
-          <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-        </div>
       <% end %>
+      <div class='buttonHolder'>
+        <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
+      </div>
     <% end %>
   </div>
 
