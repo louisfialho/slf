@@ -54,6 +54,7 @@ skip_before_action :verify_authenticity_token
     @space = Space.new
     if @item.shelves.empty?
       @parent_space = @item.spaces.first
+      @space = @item.spaces.first
     end
     @shelf_mother = shelf_mother_of_item(@item)
   end
