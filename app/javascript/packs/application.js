@@ -37,6 +37,7 @@ import { displayIntlTelInpt } from '../components/intl-tel-inpt';
 import { shakeHandsRedirect } from '../components/shake-hands-redirect';
 import { addFirstResource } from '../components/add-first-resource-redirect';
 import { autoplayWhenVisible } from '../components/autoplay-when-visible';
+import { displayIntroMessage } from '../components/display-intro-message';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -90,6 +91,10 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector(".lp-video")) {
     autoplayWhenVisible();
+  }
+
+  if (document.querySelector(".intro-message-ctn")) {
+    displayIntroMessage();
   }
 });
 

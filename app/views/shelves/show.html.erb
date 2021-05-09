@@ -2,7 +2,10 @@
 <% if @shelf.id == 20 %>
   <!-- Navbar: Logo, Options -->
   <div class="navbar" id="navshow">
-    <%= link_to('shelf', root_path, class: 'logo') %>
+    <a id="user-id-ctn">
+      <%= image_tag "couch.png", alt: "Options", width: 37 %>
+      <h1 class="user-id"> My first shelf </h1>
+    </a>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
@@ -13,7 +16,26 @@
       <a>➕</a>
       <a class="option-label" id="new-object-or-space">New...</a>
     </div>
+    <div class="option-ctn">
+      <a>🚪</a>
+      <%= link_to 'Leave', root_path, class: "option-label", id: "leave-shelf" %>
+    </div>
   </div>
+
+<!-- INTRO MESSAGE -->
+    <div class="intro-message-ctn" id="intro-message" style="display:none;">
+      <p>
+        👋 Hi I'm Louis - welcome to my shelf!
+        <br>💡 As you can tell, I'm exploring ways to engineer better thinking.
+        <br>If that sounds exciting to you, I'd recommend starting with:
+        <br>📕 How To Read a Book
+        <br>📕 How To Take Smart Notes
+        <br>💻 The CODE methodology
+        <br>💡 This shelf is collaborative - feel free to add additional resources, spaces, or edit my notes!
+        <br>💡 If you'd like to start your own shelf, you can do so by <u><%= link_to 'signing up!', new_user_registration_path %></u>
+      </p>
+    </div>
+<!-- END OF INTRO MESSAGE -->
 
 <!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN SHELF -->
 <% elsif user_signed_in? && (@current_user == @shelf.user) %>

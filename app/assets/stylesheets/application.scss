@@ -1028,6 +1028,20 @@ input:focus, input.form-control:focus {
   margin-left: 20px;
 }
 
+.intro-message-ctn {
+  top: 85px !important; // must be the same as options-ctn
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  background-color: white;
+  border: 1px solid #E8E8E8;
+  border-radius: 20px;
+  box-shadow: 2px 2px 11px rgba(0,0,0,0.2);
+  z-index: 10;
+  padding: 11px 15px 2px 15px;
+  max-width: 530px;
+}
+
 // Media
 
 @media(max-width: 1050px) {
@@ -1100,6 +1114,10 @@ input:focus, input.form-control:focus {
   }
   #navshow {
     align-items: center;
+  }
+  .intro-message-ctn {
+    left: 6% !important;
+    right: 6% !important;
   }
 }
 
