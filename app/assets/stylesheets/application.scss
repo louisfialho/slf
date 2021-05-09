@@ -738,11 +738,28 @@ hr {
     transition: top ease 0.5s;
 }
 
-.lp-cta:hover {
+.lp-cta-main {
+    margin-top: 40px;
+    background: #000000;
+    color: #FFFFFF;
+    display: inline-block;
+    border-radius: 40px;
+    padding: 11px 25px 7px 25px;
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 1;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
+}
+
+.lp-cta:hover, .lp-cta-main:hover {
   top: -5px;
 }
 
-.lp-cta:hover, .log-in-cta:hover, .sign-up-cta:hover {
+.lp-cta:hover, .log-in-cta:hover, #try-it-now:hover,  {
   color: white !important;
 }
 

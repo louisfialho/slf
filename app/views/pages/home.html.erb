@@ -13,7 +13,11 @@
     <p class="tagline" id="tagline"><span id="banner-typed-text"></span></p>
 <!--     <a href="https://docs.google.com/forms/d/e/1FAIpQLSemiCUohcstS3K8tGcxmV34200dCrA2GnWBWf29gYibXE5PuA/viewform?usp=sf_link
 " class="lp-cta">Try it now</a> -->
-  <%= link_to('Try it now', shelf_path(Shelf.find(20)), class: 'lp-cta') %>
+<!--   <%= link_to('Try it now', shelf_path(Shelf.find(20)), class: 'lp-cta') %> -->
+      <div class="lp-cta-main">
+        <%= link_to('Try it now', shelf_path(Shelf.find(20)), id: 'try-it-now') %>
+        <%= link_to image_tag("right_arrow_white.png", width: 25).html_safe, shelf_path(Shelf.find(20)) %>
+      </div>
 <!--<div>
       <div>emoji</div>
       <div>emoji</div>
