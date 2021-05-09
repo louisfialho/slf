@@ -755,7 +755,7 @@ hr {
     transition: top ease 0.5s;
 }
 
-.lp-cta:hover, .lp-cta-main:hover {
+.lp-cta:hover, .lp-cta-main:hover, .sign-up-cta:hover, .log-in-cta:hover {
   top: -5px;
 }
 
@@ -931,6 +931,9 @@ input:focus, input.form-control:focus {
     line-height: 1;
     border: 0;
     cursor: pointer;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
 }
 
 .expand{
@@ -1003,6 +1006,9 @@ input:focus, input.form-control:focus {
     line-height: 1;
     border: 0;
     cursor: pointer;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
 }
 
 // intl tel
