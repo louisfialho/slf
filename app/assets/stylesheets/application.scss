@@ -412,7 +412,7 @@ textarea {
 .space-title {
   max-height: 50px;
   // max-width: 200px;
-  max-width: 60%;
+  max-width: 50%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -662,7 +662,7 @@ hr {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  max-width: 80%;
+  max-width: 70%;
 }
 
 .user-id {
@@ -1090,6 +1090,9 @@ input:focus, input.form-control:focus {
   .tagline {
     max-width: 530px;
     min-height: 120px;
+  }
+  #signup-lp {
+    display: none;
   }
 }
 

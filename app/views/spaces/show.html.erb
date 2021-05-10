@@ -123,7 +123,10 @@
       <% end %>
     </div>
     <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
-    <%= link_to('Log in', new_user_session_path, class: 'login expand') %>
+    <div class="lp-login-signup-ctn">
+      <%= link_to('Log in', new_user_session_path, class: 'login expand', id: 'login-lp') %>
+      <%= link_to('Sign up', new_user_registration_path, class: 'lp-cta', id: 'signup-lp', style: 'display:;') %>
+    </div>
   </div>
   <!-- Options box: Not needed -->
 <% end %>

@@ -86,7 +86,10 @@
       <%= image_tag "couch.png", alt: "Options", width: 37 %>
       <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
     </div>
-    <%= link_to('Log in', new_user_session_path, class: 'login expand') %>
+    <div class="lp-login-signup-ctn">
+      <%= link_to('Log in', new_user_session_path, class: 'login expand', id: 'login-lp') %>
+      <%= link_to('Sign up', new_user_registration_path, class: 'lp-cta', id: 'signup-lp', style: 'display:;') %>
+    </div>
   </div>
 <!-- Options box: not needed -->
 <% end %>

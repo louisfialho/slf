@@ -2,8 +2,6 @@ import Typed from 'typed.js';
 
 const loadDynamicBannerText = () => {
   if (window.matchMedia("(max-width: 610px)").matches) {
-    var signUpLp = document.getElementById('signup-lp');
-    signUpLp.style.display = "none";
     new Typed('#banner-typed-text', {
       strings: ["Save, organize and <br> annotate your <br> resources &#128218;"
       , "Save, organize and <br> annotate your <br> blog posts &#128196;"
