@@ -8,7 +8,7 @@ class TwilioClient
   def send_text(dest_phone_num, message)
     client.messages.create(
       to: dest_phone_num,
-      from: '+19197524032',
+      from: '+15035494537',
       body: message
     )
   end
