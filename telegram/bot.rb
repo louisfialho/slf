@@ -19,7 +19,7 @@ Telegram::Bot::Client.run(token) do |bot|
           if User.find_by(telegram_hash: unique_code).nil? == false
         #  ajouter message.chat.id à ce user
             user = User.find_by(telegram_hash: unique_code)
-            user.telegram_chat_id = user.id
+            user.telegram_chat_id = message.chat.id
             user.save
             bot.api.send_message(chat_id: message.chat.id, text: "Hi #{message.from.first_name}, send me a resource and I'll add the object to your shelf! In order to send me a resource (a podcast, news article, video, Tweet… or any URL that can be shared), simply open it from your phone and hit Share > Telegram > Shelf")
         #  si ce unique code ne correspond pas à un user
