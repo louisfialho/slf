@@ -1047,7 +1047,7 @@ input:focus, input.form-control:focus {
 }
 
 
-#signup-lp {
+#signup-lp-btn {
   margin-left: 20px;
 }
 
@@ -1091,8 +1091,14 @@ input:focus, input.form-control:focus {
     max-width: 530px;
     min-height: 120px;
   }
-  #signup-lp {
+  #login-lp {
     display: none;
+  }
+  #signup-lp-btn {
+    display: none;
+  }
+  #signup-lp-simple {
+    display: inline-block !important;
   }
 }
 

@@ -87,8 +87,9 @@
       <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
     </div>
     <div class="lp-login-signup-ctn">
-      <%= link_to('Log in', new_user_session_path, class: 'login expand', id: 'login-lp') %>
-      <%= link_to('Sign up', new_user_registration_path, class: 'lp-cta', id: 'signup-lp', style: 'display:;') %>
+      <%= link_to('Log in', new_user_session_path, class: 'login expand', id: 'login-lp', style: 'display:;') %>
+      <%= link_to('Sign up', new_user_registration_path, class: 'lp-cta', id: 'signup-lp-btn', style: 'display:;') %>
+      <%= link_to('Sign up', new_user_registration_path, class: 'login expand', id: 'signup-lp-simple', style: 'display:none') %>
     </div>
   </div>
 <!-- Options box: not needed -->
