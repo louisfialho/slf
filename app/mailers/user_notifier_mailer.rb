@@ -11,4 +11,9 @@ class UserNotifierMailer < ApplicationMailer
     @user = user
     mail( :to => 'louis@shelf.so', :subject => 'New user 🧒' )
   end
+
+  def inform_louis_of_new_item(item)
+    @item = item
+    mail( :to => 'louis@shelf.so', :subject => 'New item 📚' )
+  end
 end
