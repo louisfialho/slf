@@ -37,7 +37,9 @@ skip_before_action :verify_authenticity_token
             redirect_to item_path(@item, space_id: @space.id)
           end
         end
-        UserNotifierMailer.inform_louis_of_new_item(@item).deliver
+        if current_user != User.first
+          UserNotifierMailer.inform_louis_of_new_item(@item).deliver
+        end
       else
         format.js { render 'shelves/show_updated_view' }
         format.json { head :ok }

@@ -184,6 +184,9 @@ skip_before_action :verify_authenticity_token # vulnerability?
         redirect_to space_path(@parent)
       end
     end
+    if current_user != User.first
+      UserNotifierMailer.inform_louis_of_new_space(@space).deliver
+    end
   end
 
   def add_item_to(space)

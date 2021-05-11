@@ -16,4 +16,9 @@ class UserNotifierMailer < ApplicationMailer
     @item = item
     mail( :to => 'louis@shelf.so', :subject => 'New item 📚' )
   end
+
+  def inform_louis_of_new_space(space)
+    @space = space
+    mail( :to => 'louis@shelf.so', :subject => 'New space 🗄' )
+  end
 end
