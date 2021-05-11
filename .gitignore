@@ -41,3 +41,5 @@ yarn-debug.log*
 .DS_Store
 .env*
 twilio.env
+sendgrid.env
+sendgrid.env

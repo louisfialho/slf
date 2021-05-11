@@ -31,6 +31,7 @@ Once in Telegram, simply hit 'Start'.
 https://t.me/Shelf_bot?start=#{@user.telegram_hash}
 N.B. If you don't have the Telegram app installed, please do install it in order to join Shelf!"
       TwilioClient.new.send_text(@user.phone_number, message_new_user)
+      UserNotifierMailer.send_signup_email(@user).deliver
     end
   end
 
