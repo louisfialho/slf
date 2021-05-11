@@ -29,7 +29,7 @@ class User < ApplicationRecord
 
   def titleize_first_last_name
     self.first_name = self.first_name.titleize
-    self.last_name = self.first_name.titleize
+    self.last_name = self.last_name.titleize
     self.save
   end
 

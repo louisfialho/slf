@@ -64,7 +64,7 @@
   <div class="navbar" id="navshow">
     <div id="user-id-ctn">
       <%= image_tag "couch.png", alt: "Options", width: 37 %>
-      <div class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </div>
+      <div class="user-id"> <%= @shelf.user.first_name %>'s shelf </div>
     </div>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
@@ -84,7 +84,7 @@
   <div class="navbar" id="navshow">
     <div id="user-id-ctn">
       <%= image_tag "couch.png", alt: "Options", width: 37 %>
-      <h1 class="user-id"> <%= @shelf.user.first_name %> <%= @shelf.user.last_name %>'s shelf </h1>
+      <h1 class="user-id"> <%= @shelf.user.first_name %>'s shelf </h1>
     </div>
     <div class="lp-login-signup-ctn">
       <%= link_to('Log in', new_user_session_path, class: 'login expand', id: 'login-lp', style: 'display:;') %>
