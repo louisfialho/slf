@@ -1078,6 +1078,16 @@ input:focus, input.form-control:focus {
   margin-bottom: 30px;
 }
 
+.bottom-note {
+  font-family: Charter;
+  font-size: calc(var(--h1)*0.3);
+  color: #404040;
+  padding-top: 25px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+
 // Media
 
 @media(max-width: 1050px) {
