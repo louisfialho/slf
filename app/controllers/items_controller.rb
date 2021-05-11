@@ -38,7 +38,7 @@ skip_before_action :verify_authenticity_token
           end
         end
         if current_user != User.first
-          UserNotifierMailer.inform_louis_of_new_item(@item).deliver
+          UserNotifierMailer.inform_louis_of_new_item(@item, shelf_mother_of_item(@item).user).deliver
         end
       else
         format.js { render 'shelves/show_updated_view' }

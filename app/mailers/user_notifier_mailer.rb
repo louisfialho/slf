@@ -12,13 +12,15 @@ class UserNotifierMailer < ApplicationMailer
     mail( :to => 'louis@shelf.so', :subject => 'New user 🧒' )
   end
 
-  def inform_louis_of_new_item(item)
+  def inform_louis_of_new_item(item, user)
     @item = item
+    @user = user
     mail( :to => 'louis@shelf.so', :subject => 'New item 📚' )
   end
 
-  def inform_louis_of_new_space(space)
+  def inform_louis_of_new_space(space, user)
     @space = space
+    @user = user
     mail( :to => 'louis@shelf.so', :subject => 'New space 🗄' )
   end
 end

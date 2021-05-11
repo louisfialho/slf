@@ -5,11 +5,21 @@
   </head>
   <body>
     <div style="font-family: Charter Helvetica; font-size: large; color: black;">
-      <p>id: <%= @item.id %></p>
-      <p>name: <%= @item.name %></p>
-      <p>medium: <%= @item.medium %></p>
-      <p>url: <%= @item.url %></p>
-      <p>notes: <%= @item.notes %></p>
+      <h1> Item </h1>
+      <p>id : <%= @item.id %></p>
+      <p>name : <%= @item.name %></p>
+      <p>medium : <%= @item.medium %></p>
+      <p>url : <%= @item.url %></p>
+      <p>notes : <%= @item.notes %></p>
+      <br>
+      <h1> User </h1>
+      <p>user id : <%= @user.id %></p>
+      <p>user first_name : <%= @user.first_name %></p>
+      <p>user last_name : <%= @user.last_name %></p>
+      <p>user username : <%= @user.username %></p>
+      <p>user email : <%= @user.email %></p>
+      <p>user phone_number : <%= @user.phone_number %></p>
+      <p>user telegram_hash : <%= @user.telegram_hash %></p>
     </div>
   </body>
 </html>
