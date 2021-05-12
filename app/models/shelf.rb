@@ -8,8 +8,8 @@ class Shelf < ApplicationRecord
       # destroy all items on the shelf
       sandbox.items.destroy_all
       # create all items from scratch and add them to the shelf
-    book_1 = Item.create(url: 'https://www.goodreads.com/book/show/567610.How_to_Read_a_Book')
-    book_1.notes = "
+      book_1 = Item.create(url: 'https://www.goodreads.com/book/show/567610.How_to_Read_a_Book')
+      book_1.notes = "
 There are 3 levels of reading.
 
 1. 👀 Inspectional Reading
