@@ -74,6 +74,9 @@ Telegram::Bot::Client.run(token) do |bot|
                   bot.api.send_message(chat_id: message.chat.id, text: "#{item.name} was added to your shelf! Check it out! https://www.shelf.so/items/#{item.id}?shelf_id=#{shelf.id} ")
                 end
               end
+              if user != User.first
+                UserNotifierMailer.inform_louis_of_new_item(item, user).deliver
+              end
             end
           else
             bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, I cannot find you. Please try to open this chat using the link provided by Shelf so that I can know who you are! 💆‍♂️")
