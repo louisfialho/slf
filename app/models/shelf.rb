@@ -8,8 +8,29 @@ class Shelf < ApplicationRecord
       # destroy all items on the shelf
       sandbox.items.destroy_all
       # create all items from scratch and add them to the shelf
-      book_1 = Item.create(url: 'https://www.goodreads.com/book/show/34507927-how-to-take-smart-notes')
-      book_1.notes = "
+    book_1 = Item.create(url: 'https://www.goodreads.com/book/show/567610.How_to_Read_a_Book')
+    book_1.notes = "
+There are 3 levels of reading.
+
+1. 👀 Inspectional Reading
+Systematic skimming provides sufficient knowledge to understand the key steps of the author's reasoning and help you determine if you want to go further with the book:
+💡 Read the preface
+💡 Study the table of contents
+💡 Check the index
+2. 🧠 Analytical Reading
+If you want to get a deeper understanding of the author's thesis:
+💡 Classify the book according to kind and subject matter.
+💡 Define the problem or problems the author is trying to solve.
+💡 Enumerate its major parts in their order and relation, and outline these parts as you have outlined the whole.
+3. 📚 Comparative Reading
+If you want to understand the broader subject beyond the author's thesis in a particular book, use comparative reading to synthesize knowledge from several books on the same subject.
+💡 Find the books and passages that are most relevant.
+💡 Each author uses different terms and concepts to frame their argument - translate those to frame the problem with your own words.
+💡 For one give argument, different authors have different answers - the value is the discussion you have with these authors."
+    sandbox.items << book_1
+
+    book_2 = Item.create(url: 'https://www.goodreads.com/book/show/34507927-how-to-take-smart-notes')
+    book_2.notes = "
 Niklas Luhmann, was a German sociologist who published over 70 books and 400 academic articles.
 Luhmann credited his achievements to his Zettelkasten, which contained over 90,000 ideas that helped him develop topics by knitting together ideas into a cohesive whole - his books wrote themselves, idea by idea.
 The word Zettelkasten is German for “slip box”, which refers to a box containing many slips of paper. Each slip represents a single, atomic idea that makes sense by itself, and also in combination with other ideas (similar to how our brain works, but with a better memory).
@@ -45,27 +66,6 @@ To write your first Zettelkasten note, start with an article about something you
 Take fleeting notes, then literature notes. Use the first literature note you write as your first permanent note. After that, write every new permanent note with an eye towards how it fits in with what you already have. If it doesn’t, just add it as a new, standalone note.
 When you first get started, you’ll probably find that your initial topic clusters form quite quickly. It’s going to take time for clusters to start forming between-topics instead of in-topics, but that’s the whole point of doing this. As long as you make an effort to connect your current note to relevant existing notes, those will form by themselves.
 Some notes are going to end up getting totally lost in your Zettelkasten, just like how we forget things naturally. That’s okay. The advantage with a Zettelkasten in this case is that you can actually scan through orphan (forgotten) notes to see if they spark reminders that you can turn into connections now and again."
-    sandbox.items << book_1
-
-    book_2 = Item.create(url: 'https://www.goodreads.com/book/show/567610.How_to_Read_a_Book')
-    book_2.notes = "
-There are 3 levels of reading.
-
-1. 👀 Inspectional Reading
-Systematic skimming provides sufficient knowledge to understand the key steps of the author's reasoning and help you determine if you want to go further with the book:
-💡 Read the preface
-💡 Study the table of contents
-💡 Check the index
-2. 🧠 Analytical Reading
-If you want to get a deeper understanding of the author's thesis:
-💡 Classify the book according to kind and subject matter.
-💡 Define the problem or problems the author is trying to solve.
-💡 Enumerate its major parts in their order and relation, and outline these parts as you have outlined the whole.
-3. 📚 Comparative Reading
-If you want to understand the broader subject beyond the author's thesis in a particular book, use comparative reading to synthesize knowledge from several books on the same subject.
-💡 Find the books and passages that are most relevant.
-💡 Each author uses different terms and concepts to frame their argument - translate those to frame the problem with your own words.
-💡 For one give argument, different authors have different answers - the value is the discussion you have with these authors."
     sandbox.items << book_2
 
     blog_1 = Item.create(url: 'https://fortelabs.co/blog/the-4-levels-of-personal-knowledge-management/')
