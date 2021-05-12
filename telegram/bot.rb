@@ -75,7 +75,7 @@ Telegram::Bot::Client.run(token) do |bot|
                 end
               end
               if user != User.first
-                UserNotifierMailer.inform_louis_of_new_item(item, user).deliver
+                UserNotifierMailer.inform_louis_of_new_item(item, user, 'bot').deliver
               end
             end
           else

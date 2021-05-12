@@ -39,7 +39,7 @@ skip_before_action :verify_authenticity_token
         end
         if current_user
           if current_user != User.first
-            UserNotifierMailer.inform_louis_of_new_item(@item, current_user).deliver
+            UserNotifierMailer.inform_louis_of_new_item(@item, current_user, 'app').deliver
           end
         end
       else

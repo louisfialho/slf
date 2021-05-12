@@ -12,9 +12,10 @@ class UserNotifierMailer < ApplicationMailer
     mail( :to => 'louis@shelf.so', :subject => 'New user 🧒' )
   end
 
-  def inform_louis_of_new_item(item, user)
+  def inform_louis_of_new_item(item, user, origin)
     @item = item
     @user = user
+    @origin = origin
     mail( :to => 'louis@shelf.so', :subject => 'New item 📚' )
   end
 
