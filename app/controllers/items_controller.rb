@@ -218,6 +218,8 @@ skip_before_action :verify_authenticity_token
   def set_shelf
     if user_signed_in?
       @shelf = current_user.shelves.first
+    else
+      @shelf = shelf_mother_of_item(Item.find(params[:id]))
     end
   end
 
