@@ -83,6 +83,9 @@ skip_before_action :verify_authenticity_token # vulnerability?
       else
         redirect_to shelf_path(@shelf)
       end
+      if current_user != User.first
+        UserNotifierMailer.inform_louis_of_new_space(@space, shelf_mother_of_space(@space).user).deliver
+      end
     elsif params[:space][:parent_id].present?
       @child = Space.new(space_params)
       authorize @child, policy_class: SpacePolicy
@@ -183,9 +186,9 @@ skip_before_action :verify_authenticity_token # vulnerability?
       else
         redirect_to space_path(@parent)
       end
-    end
-    if current_user != User.first
-      UserNotifierMailer.inform_louis_of_new_space(@space, shelf_mother_of_space(@space).user).deliver
+      if current_user != User.first
+        UserNotifierMailer.inform_louis_of_new_space(@child, shelf_mother_of_space(@child).user).deliver
+      end
     end
   end
 
