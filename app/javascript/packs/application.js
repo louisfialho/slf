@@ -45,7 +45,7 @@ document.addEventListener('turbolinks:load', () => {
     updateStatus();
   }
 
-  if (document.querySelector(".item-options")) {
+  if (document.getElementById("save-notes")) {
      displaySave();
   }
 
