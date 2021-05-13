@@ -4,8 +4,8 @@ class RegistrationsController < Devise::RegistrationsController
   def stat_telegram_chat_id
     if current_user
       @user = current_user
+      render json: {is_nil: @user.telegram_chat_id.nil?}
     end
-    render json: {is_nil: @user.telegram_chat_id.nil?}
   end
 
   def stat_added_first_item
@@ -18,8 +18,8 @@ class RegistrationsController < Devise::RegistrationsController
   def current_shelf
     if current_user
       @user = current_user
+      render json: {shelf_id: @user.shelves.first.id}
     end
-    render json: {shelf_id: @user.shelves.first.id}
   end
 
   def create
