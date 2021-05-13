@@ -187,7 +187,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
         redirect_to space_path(@parent)
       end
       if current_user != User.first
-        UserNotifierMailer.inform_louis_of_new_space(@child, shelf_mother_of_space(@child).user).deliver
+        UserNotifierMailer.inform_louis_of_new_space(@child, shelf_mother_of_space(@parent).user).deliver
       end
     end
   end

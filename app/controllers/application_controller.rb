@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def shelf_mother_of_space(space)
+    @space = space
     if @space.shelves.empty? == false
       @space.shelves.first
     else
