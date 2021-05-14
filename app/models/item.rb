@@ -67,7 +67,7 @@ class Item < ApplicationRecord
     def item_medium(url)
       if url.include? 'www.youtube'
         return 'video'
-      elsif url.include?('spotify.com/episode') || url.include?('spotify.com/show') || url.include?('podcasts.apple') || url.include?('pca.st')
+      elsif url.include?('spotify.com/episode') || url.include?('spotify.com/show') || url.include?('podcasts.apple') || url.include?('pca.st') || url.include?('podcasts.google')
         return 'podcast'
       elsif url.include?('www.amazon') || url.include?('ww.goodreads')
         return 'book'
