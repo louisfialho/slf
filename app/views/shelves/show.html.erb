@@ -162,7 +162,19 @@
               <%= link_to image_tag("podcast.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
             <% elsif object.medium == "video" %>
               <%= link_to image_tag("video.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% else object.medium == "web" %>
+            <% elsif object.medium == "blogpost" %>
+              <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% elsif object.medium == "news article" %>
+              <%= link_to image_tag("news_article.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% elsif object.medium == "academic article" %>
+              <%= link_to image_tag("academic_article.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% elsif object.medium == "newsletter" %>
+              <%= link_to image_tag("newsletter.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% elsif object.medium == "tweet" %>
+              <%= link_to image_tag("tweet.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% elsif object.medium == "audio book" %>
+              <%= link_to image_tag("audio_book.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% else %>
               <%= link_to image_tag("web.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
             <% end %>
   <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 40), item_path(object, shelf_id: @shelf.id), class: "object_name" %> -->

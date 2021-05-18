@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :shelves
   has_and_belongs_to_many :spaces
 
-  MEDIUM = ['book', 'podcast', 'video', 'web', 'other']
+  MEDIUM = ['book', 'podcast', 'video', 'web', 'other', 'blogpost', 'newsletter', 'news article', 'academic article', 'tweet', 'audio book']
   STATUS = [1, 2, 3] # 1 = not started
   RANK = [1, 2, 3] # 1 = high prio
 
@@ -71,6 +71,18 @@ class Item < ApplicationRecord
         return 'podcast'
       elsif url.include?('www.amazon') || url.include?('ww.goodreads')
         return 'book'
+      elsif url.include?('medium.com') || url.include?('paulgraham.com') || url.include?('mirror.xyz')
+        return 'blogpost'
+      elsif url.include?('substack.com') || url.include?('every.to')
+        return 'newsletter'
+      elsif url.include?('techcrunch.com') || url.include?('nytimes.com') || url.include?('wsj.com')
+        return 'news article'
+      elsif url.include?('wikipedia.org')
+        return 'academic article'
+      elsif url.include?('twitter.com')
+        return 'tweet'
+      elsif url.include?('audible.com') || url.include?('blinkist.com')
+        return 'audio book'
       else
         return 'other'
       end
