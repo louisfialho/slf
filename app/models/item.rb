@@ -1,18 +1,17 @@
 class Item < ApplicationRecord
 
   #acts_as_list
-
   require 'net/http'
   require 'uri'
   require 'open-uri'
   require 'nokogiri'
+  require 'json' # tweet parsing
+  require 'typhoeus' # tweet parsing
 
   has_and_belongs_to_many :shelves
   has_and_belongs_to_many :spaces
 
   MEDIUM = ['book', 'podcast', 'video', 'web', 'other', 'blogpost', 'newsletter', 'news article', 'academic article', 'tweet', 'audio book']
-  STATUS = [1, 2, 3] # 1 = not started
-  RANK = [1, 2, 3] # 1 = high prio
 
   before_validation :extract_url, :get_redirect_if_exists, on: :create # makes sure the persisted value is a url (no additional character), and, in case of a redirect, the final redirect
   validates :url, presence: true, url: true # see custom class
@@ -55,6 +54,8 @@ class Item < ApplicationRecord
       html_doc = Nokogiri::HTML(html_file, nil, Encoding::UTF_8.to_s) # should manage UTF8 html_doc.encoding = 'UTF-8'
       if url.include? 'www.youtube'
         item_name = html_doc.at('meta[name="title"]')['content'] # works for YouTube
+      elsif url.match?(/^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$/)  # matches https://twitter.com/username/status/1047925106423603200
+        item_name = tweet_name(url)
       else
         item_name = html_doc.css('head title').inner_text # works for spotify and more
       # does not work for Techcrunch
@@ -89,7 +90,46 @@ class Item < ApplicationRecord
     rescue
       "other"
     end
+
+    def tweet_name(url)
+      # takes URL as input, and outputs name of the tweet object
+      tweet_id = url.match(/^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$/)[3]
+      tweet_author_username = url.match(/^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)$/)[1]
+
+      bearer_token = ENV["BEARER_TOKEN"]
+      tweet_lookup_url = "https://api.twitter.com/2/tweets"
+
+      params = {
+        "ids": tweet_id,
+        # "expansions": "author_id" #referenced_tweets.id
+        # "tweet.fields": "attachments,author_id,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang",
+        # "user.fields": "name"
+        # "media.fields": "url",
+        # "place.fields": "country_code",
+        # "poll.fields": "options"
+      }
+
+      response = tweet_lookup(tweet_lookup_url, bearer_token, params)
+      return JSON.parse(response.body)['data'][0]['text']
+    end
+
+    def tweet_lookup(url, bearer_token, params)
+      options = {
+        method: 'get',
+        headers: {
+          "User-Agent": "v2TweetLookupRuby",
+          "Authorization": "Bearer #{bearer_token}"
+        },
+        params: params
+      }
+
+      request = Typhoeus::Request.new(url, options)
+      response = request.run
+
+      return response
+    end
 end
+
 
 # User input, peut être dirty
 # 1. Before val:
