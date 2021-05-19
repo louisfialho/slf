@@ -55,7 +55,11 @@ class Item < ApplicationRecord
       if url.include? 'www.youtube'
         item_name = html_doc.at('meta[name="title"]')['content'] # works for YouTube
       elsif url.match?(/^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/)  # matches https://twitter.com/username/status/1047925106423603200
-        item_name = tweet_name(url)
+        if tweet_name(url).include? 'https'
+          item_name = tweet_name(url).gsub(/(?:f|ht)tps?:\/[^\s]+/, '')
+        else
+          item_name = tweet_name(url)
+        end
       else
         item_name = html_doc.css('head title').inner_text # works for spotify and more
       # does not work for Techcrunch
