@@ -54,7 +54,7 @@ class Item < ApplicationRecord
       html_doc = Nokogiri::HTML(html_file, nil, Encoding::UTF_8.to_s) # should manage UTF8 html_doc.encoding = 'UTF-8'
       if url.include? 'www.youtube'
         item_name = html_doc.at('meta[name="title"]')['content'] # works for YouTube
-      elsif url.match?(/^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/)  # matches https://twitter.com/username/status/1047925106423603200
+      elsif url.match?(/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/)  # matches https://twitter.com/username/status/1047925106423603200
         if tweet_name(url).include? 'https'
           item_name = tweet_name(url).gsub(/(?:f|ht)tps?:\/[^\s]+/, '')
         else
@@ -97,7 +97,7 @@ class Item < ApplicationRecord
 
     def tweet_name(url)
       # takes URL as input, and outputs name of the tweet object
-      tweet_id = url.match(/^https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/)[3]
+      tweet_id = url.match(/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/)[3]
 
       bearer_token = ENV["BEARER_TOKEN"]
       tweet_lookup_url = "https://api.twitter.com/2/tweets"
