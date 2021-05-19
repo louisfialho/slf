@@ -35,7 +35,6 @@ N.B. If you don't have the Telegram app installed, please do install it in order
       UserNotifierMailer.inform_louis_of_user_signup(@user).deliver
       redirect_to meet_bot_path
     else
-      flash.now[:alert] = @user.errors.full_messages.to_sentence
       render :new
     end
   end
