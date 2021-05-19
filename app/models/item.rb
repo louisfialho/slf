@@ -60,7 +60,7 @@ class Item < ApplicationRecord
         item_name = html_doc.css('head title').inner_text # works for spotify and more
       # does not work for Techcrunch
       end
-      return item_name.split.map(&:capitalize).join(' ') # caps each word
+      return item_name #split.map(&:capitalize).join(' ') # caps each word
     rescue
       "No name found"
     end
