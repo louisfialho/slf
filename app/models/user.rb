@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :shelves, dependent: :destroy
-
+  validate :valid_phone_num
   after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash, :titleize_first_last_name
 
   require "base64"
@@ -33,4 +33,12 @@ class User < ApplicationRecord
     self.save
   end
 
+  def valid_phone_num
+    account_sid = ENV['TWILIO_ACCOUNT_SID']
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
+    phone_number = @client.lookups.v1.phone_numbers(self.phone_number).fetch
+    rescue
+      errors.add(:phone_number, "is not a valid phone number")
+  end
 end

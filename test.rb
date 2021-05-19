@@ -1,27 +1,12 @@
 require File.expand_path('config/environment', __dir__)
 
-  def shelf_mother_of_item(item)
-    if item.shelves.empty? == false
-      item.shelves.first
-    elsif item.spaces.empty? == false
-      recursive_parent_search3(item.spaces.first).shelves.first
-    end
+  def valid_phone_num
+    account_sid = ENV['TWILIO_ACCOUNT_SID']
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
+    phone_number = @client.lookups.v1.phone_numbers('0000').fetch
+    rescue
+      record.errors.add(phone_number, "is not a valid phone number")
   end
 
-  def recursive_parent_search3(space)
-    while space.shelves.empty?
-      space.connections.each do |connection|
-        if connection.parent_id.nil? == false
-          @connection = connection
-        end
-      end
-      space = @connection.parent.space
-    end
-    return space
-  end
-
-Item.where("url LIKE ?", "%twitter.com%").each do |tweet|
-  if shelf_mother_of_item(tweet).user != User.first
-    p tweet, shelf_mother_of_item(tweet).user.id
-  end
-end
+valid_phone_num

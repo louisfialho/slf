@@ -23,8 +23,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    super
-    if @user.persisted?
+    @user = User.new(user_params)
+    if @user.save
       message_new_user = "Welcome to Shelf #{@user.first_name}!
 Please open the link below to open your first conversation with Shelf Bot in Telegram.
 Once in Telegram, simply hit 'Start'.
@@ -33,6 +33,10 @@ N.B. If you don't have the Telegram app installed, please do install it in order
       TwilioClient.new.send_text(@user.phone_number, message_new_user)
       UserNotifierMailer.send_signup_email(@user).deliver
       UserNotifierMailer.inform_louis_of_user_signup(@user).deliver
+      redirect_to meet_bot_path
+    else
+      flash.now[:alert] = @user.errors.full_messages.to_sentence
+      render :new
     end
   end
 
@@ -47,6 +51,10 @@ N.B. If you don't have the Telegram app installed, please do install it in order
 
   def after_sign_up_path_for(resource)
     meet_bot_path
+  end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :username, :phone_number, :email, :password, :password_confirmation)
   end
 end
 
