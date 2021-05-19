@@ -9,7 +9,7 @@
         <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
       <% end %>
     </div>
-    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+    <h1 class="space-title"> <%= @space.name %> </h1>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
@@ -51,7 +51,7 @@
         <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
       <% end %>
     </div>
-    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+    <h1 class="space-title"> <%= @space.name %> </h1>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
@@ -100,7 +100,7 @@
         <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
       <% end %>
     </div>
-    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+    <h1 class="space-title"> <%= @space.name %> </h1>
     <div id="options-btn">
       <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
@@ -124,7 +124,7 @@
         <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
       <% end %>
     </div>
-    <h1 class="space-title"> <%= @space.name.split.map(&:capitalize).join(' ') %> </h1>
+    <h1 class="space-title"> <%= @space.name %> </h1>
     <div class="lp-login-signup-ctn">
       <%= link_to('Log in', new_user_session_path, class: 'login expand', id: 'login-lp', style: 'display:;') %>
       <%= link_to('Sign up', new_user_registration_path, class: 'lp-cta', id: 'signup-lp-btn', style: 'display:;') %>
@@ -220,8 +220,8 @@
         <% if policy(object).show? %>
           <div class="object" data-type="spaces" data-id="<%= object.id %>">
             <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object) %>
-  <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object),  class: "object_name" %> -->
-            <%= link_to truncate(object.name.split.map(&:capitalize).join(' '), length: 45), space_path(object),  class: "object_name" %>
+  <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), space_path(object),  class: "object_name" %> -->
+            <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name" %>
           </div>
         <% end %>
       <% elsif object.class.name == "Item" %>
@@ -248,8 +248,8 @@
             <% else %>
               <%= link_to image_tag("web.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
             <% end %>
-  <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name.split.map(&:capitalize).join(' '), length: 45), item_path(object, space_id: @space.id), class: "object_name" %> -->
-              <%= link_to truncate(object.name.split.map(&:capitalize).join(' '), length: 40), item_path(object, space_id: @space.id), class: "object_name" %>
+  <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, space_id: @space.id), class: "object_name" %> -->
+              <%= link_to truncate(object.name, length: 40), item_path(object, space_id: @space.id), class: "object_name" %>
           </div>
         <% end %>
       <% end %>
