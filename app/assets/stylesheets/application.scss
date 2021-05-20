@@ -430,7 +430,7 @@ textarea {
 .options-ctn {
     // margin-left: 1660px;
     position: absolute;
-    top: 85px !important;
+    top: 90px !important;
     right: 2%;
     background-color: white;
     border: 1px solid #E8E8E8;
@@ -438,7 +438,7 @@ textarea {
     box-shadow: 2px 2px 11px rgba(0,0,0,0.2);
     z-index: 10;
     display: grid;
-    grid-gap: 3px;
+    grid-gap: 1px;
     padding: 11px 17px 11px 17px;
 }
 
@@ -1096,7 +1096,30 @@ input:focus, input.form-control:focus {
 
 .category-selector + label {
   cursor: pointer;
+  padding-bottom: 1px;
 }
+
+.media-ctn {
+    // margin-left: 1660px;
+    left:0;
+    right:0;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    width: max-content;
+    position: absolute;
+    top: 90px !important;
+    background-color: white;
+    border: 1px solid #E8E8E8;
+    border-radius: 20px;
+    box-shadow: 2px 2px 11px rgba(0,0,0,0.2);
+    z-index: 10;
+    padding-top: 14px;
+    padding-left: 11px;
+    padding-right: 16px;
+}
+
+
 
 
 

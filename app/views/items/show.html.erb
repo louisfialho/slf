@@ -91,7 +91,7 @@
       <% end %>
     </div>
     <div>
-      <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
+      <a id="item-medium-icon">
         <% if @item.medium == "book" %>
           <%= image_tag "book.png", width: 37 %>
         <% elsif @item.medium == "podcast" %>
@@ -129,16 +129,19 @@
   </div>
 
   <!-- Edit medium box -->
-  <%= simple_form_for(@item) do |f| %>
-    <%= f.input :medium,
-      as: :radio_buttons,
-      collection: [['blog', '📑 Blog'], ['blogpost', '📄 Blogpost'], ['news_article', '🗞 News article'], ['newsletter', '🗞 Newsletter'], ['academic_article', '📃 Academic article'], ['tweet', '🐦 Tweet'], ['podcast', '🎙 Podcast'], ['video', '📺 Video'], ['online_course', '🎓 Online course'], ['book', '📕 Book'], ['e_book', '📙 Ebook'], ['audio_book', '🎧 Audio book'], ['code_repository', '🐱 Code repository']],
-      label_method: :second,
-      value_method: :first,
-      item_wrapper_class: 'option-label',
-      input_html: {class: 'category-selector', onchange: 'this.form.submit();'}
-    %>
-  <% end %>
+  <div class="media-ctn" style="display:none;" id="media-ctn">
+    <%= simple_form_for(@item) do |f| %>
+      <%= f.input :medium,
+        legend_tag: false,
+        as: :radio_buttons,
+        collection: [['blog', '📑 Blog'], ['blogpost', '📄 Blogpost'], ['news_article', '📰 News article'], ['newsletter', '🗞 Newsletter'], ['academic_article', '📃 Academic article'], ['tweet', '🐦 Tweet'], ['podcast', '🎙 Podcast'], ['video', '📺 Video'], ['online_course', '🎓 Online course'], ['book', '📕 Book'], ['e_book', '📙 Ebook'], ['audio_book', '🎧 Audio book'], ['code_repository', '🐱 Code repository']],
+        label_method: :second,
+        value_method: :first,
+        item_wrapper_class: 'option-label',
+        input_html: {class: 'category-selector', onchange: 'this.form.submit();'}
+      %>
+    <% end %>
+  </div>
 
   <!-- Options box: Move, destroy, leave -->
   <div class="options-ctn item-options" id="options" style="display:none;">
