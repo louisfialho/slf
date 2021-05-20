@@ -121,5 +121,33 @@ Now you have a set of hand-crafted notes containing a simple explanation:
     sandbox.items << podcast_1
     podcast_2 = Item.create(url: 'https://open.spotify.com/episode/6s2Z9SMryJGpZZde8Y0SDz?si=z2Ym4D8RSVeTPQUP3PlpfQ')
     sandbox.items << podcast_2
+
+    tweet_1 = Item.create(url: 'https://twitter.com/vgr/status/1047925106423603200')
+    tweet_1.notes = "
+🏞 1. The Hierarchy of information
+There is a hierarchy of information based on consumption time and idea complexity:  'small minds discuss people, average minds discuss events, great minds discuss ideas'.
+The stable consumption/production positions are along what I've labeled the turnpike (a term borrowed from economics). You can move up and down along the turnpike. Get off the turnpike and your bad returns will start to kill you.
+You do need a job in the giant social computer, and that involves consuming and acting on information at higher level than others.
+If you don't manage your information economy career, you will default to the lowest level job in the social computer: processing very low-latency information with small-minded cognition for small bets.
+The way to manage your attention is not to 'unplug' but to be sensitive to your mind quality and consciously target the zone, moving fluidly between small/great mind.
+You have to increase the weights slowly and perhaps train your attention to exhaustion a bit. If you're in small mind zone and can only consume/produce tweets, try an essay. See how far you get. Strength-train attention from 10s to 10min.
+
+💆‍♂️ 2. Quickly identify the quality of the content you are currently consuming and adapt your consumption
+Note that this atrophying of attention and latency limits will happen REGARDLESS of whether evil designers are trying to hack your attention and keep you phase-locked into their preferred 10s latency information loop. Their designs are in fact the LOAD you're training against
+A real adept ought to have strength-trained attention so they can spend an hour either reading a tweetstream or a once-in-a-generation history-disrupting philosophy book. No hack designer should be able to lock them down in the 0.1-10 second range.
+So stop blaming the media platforms for your own wallowing in small-minded twitter gossip about people. Strength train to the point where you decide whether to be there or elsewhere.
+
+🧠 3. Avoid basic traps
+There are THREE ways to fail at this.
+a) Thinking you can be Great Minded all the time. The first failure mode manifests as trying to consume only information at your target level. Like only reading Economist and journal papers and trying to produce in institutional modes. This will fail. You need some information diet input from ALL levels to work at ANY level.
+b) Trying to be Great Minded on low latency information diet (upper left red box)
+c) Trying to consume high-latency information diet without aspiring to more than small-minded thoughts. Reading every trending tweet and every bestselling big history book and everything in between, but ALL at the same low level (ie as people gossip or play-by-play event tracking). Unsustainable.
+It's not addictive FOMOing that kills you, but not being able to translate the information consumption choices you're making into winning bets.
+"
+    sandbox.items << tweet_1
+
+    tweet_2 = Item.create(url: 'https://twitter.com/Mappletons/status/1250532315459194880')
+    tweet_2.notes = "Most popular digital gardens"
+    sandbox.items << tweet_2
     end
 end

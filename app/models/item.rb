@@ -11,7 +11,7 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :shelves
   has_and_belongs_to_many :spaces
 
-  MEDIUM = ['book', 'podcast', 'video', 'blogpost', 'newsletter', 'news_article', 'academic_article', 'tweet', 'audio_book', 'code_repository', 'e_book', 'online_course', 'blog', 'web', 'other',]
+  MEDIA = ['book', 'podcast', 'video', 'blogpost', 'newsletter', 'news_article', 'academic_article', 'tweet', 'audio_book', 'code_repository', 'e_book', 'online_course', 'blog', 'web', 'other']
 
   before_validation :extract_url, :get_redirect_if_exists, on: :create # makes sure the persisted value is a url (no additional character), and, in case of a redirect, the final redirect
   validates :url, presence: true, url: true # see custom class
@@ -80,7 +80,7 @@ class Item < ApplicationRecord
         return 'blogpost'
       elsif ['newsletter', 'substack.com', 'every.to', 'stratechery.com'].any? { |keyword| url.include? keyword }
         return 'newsletter'
-      elsif ['techcrunch.com', 'nytimes.com', 'wsj.com', 'wired.com', 'ft.com', 'sifted.eu'].any? { |keyword| url.include? keyword }
+      elsif ['techcrunch.com', 'nytimes.com', 'wsj.com', 'wired.com', 'ft.com', 'sifted.etu', 'bbc.com/news'].any? { |keyword| url.include? keyword }
         return 'news_article'
       elsif ['wikipedia.org', 'technologyreview.com'].any? { |keyword| url.include? keyword }
         return 'academic_article'

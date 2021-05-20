@@ -75,6 +75,8 @@ skip_before_action :verify_authenticity_token
     elsif params[:item][:space_id].present?
       @space = Space.find(params[:item][:space_id])
       redirect_to item_path(@item, space_id: @space.id)
+    else
+      redirect_to item_path(@item)
     end
   end
 

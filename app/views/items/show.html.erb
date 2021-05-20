@@ -127,6 +127,19 @@
       <a><%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options' %></a>
     </div>
   </div>
+
+  <!-- Edit medium box -->
+  <%= simple_form_for(@item) do |f| %>
+    <%= f.input :medium,
+      as: :radio_buttons,
+      collection: [['blog', '📑 Blog'], ['blogpost', '📄 Blogpost'], ['news_article', '🗞 News article'], ['newsletter', '🗞 Newsletter'], ['academic_article', '📃 Academic article'], ['tweet', '🐦 Tweet'], ['podcast', '🎙 Podcast'], ['video', '📺 Video'], ['online_course', '🎓 Online course'], ['book', '📕 Book'], ['e_book', '📙 Ebook'], ['audio_book', '🎧 Audio book'], ['code_repository', '🐱 Code repository']],
+      label_method: :second,
+      value_method: :first,
+      item_wrapper_class: 'option-label',
+      input_html: {class: 'category-selector', onchange: 'this.form.submit();'}
+    %>
+  <% end %>
+
   <!-- Options box: Move, destroy, leave -->
   <div class="options-ctn item-options" id="options" style="display:none;">
     <div class="option-ctn">

@@ -1087,6 +1087,18 @@ input:focus, input.form-control:focus {
   text-align: center;
 }
 
+// Edit medium type on item show
+
+.category-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.category-selector + label {
+  cursor: pointer;
+}
+
+
 
 // Media
 
