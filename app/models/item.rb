@@ -11,7 +11,7 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :shelves
   has_and_belongs_to_many :spaces
 
-  MEDIUM = ['book', 'podcast', 'video', 'web', 'other', 'blogpost', 'newsletter', 'news_article', 'academic_article', 'tweet', 'audio_book', 'code_repository', 'e_book', 'online_course', 'blog']
+  MEDIUM = ['book', 'podcast', 'video', 'blogpost', 'newsletter', 'news_article', 'academic_article', 'tweet', 'audio_book', 'code_repository', 'e_book', 'online_course', 'blog', 'web', 'other',]
 
   before_validation :extract_url, :get_redirect_if_exists, on: :create # makes sure the persisted value is a url (no additional character), and, in case of a redirect, the final redirect
   validates :url, presence: true, url: true # see custom class
@@ -72,31 +72,29 @@ class Item < ApplicationRecord
     def item_medium(url)
       if url.include? 'www.youtube'
         return 'video'
-      elsif url.include?('spotify.com/episode') || url.include?('spotify.com/show') || url.include?('podcasts.apple') || url.include?('pca.st') || url.include?('podcasts.google')
+      elsif ['spotify.com/episode', 'spotify.com/show', 'podcasts.apple', 'pca.st', 'podcasts.google'].any? { |keyword| url.include? keyword }
         return 'podcast'
-      elsif url.include?('www.amazon') || url.include?('ww.goodreads')
+      elsif ['ww.amazon', 'ww.goodreads'].any? { |keyword| url.include? keyword }
         return 'book'
-      elsif url.include?('blog') || url.include?('medium.com') || url.include?('paulgraham.com')
+      elsif ['blog', 'medium.com', 'paulgraham.com', 'mirror.xyz'].any? { |keyword| url.include? keyword }
         return 'blogpost'
-      elsif url.include?('newsletter') || url.include?('substack.com') || url.include?('every.to') || url.include?('stratechery.com')
+      elsif ['newsletter', 'substack.com', 'every.to', 'stratechery.com'].any? { |keyword| url.include? keyword }
         return 'newsletter'
-      elsif url.include?('techcrunch.com') || url.include?('nytimes.com') || url.include?('wsj.com') || url.include?('wired.com')
+      elsif ['techcrunch.com', 'nytimes.com', 'wsj.com', 'wired.com', 'ft.com', 'sifted.eu'].any? { |keyword| url.include? keyword }
         return 'news_article'
-      elsif url.include?('wikipedia.org') || url.include?('technologyreview.com')
+      elsif ['wikipedia.org', 'technologyreview.com'].any? { |keyword| url.include? keyword }
         return 'academic_article'
-      elsif url.include?('twitter.com')
+      elsif url.include? 'twitter.com'
         return 'tweet'
-      elsif url.include?('audible.com') || url.include?('blinkist.com')
+      elsif ['audible.com', 'blinkist.com'].any? { |keyword| url.include? keyword }
         return 'audio_book'
-      elsif url.include?('coursera.org') || url.include?('edx.org')
+      elsif ['coursera.org', 'edx.org'].any? { |keyword| url.include? keyword }
         return 'online_course'
-      elsif url.include?('github.com')
+      elsif url.include? 'github.com'
         return 'code_repository'
       else
         return 'other'
       end
-    rescue
-      "other"
     end
 
     def tweet_name(url)
