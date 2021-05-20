@@ -68,7 +68,8 @@ skip_before_action :verify_authenticity_token
   end
 
   def update
-    @item.update(item_params)
+    @item.assign_attributes(item_params)
+    @item.save(validate: false)
     if params[:item][:shelf_id].present?
       @shelf = Shelf.find(params[:item][:shelf_id])
       redirect_to item_path(@item, shelf_id: @shelf.id)
