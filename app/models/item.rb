@@ -11,7 +11,7 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :shelves
   has_and_belongs_to_many :spaces
 
-  MEDIUM = ['book', 'podcast', 'video', 'web', 'other', 'blogpost', 'newsletter', 'news_article', 'academic_article', 'tweet', 'audio_book']
+  MEDIUM = ['book', 'podcast', 'video', 'web', 'other', 'blogpost', 'newsletter', 'news_article', 'academic_article', 'tweet', 'audio_book', 'code_repository', 'e_book', 'online_course', 'blog']
 
   before_validation :extract_url, :get_redirect_if_exists, on: :create # makes sure the persisted value is a url (no additional character), and, in case of a redirect, the final redirect
   validates :url, presence: true, url: true # see custom class
@@ -76,18 +76,22 @@ class Item < ApplicationRecord
         return 'podcast'
       elsif url.include?('www.amazon') || url.include?('ww.goodreads')
         return 'book'
-      elsif url.include?('medium.com') || url.include?('paulgraham.com') || url.include?('mirror.xyz')
+      elsif url.include?('blog') || url.include?('medium.com') || url.include?('paulgraham.com')
         return 'blogpost'
-      elsif url.include?('substack.com') || url.include?('every.to')
+      elsif url.include?('newsletter') || url.include?('substack.com') || url.include?('every.to') || url.include?('stratechery.com')
         return 'newsletter'
-      elsif url.include?('techcrunch.com') || url.include?('nytimes.com') || url.include?('wsj.com')
+      elsif url.include?('techcrunch.com') || url.include?('nytimes.com') || url.include?('wsj.com') || url.include?('wired.com')
         return 'news_article'
-      elsif url.include?('wikipedia.org')
+      elsif url.include?('wikipedia.org') || url.include?('technologyreview.com')
         return 'academic_article'
       elsif url.include?('twitter.com')
         return 'tweet'
       elsif url.include?('audible.com') || url.include?('blinkist.com')
         return 'audio_book'
+      elsif url.include?('coursera.org') || url.include?('edx.org')
+        return 'online_course'
+      elsif url.include?('github.com')
+        return 'code_repository'
       else
         return 'other'
       end

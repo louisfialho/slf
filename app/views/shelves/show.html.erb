@@ -30,7 +30,7 @@
         <br>If that sounds exciting to you, I'd recommend starting with:
         <br>📕 How To Read a Book
         <br>📕 How To Take Smart Notes
-        <br>💻 The 4 Levels of Personal Knowledge Management
+        <br>📄 The 4 Levels of Personal Knowledge Management
         <br>💡 This shelf is collaborative - feel free to add additional resources, spaces, or edit my notes!
         <br>💡 If you'd like to start your own shelf, you can do so by <u><%= link_to 'signing up!', new_user_registration_path %></u>
       </p>
@@ -173,6 +173,14 @@
               <%= link_to image_tag("tweet.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
             <% elsif object.medium == "audio_book" %>
               <%= link_to image_tag("audio_book.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% elsif object.medium == "e_book" %>
+              <%= link_to image_tag("e_book.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% elsif object.medium == "online_course" %>
+              <%= link_to image_tag("online_course.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% elsif object.medium == "code_repository" %>
+              <%= link_to image_tag("code_repository.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+            <% elsif object.medium == "blog" %>
+              <%= link_to image_tag("blog.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
             <% else %>
               <%= link_to image_tag("web.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
             <% end %>
