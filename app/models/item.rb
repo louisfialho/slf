@@ -11,7 +11,7 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :shelves
   has_and_belongs_to_many :spaces
 
-  MEDIUM = ['book', 'podcast', 'video', 'web', 'other', 'blogpost', 'newsletter', 'news article', 'academic article', 'tweet', 'audio book']
+  MEDIUM = ['book', 'podcast', 'video', 'web', 'other', 'blogpost', 'newsletter', 'news_article', 'academic_article', 'tweet', 'audio_book']
 
   before_validation :extract_url, :get_redirect_if_exists, on: :create # makes sure the persisted value is a url (no additional character), and, in case of a redirect, the final redirect
   validates :url, presence: true, url: true # see custom class
@@ -81,13 +81,13 @@ class Item < ApplicationRecord
       elsif url.include?('substack.com') || url.include?('every.to')
         return 'newsletter'
       elsif url.include?('techcrunch.com') || url.include?('nytimes.com') || url.include?('wsj.com')
-        return 'news article'
+        return 'news_article'
       elsif url.include?('wikipedia.org')
-        return 'academic article'
+        return 'academic_article'
       elsif url.include?('twitter.com')
         return 'tweet'
       elsif url.include?('audible.com') || url.include?('blinkist.com')
-        return 'audio book'
+        return 'audio_book'
       else
         return 'other'
       end
