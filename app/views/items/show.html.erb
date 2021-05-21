@@ -1,5 +1,5 @@
-<!-- NAVBAR AND OPTIONS BOX IF USER ON SANDBOX SHELF -->
 <% if @shelf_mother.id == 20 %>
+<!-- NAVBAR AND OPTIONS BOX IF USER ON SANDBOX SHELF -->
   <!-- Navbar: Back, item emoji, options -->
   <div class="navbar" id="navshow">
     <div>
@@ -79,15 +79,16 @@
         <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
       </div>
     <% end %>
-<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN ITEM -->
+
 <% elsif user_signed_in? && (@current_user == @shelf_mother.user) %>
+<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN ITEM -->
   <!-- Navbar: Back, item emoji, options -->
   <div class="navbar" id="navshow">
     <div>
       <% if @parent_space %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space), id: 'back-item-show' %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother), id: 'back-item-show' %>
       <% end %>
     </div>
     <div>
@@ -164,14 +165,9 @@
   </div>
   <!-- Item title -->
   <div class="main-container">
-    <h1 class="item-title">
-      <%= @item.name %>
-    </h1>
-
-  <%= simple_form_for @item, html: { id: :edit_item_name } do |f| %>
-    <%= f.input :name, label: false, as: :text, input_html: {style: 'width: 100%;padding-left: 0px;padding-right: 0px; color: black;', rows: 2, maxlength: 175, class: 'item-title', id: 'item-name'}  %>
-  <% end %>
-
+    <%= simple_form_for @item, html: { id: :edit_item_name } do |f| %>
+      <%= f.input :name, label: false, as: :text, input_html: {style: 'width: 100%;padding-left: 0px;padding-right: 0px; color: black; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;', rows: 1, maxlength: 175, class: 'item-title', id: 'item-name'}  %>
+    <% end %>
   <!-- Notes: can be edited -->
     <%= simple_form_for (@item) do |f| %>
       <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
@@ -187,8 +183,8 @@
   </div>
 
 
-<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND NOT ON THEIR OWN ITEM -->
 <% elsif user_signed_in? && (@current_user != @shelf_mother.user) %>
+<!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND NOT ON THEIR OWN ITEM -->
   <!-- Navbar: Back, item emoji, options -->
   <div class="navbar" id="navshow">
     <div>
@@ -256,8 +252,9 @@
         <%= @item.notes %>
       </p>
     <% end %>
-<!-- NAVBAR AND OPTIONS BOX IF USER NOT SIGNED IN -->
+
 <% elsif user_signed_in? == false %>
+<!-- NAVBAR AND OPTIONS BOX IF USER NOT SIGNED IN -->
   <!-- Navbar: Back, item emoji, login or sign up -->
   <div class="navbar" id="navshow">
     <div>
