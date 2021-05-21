@@ -165,9 +165,21 @@
   </div>
   <!-- Item title -->
   <div class="main-container">
-    <%= simple_form_for @item, html: { id: :edit_item_name } do |f| %>
-      <%= f.input :name, label: false, as: :text, input_html: {style: 'width: 100%;padding-left: 0px;padding-right: 0px; color: black; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;', rows: 1, maxlength: 175, class: 'item-title', id: 'item-name'}  %>
-    <% end %>
+    <div id="item-name-desktop">
+      <%= simple_form_for @item, html: { id: :edit_item_name } do |f| %>
+        <%= f.input :name, label: false, as: :text, input_html: {style: 'width: 100%;padding-left: 0px;padding-right: 0px; color: black; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;', rows: 1, maxlength: 175, class: 'item-title', id: 'item-name'}  %>
+      <% end %>
+    </div>
+    <div id="item-name-tablet">
+      <%= simple_form_for @item, html: { id: :edit_item_name } do |f| %>
+        <%= f.input :name, label: false, as: :text, input_html: {style: 'width: 100%;padding-left: 0px;padding-right: 0px; color: black;', rows: 2, maxlength: 175, class: 'item-title', id: 'item-name'}  %>
+      <% end %>
+    </div>
+    <div id="item-name-mobile">
+      <%= simple_form_for @item, html: { id: :edit_item_name } do |f| %>
+        <%= f.input :name, label: false, as: :text, input_html: {style: 'width: 100%;padding-left: 0px;padding-right: 0px; color: black;', rows: 3, maxlength: 175, class: 'item-title', id: 'item-name'}  %>
+      <% end %>
+    </div>
   <!-- Notes: can be edited -->
     <%= simple_form_for (@item) do |f| %>
       <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
