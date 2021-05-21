@@ -1121,33 +1121,6 @@ input:focus, input.form-control:focus {
 
 // Media
 
-@media (min-width: 768px) {
-  #item-name-tablet{
-    display: none;
-  }
-  #item-name-mobile{
-    display: none;
-  }
-}
-
-@media (min-width: 400px) and (max-width: 767px) {
-  #item-name-desktop{
-    display: none;
-  }
-  #item-name-mobile{
-    display: none;
-  }
-}
-
-@media(max-width: 399px) {
-  #item-name-desktop{
-    display: none;
-  }
-  #item-name-tablet{
-    display: none;
-  }
-}
-
 @media(max-width: 1050px) {
   :root {
       --h1: 40px;

@@ -39,7 +39,6 @@ import { addFirstResource } from '../components/add-first-resource-redirect';
 import { autoplayWhenVisible } from '../components/autoplay-when-visible';
 import { displayIntroMessage } from '../components/display-intro-message';
 import { displayItemMediaOptions } from '../components/display-item-media-options';
-import { submitItemNameEditForm } from '../components/submit-item-name-edit-form';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -101,10 +100,6 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector("#item-medium-icon")) {
     displayItemMediaOptions();
-  }
-
-  if (document.querySelector("#edit_item_name")) {
-    submitItemNameEditForm();
   }
 });
 
