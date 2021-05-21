@@ -82,7 +82,7 @@ class Item < ApplicationRecord
         return 'newsletter'
       elsif ['techcrunch.com', 'nytimes.com', 'wsj.com', 'wired.com', 'ft.com', 'sifted.etu', 'bbc.com/news'].any? { |keyword| url.include? keyword }
         return 'news_article'
-      elsif ['wikipedia.org', 'technologyreview.com'].any? { |keyword| url.include? keyword }
+      elsif ['wikipedia.org', 'technologyreview.com', 'hbr.org'].any? { |keyword| url.include? keyword }
         return 'academic_article'
       elsif url.include? 'twitter.com'
         return 'tweet'
