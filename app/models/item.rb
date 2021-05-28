@@ -78,7 +78,7 @@ class Item < ApplicationRecord
         return 'book'
       elsif ['blog', 'medium.com', 'paulgraham.com', 'mirror.xyz'].any? { |keyword| url.include? keyword }
         return 'blogpost'
-      elsif ['newsletter', 'substack.com', 'every.to', 'stratechery.com'].any? { |keyword| url.include? keyword }
+      elsif ['newsletter', 'substack.com', 'every.to', 'stratechery.com', 'notboring.co'].any? { |keyword| url.include? keyword }
         return 'newsletter'
       elsif ['techcrunch.com', 'nytimes.com', 'wsj.com', 'wired.com', 'ft.com', 'sifted.etu', 'bbc.com/news'].any? { |keyword| url.include? keyword }
         return 'news_article'
@@ -88,7 +88,7 @@ class Item < ApplicationRecord
         return 'tweet'
       elsif ['audible.com', 'blinkist.com'].any? { |keyword| url.include? keyword }
         return 'audio_book'
-      elsif ['coursera.org', 'edx.org'].any? { |keyword| url.include? keyword }
+      elsif ['coursera.org', 'edx.org', 'udacity.com'].any? { |keyword| url.include? keyword }
         return 'online_course'
       elsif url.include? 'github.com'
         return 'code_repository'

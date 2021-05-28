@@ -49,6 +49,14 @@ skip_before_action :verify_authenticity_token
     end
   end
 
+  def create_from_chrome_ext
+    # parse POST request to set vars user_id and url
+    # find user
+    user = User.first # user = User.find(user_id)
+    # create item based on url
+    # add item to user's "Added by bot" space
+  end
+
   def index
     @items = policy_scope(Item)
   end

@@ -1,10 +1,12 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :shelves, dependent: :destroy
   validate :valid_phone_num
+  before_create :generate_extension_auth_token
   after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash, :titleize_first_last_name
 
   require "base64"
@@ -25,6 +27,13 @@ class User < ApplicationRecord
       self.save
     end
     #to go further: else, generate a random hash, check if it has not already been attributed. if it has repeat.
+  end
+
+  def generate_extension_auth_token
+    self.chrome_auth_token = loop do
+      random_token = SecureRandom.urlsafe_base64(nil, false)
+      break random_token unless User.exists?(chrome_auth_token: random_token)
+    end
   end
 
   def titleize_first_last_name
