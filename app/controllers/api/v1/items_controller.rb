@@ -16,7 +16,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
       @shelf = @user.shelves.first
       @added_by_bot_space = @shelf.spaces.where(name: '🤖 Added by Bot').first
       @added_by_bot_space.items << @item
-      item_url = "http://localhost:3000/items/#{@item.id}?space_id=#{@added_by_bot_space.id}"
+      item_url = "https://www.shelf.so/items/#{@item.id}?space_id=#{@added_by_bot_space.id}"
       render json: {url: item_url}
     else
       render json: {
