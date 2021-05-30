@@ -1,7 +1,7 @@
 function send(chrome_auth_token, current_url) {
   const btn = document.querySelector("#send-data");
   btn.innerHTML = "Please wait 🤖";
-  fetch('http://localhost:3000/api/v1/items', { // https://shelf.so/api/v1/items
+  fetch('https://www.shelf.so/api/v1/items', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
@@ -60,8 +60,9 @@ function displayInstructions(btnToRemove) {
 }
 
 var bgPage = chrome.extension.getBackgroundPage();
-bgPage.checkCookie('http://localhost:3000/', 'chrome_auth_token')
+bgPage.checkCookie('https://www.shelf.so', 'chrome_auth_token')
 .then(cookie => {
+  console.log(cookie)
   if (cookie == null) {
     const signInBtn = document.getElementById('sign-in');
     const contact = document.getElementById('contact');
