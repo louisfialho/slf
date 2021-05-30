@@ -2,12 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <script type="text/javascript" src="popup.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <a id="send-data" style="display:none;">Send data</a>
-    <a id="sign-in" style="display:none;" href="http://localhost:3000/sessions/extension" target="_blank" rel="noopener noreferrer">Sign in</a>
+    <div class="main-container">
+      <a class="logo" href="https://www.shelf.so/" target="_blank" rel="noopener noreferrer">shelf</a>
+      <a class="btn" id="send-data" style="display:none;">Add to shelf 📚</a>
+      <a class="btn" id="sign-in" style="display:none;" href="http://localhost:3000/sessions/extension" target="_blank" rel="noopener noreferrer">Log in 👉</a>
+      <div class="shortcut-ctn" id="shortcut-instructions-mac" style="display:none;">
+        <p class="shortcut-dsc"><strong>Cmd + I</strong> opens this window</p>
+        <p class="shortcut-dsc"><strong>Cmd + J</strong> adds URL to shelf</p>
+        <p class="shortcut-dsc"><strong>Cmd + K</strong> opens it on shelf</p>
+      </div>
+      <div class="shortcut-ctn" id="shortcut-instructions-pc" style="display:none;">
+        <p class="shortcut-dsc"><strong>Ctrl + I</strong> opens this window</p>
+        <p class="shortcut-dsc"><strong>Ctrl + J</strong> adds URL to shelf</p>
+        <p class="shortcut-dsc"><strong>Ctrl + K</strong> opens it on shelf</p>
+      </div>
+      <a class="footnote" id="shortcuts" style="display:none;">🤚 Shortcuts</a>
+      <a class="footnote" id="back" style="display:none;">👈 Back</a>
+      <a class="footnote" id="contact" style="display:none;" href = "mailto: hello@shelf.so">👋 hello@shelf.so</a>
+    </div>
   </body>
+  <script type="text/javascript" src="popup.js"></script>
 </html>
 

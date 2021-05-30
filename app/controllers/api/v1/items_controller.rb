@@ -19,7 +19,10 @@ class Api::V1::ItemsController < Api::V1::BaseController
       item_url = "http://localhost:3000/items/#{@item.id}?space_id=#{@added_by_bot_space.id}"
       render json: {url: item_url}
     else
-      render_error
+      render json: {
+        error: "We cannot process this URL for now",
+        status: 400
+      }, status: 400
     end
   end
 

@@ -21,17 +21,18 @@ class UrlValidator < ActiveModel::EachValidator
   #   false
   end
 
-  def self.working_url?(url_str)
-    Net::HTTP.get_response(URI.parse(url_str)).is_a?(Net::HTTPSuccess)
-    rescue
-      false
-  end
+  # def self.working_url?(url_str)
+  #   url = URI.parse(url_str)
+  #   Net::HTTP.start(url.host, url.port) do |http|
+  #     http.head(url.request_uri).code != 404
+  #   end
+  # rescue
+  #   false
+  # end
 
   def validate_each(record, attribute, value)
     if self.class.url?(value) == false # url: 'abc' is not validated
       record.errors.add(attribute, "is not a URL")
-    elsif (self.class.url?(value) == true) && (self.class.working_url?(value) == false) # url: 'https://www.yoube.com/...' is not validated but 'https://youtu.be/8rXD5-xhemo' is.
-      record.errors.add(attribute, "is not a valid URL")
     end
   end
 

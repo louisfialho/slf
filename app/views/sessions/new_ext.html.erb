@@ -3,9 +3,9 @@
     <%= link_to('Sign up', new_user_registration_path, class: 'login expand') %>
 </div>
 
-<div class="log-in-ctn">
+<div class="log-in-ext-ctn">
 
-  <h2 class="welcome-back">🛋 Welcome back!</h2>
+  <h2 class="welcome-back">Log in to access the extension 🤖</h2>
   <%= simple_form_for @user, :url => sessions_extension_path, :method => :post do |f| %>
     <div class="form-inputs">
       <%= f.input :email,

@@ -30,9 +30,11 @@ Please open the link below to open your first conversation with Shelf Bot in Tel
 Once in Telegram, simply hit 'Start'.
 https://t.me/Shelf_bot?start=#{@user.telegram_hash}
 N.B. If you don't have the Telegram app installed, please do install it in order to join Shelf!"
-      TwilioClient.new.send_text(@user.phone_number, message_new_user)
-      UserNotifierMailer.send_signup_email(@user).deliver
-      UserNotifierMailer.inform_louis_of_user_signup(@user).deliver
+      # TwilioClient.new.send_text(@user.phone_number, message_new_user)
+      # UserNotifierMailer.send_signup_email(@user).deliver
+      # UserNotifierMailer.inform_louis_of_user_signup(@user).deliver
+      chrome_auth_token = @user.chrome_auth_token
+      cookies.permanent[:chrome_auth_token] = chrome_auth_token
       redirect_to meet_bot_path
     else
       render :new

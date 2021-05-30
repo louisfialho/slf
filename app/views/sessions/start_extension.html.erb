@@ -1,1 +1,15 @@
-<p>click on top</p>
+<div class="navbar" id="navshow">
+    <%= link_to('shelf', root_path, class: 'logo') %>
+</div>
+
+<div class="meet-shelf-bot-ctn"> <!-- sign-up ctn refact -->
+  <h2 class="meet-shelf-bot">You're all set 🤖</h2>
+  <p class="benefit-dsc">Now, try the following shortcuts ⌨️</p>
+  <div class="shortcut-ctn">
+    <p class="shortcut-dsc">🤚 Cmd + I to open the extension</p>
+    <p class="shortcut-dsc">🤚 Cmd + J to add this URL to your shelf</p>
+    <p class="shortcut-dsc">🤚 Cmd + K to open it on your shelf</p>
+  </div>
+  <%= video_tag "shortcut-tuto.mp4", autoplay: true, loop: true, muted: true, playsinline: true, class: 'shortcut-tuto' %>
+<!--   <p class="bottom-note"> Those shortcuts are useful to save multiple tabs </p> -->
+</div>
