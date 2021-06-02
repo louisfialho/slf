@@ -7,9 +7,16 @@ class User < ApplicationRecord
   has_many :shelves, dependent: :destroy
   validate :valid_phone_num
   before_create :generate_extension_auth_token
-  after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash, :titleize_first_last_name
+  after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash, :titleize_first_last_name, :set_username_on_shelf
 
   require "base64"
+
+  def set_username_on_shelf # for url
+    shelf = self.shelves.first
+    shelf.username = self.username
+    shelf.save
+  end
+
 
   def create_shelf_and_space_for_Telegram_items
       shelf = Shelf.new(user_id: self.id)
