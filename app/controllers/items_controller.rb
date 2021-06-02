@@ -109,7 +109,7 @@ skip_before_action :verify_authenticity_token
       @shelf.items.where('position > ?', position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
       @shelf.spaces.where('position > ?', position).update_all('position = position - 1')
       @item.destroy
-      redirect_to shelf_path(@shelf)
+      redirect_to shelf_path(@shelf.username)
     end
   end
 
@@ -184,7 +184,7 @@ skip_before_action :verify_authenticity_token
     @item.spaces.destroy_all
     @shelf.items << @item
     #redirect_to item_path(@item, shelf_id: @shelf.id)
-    redirect_to shelf_path(@shelf)
+    redirect_to shelf_path(@shelf.username)
   end
 
   def move

@@ -81,7 +81,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
         end
         redirect_to space_path(@space)
       else
-        redirect_to shelf_path(@shelf)
+        redirect_to shelf_path(@shelf.username)
       end
       if current_user != User.first
         UserNotifierMailer.inform_louis_of_new_space(@space, shelf_mother_of_space(@space).user).deliver
@@ -261,7 +261,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
       @shelf = Shelf.find(params[:shelf_id]) # trouver shelf_moth
       @shelf.items.where('position > ?', position).update_all('position = position - 1') # every new object has position 1 by default --> pushes all other positions to the right
       @shelf.spaces.where('position > ?', position).update_all('position = position - 1')
-      redirect_to shelf_path(@shelf)
+      redirect_to shelf_path(@shelf.username)
     elsif params[:parent_id].present?
       @space = Space.find(params[:parent_id])
       @space.items.where('position > ?', position).update_all('position = position - 1')
@@ -395,7 +395,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
     @space.save
 
     @shelf.spaces << @space
-    redirect_to shelf_path(@shelf)
+    redirect_to shelf_path(@shelf.username)
   end
 
   def recursive_parent_search2(space)
