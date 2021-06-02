@@ -3,6 +3,10 @@ class ShelvesController < ApplicationController
   before_action :set_shelf, only: [:show, :edit, :update, :destroy]
   skip_after_action :verify_authorized, only: [:shelf_children]
 
+  def to_param
+    username
+  end
+
   def create
     @shelf = Shelf.new(shelf_params)
     authorize @shelf
@@ -66,7 +70,7 @@ class ShelvesController < ApplicationController
   end
 
   def set_shelf
-    @shelf = Shelf.find(params[:id])
+    @shelf = Shelf.find_by(username: params[:username])
     authorize @shelf
   end
 end

@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    shelf_path(current_user.shelves.first)
+    shelf_path(current_user.shelves.first.username)
   end
 
   private

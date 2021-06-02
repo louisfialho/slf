@@ -6,7 +6,7 @@
       <% if @parent %>
         <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <h1 class="space-title"> <%= @space.name %> </h1>
@@ -48,7 +48,7 @@
       <% if @parent %>
         <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <h1 class="space-title"> <%= @space.name %> </h1>
@@ -97,7 +97,7 @@
       <% if @parent %>
         <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <h1 class="space-title"> <%= @space.name %> </h1>
@@ -109,7 +109,7 @@
   <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
     <div class="option-ctn">
       <a>🏠</a>
-      <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first), class: "option-label" %>
+      <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first.username), class: "option-label" %>
     </div>
   </div>
 
@@ -121,7 +121,7 @@
       <% if @parent %>
         <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother) %>
+        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <h1 class="space-title"> <%= @space.name %> </h1>

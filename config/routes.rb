@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       get 'current_shelf'
     end
   end
-  resources :shelves, only: [:new, :create, :show] do
+  resources :shelves, only: [:new, :create, :show], param: :username do
     member do
       get 'shelf_children'
     end
