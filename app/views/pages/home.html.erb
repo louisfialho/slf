@@ -10,20 +10,12 @@
 
 <div>
   <div class="lp-1">
-<!--     <p class="tagline" id='banner-typed-text'>Save, organize and annotate your <span style="white-space:nowrap;">resources 📚</span></p> -->
     <p class="tagline" id="tagline"><span id="banner-typed-text"></span></p>
-<!--     <a href="https://docs.google.com/forms/d/e/1FAIpQLSemiCUohcstS3K8tGcxmV34200dCrA2GnWBWf29gYibXE5PuA/viewform?usp=sf_link
-" class="lp-cta">Try it now</a> -->
-<!--   <%= link_to('Try it now', shelf_path(Shelf.find(20)), class: 'lp-cta') %> -->
       <div class="lp-cta-main">
-        <%= link_to('Try it now', shelf_path(Shelf.find(20)), id: 'try-it-now') %>
+        <%= link_to('Try it now', shelf_path(Shelf.find(20).username), id: 'try-it-now') %>
         <%= link_to image_tag("right_arrow_white.png", width: 25).html_safe, shelf_path(Shelf.find(20)) %>
       </div>
       <p id="sub-cta">No signup required</p>
-<!--<div>
-      <div>emoji</div>
-      <div>emoji</div>
-    </div> -->
   </div>
 </div>
 
