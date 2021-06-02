@@ -3,7 +3,7 @@
   "version": "1.0",
   "description": "Save resources from the web to your Shelf.",
   "manifest_version": 2,
-  "permissions": [ "activeTab", "cookies", "tabs", "storage", "http://*/*", "https://*/*", "https://www.shelf.so/", "http://localhost/*", "http://localhost:3000/"],
+  "permissions": [ "activeTab", "cookies", "http://*/*", "https://*/*", "https://www.shelf.so/"],
   "background": {
     "scripts": ["background.js"]
   },
