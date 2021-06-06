@@ -76,7 +76,7 @@ class Item < ApplicationRecord
         return 'podcast'
       elsif ['ww.amazon', 'ww.goodreads'].any? { |keyword| url.include? keyword }
         return 'book'
-      elsif ['blog', 'medium.com', 'paulgraham.com', 'mirror.xyz', 'item.to', 'darkblueheaven.com', 'dev.to'].any? { |keyword| url.include? keyword }
+      elsif ['blog', 'medium.com', 'linkedin.com/pulse', 'paulgraham.com', 'mirror.xyz', 'item.to', 'darkblueheaven.com', 'dev.to'].any? { |keyword| url.include? keyword }
         return 'blogpost'
       elsif ['newsletter', 'substack.com', 'every.to', 'stratechery.com', 'notboring.co'].any? { |keyword| url.include? keyword }
         return 'newsletter'
