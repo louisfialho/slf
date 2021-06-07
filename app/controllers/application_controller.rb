@@ -24,8 +24,10 @@ class ApplicationController < ActionController::Base
   end
 
   def shelf_mother_of_item(item)
-    if @item.shelves.empty? == false
-      @item.shelves.first
+    if @item.shelves
+      if @item.shelves.empty? == false
+        @item.shelves.first
+      end
     elsif @item.spaces.empty? == false
       recursive_parent_search3(@item.spaces.first).shelves.first
     end
