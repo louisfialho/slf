@@ -86,7 +86,7 @@ class Item < ApplicationRecord
         return 'academic_article'
       elsif url.include? 'twitter.com'
         return 'tweet'
-      elsif ['audible.com', 'blinkist.com'].any? { |keyword| url.include? keyword }
+      elsif ['audible', 'blinkist.com'].any? { |keyword| url.include? keyword }
         return 'audio_book'
       elsif ['coursera.org', 'edx.org', 'udacity.com'].any? { |keyword| url.include? keyword }
         return 'online_course'
