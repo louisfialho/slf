@@ -80,7 +80,7 @@ class Item < ApplicationRecord
         return 'blogpost'
       elsif ['newsletter', 'substack.com', 'every.to', 'notboring.co'].any? { |keyword| url.include? keyword }
         return 'newsletter'
-      elsif ['techcrunch.com', 'economist.com', 'news.ycombinator.com', 'nytimes.com', 'wsj.com', 'wired.com', 'ft.com', 'sifted.etu', 'bbc.com/news'].any? { |keyword| url.include? keyword }
+      elsif ['techcrunch.com', 'economist.com', 'news.ycombinator.com', 'nytimes.com', 'wsj.com', 'wired.com', 'ft.com', 'sifted.etu', 'bbc.com/news', 'lemonde.fr'].any? { |keyword| url.include? keyword }
         return 'news_article'
       elsif ['wikipedia.org', 'technologyreview.com', 'hbr.org', 'whitepaper'].any? { |keyword| url.include? keyword }
         return 'academic_article'
