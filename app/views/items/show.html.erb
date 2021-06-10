@@ -64,7 +64,7 @@
 
   <!-- Options box: Move, destroy -->
   <div class="options-ctn item-options" id="options" style="display:none;">
-<!--     <div class="option-ctn">
+    <div class="option-ctn">
       <a>👉</a>
       <a class="option-label" id="move-to">Move</a>
     </div>
@@ -75,15 +75,15 @@
       <% elsif @space %>
         <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
       <% end %>
-    </div> -->
-    <div class="option-ctn">
+    </div>
+<!--     <div class="option-ctn">
       <a>🏡</a>
       <a href="https://www.shelf.so/users/sign_up" class="option-label" id="new-object-or-space">Sign up</a>
     </div>
     <div class="option-ctn">
       <a>🚪</a>
       <%= link_to 'Leave', root_path, class: "option-label", id: "leave-shelf" %>
-    </div>
+    </div> -->
   </div>
   <!-- Item title and Notes: can be edited -->
   <div class="main-container">
