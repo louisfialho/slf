@@ -72,15 +72,15 @@ class Item < ApplicationRecord
     def item_medium(url)
       if url.include? 'www.youtube'
         return 'video'
-      elsif ['spotify.com/episode', 'spotify.com/show', 'podcasts.apple', 'pca.st', 'podcasts.google'].any? { |keyword| url.include? keyword }
+      elsif ['spotify.com/episode', 'spotify.com/show', 'podcasts.apple', 'pca.st', 'podcasts.google', 'deezer.com/en/episode', 'podcast'].any? { |keyword| url.include? keyword }
         return 'podcast'
       elsif ['ww.amazon', 'ww.goodreads'].any? { |keyword| url.include? keyword }
         return 'book'
-      elsif ['blog', 'medium.com', 'stratechery.com', 'linkedin.com/pulse', 'paulgraham.com', 'mirror.xyz', 'item.to', 'darkblueheaven.com', 'dev.to'].any? { |keyword| url.include? keyword }
+      elsif ['blog', 'medium.', 'towardsdatascience.com', 'stratechery.com', 'readthegeneralist.com', 'firstround.com', 'linkedin.com/pulse', 'paulgraham.com', 'mirror.xyz', 'item.to', 'darkblueheaven.com', 'dev.to'].any? { |keyword| url.include? keyword }
         return 'blogpost'
       elsif ['newsletter', 'substack.com', 'every.to', 'notboring.co'].any? { |keyword| url.include? keyword }
         return 'newsletter'
-      elsif ['techcrunch.com', 'economist.com', 'news.ycombinator.com', 'nytimes.com', 'wsj.com', 'wired.com', 'ft.com', 'sifted.etu', 'bbc.com/news', 'lemonde.fr'].any? { |keyword| url.include? keyword }
+      elsif ['techcrunch.com', 'economist.com', 'news.ycombinator.com', 'nytimes.com', 'wsj.com', 'wired.com', 'ft.com', 'sifted.etu', 'bbc.com/news', 'lemonde.fr', 'entrepreneur.com'].any? { |keyword| url.include? keyword }
         return 'news_article'
       elsif ['wikipedia.org', 'technologyreview.com', 'hbr.org', 'whitepaper'].any? { |keyword| url.include? keyword }
         return 'academic_article'
