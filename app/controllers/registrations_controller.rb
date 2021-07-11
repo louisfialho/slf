@@ -33,6 +33,7 @@ N.B. If you don't have the Telegram app installed, please do install it in order
       TwilioClient.new.send_text(@user.phone_number, message_new_user)
       UserNotifierMailer.send_signup_email(@user).deliver
       UserNotifierMailer.inform_louis_of_user_signup(@user).deliver
+      UserNotifierMailer.install_chrome_ext(@user).deliver_later(wait_until: 72.hours.from_now)
       chrome_auth_token = @user.chrome_auth_token
       cookies.permanent[:chrome_auth_token] = chrome_auth_token
       redirect_to meet_bot_path

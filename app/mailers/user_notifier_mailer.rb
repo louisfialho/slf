@@ -7,6 +7,11 @@ class UserNotifierMailer < ApplicationMailer
     mail( :to => @user.email, :subject => 'Connect with Shelf Bot 🤖' )
   end
 
+  def install_chrome_ext(user)
+    @user = user
+    mail( :to => @user.email, :subject => "Add resources from desktop using Shelf's Chrome extension! 🧠", :bcc => 'louis@shelf.so' )
+  end
+
   def inform_louis_of_user_signup(user)
     @user = user
     mail( :to => 'louis@shelf.so', :subject => 'New user 🧒' )

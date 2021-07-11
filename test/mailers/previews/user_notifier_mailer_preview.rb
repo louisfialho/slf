@@ -5,4 +5,7 @@ class UserNotifierMailerPreview < ActionMailer::Preview
     UserNotifierMailer.send_signup_email(User.first)
   end
 
+  def install_chrome_ext
+    UserNotifierMailer.with(user: User.first).install_chrome_ext(User.first)
+  end
 end
