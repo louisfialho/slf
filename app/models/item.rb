@@ -6,6 +6,7 @@ class Item < ApplicationRecord
   require 'open-uri'
   require 'nokogiri'
   require 'json' # tweet parsing
+  require 'openssl'
   require 'typhoeus' # tweet parsing
 
   has_and_belongs_to_many :shelves
@@ -47,6 +48,47 @@ class Item < ApplicationRecord
       self.name = item_name(url) if name.blank?
       self.medium = item_medium(url) if medium.blank?
       self.position = 1
+      # si self.medium est pas video ou podcast ou tweet ou online course ou book ou audio book ou code repo
+      unless ["video", "podcast", "tweet"].include?(self.medium)
+        self.notes = item_text_content(url) if notes.blank?
+      end
+    end
+
+    def item_text_content(url)
+      request_url = 'https://lexper.p.rapidapi.com/v1.1/extract'
+
+      query = {
+          'url' =>  url,  # url to extract
+          'text' =>  1.to_s, # return extracted text
+          'html' =>  0.to_s, # extract html
+          'media' =>  0.to_s, # extract media
+          'feeds' =>  0.to_s, # do not extract RSS feeds
+          'images' =>  0.to_s, # extract all images present in HTML
+          'author' =>  0.to_s, # extract article's author
+          'pub_date' =>  0.to_s, # extract article's publish date
+          'js' =>  0.to_s,     # do not run js
+          'js_wait' =>  0.to_s, # when JavaScript is enabled, indicates how many seconds the API should wait for the JS interpreter before starting the extraction.
+          'strip_tags' =>  'form,style', #  tags to strip from the extracted HTML
+          'timeout' =>  20.to_s #   request timeout in seconds.
+      }
+
+      headers = {
+          'x-rapidapi-key' => 'e09ea11b6amsh74eb3c011223295p1aa55bjsnc595811962a2',
+          'x-rapidapi-host' => 'lexper.p.rapidapi.com'
+      }
+
+      options  = {
+          query: query,
+          headers: headers
+      }
+
+      response = HTTParty.get(request_url, options)
+
+      if response.code != 200
+          puts "Bad status code #{response.code}"
+      end
+
+      return JSON.parse(response.body)["article"]["text"]
     end
 
     def item_name(url)
