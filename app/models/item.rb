@@ -48,10 +48,9 @@ class Item < ApplicationRecord
       self.name = item_name(url) if name.blank?
       self.medium = item_medium(url) if medium.blank?
       self.position = 1
-      # si self.medium est pas video ou podcast ou tweet ou online course ou book ou audio book ou code repo
-      unless ["video", "podcast", "tweet"].include?(self.medium)
-        self.notes = item_text_content(url) if notes.blank?
-      end
+      # unless ["video", "podcast", "tweet", "online_course", "book", "audio_book", "code_repository"].include?(self.medium)
+      #   self.notes = item_text_content(url) if notes.blank?
+      # end
     end
 
     def item_text_content(url)
@@ -73,8 +72,8 @@ class Item < ApplicationRecord
       }
 
       headers = {
-          'x-rapidapi-key' => 'e09ea11b6amsh74eb3c011223295p1aa55bjsnc595811962a2',
-          'x-rapidapi-host' => 'lexper.p.rapidapi.com'
+          'x-rapidapi-key' => ENV["RAPID_API_KEY"],
+          'x-rapidapi-host' => ENV["RAPID_API_HOST"]
       }
 
       options  = {
