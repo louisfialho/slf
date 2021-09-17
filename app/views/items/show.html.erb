@@ -194,6 +194,10 @@
         <%= @item.name %>
       </h1>
     </a>
+    <button id='synthesize'>synthesize</button>
+    <audio id="audioPlayback" controls>
+      <source id="audioSource" type="audio/mp3" src="">
+    </audio>
   <!-- Notes: can be edited -->
     <%= simple_form_for (@item) do |f| %>
       <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>

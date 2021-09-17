@@ -16,7 +16,7 @@ class Item < ApplicationRecord
 
   before_validation :extract_url, :get_redirect_if_exists, on: :create # makes sure the persisted value is a url (no additional character), and, in case of a redirect, the final redirect
   validates :url, presence: true, url: true # see custom class
-  after_validation :set_params
+  after_validation :set_params, :extract_text
 
   private
 
@@ -48,12 +48,15 @@ class Item < ApplicationRecord
       self.name = item_name(url) if name.blank?
       self.medium = item_medium(url) if medium.blank?
       self.position = 1
-      # unless ["video", "podcast", "tweet", "online_course", "book", "audio_book", "code_repository"].include?(self.medium)
-      #   self.notes = item_text_content(url) if notes.blank?
-      # end
     end
 
-    def item_text_content(url)
+    def extract_text
+      unless ["video", "podcast", "tweet", "online_course", "book", "audio_book", "code_repository"].include?(self.medium)
+        self.notes = item_text_content(url) if notes.blank?
+      end
+    end
+
+    def item_text_content(url) # Ujeebu API, 750 requests per month max
       request_url = 'https://lexper.p.rapidapi.com/v1.1/extract'
 
       query = {

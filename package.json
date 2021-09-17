@@ -2,6 +2,10 @@
   "name": "slf",
   "private": true,
   "dependencies": {
+    "@aws-sdk/client-cognito-identity": "^3.31.0",
+    "@aws-sdk/client-polly": "^3.31.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.31.0",
+    "@aws-sdk/polly-request-presigner": "^3.31.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",

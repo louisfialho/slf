@@ -17,8 +17,7 @@ skip_before_action :verify_authenticity_token
       if @item.valid?
         if params[:item][:shelf_id].present?
           @shelf = Shelf.find(params[:item][:shelf_id])
-          # @shelf.items.update_all('position = position + 1') # every new object has position 1 by default --> pushes all other positions to the right
-          # @shelf.spaces.update_all('position = position + 1')
+          RepositioningItemsAndSpacesJob.perform_later(@shelf)
           @shelf.items << @item
           format.html do
             redirect_to item_path(@item, shelf_id: @shelf.id)
