@@ -78,4 +78,8 @@ class ItemPolicy < ApplicationPolicy
     true
   end
 
+  def persist_mp3_url?
+    true
+  end
+
 end

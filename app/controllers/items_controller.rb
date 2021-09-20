@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 skip_before_action :authenticate_user!, :only => [:show, :create, :destroy, :move_to_shelf, :move_to_space, :update]
-before_action :set_item, only: [:show, :edit, :update, :destroy, :move]
+before_action :set_item, only: [:show, :edit, :update, :destroy, :move, :persist_mp3_url]
 before_action :set_shelf, only: [:show, :move_to_shelf]
 before_action :set_shelf_space, only: [:new, :show, :edit, :move]
 skip_before_action :verify_authenticity_token
@@ -17,7 +17,7 @@ skip_before_action :verify_authenticity_token
       if @item.valid?
         if params[:item][:shelf_id].present?
           @shelf = Shelf.find(params[:item][:shelf_id])
-          RepositioningItemsAndSpacesJob.perform_later(@shelf)
+          RepositioningItemsAndSpacesJob.perform_later(@shelf) # do be repeated below
           @shelf.items << @item
           format.html do
             redirect_to item_path(@item, shelf_id: @shelf.id)
@@ -216,10 +216,18 @@ skip_before_action :verify_authenticity_token
     @item.save(validate: false)
   end
 
+  def persist_mp3_url
+    @item.mp3_url = params[:mp3_url]
+    @item.save
+    respond_to do |format|
+    format.json { head :ok }
+    end
+  end
+
   private
 
   def item_params
-    params.require(:item).permit(:url, :medium, :status, :name, :notes, :rank)
+    params.require(:item).permit(:url, :medium, :status, :name, :notes, :rank, :url_mp3)
   end
 
   def set_item

@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     collection do
       post :move_to_space
       post :move_to_shelf
+      post :persist_mp3_url
     end
     member do
       patch :move

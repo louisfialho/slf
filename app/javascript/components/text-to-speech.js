@@ -11,14 +11,16 @@ const synthesizeText = () => {
   const client = new Polly({
     region: "eu-west-2",
     credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+      accessKeyId: 'AKIAZPQ5EJ2PE3JHADJ5', // process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: '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' // process.env.AWS_SECRET_ACCESS_KEY
     }
   });
 
   var synthesizeBtn = document.querySelector("#synthesize")
 
   let text = document.getElementById("txt-area").value;
+
+  let itemId = document.getElementById("item-title").dataset.id
 
   const shortText = async() => {
     const speechParamsSync = {
@@ -37,8 +39,6 @@ const synthesizeText = () => {
     }
   }
 
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-
   const longText = async() => {
     const speechParamsAsync = {
       OutputS3BucketName: "polly-async",
@@ -55,25 +55,55 @@ const synthesizeText = () => {
     let outputUri = firstValue.SynthesisTask.OutputUri;
     console.log(outputUri)
     synthesizeBtn.innerHTML = "wait";
-    await delay(20000);
-    let secondValue = await client.send(
-      new GetSpeechSynthesisTaskCommand({TaskId: taskId})
-    );
-    console.log(secondValue);
-    document.getElementById('audioSource').src = outputUri;
-    document.getElementById('audioPlayback').load();
-    synthesizeBtn.innerHTML = "readyyy";
+    // polling takes quite some time. Improvement: test SNS
+    const interval = setInterval(async () => {
+      let secondValue = await client.send(
+        new GetSpeechSynthesisTaskCommand({TaskId: taskId})
+      )
+      let pollingResponse = secondValue.SynthesisTask.TaskStatus
+      console.log(pollingResponse)
+      if (pollingResponse == "completed") {
+        clearInterval(interval);
+        console.log(secondValue);
+        document.getElementById('audioSource').src = outputUri;
+        document.getElementById('audioPlayback').load();
+        synthesizeBtn.innerHTML = "readyyy";
+        Rails.ajax({
+          url: "/items/persist_mp3_url",
+          type: 'POST',
+          data: `mp3_url=${outputUri}&id=${itemId}`,
+          success: function(data) {
+            console.log(data);
+          }
+        });
+      } else if (pollingResponse == "failed") {
+        synthesizeBtn.innerHTML = "failed";
+      }
+    }, 1000);
   };
 
+async function waitUntil(condition) {
+  return await new Promise(resolve => {
+    const interval = setInterval(() => {
+      if (condition) {
+        resolve('foo');
+        clearInterval(interval);
+      };
+    }, 1000);
+  });
+}
+
   function speakText() {
-    if (text.length > 3000) {
+    if (text.length < 3000) {
       shortText()
-    } else {
+    } else if (text.length < 200000) {
       longText()
+    } else {
+      synthesizeBtn.innerHTML = "text too long";
     }
   };
 
   synthesizeBtn.addEventListener('click', speakText);
-}
+};
 
 export { synthesizeText };
