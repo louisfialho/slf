@@ -11,8 +11,8 @@ const synthesizeText = () => {
   const client = new Polly({
     region: "eu-west-2",
     credentials: {
-      accessKeyId: 'AKIAZPQ5EJ2PE3JHADJ5', // process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: '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' // process.env.AWS_SECRET_ACCESS_KEY
+      process.env.AWS_ACCESS_KEY_ID,
+      process.env.AWS_SECRET_ACCESS_KEY
     }
   });
 
