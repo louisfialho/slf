@@ -1,5 +1,7 @@
 const synthesizeText = () => {
 
+  const test1 = document.getElementById('audioPlayback');
+
   const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
   const {
     fromCognitoIdentityPool,
