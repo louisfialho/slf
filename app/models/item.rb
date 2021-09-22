@@ -87,10 +87,10 @@ class Item < ApplicationRecord
       response = HTTParty.get(request_url, options)
 
       if response.code != 200
-          puts "Bad status code #{response.code}"
+          return "Bad status code #{response.code}"
+      else
+        return JSON.parse(response.body)["article"]["text"]
       end
-
-      return JSON.parse(response.body)["article"]["text"]
     end
 
     def item_name(url)
