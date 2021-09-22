@@ -4,17 +4,18 @@ const displayItemOptions = () => {
   const moveTo = document.getElementById("move-to");
   const list = document.getElementById("move-to-list");
   const addSpaceBox = document.getElementById('add-space');
+  const listenBtn = document.getElementById('listen');
 
- optionsBtn.addEventListener("click", (event) => {
-  if (list.style.display === "none") {
-    if (options.style.display === "none") {
-      options.style.display = "";
+  optionsBtn.addEventListener("click", (event) => {
+    if (list.style.display === "none") {
+      if (options.style.display === "none") {
+        options.style.display = "";
+      } else {
+        options.style.display = "none";
+      }
     } else {
-      options.style.display = "none";
+      list.style.display = "none";
     }
-  } else {
-    list.style.display = "none";
-  }
   });
 
   document.addEventListener('click', function(event) {

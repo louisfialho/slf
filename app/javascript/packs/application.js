@@ -9,8 +9,6 @@ require("@rails/activestorage").start()
 require("channels")
 require('dotenv').config();
 
-
-
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -41,7 +39,7 @@ import { addFirstResource } from '../components/add-first-resource-redirect';
 import { autoplayWhenVisible } from '../components/autoplay-when-visible';
 import { displayIntroMessage } from '../components/display-intro-message';
 import { displayItemMediaOptions } from '../components/display-item-media-options';
-import { synthesizeText } from '../components/text-to-speech';
+import { textToSpeech } from '../components/text-to-speech';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -55,6 +53,7 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector(".item-options")) {
     displayItemOptions();
+    textToSpeech();
   }
 
   if (document.querySelector("#new-object-or-space")) {
@@ -103,10 +102,6 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector("#item-medium-icon")) {
     displayItemMediaOptions();
-  }
-
-  if (document.querySelector("#synthesize")) {
-    synthesizeText();
   }
 });
 

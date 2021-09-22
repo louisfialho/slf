@@ -170,6 +170,14 @@
 
   <!-- Options box: Move, destroy, leave -->
   <div class="options-ctn item-options" id="options" style="display:none;">
+    <% if current_user.username == "lfialho" %>
+      <% if @item.mp3_url.nil? == true %>
+        <div class="option-ctn" id="listen-option">
+          <a>👂</a>
+          <a class="option-label" id="listen">Listen</a>
+        </div>
+      <% end %>
+    <% end %>
     <div class="option-ctn">
       <a>👉</a>
       <a class="option-label" id="move-to">Move</a>
@@ -194,19 +202,8 @@
         <%= @item.name %>
       </h1>
     </a>
+    <div style="height: 20px"></div>
     <!-- Si l'item a un audio, load it et bouton play -->
-    <% if current_user.username == "lfialho" %>
-      <% if @item.mp3_url.nil? == false %>
-        <audio id="audioPlayback" controls preload="auto" style="width: 100%; margin-top: 20px; margin-bottom: 20px;">
-          <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
-        </audio>
-      <% else %>
-        <button id='synthesize'>synthesize</button>
-        <audio id="audioPlayback" controls>
-          <source id="audioSource" type="audio/mp3" src="">
-        </audio>
-      <% end %>
-    <% end %>
   <!-- Notes: can be edited -->
     <%= simple_form_for (@item) do |f| %>
       <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
@@ -218,6 +215,17 @@
       <div class='buttonHolder'>
         <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
       </div>
+    <% end %>
+    <% if current_user.username == "lfialho" %>
+      <% if @item.mp3_url.nil? == false %>
+        <audio id="audioPlayback" controls preload="auto" style="width: 100%;">
+          <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
+        </audio>
+      <% else %>
+        <audio id="audioPlayback" controls style="display:none; width: 100%;">
+          <source id="audioSource" type="audio/mp3" src="">
+        </audio>
+      <% end %>
     <% end %>
   </div>
 

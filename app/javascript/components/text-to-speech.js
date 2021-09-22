@@ -1,6 +1,4 @@
-const synthesizeText = () => {
-
-  const test1 = document.getElementById('audioPlayback');
+const textToSpeech = () => {
 
   const { CognitoIdentityClient } = require("@aws-sdk/client-cognito-identity");
   const {
@@ -18,11 +16,13 @@ const synthesizeText = () => {
     }
   });
 
-  var synthesizeBtn = document.querySelector("#synthesize")
+  var listenBtn = document.getElementById("listen")
 
   let text = document.getElementById("txt-area").value;
 
   let itemId = document.getElementById("item-title").dataset.id
+
+  let player = document.getElementById('audioPlayback')
 
   const shortText = async() => {
     const speechParamsSync = {
@@ -34,10 +34,13 @@ const synthesizeText = () => {
       let url = await getSynthesizeSpeechUrl({
         client, params: speechParamsSync
       });
+      let player = document.getElementById('audioPlayback')
+      player.style.display = "";
       document.getElementById('audioSource').src = url;
-      document.getElementById('audioPlayback').load();
+      player.load();
+      player.play()
     } catch (err) {
-      synthesizeBtn.innerHTML = err;
+      // mettre failure message dans la feedback window
     }
   }
 
@@ -46,7 +49,7 @@ const synthesizeText = () => {
       OutputS3BucketName: "polly-async",
       OutputFormat: "mp3",
       Text: text,
-      VoiceId: "Matthew"
+      VoiceId: "Matthew",
     };
     let firstValue = await client.send(
       new StartSpeechSynthesisTaskCommand(speechParamsAsync)
@@ -56,7 +59,7 @@ const synthesizeText = () => {
     console.log(taskId)
     let outputUri = firstValue.SynthesisTask.OutputUri;
     console.log(outputUri)
-    synthesizeBtn.innerHTML = "wait";
+    // mettre waiting message dans la feed window
     // polling takes quite some time. Improvement: test SNS
     const interval = setInterval(async () => {
       let secondValue = await client.send(
@@ -64,12 +67,15 @@ const synthesizeText = () => {
       )
       let pollingResponse = secondValue.SynthesisTask.TaskStatus
       console.log(pollingResponse)
-      if (pollingResponse == "completed") {
+      if ((pollingResponse == "scheduled") || (pollingResponse == "inProgress")) {
+        // rien
+      } else if (pollingResponse == "completed") {
         clearInterval(interval);
         console.log(secondValue);
+        // load le player
         document.getElementById('audioSource').src = outputUri;
-        document.getElementById('audioPlayback').load();
-        synthesizeBtn.innerHTML = "readyyy";
+        player.load();
+        player.play();
         Rails.ajax({
           url: "/items/persist_mp3_url",
           type: 'POST',
@@ -79,33 +85,24 @@ const synthesizeText = () => {
           }
         });
       } else if (pollingResponse == "failed") {
-        synthesizeBtn.innerHTML = "failed";
+        // mettre failure message dans la feedback window
       }
     }, 1000);
   };
 
-async function waitUntil(condition) {
-  return await new Promise(resolve => {
-    const interval = setInterval(() => {
-      if (condition) {
-        resolve('foo');
-        clearInterval(interval);
-      };
-    }, 1000);
-  });
-}
-
-  function speakText() {
-    if (text.length < 3000) {
-      shortText()
-    } else if (text.length < 200000) {
-      longText()
-    } else {
-      synthesizeBtn.innerHTML = "text too long";
-    }
-  };
-
-  synthesizeBtn.addEventListener('click', speakText);
+  if (document.body.contains(listenBtn)) {
+    listenBtn.addEventListener("click", function() {
+      document.getElementById('options').style.display = "none";
+      document.getElementById('listen-option').remove()
+      player.style.display = "";
+      if (text.length < 3000) {
+        shortText()
+      } else if (text.length < 200000) {
+        longText()
+      }
+      // else text too long
+    });
+  }
 };
 
-export { synthesizeText };
+export { textToSpeech };
