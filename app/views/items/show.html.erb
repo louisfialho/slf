@@ -171,11 +171,13 @@
   <!-- Options box: Move, destroy, leave -->
   <div class="options-ctn item-options" id="options" style="display:none;">
     <% if current_user.username == "lfialho" %>
-      <% if @item.mp3_url.nil? == true %>
-        <div class="option-ctn" id="listen-option">
-          <a>👂</a>
-          <a class="option-label" id="listen">Listen</a>
-        </div>
+      <% if @item.notes.nil? == false %> <!-- notes here need to be replaced by content -->
+        <% if @item.mp3_url.nil? == true %>
+          <div class="option-ctn" id="listen-option">
+            <a>👂</a>
+            <a class="option-label" id="listen">Listen</a>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
     <div class="option-ctn">

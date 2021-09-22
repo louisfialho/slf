@@ -28,6 +28,7 @@ const textToSpeech = () => {
     const speechParamsSync = {
       OutputFormat: "mp3",
       Text: text,
+      Engine: "standard", // to be changed to neural upon public release
       VoiceId: "Matthew"
     };
     try {
@@ -49,6 +50,7 @@ const textToSpeech = () => {
       OutputS3BucketName: "polly-async",
       OutputFormat: "mp3",
       Text: text,
+      Engine: "standard", // to be changed to neural upon public release
       VoiceId: "Matthew",
     };
     let firstValue = await client.send(
