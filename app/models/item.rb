@@ -71,7 +71,7 @@ class Item < ApplicationRecord
           'js' =>  0.to_s,     # do not run js
           'js_wait' =>  0.to_s, # when JavaScript is enabled, indicates how many seconds the API should wait for the JS interpreter before starting the extraction.
           'strip_tags' =>  'form,style', #  tags to strip from the extracted HTML
-          'timeout' =>  60.to_s #   request timeout in seconds.
+          'timeout' =>  240.to_s #   request timeout in seconds.
       }
 
       headers = {
@@ -87,10 +87,10 @@ class Item < ApplicationRecord
       response = HTTParty.get(request_url, options)
 
       if response.code != 200
-          return "Bad status code #{response.code}"
-      else
-        return JSON.parse(response.body)["article"]["text"]
+          puts "Bad status code #{response.code}"
       end
+
+      return JSON.parse(response.body)["article"]["text"]
     end
 
     def item_name(url)

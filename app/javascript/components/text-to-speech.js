@@ -16,13 +16,15 @@ const textToSpeech = () => {
     }
   });
 
-  var listenBtn = document.getElementById("listen")
+  var listenBtn = document.getElementById("listen");
 
   let text = document.getElementById("txt-area").value;
 
-  let itemId = document.getElementById("item-title").dataset.id
+  let itemId = document.getElementById("item-title").dataset.id;
 
-  let player = document.getElementById('audioPlayback')
+  let player = document.getElementById('audioPlayback');
+
+  let audioSource = document.getElementById('audioSource');
 
   // const shortText = async() => {
   //   const speechParamsSync = {
@@ -37,22 +39,26 @@ const textToSpeech = () => {
   //     });
   //     let player = document.getElementById('audioPlayback')
   //     player.style.display = "";
-  //     document.getElementById('audioSource').src = url;
-  //     player.load();
-  //     player.play()
+  //     replaceSourceLoadPlay(url)
   //   } catch (err) {
   //     // mettre failure message dans la feedback window
   //   }
   // }
+
+  function replaceSourceLoadPlay(mp3Url) {
+    if (document.body.contains(audioSource) && document.body.contains(player)) {
+      audioSource.src = mp3Url;
+      player.load();
+      player.play();
+    }
+  }
 
   async function run() {
     try {
         await myFunctionThatCatches();
     } catch (e) {
         console.error(e);
-        document.getElementById('audioSource').src = "https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3";
-        player.load();
-        player.play();
+        replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3")
     }
 }
 
@@ -61,17 +67,15 @@ const textToSpeech = () => {
       OutputS3BucketName: "polly-async",
       OutputFormat: "mp3",
       Text: text,
-      Engine: "standard", // to be changed to neural upon public release
+      Engine: "neural",
       VoiceId: "Matthew",
     };
     try {
       let firstValue = await client.send(
         new StartSpeechSynthesisTaskCommand(speechParamsAsync)
       );
-      document.getElementById('audioSource').src = "https://polly-async.s3.eu-west-2.amazonaws.com/9a9dfabe-5db7-463f-a6b6-c195c01b6af1.mp3";
       player.style.display = "";
-      player.load();
-      player.play();
+      replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/9a9dfabe-5db7-463f-a6b6-c195c01b6af1.mp3")
       console.log(firstValue);
       let taskId = firstValue.SynthesisTask.TaskId;
       console.log(taskId)
@@ -88,28 +92,18 @@ const textToSpeech = () => {
           console.log(progressSeconds)
           progressSeconds++;
           if (progressSeconds == 10) {
-            document.getElementById('audioSource').src = "https://polly-async.s3.eu-west-2.amazonaws.com/cd8217f1-b84a-4978-a366-e39d0b107a4f.mp3";
-            player.load();
-            player.play();
+            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/cd8217f1-b84a-4978-a366-e39d0b107a4f.mp3")
           } else if (progressSeconds == 20){
-            document.getElementById('audioSource').src = "https://polly-async.s3.eu-west-2.amazonaws.com/9a0026c3-e32d-44de-bff6-a9248d9326e8.mp3";
-            player.load();
-            player.play();
+            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/9a0026c3-e32d-44de-bff6-a9248d9326e8.mp3")
           } else if (progressSeconds == 30){
-            document.getElementById('audioSource').src = "https://polly-async.s3.eu-west-2.amazonaws.com/f184b000-fd9c-4809-b14a-5a445b081afb.mp3";
-            player.load();
-            player.play();
+            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/f184b000-fd9c-4809-b14a-5a445b081afb.mp3")
           } else if (progressSeconds%10 == 0) {
-            document.getElementById('audioSource').src = "https://polly-async.s3.eu-west-2.amazonaws.com/f184b000-fd9c-4809-b14a-5a445b081afb.mp3";
-            player.load();
-            player.play();
+            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/f184b000-fd9c-4809-b14a-5a445b081afb.mp3")
           }
         } else if (pollingResponse == "completed") {
           clearInterval(interval);
           console.log(secondValue);
-          document.getElementById('audioSource').src = outputUri;
-          player.load();
-          player.play();
+          replaceSourceLoadPlay(outputUri)
           Rails.ajax({
             url: "/items/persist_mp3_url",
             type: 'POST',
@@ -119,17 +113,13 @@ const textToSpeech = () => {
             }
           });
         } else if (pollingResponse == "failed") {
-          document.getElementById('audioSource').src = "https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3";
-          player.load();
-          player.play();
+          replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3")
         }
       }, 1000);
     } catch (e) {
       console.log(e)
       player.style.display = "";
-      document.getElementById('audioSource').src = "https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3";
-      player.load();
-      player.play();
+      replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3")
     }
   };
 
@@ -141,9 +131,7 @@ const textToSpeech = () => {
         longText()
       } else {
         player.style.display = "";
-        document.getElementById('audioSource').src = "https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3";
-        player.load();
-        player.play();
+        replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3")
       }
     });
   }
