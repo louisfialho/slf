@@ -85,15 +85,6 @@ const textToSpeech = () => {
     }
   }
 
-  async function run() {
-    try {
-        await myFunctionThatCatches();
-    } catch (e) {
-        console.error(e);
-        replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3")
-    }
-  }
-
   const longText = async() => {
     const speechParamsAsync = {
       OutputS3BucketName: "polly-async",
@@ -124,13 +115,80 @@ const textToSpeech = () => {
           console.log(progressSeconds)
           progressSeconds++;
           if (progressSeconds == 10) {
-            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/cd8217f1-b84a-4978-a366-e39d0b107a4f.mp3")
+            if (textLength < 9000) {
+              // si annonce 30 secs, dire qu'il reste 10 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/efb3d660-00dc-483a-bf29-5f315c06ea62.mp3");
+            } else if (textLength < 13500) {
+              // si annonce 40 secs, dire qu'il reste 20 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/5ae85867-770b-4d2f-9144-e86154aaddd0.mp3");
+            } else if (textLength < 18000) {
+              // si annonce 50 secs, dire qu'il reste 30 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/8f5faa34-688c-43f9-8d89-ad83bb54c56f.mp3");
+            } else if (textLength < 22500) {
+              // si annonce une minute, dire qu'il reste 40 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/cc38b26c-88d6-4694-b837-834c99490180.mp3");
+            } else if (textLength < 27000) {
+              // si annonce 1min10, dire qu'il reste 50 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/5a561b11-56a8-4da4-a9d7-819243fe3675.mp3");
+            } else if (textLength < 31500) {
+              // si annonce 1min20, dire qu'il reste une min
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/928bdb44-3359-4c99-9b4d-03a55cdf9870.mp3");
+            }
           } else if (progressSeconds == 20){
-            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/9a0026c3-e32d-44de-bff6-a9248d9326e8.mp3")
+            if (textLength < 13500) {
+              // si annonce 40 secs, dire qu'il reste 10 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/efb3d660-00dc-483a-bf29-5f315c06ea62.mp3");
+            } else if (textLength < 18000) {
+              // si annonce 50 secs, dire qu'il reste 20 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/5ae85867-770b-4d2f-9144-e86154aaddd0.mp3");
+            } else if (textLength < 22500) {
+              // si annonce une minute, dire qu'il reste 30 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/8f5faa34-688c-43f9-8d89-ad83bb54c56f.mp3");
+            } else if (textLength < 27000) {
+              // si annonce 1min10, dire qu'il reste 40 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/cc38b26c-88d6-4694-b837-834c99490180.mp3");
+            } else if (textLength < 31500) {
+              // si annonce 1min20, dire qu'il reste 50 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/5a561b11-56a8-4da4-a9d7-819243fe3675.mp3");
+            }
           } else if (progressSeconds == 30){
-            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/f184b000-fd9c-4809-b14a-5a445b081afb.mp3")
-          } else if (progressSeconds%10 == 0) {
-            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/f184b000-fd9c-4809-b14a-5a445b081afb.mp3")
+            if (textLength < 18000) {
+              // si annonce 50 secs, dire qu'il reste 10 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/efb3d660-00dc-483a-bf29-5f315c06ea62.mp3");
+            } else if (textLength < 22500) {
+              // si annonce une minute, dire qu'il reste 20 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/5ae85867-770b-4d2f-9144-e86154aaddd0.mp3");
+            } else if (textLength < 27000) {
+              // si annonce 1min10, dire qu'il reste 30 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/8f5faa34-688c-43f9-8d89-ad83bb54c56f.mp3");
+            } else if (textLength < 31500) {
+              // si annonce 1min20, dire qu'il reste 40 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/cc38b26c-88d6-4694-b837-834c99490180.mp3");
+            }
+          } else if (progressSeconds == 40){
+            if (textLength < 22500) {
+              // si annonce une minute, dire qu'il reste 10 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/efb3d660-00dc-483a-bf29-5f315c06ea62.mp3");
+            } else if (textLength < 27000) {
+              // si annonce 1min10, dire qu'il reste 20 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/5ae85867-770b-4d2f-9144-e86154aaddd0.mp3");
+            } else if (textLength < 31500) {
+              // si annonce 1min20, dire qu'il reste 30 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/8f5faa34-688c-43f9-8d89-ad83bb54c56f.mp3");
+            }
+          } else if (progressSeconds == 50){
+            if (textLength < 27000) {
+              // si annonce 1min10, dire qu'il reste 10 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/efb3d660-00dc-483a-bf29-5f315c06ea62.mp3");
+            } else if (textLength < 31500) {
+              // si annonce 1min20, dire qu'il reste 20 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/5ae85867-770b-4d2f-9144-e86154aaddd0.mp3");
+            }
+          } else if (progressSeconds == 60){
+            if (textLength < 31500) {
+              // si annonce 1min20, dire qu'il reste 10 secs
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/efb3d660-00dc-483a-bf29-5f315c06ea62.mp3");
+            }
           }
         } else if (pollingResponse == "completed") {
           clearInterval(interval);
