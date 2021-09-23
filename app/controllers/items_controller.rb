@@ -230,7 +230,7 @@ skip_before_action :verify_authenticity_token
   private
 
   def item_params
-    params.require(:item).permit(:url, :medium, :status, :name, :notes, :rank, :url_mp3)
+    params.require(:item).permit(:url, :medium, :status, :name, :text_content, :rank, :url_mp3)
   end
 
   def set_item

@@ -336,54 +336,12 @@ button:hover,
   background-image: none;
 }
 
-#txt-area {
-  text-align: left;
-  padding-left: 0px;
-}
 
-textarea::-webkit-input-placeholder {
-  color:  #D3D3D3 !important;
-}
 
-textarea:-moz-placeholder { /* Firefox 18- */
-  color:  #D3D3D3 !important;
-}
 
-textarea::-moz-placeholder {  /* Firefox 19+ */
-  color:  #D3D3D3 !important;
-}
-
-textarea:-ms-input-placeholder {
-  color:  #D3D3D3 !important;
-}
-
-textarea::placeholder {
-  color:  #D3D3D3 !important;
-}
 
 .notes {
   margin-top: 35px;
-}
-
-// remove styling textarea
-
-
-textarea {
-    border: none !important;
-    overflow: auto !important;
-    outline: none !important;
-
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    box-shadow: none !important;
-
-    resize: none !important; /*remove the resize handle on the bottom right*/
-}
-
-.txt-area {
-  font-family: Charter;
-  font-size: x-large;
-  color: #404040;
 }
 
 // overriding bootstrap for text input color
@@ -398,13 +356,6 @@ textarea {
   margin-left: 10px;
   margin-right: 40px;
   margin-top: 8px;
-}
-
-// styling txt area on item add form
-
-#txt-area-add {
-  margin-top: 40px;
-  margin-left: 200px;
 }
 
 // styling the title of the space on top of the space show
@@ -529,7 +480,6 @@ ul {
 
 input:focus,
 select:focus,
-textarea:focus,
 button:focus {
     outline: none;
 }
@@ -1157,6 +1107,21 @@ input:focus, input.form-control:focus {
 
 #phtag {
   margin-top: 150px;
+}
+
+
+
+#text-content {
+  overflow: scroll;
+  font-family: Charter;
+  font-size: x-large;
+  color: #404040;
+}
+
+#audioPlayback {
+  width: 80%;
+  position: fixed;
+  bottom: 2.5em;
 }
 
 // Media

@@ -52,7 +52,7 @@ class Item < ApplicationRecord
 
     def extract_text
       unless ["video", "podcast", "tweet", "online_course", "book", "audio_book", "code_repository"].include?(self.medium)
-        self.notes = item_text_content(url) if notes.blank?
+        self.text_content = item_text_content(url) if text_content.blank?
       end
     end
 

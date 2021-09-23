@@ -25,7 +25,7 @@ require('dotenv').config();
 // External imports
 import "bootstrap";
 import { updateStatus } from '../components/update';
-import { displaySave } from '../components/display-save';
+import { adjustTextContentSize } from '../components/adjust-text-content-size';
 import { displayItemOptions } from '../components/item-options';
 import { displayShelfOptions } from '../components/shelf-options';
 import { displaySpaceOptions } from '../components/space-options';
@@ -47,8 +47,8 @@ document.addEventListener('turbolinks:load', () => {
     updateStatus();
   }
 
-  if (document.getElementById("save-notes")) {
-     displaySave();
+  if (document.getElementById("text-content")) {
+     adjustTextContentSize();
   }
 
   if (document.querySelector(".item-options")) {

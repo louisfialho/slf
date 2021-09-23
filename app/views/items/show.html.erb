@@ -85,24 +85,18 @@
       <%= link_to 'Leave', root_path, class: "option-label", id: "leave-shelf" %>
     </div>
   </div>
-  <!-- Item title and Notes: can be edited -->
+  <!-- Item title -->
   <div class="main-container">
     <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
       <h1 class="item-title">
         <%= @item.name %>
       </h1>
     </a>
-    <%= simple_form_for (@item) do |f| %>
-      <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
-      <% if @item.shelves.empty? == false %>
-        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-      <% elsif @item.spaces.empty? == false %>
-        <%= f.hidden_field :space_id, :value => @space.id %>
-      <% end %>
-      <div class='buttonHolder'>
-        <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-      </div>
-    <% end %>
+    <div style="height: 35px"></div>
+    <!-- Text content -->
+    <p id="text-content"><%= @item.text_content %></p>
+    <!-- Add audio player! -->
+  </div>
 
 <% elsif user_signed_in? && (@current_user == @shelf_mother.user) %>
 <!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN ITEM -->
@@ -171,7 +165,7 @@
   <!-- Options box: Move, destroy, leave -->
   <div class="options-ctn item-options" id="options" style="display:none;">
     <% if current_user.username == "lfialho" %>
-      <% if @item.notes.nil? == false %> <!-- notes here need to be replaced by content -->
+      <% if @item.text_content.nil? == false %>
         <% if @item.mp3_url.nil? == true %>
           <div class="option-ctn" id="listen-option">
             <a>👂</a>
@@ -204,27 +198,19 @@
         <%= @item.name %>
       </h1>
     </a>
-    <div style="height: 20px"></div>
-    <!-- Si l'item a un audio, load it et bouton play -->
-  <!-- Notes: can be edited -->
-    <%= simple_form_for (@item) do |f| %>
-      <%= f.input :notes, as: :text, placeholder: 'Click to add notes...', label: false, html: {autocomplete: 'disabled'}, :input_html => {:style => 'width: 100%', rows: '14', class: "txt-area", id: "txt-area" } %>
-      <% if @item.shelves.empty? == false %>
-        <%= f.hidden_field :shelf_id, :value => @shelf.id %>
-      <% elsif @item.spaces.empty? == false %>
-        <%= f.hidden_field :space_id, :value => @space.id %>
-      <% end %>
-      <div class='buttonHolder'>
-        <%= f.submit "Save notes", class: "add-btn", id: "save-notes", style: "display:none;" %>
-      </div>
-    <% end %>
+    <div style="height: 35px"></div>
+
+    <!-- Text content -->
+    <p id="text-content"><%= @item.text_content %></p>
+
+    <!-- Audio player -->
     <% if current_user.username == "lfialho" %>
       <% if @item.mp3_url.nil? == false %>
-        <audio id="audioPlayback" controls preload="auto" style="width: 100%;">
+        <audio id="audioPlayback" controls preload="auto">
           <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
         </audio>
       <% else %>
-        <audio id="audioPlayback" controls style="display:none; width: 100%;">
+        <audio id="audioPlayback" controls style="display:none;">
           <source id="audioSource" type="audio/mp3" src="">
         </audio>
       <% end %>
@@ -287,20 +273,18 @@
       <%= link_to 'Back to my shelf', shelf_path(@current_user.shelves.first.username), class: "option-label" %>
     </div>
   </div>
-  <!-- Item title and Notes: cannot be edited -->
+  <!-- Item title -->
   <div class="main-container">
     <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
       <h1 class="item-title">
         <%= @item.name %>
       </h1>
     </a>
-    <% if @item.notes.nil? %>
-      <p class="txt-area" id="txt-area"> <i> <%= @shelf_mother.user.first_name %> did not add any note to this object 📝 </i></p>
-    <% else %>
-      <p style="white-space: pre-line" class="txt-area" id="txt-area">
-        <%= @item.notes %>
-      </p>
-    <% end %>
+    <!-- Text content -->
+    <div style="height: 35px"></div>
+    <p id="text-content"><%= @item.text_content %></p>
+    <!-- Ajouter audio player -->
+  </div>
 
 <% elsif user_signed_in? == false %>
 <!-- NAVBAR AND OPTIONS BOX IF USER NOT SIGNED IN -->
@@ -353,20 +337,17 @@
       </div>
   </div>
   <!-- Options box: Not needed -->
-  <!-- Item title and Notes: cannot be edited -->
+  <!-- Item title -->
   <div class="main-container">
     <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
       <h1 class="item-title">
         <%= @item.name %>
       </h1>
     </a>
-    <% if @item.notes.nil? %>
-      <p class="txt-area" id="txt-area"> <i> <%= @shelf_mother.user.first_name %> did not add any note to this object 📝 </i></p>
-    <% else %>
-      <p style="white-space: pre-line" class="txt-area" id="txt-area">
-        <%= @item.notes %>
-      </p>
-    <% end %>
+    <!-- Text content -->
+    <div style="height: 35px"></div>
+    <p id="text-content"><%= @item.text_content %></p>
+    <!-- Ajouter audio player -->
   </div>
 <% end %>
 
