@@ -480,6 +480,7 @@ ul {
 
 input:focus,
 select:focus,
+textarea:focus,
 button:focus {
     outline: none;
 }
@@ -1116,6 +1117,7 @@ input:focus, input.form-control:focus {
   font-family: Charter;
   font-size: x-large;
   color: #404040;
+  white-space: pre-wrap;
 }
 
 #audioPlayback {
