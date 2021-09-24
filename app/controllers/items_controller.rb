@@ -17,20 +17,14 @@ skip_before_action :verify_authenticity_token
       if @item.valid?
         if params[:item][:shelf_id].present?
           @shelf = Shelf.find(params[:item][:shelf_id])
-          RepositioningItemsAndSpacesJob.perform_later(@shelf) # do be repeated below
+          RepositioningItemsAndSpacesJob.perform_later(@shelf)
           @shelf.items << @item
           format.html do
             redirect_to item_path(@item, shelf_id: @shelf.id)
           end
         elsif params[:item][:space_id].present?
           @space = Space.find(params[:item][:space_id])
-          @space.items.update_all('position = position + 1') # every new space has position 1 by default --> pushes all other positions to the right
-          # GET ALL SPACE CHILDREN OF THIS SPACE AND UPDATE THEIR POSTITION +1
-          # space.children
-          @space.children.each do |connection|
-            connection.space.position += 1
-            connection.space.save
-          end
+          RepositioningInSpaceJob.perform_later(@space)
           @space.items << @item
           format.html do
             redirect_to item_path(@item, space_id: @space.id)
