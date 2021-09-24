@@ -18,10 +18,9 @@ const textToSpeech = () => {
 
   var listenBtn = document.getElementById("listen");
 
-  let text = document.getElementById("text-content").innerHTML;
-  text = text.replace(/(\r\n|\n|\r)/gm, "");
-  text = text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '');
-
+  let text = document.getElementById("text-content").innerText;
+  text = text.replace(/(\r\n|\n|\r)/gm, " ");
+  text = text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, " ");
 
 
   let textLength = text.length;

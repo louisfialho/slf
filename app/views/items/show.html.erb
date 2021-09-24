@@ -201,8 +201,7 @@
     <div style="height: 35px"></div>
 
     <!-- Text content -->
-    <p id="text-content"><%= @item.text_content %></p>
-
+    <div id="text-content"><%= @item.text_content %></div>
     <!-- Audio player -->
     <% if current_user.username == "lfialho" %>
       <% if @item.mp3_url.nil? == false %>
