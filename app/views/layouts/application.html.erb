@@ -55,6 +55,8 @@
 
     <%= yield %>
 
-    <script src="//code.tidio.co/u9gm11g7i0tuczf0eccgpy7szrhgxpjg.js" async></script>
+    <% if device == "desktop" %>
+      <script src="//code.tidio.co/u9gm11g7i0tuczf0eccgpy7szrhgxpjg.js" async></script>
+    <% end %>
   </body>
 </html>
