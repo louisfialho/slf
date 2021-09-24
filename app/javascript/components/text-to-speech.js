@@ -18,7 +18,7 @@ const textToSpeech = () => {
 
   var listenBtn = document.getElementById("listen");
 
-  let text = document.getElementById("txt-area").value;
+  let text = document.getElementById("text-content").value;
 
   let textLength = text.length;
 
