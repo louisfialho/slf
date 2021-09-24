@@ -94,7 +94,7 @@
     </a>
     <div style="height: 35px"></div>
     <!-- Text content -->
-    <p id="text-content"><%= @item.text_content %></p>
+    <div id="text-content"><%= @item.text_content %></div>
     <!-- Add audio player! -->
   </div>
 
@@ -205,7 +205,7 @@
     <!-- Audio player -->
     <% if current_user.username == "lfialho" %>
       <% if @item.mp3_url.nil? == false %>
-        <audio id="audioPlayback" controls preload="auto">
+        <audio id="audioPlayback" controls preload="auto" title="<%= @item.name %>">
           <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
         </audio>
       <% else %>
@@ -281,7 +281,7 @@
     </a>
     <!-- Text content -->
     <div style="height: 35px"></div>
-    <p id="text-content"><%= @item.text_content %></p>
+    <div id="text-content"><%= @item.text_content %></div>
     <!-- Ajouter audio player -->
   </div>
 
@@ -345,7 +345,7 @@
     </a>
     <!-- Text content -->
     <div style="height: 35px"></div>
-    <p id="text-content"><%= @item.text_content %></p>
+    <div id="text-content"><%= @item.text_content %></div>
     <!-- Ajouter audio player -->
   </div>
 <% end %>
