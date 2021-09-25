@@ -165,7 +165,7 @@
   <!-- Options box: Move, destroy, leave -->
   <div class="options-ctn item-options" id="options" style="display:none;">
     <% if current_user.username == "lfialho" %>
-      <% if @item.text_content.nil? == false %>
+      <% if @item.text_content.empty? == false %>
         <% if @item.mp3_url.nil? == true %>
           <div class="option-ctn" id="listen-option">
             <a>👂</a>
