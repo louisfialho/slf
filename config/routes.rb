@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   end
   devise_for :users, controllers: { sessions: "sessions", registrations: "registrations" }
   root to: 'pages#home'
+  get "/payment" => "pages#payment", as: 'payment'
+  post "/create-checkout-session" => "payments#redirect_stripe"
+  post '/hooks/stripe' => 'payments#receive'
   devise_scope :user do
     get "meet_bot", to: "registrations#meet_bot"
     get "shake_hands", to: "registrations#shake_hands"
@@ -54,4 +57,7 @@ Rails.application.routes.draw do
       patch :move
     end
   end
+  post '/application/update_balance_temp', to: 'application#update_balance_temp'
+  post '/application/update_balance_final', to: 'application#update_balance_final'
+  get '/application/user_balance', to: 'application#user_balance'
 end

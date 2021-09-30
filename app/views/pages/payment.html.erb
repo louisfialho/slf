@@ -1,0 +1,21 @@
+<div>
+  <% if @user.tts_balance_in_min.nil? %>
+    <h1>👂 Leverage audio to learn more</h1>
+  <% else %>
+    <h1>⏳ You have <%= @user.tts_balance_in_min.truncate() %> minutes of audio left</h1>
+  <% end %>
+  <h2>Turn any blog post 📄, newsletter 🗞 or news article 📰  into audio using the world’s most natural souding voice (<u>examples</u>).</h2>
+  <div>
+    <p>$5</p>
+    <p>Generate <em>2.5 hours</em> of audio</p>
+    <ul>
+      <li>✅ One-time payment</li>
+      <li>✅ Credits never expire</li>
+      <li>✅ Money-back guarantee</li>
+    </ul>
+    <form action="/create-checkout-session" method="POST">
+      <button type="submit" id="checkout-button">Start learning</button>
+    </form>
+  </div>
+  <audio></audio>
+</div>

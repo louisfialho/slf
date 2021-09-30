@@ -5,7 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   has_many :shelves, dependent: :destroy
-  validate :valid_phone_num
+  validate :valid_phone_num, on: :create
   validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/, message: ": please only use letters and numbers" }
   validates_uniqueness_of :username, message: ": this username is already taken"
   before_create :generate_extension_auth_token

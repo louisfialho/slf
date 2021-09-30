@@ -1410,6 +1410,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stripe (5.38.0)
     telegram-bot-ruby (0.14.0)
       faraday
       inflecto
@@ -1503,6 +1504,7 @@ DEPENDENCIES
   simple_form
   spring
   spring-watcher-listen (~> 2.0.0)
+  stripe
   telegram-bot-ruby
   turbolinks (~> 5)
   turbolinks_render

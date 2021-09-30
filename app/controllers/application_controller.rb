@@ -1,8 +1,40 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  protect_from_forgery prepend: true
 
   include Pundit
+
+  # The 3 following methods update_balance_temp and final should not be in the application controller and shouuld be in a standalone controller
+  # in routes, remove the 3 post methods at the bottom
+  # below, remove except: [ :update_balance_temp, :update_balance_final, ...]
+
+  def update_balance_temp
+    if current_user
+      current_user.tts_balance_in_min -= params[:approx_minutes].to_f
+      current_user.save
+      respond_to do |format|
+        format.json { head :ok }
+      end
+    end
+  end
+
+  def update_balance_final
+    if current_user
+      current_user.tts_balance_in_min += params[:approx_minutes].to_f
+      current_user.tts_balance_in_min -= params[:actual_minutes].to_f
+      current_user.save
+      respond_to do |format|
+        format.json { head :ok }
+      end
+    end
+  end
+
+  def user_balance
+    if current_user
+      render json: {balance: current_user.tts_balance_in_min}
+    end
+  end
 
   def move_item_to_space_list
     @shelf_mother = shelf_mother_of_item(@item)
@@ -74,7 +106,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Pundit: white-list approach.
-  after_action :verify_authorized, except: :index, unless: :skip_pundit?
+  after_action :verify_authorized, except: [:index, :update_balance_temp, :update_balance_final, :user_balance], unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -107,8 +139,8 @@ class ApplicationController < ActionController::Base
 
 
   protected
-          def configure_permitted_parameters
-               devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:first_name, :last_name, :username, :phone_number, :email, :password)}
-               devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:first_name, :last_name, :username, :phone_number, :email, :password, :current_password)}
-          end
+    def configure_permitted_parameters
+         devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:first_name, :last_name, :username, :phone_number, :email, :password)}
+         devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:first_name, :last_name, :username, :phone_number, :email, :password, :current_password)}
+    end
 end
