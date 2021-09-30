@@ -5,10 +5,16 @@ class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   require 'stripe'
+  require 'json'
 
-  Stripe.api_key = ENV['STRIPE_SECRET']
 
-  endpoint_secret = ENV['STRIPE_SIGNING_SECRET']
+  # Stripe.api_key = ENV['STRIPE_SECRET']
+
+  Stripe.api_key = 'sk_test_51JdJZZJOGJfv8N7Hn56e98m01gZz01ffu3jmMEwRVaNnFVCdvczLwaEo8EQimYNqE535w0If7EEU8xV04Rx14sn700pvRcxzGO'
+
+  # endpoint_secret = ENV['STRIPE_SIGNING_SECRET']
+
+  endpoint_secret = 'whsec_60TXAzLq6tVVY9MUwIu2bW6oqGLIrKj6'
 
   def redirect_stripe
     session = Stripe::Checkout::Session.create({
@@ -26,42 +32,5 @@ class PaymentsController < ApplicationController
       cancel_url: 'https://www.shelf.so' + '/payment',
     })
     redirect_to(session.url)
-  end
-
-  def receive
-    event = nil
-
-    # Verify webhook signature and extract the event
-    # See https://stripe.com/docs/webhooks/signatures for more information.
-    begin
-      sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-      payload = request.body.read
-      event = Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
-    rescue JSON::ParserError => e
-      # Invalid payload
-      return status 400
-    rescue Stripe::SignatureVerificationError => e
-      # Invalid signature
-      return status 400
-    end
-
-    if event['type'] == 'checkout.session.completed'
-      checkout_session = event['data']['object']
-
-      fulfill_order(checkout_session)
-    end
-
-    status 200
-  end
-
-  def fulfill_order(checkout_session)
-    user_id = checkout_session['client_reference_id']
-    @user = User.find(user_id)
-    if @user.tts_balance_in_min.nil?
-      @user.tts_balance_in_min = 150
-    else
-      @user.tts_balance_in_min += 150
-    end
-    @user.save
   end
 end

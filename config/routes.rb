@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get "/payment" => "pages#payment", as: 'payment'
   post "/create-checkout-session" => "payments#redirect_stripe"
-  post '/hooks/stripe' => 'payments#receive'
+  # post '/hooks/stripe' => 'payments#receive'
+  post '/webhook_events/:source', to: 'webhook_events#create'
   devise_scope :user do
     get "meet_bot", to: "registrations#meet_bot"
     get "shake_hands", to: "registrations#shake_hands"
