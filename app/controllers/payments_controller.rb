@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
 
   Stripe.api_key = ENV['STRIPE_SECRET']
 
-  endpoint_secret = 'whsec_hTknJfVGzMPCOAxxTRnFBggSCCyJGYda'
+  endpoint_secret = ENV['STRIPE_SIGNING_SECRET']
 
   def redirect_stripe
     session = Stripe::Checkout::Session.create({
