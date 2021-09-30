@@ -15,7 +15,7 @@ class PaymentsController < ApplicationController
       client_reference_id: current_user.id,
       customer_email: current_user.email,
       line_items: [{
-        price: 'price_1JezwgJOGJfv8N7H1ihB007u',
+        price: 'price_1JfRfXJOGJfv8N7HetSmb0n6',
         quantity: 1,
       }],
       payment_method_types: [
