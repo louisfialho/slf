@@ -1158,27 +1158,27 @@ input:focus, input.form-control:focus {
   box-shadow: 1px 4px 10px 3px rgba(0, 0, 0, 0.35);
   margin: auto;
   max-width: calc(var(--h1)*9);
-  padding: 2em;
+  padding: 1.5em;
 }
 
 #price {
   font-family: Charter;
   font-weight: bold;
   font-size: calc(var(--h1)*0.8);
-  margin-bottom: 3vh;
+  margin-bottom: 1.5vh;
 }
 
 #plan-detail {
   font-family: Charter;
   font-size: calc(var(--h1)*0.6);
-  padding-bottom: 2.5vh;
+  margin-bottom: 1.5vh;
 }
 
 #guarantees {
   font-family: Charter;
   font-size: calc(var(--h1)*0.5);
   display: inline-block;
-  margin-bottom: 5vh;
+  margin-bottom: 3.5vh;
 }
 
 .guarantee {
@@ -1204,6 +1204,7 @@ li.guarantee:not(:last-child) {
 #checkout-button {
     background: #000000;
     color: #FFFFFF;
+    font-family: Charter;
     display: inline-block;
     border-radius: 40px;
     padding: 12px 30px 12px 30px;
@@ -1215,7 +1216,7 @@ li.guarantee:not(:last-child) {
     position: relative;
     top: 0;
     transition: top ease 0.5s;
-    margin-bottom: 1.5vh;
+    margin-bottom: 0.5vh;
 }
 
 // Media

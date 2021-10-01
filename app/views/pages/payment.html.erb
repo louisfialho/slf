@@ -4,7 +4,7 @@
   <% else %>
     <h1 class="payment-benefit">⏳ You have <%= @user.tts_balance_in_min.truncate() %> minutes of audio left</h1>
   <% end %>
-  <h2 class="benefit-dsc">Turn any blog post 📄, newsletter 🗞 or news article 📰  into audio using the world’s most natural souding voice (<u>examples</u>).</h2>
+  <h2 class="benefit-dsc">Turn any blog post 📄, newsletter 🗞 or news article 📰  into audio using <u> <%= link_to('the world’s most natural souding voice.', shelf_path(Shelf.find(20).username)) %> </u></h2>
   <div class="pricing-plan-ctn">
     <p id='price'>$5</p>
     <p id='plan-detail'>Generate <strong>2.5 hours</strong> of audio</p>
