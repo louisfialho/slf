@@ -96,6 +96,11 @@
     <!-- Text content -->
     <div id="text-content"><%= @item.text_content %></div>
     <!-- Add audio player! -->
+    <% if @item.mp3_url.nil? == false %>
+      <audio id="audioPlayback" controls preload="auto" title="<%= @item.name %>">
+        <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
+      </audio>
+    <% end %>
   </div>
 
 <% elsif user_signed_in? && (@current_user == @shelf_mother.user) %>
