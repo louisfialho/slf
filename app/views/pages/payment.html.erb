@@ -1,21 +1,28 @@
-<div>
+<div class="payment-ctn">
   <% if @user.tts_balance_in_min.nil? %>
-    <h1>👂 Leverage audio to learn more</h1>
+    <h1 class="payment-benefit">👂 Leverage audio to learn more</h1>
   <% else %>
-    <h1>⏳ You have <%= @user.tts_balance_in_min.truncate() %> minutes of audio left</h1>
+    <h1 class="payment-benefit">⏳ You have <%= @user.tts_balance_in_min.truncate() %> minutes of audio left</h1>
   <% end %>
-  <h2>Turn any blog post 📄, newsletter 🗞 or news article 📰  into audio using the world’s most natural souding voice (<u>examples</u>).</h2>
-  <div>
-    <p>$5</p>
-    <p>Generate <em>2.5 hours</em> of audio</p>
-    <ul>
-      <li>✅ One-time payment</li>
-      <li>✅ Credits never expire</li>
-      <li>✅ Money-back guarantee</li>
+  <h2 class="benefit-dsc">Turn any blog post 📄, newsletter 🗞 or news article 📰  into audio using the world’s most natural souding voice (<u>examples</u>).</h2>
+  <div class="pricing-plan-ctn">
+    <p id='price'>$5</p>
+    <p id='plan-detail'>Generate <strong>2.5 hours</strong> of audio</p>
+    <ul id="guarantees">
+      <li class='guarantee'>✅ One-time payment</li>
+      <li class='guarantee'>✅ Credits never expire</li>
+      <li class='guarantee'>✅ Money-back guarantee</li>
     </ul>
     <form action="/create-checkout-session" method="POST">
-      <button type="submit" id="checkout-button">Start learning</button>
+      <button type="submit" id="checkout-button">
+        Start learning
+      </button>
     </form>
   </div>
-  <audio></audio>
 </div>
+<div class="audio-ctn">
+  <audio id="audioPlaybackPayment" controls preload="auto">
+    <source id="audioSource" type="audio/mp3" src="https://polly-async.s3.eu-west-2.amazonaws.com/6c13f246-6820-4614-8dc6-8e49ff6952dd.mp3">
+  </audio>
+</div>
+

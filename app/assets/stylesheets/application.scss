@@ -706,11 +706,11 @@ hr {
     transition: top ease 0.5s;
 }
 
-.lp-cta:hover, .lp-cta-main:hover, .sign-up-cta:hover, .log-in-cta:hover {
+.lp-cta:hover, .lp-cta-main:hover, .sign-up-cta:hover, .log-in-cta:hover, #checkout-button:hover {
   top: -5px;
 }
 
-.lp-cta:hover, .log-in-cta:hover, #try-it-now:hover, .sign-up-cta  {
+.lp-cta:hover, .log-in-cta:hover, #try-it-now:hover, .sign-up-cta {
   color: white !important;
 }
 
@@ -1110,8 +1110,6 @@ input:focus, input.form-control:focus {
   margin-top: 150px;
 }
 
-
-
 #text-content {
   overflow: scroll;
   font-family: Charter;
@@ -1124,6 +1122,100 @@ input:focus, input.form-control:focus {
   width: 80%;
   position: fixed;
   bottom: 2.5em;
+}
+
+// Payment page
+
+.payment-ctn {
+  margin: 0 auto;
+  width: 1100px;
+  max-width: 90%;
+  text-align: center;
+  padding-top: 2%;
+  // padding: 32px 32px 150px 32px;
+}
+
+.payment-benefit {
+  font-family: Charter;
+  text-align: center;
+  font-weight: bold;
+  font-size: calc(var(--h1)*0.8);
+  margin-top: 3.5vh;
+  margin-bottom: 5vh;
+}
+
+.benefit-dsc {
+  font-family: Charter;
+  text-align: center;
+  font-size: calc(var(--h1)*0.6);
+  color: #808080;
+  line-height: 1.3;
+  padding-bottom: 5vh;
+}
+
+.pricing-plan-ctn {
+  border-radius: 20px;
+  box-shadow: 1px 4px 10px 3px rgba(0, 0, 0, 0.35);
+  margin: auto;
+  max-width: calc(var(--h1)*9);
+  padding: 2em;
+}
+
+#price {
+  font-family: Charter;
+  font-weight: bold;
+  font-size: calc(var(--h1)*0.8);
+  margin-bottom: 3vh;
+}
+
+#plan-detail {
+  font-family: Charter;
+  font-size: calc(var(--h1)*0.6);
+  padding-bottom: 2.5vh;
+}
+
+#guarantees {
+  font-family: Charter;
+  font-size: calc(var(--h1)*0.5);
+  display: inline-block;
+  margin-bottom: 5vh;
+}
+
+.guarantee {
+  text-align: left;
+}
+
+li.guarantee:not(:last-child) {
+   margin-bottom: 7px;
+}
+
+#audioPlaybackPayment {
+  width: 85%;
+  position: fixed;
+  bottom: 2.5em;
+}
+
+.audio-ctn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#checkout-button {
+    background: #000000;
+    color: #FFFFFF;
+    display: inline-block;
+    border-radius: 40px;
+    padding: 12px 30px 12px 30px;
+    font-size: calc(var(--h1)*0.5);
+    font-weight: 400;
+    line-height: 1;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
+    margin-bottom: 1.5vh;
 }
 
 // Media
