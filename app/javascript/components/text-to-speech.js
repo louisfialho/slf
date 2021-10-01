@@ -228,45 +228,42 @@ const textToSpeech = () => {
     }
   };
 
-  function listenLogic() {
-    document.getElementById('options').style.display = "none";
-    document.getElementById('listen-option').remove()
-    if (textLengthChar < 100000) {
-      Rails.ajax({
-        url: "/application/user_balance",
-        type: 'GET',
-        data: "",
-        success: function(data) {
-          let userTtsBalanceInMin = data.balance
-          console.log(userTtsBalanceInMin)
-          if ((userTtsBalanceInMin !== null) && (userTtsBalanceInMin > textLengthMinApprox + 5)) {
-            Rails.ajax({
-              url: "/application/update_balance_temp",
-              type: 'POST',
-              data: `approx_minutes=${textLengthMinApprox}`,
-              success: function(data) {
-                console.log(data);
-              }
-            });
-            longText()
-          } else if (userTtsBalanceInMin == null) { // i.e. @user.tts_balance_in_min = nil
-            player.style.display = "";
-            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/770aa492-6129-43d8-8f32-2f7db266a7e4.mp3")
-          } else {
-            player.style.display = "";
-            replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/06ffe404-db51-45e1-8474-615cfb748579.mp3")
-          }
-        }
-      });
-    } else {
-      player.style.display = "";
-      replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3")
-    }
-  }
-
   if (document.body.contains(listenBtn)) {
-    listenBtn.addEventListener("click", listenLogic, false);
-    listenBtn.addEventListener("touchstart", listenLogic, false);
+    listenBtn.addEventListener("click", function() {
+      document.getElementById('options').style.display = "none";
+      document.getElementById('listen-option').remove()
+      if (textLengthChar < 100000) {
+        Rails.ajax({
+          url: "/application/user_balance",
+          type: 'GET',
+          data: "",
+          success: function(data) {
+            let userTtsBalanceInMin = data.balance
+            console.log(userTtsBalanceInMin)
+            if ((userTtsBalanceInMin !== null) && (userTtsBalanceInMin > textLengthMinApprox + 5)) {
+              Rails.ajax({
+                url: "/application/update_balance_temp",
+                type: 'POST',
+                data: `approx_minutes=${textLengthMinApprox}`,
+                success: function(data) {
+                  console.log(data);
+                }
+              });
+              longText()
+            } else if (userTtsBalanceInMin == null) { // i.e. @user.tts_balance_in_min = nil
+              player.style.display = "";
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/770aa492-6129-43d8-8f32-2f7db266a7e4.mp3")
+            } else {
+              player.style.display = "";
+              replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/06ffe404-db51-45e1-8474-615cfb748579.mp3")
+            }
+          }
+        });
+      } else {
+        player.style.display = "";
+        replaceSourceLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3")
+      }
+    });
   }
 };
 
