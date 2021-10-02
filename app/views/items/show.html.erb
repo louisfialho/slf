@@ -169,14 +169,12 @@
 
   <!-- Options box: Move, destroy, leave -->
   <div class="options-ctn item-options" id="options" style="display:none;">
-    <% if current_user.username == "lfialho" %>
-      <% if @item.text_content.nil? == false %>
-        <% if @item.mp3_url.nil? == true %>
-          <div class="option-ctn" id="listen-option">
-            <a>👂</a>
-            <a class="option-label" id="listen">Listen</a>
-          </div>
-        <% end %>
+    <% if @item.text_content.nil? == false %>
+      <% if @item.mp3_url.nil? == true %>
+        <div class="option-ctn" id="listen-option">
+          <a>👂</a>
+          <a class="option-label" id="listen">Listen</a>
+        </div>
       <% end %>
     <% end %>
     <div class="option-ctn">
@@ -191,12 +189,10 @@
         <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
       <% end %>
     </div>
-    <% if current_user.username == "lfialho" %>
-      <div class="option-ctn" id="wallet-option">
-        <a>👝</a>
-        <%= link_to "Wallet", payment_path, class: "option-label", id: "wallet" %>
-      </div>
-    <% end %>
+    <div class="option-ctn" id="wallet-option">
+      <a>👝</a>
+      <%= link_to "Wallet", payment_path, class: "option-label", id: "wallet" %>
+    </div>
     <div class="option-ctn">
       <a>🚪</a>
       <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
