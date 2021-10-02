@@ -59,6 +59,10 @@
       <a>➕</a>
       <a class="option-label" id="new-object-or-space">New...</a>
     </div>
+    <div class="option-ctn" id="wallet-option">
+      <a>👝</a>
+      <%= link_to "Wallet", payment_path, class: "option-label", id: "wallet" %>
+    </div>
     <div class="option-ctn">
       <a>🚪</a>
       <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
