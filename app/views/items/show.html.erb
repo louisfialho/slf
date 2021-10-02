@@ -210,16 +210,14 @@
     <!-- Text content -->
     <div id="text-content"><%= @item.text_content %></div>
     <!-- Audio player -->
-    <% if current_user.username == "lfialho" %>
-      <% if @item.mp3_url.nil? == false %>
-        <audio id="audioPlayback" controls preload="auto" title="<%= @item.name %>">
-          <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
-        </audio>
-      <% else %>
-        <audio id="audioPlayback" controls style="display:none;">
-          <source id="audioSource" type="audio/mp3" src="">
-        </audio>
-      <% end %>
+    <% if @item.mp3_url.nil? == false %>
+      <audio id="audioPlayback" controls preload="auto" title="<%= @item.name %>">
+        <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
+      </audio>
+    <% else %>
+      <audio id="audioPlayback" controls style="display:none;">
+        <source id="audioSource" type="audio/mp3" src="">
+      </audio>
     <% end %>
   </div>
 
