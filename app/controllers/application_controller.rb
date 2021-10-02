@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.json { head :ok }
       end
+      UserNotifierMailer.inform_louis_of_new_audio(current_user, params[:actual_minutes]).deliver_later
     end
   end
 

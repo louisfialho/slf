@@ -29,4 +29,10 @@ class UserNotifierMailer < ApplicationMailer
     @user = user
     mail( :to => 'louis@shelf.so', :subject => 'New space 🗄' )
   end
+
+  def inform_louis_of_new_audio(user, minutes)
+    @user = user
+    @minutes = minutes
+    mail( :to => 'louis@shelf.so', :subject => 'New audio 👂' )
+  end
 end
