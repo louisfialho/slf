@@ -10,6 +10,7 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.3.0",
+    "aws-sdk": "^2.999.0",
     "bootstrap": "^4.5.3",
     "dotenv": "^10.0.0",
     "intl-tel-input": "^17.0.12",

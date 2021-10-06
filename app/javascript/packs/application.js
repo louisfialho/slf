@@ -39,8 +39,8 @@ import { addFirstResource } from '../components/add-first-resource-redirect';
 import { autoplayWhenVisible } from '../components/autoplay-when-visible';
 import { displayIntroMessage } from '../components/display-intro-message';
 import { displayItemMediaOptions } from '../components/display-item-media-options';
-import { textToSpeech } from '../components/text-to-speech';
-// import { textToSpeech2 } from '../components/text-to-speech2';
+// import { textToSpeech } from '../components/text-to-speech';
+import { textToSpeech2 } from '../components/text-to-speech2';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -54,8 +54,8 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector(".item-options")) {
     displayItemOptions();
-    textToSpeech();
-    // textToSpeech2();
+    // textToSpeech();
+    textToSpeech2();
   }
 
   if (document.querySelector("#new-object-or-space")) {

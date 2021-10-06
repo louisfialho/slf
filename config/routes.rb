@@ -60,5 +60,6 @@ Rails.application.routes.draw do
   end
   post '/application/update_balance_temp', to: 'application#update_balance_temp'
   post '/application/update_balance_final', to: 'application#update_balance_final'
+  post '/application/pay_back_balance', to: 'application#pay_back_balance'
   get '/application/user_balance', to: 'application#user_balance'
 end

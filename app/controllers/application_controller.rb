@@ -31,6 +31,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def pay_back_balance
+    if current_user
+      current_user.tts_balance_in_min += params[:approx_minutes].to_f
+      current_user.save
+      respond_to do |format|
+        format.json { head :ok }
+      end
+    end
+  end
+
   def user_balance
     if current_user
       render json: {balance: current_user.tts_balance_in_min}
@@ -107,7 +117,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Pundit: white-list approach.
-  after_action :verify_authorized, except: [:index, :update_balance_temp, :update_balance_final, :user_balance], unless: :skip_pundit?
+  after_action :verify_authorized, except: [:index, :update_balance_temp, :update_balance_final, :user_balance, :pay_back_balance], unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
