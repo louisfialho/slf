@@ -19,23 +19,27 @@ const loadDynamicBannerText = () => {
     });
   } else {
     var tagline = document.getElementById('tagline');
-    tagline.innerHTML = "Save, organize and annotate <br> <span id='banner-typed-text'></span>";
+    tagline.innerHTML = "Listen to <br> <span id='banner-typed-text'></span>";
     new Typed('#banner-typed-text', {
-      strings: ["tweets &#128038;"
-      , "newsletters &#128478;"
-      , "podcasts &#127897;"
+      strings: ["newsletters &#128478;"
       , "blog posts &#128196;"
       , "news articles &#128240;"
-      , "videos &#128250;"
-      , "audio books &#127911;"
-      , "books &#128213;"
-      , "online courses &#127891;"
+      , "or any web page &#128218;"
       ],
       typeSpeed: 50,
       loop: true
     });
   }
 }
+
+// tweets &#128038;"
+
+//       , "podcasts &#127897;"
+//       , "news articles &#128240;"
+//       , "videos &#128250;"
+//       , "audio books &#127911;"
+//       , "books &#128213;"
+//       , "online courses &#127891;"
 
 
 
