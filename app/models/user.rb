@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
 
-  def create_shelf
+  def create_shelf_and_space_for_Telegram_items
       shelf = Shelf.new(user_id: self.id)
       shelf.save
       space = Space.new(name: "🤖 Added by Bot", position: 1)
