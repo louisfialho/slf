@@ -58,6 +58,9 @@ skip_before_action :verify_authenticity_token
     @child = Space.new
     @parent_id = Space.new
     @space = Space.new
+    if current_user
+      @user = current_user
+    end
     if @item.shelves.empty?
       @parent_space = @item.spaces.first
       @space = @item.spaces.first

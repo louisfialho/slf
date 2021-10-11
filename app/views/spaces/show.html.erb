@@ -95,6 +95,10 @@
       <%= link_to "Wallet", payment_path, class: "option-label", id: "wallet" %>
     </div>
     <div class="option-ctn">
+      <a>🤖</a>
+      <a class="option-label" id="connect-btn">Connect</a>
+    </div>
+    <div class="option-ctn">
       <a>🚪</a>
       <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
     </div>
@@ -213,6 +217,21 @@
       <% end %>
     </div>
 <!-- END OF ADD SPACE BOX -->
+
+<!-- CONNECT OPTIONS -->
+    <div class="options-ctn options-ctn-shelf-space" id="connect-options" style="display:none;">
+      <div class="option-ctn" id="new-object">
+        <a>💻</a>
+        <a href="https://chrome.google.com/webstore/detail/shelf/dbnfpkfeedjlicclaffhoglpmgpdjblk?hl=en"  target="_blank" rel="noopener noreferrer" class="option-label">Chrome extension</a>
+      </div>
+      <% if @user.telegram_chat_id.nil? %>
+        <div class="option-ctn" id="button-new-space-child">
+          <a>📱</a>
+          <%= link_to 'Telegram Bot', meet_bot_path(@current_user), class: "option-label" %>
+        </div>
+      <% end %>
+    </div>
+<!-- END OF CONNECT OPTIONS -->
 
 <!-- IF SPACE IS EMPTY -->
 <% if @space.children.empty? && @space.items.empty? %>

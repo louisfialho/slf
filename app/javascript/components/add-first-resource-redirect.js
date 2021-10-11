@@ -3,7 +3,7 @@ const addFirstResource = () => {
   var shelfId = null
 
   Rails.ajax({
-    url: "/registrations/current_shelf",
+    url: "/telegram_set_up/current_shelf",
     type: 'GET',
     data: "",
     success: function(data) {
@@ -14,7 +14,7 @@ const addFirstResource = () => {
   setInterval(function() {
 
     Rails.ajax({
-      url: "/registrations/stat_added_first_item",
+      url: "/telegram_set_up/stat_added_first_item",
       type: 'GET',
       data: "",
       success: function(data) {

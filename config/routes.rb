@@ -3,19 +3,19 @@ Rails.application.routes.draw do
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
-  devise_for :users, controllers: { sessions: "sessions", registrations: "registrations" }
+  devise_for :users, controllers: {sessions: "sessions", registrations: "custom_registrations"}
   root to: 'pages#home'
   get "/payment" => "pages#payment", as: 'payment'
   post "/create-checkout-session" => "payments#redirect_stripe"
   # post '/hooks/stripe' => 'payments#receive'
   post '/webhook_events/:source', to: 'webhook_events#create'
   devise_scope :user do
-    get "meet_bot", to: "registrations#meet_bot"
-    get "shake_hands", to: "registrations#shake_hands"
-    get "add_first_resource", to: "registrations#add_first_resource"
-    get "/registrations/stat_telegram_chat_id", to: "registrations#stat_telegram_chat_id"
-    get "/registrations/stat_added_first_item", to: "registrations#stat_added_first_item"
-    get "/registrations/current_shelf", to: "registrations#current_shelf"
+    get "meet_bot", to: "telegram_set_up#meet_bot"
+    get "shake_hands", to: "telegram_set_up#shake_hands"
+    get "add_first_resource", to: "telegram_set_up#add_first_resource"
+    get "/telegram_set_up/stat_telegram_chat_id", to: "telegram_set_up#stat_telegram_chat_id"
+    get "/telegram_set_up/stat_added_first_item", to: "telegram_set_up#stat_added_first_item"
+    get "/telegram_set_up/current_shelf", to: "telegram_set_up#current_shelf"
     get "sessions/extension", to: "sessions#new_ext"
     post "sessions/extension", to: "sessions#create_ext"
     get "/sessions/start_extension", to: "sessions#start_extension"
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       resources :items, only: [ :index, :create ]
     end
   end
-  resources :registrations, only: [:new, :create] do
+  resources :telegram_set_up, only: [:new, :create] do
     collection do
       get 'stat_telegram_chat_id'
       get 'stat_added_first_item'

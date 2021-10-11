@@ -31,6 +31,9 @@ class ShelvesController < ApplicationController
     @spaces = Space.all
     @space = Space.new
     @item = Item.new
+    if current_user
+      @user = current_user
+    end
   end
 
   # def edit

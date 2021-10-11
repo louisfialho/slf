@@ -228,6 +228,9 @@ skip_before_action :verify_authenticity_token # vulnerability?
   def show
     @item = Item.new
     @child = Space.new
+    if current_user
+      @user = current_user
+    end
     @space.connections.each do |connection|
       if connection.parent_id.nil? == false
         @parent = connection.parent.space

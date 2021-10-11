@@ -3,7 +3,7 @@ const shakeHandsRedirect = () => {
   setInterval(function() {
 
     Rails.ajax({
-      url: "/registrations/stat_telegram_chat_id",
+      url: "/telegram_set_up/stat_telegram_chat_id",
       type: 'GET',
       data: "",
       success: function(data) {

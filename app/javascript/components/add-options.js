@@ -1,6 +1,8 @@
 const displayAddOptions = () => {
   const addBtn = document.getElementById('new-object-or-space');
+  const connectBtn = document.getElementById('connect-btn');
   const addOptionsBox = document.getElementById('add-options');
+  const connectOptionsBox = document.getElementById('connect-options');
   const newObjectBtn = document.getElementById('new-object');
   const newSpaceBtn = document.getElementById('button-new-space-child');
   const addUrlBox = document.getElementById('add-url');
@@ -8,6 +10,10 @@ const displayAddOptions = () => {
   var newSpace = document.getElementById('new-space-txt');
   const options = document.getElementById('options');
 
+  // add connect btn
+  // connection options
+  // add event listener si je clic dessus: hide options et display connect opt
+  // si je click n'importe, si connect opt est ouvert, fermer connect opt
 
  addBtn.addEventListener("click", (event) => {
   options.style.display = "none";
@@ -24,11 +30,20 @@ const displayAddOptions = () => {
   }
   });
 
+  connectBtn.addEventListener("click", (event) => {
+    options.style.display = "none";
+    connectOptionsBox.style.display = "";
+  });
+
   document.addEventListener('click', function(event) {
     if (addUrlBox.style.display === "none") {
       var isClickInsideOpt = addOptionsBox.contains(event.target) ||  addBtn.contains(event.target);
       if (!isClickInsideOpt) {
         addOptionsBox.style.display = "none";
+      }
+      var isClickInsideConnectOpt = connectOptionsBox.contains(event.target) ||  addBtn.contains(event.target) || connectBtn.contains(event.target);
+      if (!isClickInsideConnectOpt) {
+        connectOptionsBox.style.display = "none";
       }
     }
   });

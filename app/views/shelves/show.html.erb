@@ -64,6 +64,10 @@
       <%= link_to "Wallet", payment_path, class: "option-label", id: "wallet" %>
     </div>
     <div class="option-ctn">
+      <a>🤖</a>
+      <a class="option-label" id="connect-btn">Connect</a>
+    </div>
+    <div class="option-ctn">
       <a>🚪</a>
       <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
     </div>
@@ -108,21 +112,16 @@
 
 <!-- OPTIONS -->
     <div class="options-ctn options-ctn-shelf-space" id="add-options" style="display:none;">
-      <div class="option add-option" id="new-object">
-        <div class="option-ctn">
-          <a>📚</a>
-          <a class="option-label">New resource</a>
-        </div>
+      <div class="option-ctn" id="new-object">
+        <a>📚</a>
+        <a class="option-label">New resource</a>
       </div>
-      <div class="option add-option" id="button-new-space-child">
-        <div class="option-ctn">
-          <a>🗄 </a>
-          <a class="option-label">New space</a>
-        </div>
+      <div class="option-ctn" id="button-new-space-child">
+        <a>🗄</a>
+        <a class="option-label">New space</a>
       </div>
     </div>
 <!-- END OF OPTIONS -->
-
 
 
 <!-- ADD URL BOX -->
@@ -147,9 +146,25 @@
     </div>
 <!-- END OF ADD SPACE NAME BOX -->
 
+<!-- CONNECT OPTIONS -->
+    <div class="options-ctn options-ctn-shelf-space" id="connect-options" style="display:none;">
+      <div class="option-ctn" id="new-object">
+        <a>💻</a>
+        <a href="https://chrome.google.com/webstore/detail/shelf/dbnfpkfeedjlicclaffhoglpmgpdjblk?hl=en"  target="_blank" rel="noopener noreferrer" class="option-label">Chrome extension</a>
+      </div>
+      <% if @user.telegram_chat_id.nil? %>
+        <div class="option-ctn" id="button-new-space-child">
+          <a>📱</a>
+          <%= link_to 'Telegram Bot', meet_bot_path(@current_user), class: "option-label" %>
+        </div>
+      <% end %>
+    </div>
+<!-- END OF CONNECT OPTIONS -->
+
 <!-- IF SHELF IS EMPTY -->
-<% if @shelf.spaces.empty? && @shelf.items.empty? %>
-  <div class="center"><p class="msg">Your shelf is empty.</p></div>
+<% if (@shelf.spaces.length == 1) && (@shelf.spaces.find_by(name: "🤖 Added by Bot").nil? == false) && (@shelf.spaces.find_by(name: "🤖 Added by Bot").items.empty? && @shelf.spaces.find_by(name: "🤖 Added by Bot").children.empty?) && @shelf.items.empty? %>
+  <div class="center"><p class="msg">Your shelf is empty.
+You can add your first resource by clicking on 'Options' in the top right and either paste a URL (' ➕ New...') or connect with the Chrome extension or Telegram Bot ('🤖 Connect').</p></div>
 <% end %>
 
 
@@ -166,10 +181,13 @@
     <% objects.sort_by(&:position).each do |object| %>
       <% if object.class.name == "Space" %>
         <% if policy(object).show? %>
-          <div class="object" data-type="spaces" data-id="<%= object.id %>">
+          <% if (object.name == "🤖 Added by Bot") && object.items.empty? %>
+          <% else %>
+            <div class="object" data-type="spaces" data-id="<%= object.id %>">
             <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object, shelf_id: @shelf.id) %>
             <%= link_to truncate(object.name, length: 45), space_path(object, shelf_id: @shelf.id), class: "object_name" %>
           </div>
+          <% end %>
         <% end %>
       <% elsif object.class.name == "Item" %>
         <% if policy(object).show? %>

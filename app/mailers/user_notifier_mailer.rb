@@ -4,7 +4,12 @@ class UserNotifierMailer < ApplicationMailer
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def send_signup_email(user)
     @user = user
-    mail( :to => @user.email, :subject => 'Connect with Shelf Bot 🤖' )
+    mail( :to => @user.email, :subject => 'Add your first resource to your Shelf 📚' )
+  end
+
+  def set_up_telegram(user)
+    @user = user
+    mail( :to => @user.email, :subject => 'Connect with Shelf Bot on Telegram 🤖' )
   end
 
   def install_chrome_ext(user)
