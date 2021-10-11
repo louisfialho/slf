@@ -152,11 +152,13 @@
         <a>💻</a>
         <a href="https://chrome.google.com/webstore/detail/shelf/dbnfpkfeedjlicclaffhoglpmgpdjblk?hl=en"  target="_blank" rel="noopener noreferrer" class="option-label">Chrome extension</a>
       </div>
-      <% if @user.telegram_chat_id.nil? %>
-        <div class="option-ctn" id="button-new-space-child">
-          <a>📱</a>
-          <%= link_to 'Telegram Bot', meet_bot_path(@current_user), class: "option-label" %>
-        </div>
+      <% if @user %>
+        <% if @user.telegram_chat_id.nil? %>
+          <div class="option-ctn" id="button-new-space-child">
+            <a>📱</a>
+            <%= link_to 'Telegram Bot', meet_bot_path(@current_user), class: "option-label" %>
+          </div>
+        <% end %>
       <% end %>
     </div>
 <!-- END OF CONNECT OPTIONS -->
