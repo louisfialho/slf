@@ -12,6 +12,12 @@
   </div>
   <!-- Options box: Add -->
   <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
+    <% if @current_user.username == "louisfialho" %>
+      <div class="option-ctn">
+        <a>➕</a>
+        <a class="option-label" id="new-object-or-space">New...</a>
+      </div>
+    <% end %>
     <div class="option-ctn">
       <a>🏡</a>
       <a href="https://www.shelf.so/users/sign_up" class="option-label" id="new-object-or-space">Sign up</a>
