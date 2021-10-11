@@ -30,6 +30,7 @@ const displayAddOptions = () => {
   }
   });
 
+ if (connectBtn) {
   connectBtn.addEventListener("click", (event) => {
     options.style.display = "none";
     connectOptionsBox.style.display = "";
@@ -47,6 +48,8 @@ const displayAddOptions = () => {
       }
     }
   });
+ }
+
 
   newObjectBtn.addEventListener("click", (event) => {
     addOptionsBox.style.display = "none";
