@@ -34,7 +34,7 @@ class ShelvesController < ApplicationController
     if current_user
       @user = current_user
     end
-    flash[:notice] = "#{view_context.link_to "Turn any blogpost 📄, newsletter 🗞 or news article 📰 into audio 👂 using the world's most human-sounding voice. Try it now!", root_path}".html_safe
+    flash.now[:notice] = "#{view_context.link_to "Turn any blogpost 📄, newsletter 🗞 or news article 📰 into audio 👂 using the world's most human-sounding voice. Try it now!", root_path}".html_safe
   end
 
   # def edit
