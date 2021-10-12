@@ -1219,6 +1219,10 @@ li.guarantee:not(:last-child) {
     margin-bottom: 0.5vh;
 }
 
+.alert-info {
+  text-align: center;
+}
+
 // Media
 
 @media(max-width: 1050px) {
