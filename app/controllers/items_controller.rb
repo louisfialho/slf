@@ -66,6 +66,12 @@ skip_before_action :verify_authenticity_token
       @space = @item.spaces.first
     end
     @shelf_mother = shelf_mother_of_item(@item)
+    # si shelf n'a qu'un item et 0 space OU shelf a un space added by bot qui a qu'un item
+    if current_user
+      if (@item.text_content.nil? == false) && ((@user.shelves.first.items.size == 1) && (@user.shelves.first.spaces.size == 1) && (@user.shelves.first.spaces.first.name == "🤖 Added by Bot") && (@user.shelves.first.spaces.first.items.empty?)) || (@user.shelves.first.items.empty? && (@user.shelves.first.spaces.size == 1) && (@user.shelves.first.spaces.first.name == "🤖 Added by Bot") && (@user.shelves.first.spaces.first.items.first.id == @item.id))
+        flash.now[:notice] = "Congratulations on adding your first resource 🎉 You can listen to it for free by clicking on 'Options' in the top right and '👂 Listen'.".html_safe
+      end
+    end
   end
 
   def edit

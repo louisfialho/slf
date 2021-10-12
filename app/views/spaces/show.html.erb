@@ -285,7 +285,7 @@
             <% elsif object.medium == "blog" %>
               <%= link_to image_tag("blog.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
             <% else %>
-              <%= link_to image_tag("web.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
             <% end %>
   <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, space_id: @space.id), class: "object_name" %> -->
               <%= link_to truncate(object.name, length: 40), item_path(object, space_id: @space.id), class: "object_name" %>
