@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/, message: ": please only use letters and numbers" }
   validates_uniqueness_of :username, message: ": this username is already taken"
   before_create :generate_extension_auth_token
-  after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash, :titleize_first_last_name, :set_username_on_shelf
+  after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash, :titleize_first_last_name, :set_username_on_shelf, :give_free_credits
 
   require "base64"
 
@@ -19,6 +19,10 @@ class User < ApplicationRecord
     shelf.save
   end
 
+  def give_free_credits
+    self.tts_balance_in_min = 15
+    self.save
+  end
 
   def create_shelf_and_space_for_Telegram_items
       shelf = Shelf.new(user_id: self.id)
