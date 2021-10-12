@@ -12,7 +12,7 @@
   </div>
   <!-- Options box: Add -->
   <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
-    <% if @current_user.username == "louisfialho" %>
+    <% if user_signed_in? && (@current_user.username == "louisfialho") %>
       <div class="option-ctn">
         <a>➕</a>
         <a class="option-label" id="new-object-or-space">New...</a>
