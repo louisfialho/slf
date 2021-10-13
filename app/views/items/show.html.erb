@@ -64,21 +64,23 @@
 
   <!-- Options box: Move, destroy -->
   <div class="options-ctn item-options" id="options" style="display:none;">
-<!--     <div class="option-ctn">
-      <a>👉</a>
-      <a class="option-label" id="move-to">Move</a>
-    </div>
-    <div class="option-ctn">
-      <a>🗑</a>
-      <% if @shelf %>
-        <%= link_to "Delete", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option-label" %>
-      <% elsif @space %>
-        <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
-      <% end %>
-    </div> -->
+    <% if user_signed_in? && (@current_user.username == "louisfialho") %>
+      <div class="option-ctn">
+        <a>👉</a>
+        <a class="option-label" id="move-to">Move</a>
+      </div>
+      <div class="option-ctn">
+        <a>🗑</a>
+        <% if @shelf %>
+          <%= link_to "Delete", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option-label" %>
+        <% elsif @space %>
+          <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
+        <% end %>
+      </div>
+    <% end %>
     <div class="option-ctn">
       <a>🏡</a>
-      <a href="https://www.shelf.so/users/sign_up" class="option-label" id="new-object-or-space">Sign up</a>
+      <a href="https://www.shelf.so/users/sign_up" class="option-label">Sign up</a>
     </div>
     <div class="option-ctn">
       <a>🚪</a>
@@ -88,7 +90,7 @@
   <!-- Item title -->
   <div class="main-container">
     <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
-      <h1 class="item-title">
+      <h1 class="item-title" id="item-title" data-id="<%= @item.id %>">
         <%= @item.name %>
       </h1>
     </a>
