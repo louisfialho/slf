@@ -237,7 +237,7 @@ skip_before_action :verify_authenticity_token # vulnerability?
       end
     end
     @shelf_mother = shelf_mother_of_space(@space)
-    if (@space.id == 1049) || (@space.id == 1050)
+    if (@space.id == 1049) || (@space.id == 1050) || (@space.id == 1054)
       flash.now[:notice] = "#{view_context.link_to "Turn any blogpost 📄, newsletter 🗞 or news article 📰 into audio 👂 using the world's most human-sounding voice. Try it now!", root_path}".html_safe
     end
   end
