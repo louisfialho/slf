@@ -137,7 +137,7 @@ class Item < ApplicationRecord
       elsif url.include? 'github.com'
         return 'code_repository'
       else
-        return 'other'
+        return 'blogpost'
       end
     end
 
