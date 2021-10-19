@@ -61,7 +61,7 @@ const displayAddOptions = () => {
     itemTxtInpt.focus();
     itemTxtInpt.addEventListener('paste', function(event) {
       itemPrompt.innerHTML = "Adding this new object 📚 to your shelf..."
-      setTimeout(function(){ Rails.fire(itemForm, 'submit'); }, 0.1);
+      setTimeout(function(){ Rails.fire(itemForm, 'submit'); }, 0.000000000000000001);
     });
   });
 
@@ -102,7 +102,7 @@ const displayAddOptions = () => {
     const spaceTxtInpt = document.getElementById('space_name')
     spaceTxtInpt.focus();
     spaceTxtInpt.addEventListener('paste', function(event) {
-      setTimeout(function(){ spaceForm.submit() }, 0.1);
+      setTimeout(function(){ spaceForm.submit() }, 0.000000000000000000001);
     });
   });
 
