@@ -86,4 +86,11 @@ class ItemPolicy < ApplicationPolicy
     true
   end
 
+  def persist_audio_duration?
+    true
+  end
+
+  def item_audio_duration?
+    true
+  end
 end

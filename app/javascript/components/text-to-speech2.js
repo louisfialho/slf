@@ -100,6 +100,15 @@ const textToSpeech2 = () => {
               console.log(data);
             }
           });
+          var audio_duration = this.duration;
+          Rails.ajax({
+            url: "/items/persist_audio_duration",
+            type: 'POST',
+            data: `audio_duration=${audio_duration}&id=${itemId}`,
+            success: function(data) {
+              console.log(data);
+            }
+          });
         });
       } else if (error) {
         displaySrcLoadPlay('https://polly-async.s3.eu-west-2.amazonaws.com/2aa802f2-69fd-4976-a68d-386323ab4a1a.mp3')
@@ -203,6 +212,15 @@ const textToSpeech2 = () => {
               success: function(data) {
                 console.log(data);
                 console.log('test2')
+              }
+            });
+            var audio_duration = this.duration;
+            Rails.ajax({
+              url: "/items/persist_audio_duration",
+              type: 'POST',
+              data: `audio_duration=${audio_duration}&id=${itemId}`,
+              success: function(data) {
+                console.log(data);
               }
             });
           });

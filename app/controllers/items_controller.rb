@@ -1,9 +1,10 @@
 class ItemsController < ApplicationController
-skip_before_action :authenticate_user!, :only => [:show, :create, :destroy, :move_to_shelf, :move_to_space, :update]
-before_action :set_item, only: [:show, :edit, :update, :destroy, :move, :persist_mp3_url, :persist_audio_timestamp]
+skip_before_action :authenticate_user!, :only => [:show, :create, :destroy, :move_to_shelf, :move_to_space, :update, :item_audio_duration]
+before_action :set_item, only: [:show, :edit, :update, :destroy, :move, :persist_mp3_url, :persist_audio_timestamp, :persist_audio_duration]
 before_action :set_shelf, only: [:show, :move_to_shelf]
 before_action :set_shelf_space, only: [:new, :show, :edit, :move]
 skip_before_action :verify_authenticity_token
+skip_after_action :verify_authorized, only: [:item_audio_duration]
 
   def new
     @item = Item.new
@@ -229,9 +230,8 @@ skip_before_action :verify_authenticity_token
 
   def persist_audio_timestamp
     audio_timestamp = params[:audio_timestamp]
-    audio_duration = params[:audio_duration]
     @item.audio_timestamp = audio_timestamp
-    if audio_timestamp.to_f > audio_duration.to_f*0.8
+    if audio_timestamp.to_f > @item.audio_duration.to_f*0.9
       item_name = @item.name
       if item_name[0] != '✅'
         @item.name = '✅ ' + item_name
@@ -241,6 +241,20 @@ skip_before_action :verify_authenticity_token
     respond_to do |format|
     format.json { head :ok }
     end
+  end
+
+  def persist_audio_duration
+    @item.audio_duration = params[:audio_duration]
+    @item.save
+    respond_to do |format|
+    format.json { head :ok }
+    end
+  end
+
+  def item_audio_duration
+    item = Item.find(params[:id])
+    audio_duration = item.audio_duration
+    render json: {audio_duration: audio_duration}
   end
 
   private

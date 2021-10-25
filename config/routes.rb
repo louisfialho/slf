@@ -54,6 +54,8 @@ Rails.application.routes.draw do
       post :move_to_shelf
       post :persist_mp3_url
       post :persist_audio_timestamp
+      post :persist_audio_duration
+      get 'item_audio_duration'
     end
     member do
       patch :move
