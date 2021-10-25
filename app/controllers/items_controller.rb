@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 skip_before_action :authenticate_user!, :only => [:show, :create, :destroy, :move_to_shelf, :move_to_space, :update]
-before_action :set_item, only: [:show, :edit, :update, :destroy, :move, :persist_mp3_url]
+before_action :set_item, only: [:show, :edit, :update, :destroy, :move, :persist_mp3_url, :persist_audio_timestamp]
 before_action :set_shelf, only: [:show, :move_to_shelf]
 before_action :set_shelf_space, only: [:new, :show, :edit, :move]
 skip_before_action :verify_authenticity_token
@@ -227,10 +227,18 @@ skip_before_action :verify_authenticity_token
     end
   end
 
+  def persist_audio_timestamp
+    @item.audio_timestamp = params[:audio_timestamp]
+    @item.save
+    respond_to do |format|
+    format.json { head :ok }
+    end
+  end
+
   private
 
   def item_params
-    params.require(:item).permit(:url, :medium, :status, :name, :text_content, :rank, :url_mp3)
+    params.require(:item).permit(:url, :medium, :status, :name, :text_content, :rank, :url_mp3, :audio_timestamp)
   end
 
   def set_item

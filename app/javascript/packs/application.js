@@ -41,6 +41,8 @@ import { displayIntroMessage } from '../components/display-intro-message';
 import { displayItemMediaOptions } from '../components/display-item-media-options';
 // import { textToSpeech } from '../components/text-to-speech';
 import { textToSpeech2 } from '../components/text-to-speech2';
+import { saveAudioTimestamp } from '../components/save-audio-timestamp';
+import { setAudioTimestamp } from '../components/set-audio-timestamp';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -56,6 +58,11 @@ document.addEventListener('turbolinks:load', () => {
     displayItemOptions();
     // textToSpeech();
     textToSpeech2();
+  }
+
+  if (document.querySelector("#audioPlayback")) {
+    saveAudioTimestamp();
+    setAudioTimestamp();
   }
 
   if (document.querySelector("#new-object-or-space")) {

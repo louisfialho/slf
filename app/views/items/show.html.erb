@@ -203,7 +203,7 @@
   <!-- Item title -->
   <div class="main-container">
     <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
-      <h1 class="item-title" id="item-title" data-id="<%= @item.id %>">
+      <h1 class="item-title" id="item-title" data-id="<%= @item.id %>" data-timestamp="<%= @item.audio_timestamp %>">
         <%= @item.name %>
       </h1>
     </a>

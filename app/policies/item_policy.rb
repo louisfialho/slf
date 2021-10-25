@@ -82,4 +82,8 @@ class ItemPolicy < ApplicationPolicy
     true
   end
 
+  def persist_audio_timestamp?
+    true
+  end
+
 end
