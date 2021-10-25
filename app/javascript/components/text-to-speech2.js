@@ -91,7 +91,7 @@ const textToSpeech2 = () => {
           }
         );
         player.addEventListener("loadeddata", function() {
-          let textLengthMinActual = this.duration / 60;
+          let textLengthMinActual = player.duration / 60;
           Rails.ajax({
             url: "/application/update_balance_final",
             type: 'POST',
@@ -100,7 +100,7 @@ const textToSpeech2 = () => {
               console.log(data);
             }
           });
-          var audio_duration = this.duration;
+          var audio_duration = player.duration;
           Rails.ajax({
             url: "/items/persist_audio_duration",
             type: 'POST',
