@@ -2,6 +2,7 @@ const saveAudioTimestamp = () => {
 
   let itemId = document.getElementById("item-title").dataset.id;
   let player = document.getElementById('audioPlayback');
+  let arrow = document.getElementById('back-item-show');
 
   var interval = setInterval(function() {
     Rails.ajax({
@@ -26,9 +27,9 @@ const saveAudioTimestamp = () => {
     });
   }, 5000); // In every 5 seconds
 
-  window.addEventListener("beforeunload", function(event) {
+  arrow.addEventListener("click", (event) => {
     clearInterval(interval);
-  });
+  })
 }
 
 export { saveAudioTimestamp };
