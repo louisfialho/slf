@@ -231,10 +231,12 @@ skip_after_action :verify_authorized, only: [:item_audio_duration]
   def persist_audio_timestamp
     audio_timestamp = params[:audio_timestamp]
     @item.audio_timestamp = audio_timestamp
-    if audio_timestamp.to_f > @item.audio_duration.to_f*0.9
-      item_name = @item.name
-      if item_name[0] != '✅'
-        @item.name = '✅ ' + item_name
+    if !@item.audio_duration.nil?
+      if audio_timestamp.to_f > @item.audio_duration.to_f*0.9
+        item_name = @item.name
+        if item_name[0] != '✅'
+          @item.name = '✅ ' + item_name
+        end
       end
     end
     @item.save

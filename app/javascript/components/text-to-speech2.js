@@ -107,6 +107,7 @@ const textToSpeech2 = () => {
             data: `audio_duration=${audio_duration}&id=${itemId}`,
             success: function(data) {
               console.log(data);
+              console.log("duration sent")
             }
           });
         });
