@@ -228,7 +228,15 @@ skip_before_action :verify_authenticity_token
   end
 
   def persist_audio_timestamp
-    @item.audio_timestamp = params[:audio_timestamp]
+    audio_timestamp = params[:audio_timestamp]
+    audio_duration = params[:audio_duration]
+    @item.audio_timestamp = audio_timestamp
+    if audio_timestamp.to_f > audio_duration.to_f*0.8
+      item_name = @item.name
+      if item_name[0] != '✅'
+        @item.name = '✅ ' + item_name
+      end
+    end
     @item.save
     respond_to do |format|
     format.json { head :ok }
@@ -238,7 +246,7 @@ skip_before_action :verify_authenticity_token
   private
 
   def item_params
-    params.require(:item).permit(:url, :medium, :status, :name, :text_content, :rank, :url_mp3, :audio_timestamp)
+    params.require(:item).permit(:url, :medium, :status, :name, :text_content, :rank, :url_mp3, :audio_timestamp, :audio_duration)
   end
 
   def set_item
