@@ -62,9 +62,11 @@ const textToSpeech2 = () => {
         var blob = new Blob([arrayBuffer]);
         var url = URL.createObjectURL(blob);
         audioSource.src = url;
-        player.style.display = "";
         player.load();
-        player.play();
+        player.onloadeddata = function() {
+            player.style.display = "";
+            player.play();
+        };
         var file = new File([blob], "audio");
         var upload = new AWS.S3.ManagedUpload({
           params: {

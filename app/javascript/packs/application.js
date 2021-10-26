@@ -43,6 +43,7 @@ import { displayItemMediaOptions } from '../components/display-item-media-option
 import { textToSpeech2 } from '../components/text-to-speech2';
 import { saveAudioTimestamp } from '../components/save-audio-timestamp';
 import { setAudioTimestamp } from '../components/set-audio-timestamp';
+import { loadAudio } from '../components/audio-loaded';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -63,6 +64,7 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector("#audioPlayback")) {
     saveAudioTimestamp();
     setAudioTimestamp();
+    loadAudio();
   }
 
   if (document.querySelector("#new-object-or-space")) {
