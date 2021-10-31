@@ -12,11 +12,11 @@ class Item < ApplicationRecord
   has_and_belongs_to_many :shelves
   has_and_belongs_to_many :spaces
 
-  MEDIA = ['book', 'podcast', 'video', 'blogpost', 'newsletter', 'news_article', 'academic_article', 'tweet', 'audio_book', 'code_repository', 'e_book', 'online_course', 'blog', 'web', 'other']
+  MEDIA = ['book', 'podcast', 'video', 'blogpost', 'newsletter', 'news_article', 'academic_article', 'tweet', 'thread', 'audio_book', 'code_repository', 'e_book', 'online_course', 'blog', 'web', 'other']
 
   before_validation :extract_url, :get_redirect_if_exists, on: :create # makes sure the persisted value is a url (no additional character), and, in case of a redirect, the final redirect
   validates :url, presence: true, url: true # see custom class
-  after_validation :set_params, :extract_text
+  after_validation :set_params
 
   private
 
@@ -45,14 +45,128 @@ class Item < ApplicationRecord
     end
 
     def set_params
-      self.name = item_name(url) if name.blank?
-      self.medium = item_medium(url) if medium.blank?
       self.position = 1
+      if self.url.include? 'twitter.com'
+        handle_tweet(self.url)
+      else
+        self.name = item_name(url) if name.blank?
+        self.medium = item_medium(url) if medium.blank?
+        unless ["video", "podcast", "tweet", "online_course", "book", "audio_book", "code_repository"].include?(self.medium)
+          self.text_content = item_text_content(url) if text_content.blank?
+        end
+      end
     end
 
-    def extract_text
-      unless ["video", "podcast", "tweet", "online_course", "book", "audio_book", "code_repository"].include?(self.medium)
-        self.text_content = item_text_content(url) if text_content.blank?
+    def handle_tweet(url)
+
+      tweet_id = url.match(/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/)[3]
+
+      params = {
+        "ids": tweet_id,
+        "tweet.fields": "conversation_id,author_id"
+      }
+
+      options = {
+        method: 'get',
+        headers: {
+          "User-Agent": "v2TweetLookupRuby",
+          "Authorization": "Bearer #{ENV["BEARER_TOKEN"]}"
+        },
+        params: params
+      }
+
+      request = Typhoeus::Request.new("https://api.twitter.com/2/tweets", options)
+
+      response = request.run
+
+      $conversation_id = JSON.parse(response.body)["data"][0]["conversation_id"]
+      author_init_tweet = JSON.parse(response.body)["data"][0]["author_id"]
+
+      params = {
+        "ids": $conversation_id,
+        "tweet.fields": "author_id,created_at"
+      }
+
+      options = {
+        method: 'get',
+        headers: {
+          "User-Agent": "v2TweetLookupRuby",
+          "Authorization": "Bearer #{ENV["BEARER_TOKEN"]}"
+        },
+        params: params
+      }
+
+      request = Typhoeus::Request.new("https://api.twitter.com/2/tweets", options)
+
+      response = request.run
+
+      $date = JSON.parse(response.body)["data"][0]["created_at"]
+      $author_top_tweet = JSON.parse(response.body)["data"][0]["author_id"]
+      text_init_tweet = JSON.parse(response.body)["data"][0]["text"]
+
+      @tweets = []
+
+      paginating(token=nil)
+
+      text_content = text_init_tweet
+
+      if @tweets.empty? == false
+        @tweets = @tweets.flatten
+        @tweets.reverse_each do |tweet|
+          if ((tweet["conversation_id"] == $conversation_id) && (tweet["in_reply_to_user_id"] == $author_top_tweet) && (tweet["author_id"] == $author_top_tweet))
+            text_content += "\n\n#{tweet["text"]}"
+          end
+        end
+      end
+
+      if text_content == text_init_tweet
+        self.medium = "tweet"
+      else
+        self.medium = "thread"
+      end
+      self.name = text_init_tweet
+      self.text_content = text_content
+    end
+
+    def paginating(token)
+      if token.nil?
+        params = {
+          "exclude": "retweets",
+          "since_id": $conversation_id,
+          "end_time": (DateTime.parse($date) + 1).to_time.iso8601,
+          "tweet.fields": "conversation_id,in_reply_to_user_id,created_at,author_id",
+          "max_results": 100
+        }
+      else
+        params = {
+          "exclude": "retweets",
+          "since_id": $conversation_id,
+          "end_time": (DateTime.parse($date) + 1).to_time.iso8601,
+          "tweet.fields": "conversation_id,in_reply_to_user_id,created_at,author_id",
+          "max_results": 100,
+          "pagination_token": token
+        }
+      end
+
+      options = {
+        method: 'get',
+        headers: {
+          "User-Agent": "v2TweetLookupRuby",
+          "Authorization": "Bearer #{ENV["BEARER_TOKEN"]}"
+        },
+        params: params
+      }
+
+      request = Typhoeus::Request.new("https://api.twitter.com/2/users/#{$author_top_tweet}/tweets", options)
+
+      response = request.run
+
+      if JSON.parse(response.body).key?("data")
+        @tweets << JSON.parse(response.body)["data"]
+      end
+
+      if JSON.parse(response.body)["meta"]["next_token"]
+        paginating(JSON.parse(response.body)["meta"]["next_token"])
       end
     end
 
@@ -98,12 +212,6 @@ class Item < ApplicationRecord
       html_doc = Nokogiri::HTML(html_file, nil, Encoding::UTF_8.to_s) # should manage UTF8 html_doc.encoding = 'UTF-8'
       if url.include? 'www.youtube'
         item_name = html_doc.at('meta[name="title"]')['content'] # works for YouTube
-      elsif url.match?(/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/)  # matches https://twitter.com/username/status/1047925106423603200
-        if tweet_name(url).include? 'https'
-          item_name = tweet_name(url).gsub(/(?:f|ht)tps?:\/[^\s]+/, '')
-        else
-          item_name = tweet_name(url)
-        end
       else
         item_name = html_doc.css('head title').inner_text # works for spotify and more
       # does not work for Techcrunch
@@ -128,8 +236,6 @@ class Item < ApplicationRecord
         return 'news_article'
       elsif ['wikipedia.org', 'technologyreview.com', 'hbr.org', 'whitepaper'].any? { |keyword| url.include? keyword }
         return 'academic_article'
-      elsif url.include? 'twitter.com'
-        return 'tweet'
       elsif ['audible', 'blinkist.com'].any? { |keyword| url.include? keyword }
         return 'audio_book'
       elsif ['coursera.org', 'edx.org', 'udacity.com', 'udemy.com'].any? { |keyword| url.include? keyword }
@@ -139,43 +245,6 @@ class Item < ApplicationRecord
       else
         return 'blogpost'
       end
-    end
-
-    def tweet_name(url)
-      # takes URL as input, and outputs name of the tweet object
-      tweet_id = url.match(/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/)[3]
-
-      bearer_token = ENV["BEARER_TOKEN"]
-      tweet_lookup_url = "https://api.twitter.com/2/tweets"
-
-      params = {
-        "ids": tweet_id,
-        # "expansions": "author_id" #referenced_tweets.id
-        # "tweet.fields": "attachments,author_id,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang",
-        # "user.fields": "name"
-        # "media.fields": "url",
-        # "place.fields": "country_code",
-        # "poll.fields": "options"
-      }
-
-      response = tweet_lookup(tweet_lookup_url, bearer_token, params)
-      return JSON.parse(response.body)['data'][0]['text']
-    end
-
-    def tweet_lookup(url, bearer_token, params)
-      options = {
-        method: 'get',
-        headers: {
-          "User-Agent": "v2TweetLookupRuby",
-          "Authorization": "Bearer #{bearer_token}"
-        },
-        params: params
-      }
-
-      request = Typhoeus::Request.new(url, options)
-      response = request.run
-
-      return response
     end
 end
 

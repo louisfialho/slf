@@ -27,6 +27,8 @@
           <%= image_tag "academic_article.png", width: 37 %>
         <% elsif @item.medium == "tweet" %>
           <%= image_tag "tweet.png", width: 37 %>
+        <% elsif @item.medium == "thread" %>
+          <%= image_tag "thread.png", width: 37 %>
         <% elsif @item.medium == "audio_book" %>
           <%= image_tag "audio_book.png", width: 37 %>
         <% elsif @item.medium == "blog" %>
@@ -53,7 +55,7 @@
       <%= f.input :medium,
         legend_tag: false,
         as: :radio_buttons,
-        collection: [['blog', '📑 Blog'], ['blogpost', '📄 Blogpost'], ['news_article', '📰 News article'], ['newsletter', '🗞 Newsletter'], ['academic_article', '📃 Academic article'], ['tweet', '🐦 Tweet'], ['podcast', '🎙 Podcast'], ['video', '📺 Video'], ['online_course', '🎓 Online course'], ['book', '📕 Book'], ['e_book', '📙 Ebook'], ['audio_book', '🎧 Audio book'], ['code_repository', '🐱 Code repository']],
+        collection: [['blog', '📑 Blog'], ['blogpost', '📄 Blogpost'], ['news_article', '📰 News article'], ['newsletter', '🗞 Newsletter'], ['academic_article', '📃 Academic article'], ['tweet', '🐦 Tweet'], ['thread', '🧵 Thread'], ['podcast', '🎙 Podcast'], ['video', '📺 Video'], ['online_course', '🎓 Online course'], ['book', '📕 Book'], ['e_book', '📙 Ebook'], ['audio_book', '🎧 Audio book'], ['code_repository', '🐱 Code repository']],
         label_method: :second,
         value_method: :first,
         item_wrapper_class: 'option-label',
@@ -134,6 +136,8 @@
           <%= image_tag "academic_article.png", width: 37 %>
         <% elsif @item.medium == "tweet" %>
           <%= image_tag "tweet.png", width: 37 %>
+        <% elsif @item.medium == "thread" %>
+          <%= image_tag "thread.png", width: 37 %>
         <% elsif @item.medium == "audio_book" %>
           <%= image_tag "audio_book.png", width: 37 %>
         <% elsif @item.medium == "blog" %>
@@ -160,7 +164,7 @@
       <%= f.input :medium,
         legend_tag: false,
         as: :radio_buttons,
-        collection: [['blog', '📑 Blog'], ['blogpost', '📄 Blogpost'], ['news_article', '📰 News article'], ['newsletter', '🗞 Newsletter'], ['academic_article', '📃 Academic article'], ['tweet', '🐦 Tweet'], ['podcast', '🎙 Podcast'], ['video', '📺 Video'], ['online_course', '🎓 Online course'], ['book', '📕 Book'], ['e_book', '📙 Ebook'], ['audio_book', '🎧 Audio book'], ['code_repository', '🐱 Code repository']],
+        collection: [['blog', '📑 Blog'], ['blogpost', '📄 Blogpost'], ['news_article', '📰 News article'], ['newsletter', '🗞 Newsletter'], ['academic_article', '📃 Academic article'], ['tweet', '🐦 Tweet'], ['thread', '🧵 Thread'], ['podcast', '🎙 Podcast'], ['video', '📺 Video'], ['online_course', '🎓 Online course'], ['book', '📕 Book'], ['e_book', '📙 Ebook'], ['audio_book', '🎧 Audio book'], ['code_repository', '🐱 Code repository']],
         label_method: :second,
         value_method: :first,
         item_wrapper_class: 'option-label',
@@ -213,7 +217,7 @@
     <div id="text-content"><%= @item.text_content %></div>
     <!-- Audio player -->
     <% if @item.mp3_url.nil? == false %>
-      <audio id="audioPlayback" controls style="display:none;" preload="auto" title="<%= @item.name %>">
+      <audio id="audioPlayback" controls preload="auto" title="<%= @item.name %>">
         <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
       </audio>
     <% else %>
@@ -253,6 +257,8 @@
           <%= image_tag "academic_article.png", width: 37 %>
         <% elsif @item.medium == "tweet" %>
           <%= image_tag "tweet.png", width: 37 %>
+        <% elsif @item.medium == "thread" %>
+          <%= image_tag "thread.png", width: 37 %>
         <% elsif @item.medium == "audio_book" %>
           <%= image_tag "audio_book.png", width: 37 %>
         <% elsif @item.medium == "blog" %>
@@ -326,6 +332,8 @@
           <%= image_tag "academic_article.png", width: 37 %>
         <% elsif @item.medium == "tweet" %>
           <%= image_tag "tweet.png", width: 37 %>
+        <% elsif @item.medium == "thread" %>
+          <%= image_tag "thread.png", width: 37 %>
         <% elsif @item.medium == "audio_book" %>
           <%= image_tag "audio_book.png", width: 37 %>
         <% elsif @item.medium == "blog" %>

@@ -276,6 +276,8 @@
               <%= link_to image_tag("newsletter.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
             <% elsif object.medium == "tweet" %>
               <%= link_to image_tag("tweet.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+            <% elsif object.medium == "thread" %>
+              <%= link_to image_tag("thread.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
             <% elsif object.medium == "audio_book" %>
               <%= link_to image_tag("audio_book.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
             <% elsif object.medium == "e_book" %>
