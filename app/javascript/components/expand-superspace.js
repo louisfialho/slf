@@ -57,7 +57,7 @@ const expandSuperspace = () => {
       if (y.contains(event.target)) { // if item contains
           console.log('clicked item'); // redirect item
       } else {
-          window.location.href = `http://localhost:3000/spaces/${inProgressId}`
+          window.location.href = `https://www.shelf.so/spaces/${inProgressId}`
       }
   });
 
@@ -82,7 +82,7 @@ const expandSuperspace = () => {
       if (z.contains(event.target)) { // if item contains
           console.log('clicked item'); // redirect item
       } else {
-          window.location.href = `http://localhost:3000/spaces/${finishedId}`
+          window.location.href = `https://www.shelf.so/spaces/${finishedId}`
       }
   });
 }

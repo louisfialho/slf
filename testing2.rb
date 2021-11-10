@@ -4,6 +4,7 @@ require File.expand_path('config/environment', __dir__)
 
 Item.all.each do |item|
   item.status = "finished"
+  item.save(validate: false)
 end
 
 User.all.reverse.each do |user|
