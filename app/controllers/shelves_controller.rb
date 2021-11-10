@@ -40,6 +40,10 @@ class ShelvesController < ApplicationController
     end
     if @shelf.id == 20
       flash.now[:notice] = "#{view_context.link_to "Turn any blogpost 📄, newsletter 🗞 or news article 📰 into audio 👂 using the world's most human-sounding voice. Try it now!", root_path}".html_safe
+      @shelf = Shelf.find(20)
+      @not_started_space = @shelf.spaces.where(name: 'Not started').first
+      @in_progress_space = @shelf.spaces.where(name: 'In progress').first
+      @finished_space = @shelf.spaces.where(name: 'Finished').first
     end
   end
 

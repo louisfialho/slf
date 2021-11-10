@@ -168,10 +168,9 @@
           <% end %>
         <% elsif @item.medium == "thread" %>
           <% if @item.status == "in progress" %>
-            <img id="medium-emoji" width="37" src="/assets/thread_orange.png">
             <%= image_tag "thread_orange.png", width: 37, id: "medium-emoji"%>
           <% elsif @item.status == "finished" %>
-            <img id="medium-emoji" width="37" src="/assets/thread_green.png">
+            <%= image_tag "thread_green.png", width: 37, id: "medium-emoji"%>
           <% end %>
         <% elsif @item.medium == "audio_book" %>
           <%= image_tag "audio_book.png", width: 37 %>
