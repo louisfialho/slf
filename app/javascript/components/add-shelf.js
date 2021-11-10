@@ -9,6 +9,7 @@ const addShelf = () => {
   let tick = document.getElementById('tick-add-btn');
   let notStartedGrid = document.getElementById('not-started-grid');
   let itemTxtInpt = document.getElementById('item_url');
+  let magGlass = document.getElementById('magnifying-glass-add-btn');
 
 function handleTimeUpdate() {
       setTimeout(function(){
@@ -16,6 +17,7 @@ function handleTimeUpdate() {
         let url = itemTxtInpt.value;
         // remove image
         leftImgBtn.style.display = "none"
+        magGlass.style.display = "none"
         // remove txt
         txtInpt.style.display = "none";
         // add spinner in the center and display here (make turn)
@@ -52,7 +54,6 @@ function handleTimeUpdate() {
                 setTimeout(function () {
                   console.log("hi5");
                   tick.style.display = "none";
-                  leftImgBtn.src = "/assets/plus_shelf.png";
                   leftImgBtn.style.display = ""
                   txtBtn.style.display = "";
                   itemTxtInpt.value = "";
@@ -69,7 +70,8 @@ function handleTimeUpdate() {
 
   addBtn.addEventListener("click", (event) => {
     console.log("hi1");
-    leftImgBtn.src = "/assets/magnifying_glass.png"
+    leftImgBtn.style.display = "none"
+    magGlass.style.display = ""
     txtBtn.style.display = "none"
     txtInpt.style.display = ""
     itemTxtInpt.focus();

@@ -53,6 +53,7 @@
     <p class="logo">shelf</p>
     <a class="add-shelf" id="add-btn-shelf">
       <%= image_tag "plus_shelf.png", width: 30, height: 30, id: "img-add-btn", style: "display:;"%>
+      <%= image_tag "magnifying_glass.png", width: 30, height: 30, id: "magnifying-glass-add-btn", style: "display: none;"%>
       <div style="padding-left: 25px; display:;" id="txt-add-btn">New item</div>
       <div style="padding-left: 15px; display:none;" id="txt-input-btn">
         <%= form_for @item, remote: true do |f| %>
