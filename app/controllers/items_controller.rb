@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
-skip_before_action :authenticate_user!, :only => [:show, :create, :destroy, :move_to_shelf, :move_to_space, :update, :item_audio_duration]
-before_action :set_item, only: [:show, :edit, :update, :destroy, :move, :persist_mp3_url, :persist_audio_timestamp, :persist_audio_duration]
+skip_before_action :authenticate_user!, :only => [:show, :create, :destroy, :move_to_shelf, :move_to_space, :update, :item_audio_duration, :was_item_added]
+before_action :set_item, only: [:show, :edit, :update, :destroy, :move, :persist_mp3_url, :persist_audio_timestamp, :persist_audio_duration, :mark_as_finished]
 before_action :set_shelf, only: [:show, :move_to_shelf]
 before_action :set_shelf_space, only: [:new, :show, :edit, :move]
 skip_before_action :verify_authenticity_token
-skip_after_action :verify_authorized, only: [:item_audio_duration]
+skip_after_action :verify_authorized, only: [:item_audio_duration, :was_item_added]
 
   def new
     @item = Item.new
@@ -14,32 +14,34 @@ skip_after_action :verify_authorized, only: [:item_audio_duration]
   def create
     @item = Item.new(item_params)
     authorize @item
-    respond_to do |format|
-      if @item.valid?
-        if params[:item][:shelf_id].present?
-          @shelf = Shelf.find(params[:item][:shelf_id])
-          RepositioningItemsAndSpacesJob.perform_later(@shelf)
-          @shelf.items << @item
-          format.html do
-            redirect_to item_path(@item, shelf_id: @shelf.id)
-          end
-        elsif params[:item][:space_id].present?
-          @space = Space.find(params[:item][:space_id])
-          RepositioningInSpaceJob.perform_later(@space)
-          @space.items << @item
-          format.html do
-            redirect_to item_path(@item, space_id: @space.id)
-          end
-        end
-        if current_user
-          if current_user != User.first
-            UserNotifierMailer.inform_louis_of_new_item(@item, current_user, 'app').deliver
-          end
-        end
-      else
-        format.js { render 'shelves/show_updated_view' }
-        format.json { head :ok }
+    if @item.valid?
+      # if params[:item][:shelf_id].present?
+        # @shelf = Shelf.find(params[:item][:shelf_id])
+        RepositioningItemsAndSpacesJob.perform_later(@shelf)
+      if current_user
+        @shelf = current_user.shelves.first
+        @not_started_space = @shelf.spaces.where(name: 'Not started').first
+        @not_started_space.items << @item
       end
+        # format.html do
+        #   redirect_to item_path(@item, shelf_id: @shelf.id)
+        # end
+      # elsif params[:item][:space_id].present?
+      #   @space = Space.find(params[:item][:space_id])
+      #   RepositioningInSpaceJob.perform_later(@space)
+      #   @space.items << @item
+      #   format.html do
+      #     redirect_to item_path(@item, space_id: @space.id)
+      #   end
+      # end
+      if current_user
+        if current_user != User.first
+          UserNotifierMailer.inform_louis_of_new_item(@item, current_user, 'app').deliver
+        end
+      end
+    else
+      format.js { render 'shelves/show_updated_view' }
+      format.json { head :ok }
     end
   end
 
@@ -56,22 +58,34 @@ skip_after_action :verify_authorized, only: [:item_audio_duration]
   end
 
   def show
-    @child = Space.new
-    @parent_id = Space.new
+    # @child = Space.new
+    # @parent_id = Space.new
     @space = Space.new
+    @shelf_mother = shelf_mother_of_item(@item)
     if current_user
       @user = current_user
+      if @item.status == "not started"
+        @item.status = "in progress"
+        @shelf = @user.shelves.first
+        @item.spaces.destroy_all
+        @in_progress_space = @shelf.spaces.where(name: 'In progress').first
+        @in_progress_space.items << @item
+        @item.save
+        #sassurer que si user go back, redirected vers in progress
+      end
     end
     if @item.shelves.empty?
       @parent_space = @item.spaces.first
       @space = @item.spaces.first
     end
-    @shelf_mother = shelf_mother_of_item(@item)
     # si shelf n'a qu'un item et 0 space OU shelf a un space added by bot qui a qu'un item
     if current_user
       if (@item.text_content.nil? == false) && ((@user.shelves.first.items.size == 1) && (@user.shelves.first.spaces.size == 1) && (@user.shelves.first.spaces.first.name == "🤖 Added by Bot") && (@user.shelves.first.spaces.first.items.empty?)) || (@user.shelves.first.items.empty? && (@user.shelves.first.spaces.size == 1) && (@user.shelves.first.spaces.first.name == "🤖 Added by Bot") && (@user.shelves.first.spaces.first.items.first.id == @item.id))
         flash.now[:notice] = "Congratulations on adding your first resource 🎉 You can listen to it for free by clicking on 'Options' in the top right and '👂 Listen'.".html_safe
       end
+    end
+    if params.has_key?(:origin)
+      @space_back_id = params[:space_id]
     end
   end
 
@@ -231,14 +245,6 @@ skip_after_action :verify_authorized, only: [:item_audio_duration]
   def persist_audio_timestamp
     audio_timestamp = params[:audio_timestamp]
     @item.audio_timestamp = audio_timestamp
-    if !@item.audio_duration.nil?
-      if audio_timestamp.to_f > @item.audio_duration.to_f*0.9
-        item_name = @item.name
-        if item_name[0] != '✅'
-          @item.name = '✅ ' + item_name
-        end
-      end
-    end
     @item.save
     respond_to do |format|
     format.json { head :ok }
@@ -257,6 +263,33 @@ skip_after_action :verify_authorized, only: [:item_audio_duration]
     item = Item.find(params[:id])
     audio_duration = item.audio_duration
     render json: {audio_duration: audio_duration}
+  end
+
+  def mark_as_finished
+    @item.status = "finished"
+    @item.spaces.destroy_all
+    if current_user
+      @user = current_user
+      @shelf = @user.shelves.first
+      @finished_space = @shelf.spaces.where(name: 'Finished').first
+      @finished_space.items << @item
+      @item.save
+    end
+    respond_to do |format|
+    format.json { head :ok }
+    end
+  end
+
+  def was_item_added
+    if current_user
+      @user = current_user
+      @shelf = current_user.shelves.first
+      @not_started_space = @shelf.spaces.where(name: 'Not started').first
+      @item = @not_started_space.items.find_by(url: params[:url].to_s)
+      if (@item.nil? == false) && (@item.created_at > (Time.current - 5.minutes))
+        render json: {response: "ok", space_id: @not_started_space.id, item_id: @item.id, item_medium: @item.medium, item_name: @item.name}
+      end
+    end
   end
 
   private

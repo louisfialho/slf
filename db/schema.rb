@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_25_094514) do
+ActiveRecord::Schema.define(version: 2021_11_01_134902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2021_10_25_094514) do
     t.string "mp3_url"
     t.string "audio_timestamp"
     t.string "audio_duration"
+    t.string "status", default: "not started"
   end
 
   create_table "items_shelves", id: false, force: :cascade do |t|

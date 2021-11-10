@@ -1,109 +1,63 @@
 require File.expand_path('config/environment', __dir__)
 
-    def paginating(token)
-      if token.nil?
-        params = {
-          "exclude": "retweets",
-          "since_id": $conversation_id,
-          "end_time": (DateTime.parse($date) + 1).to_time.iso8601,
-          "tweet.fields": "conversation_id,in_reply_to_user_id,created_at,author_id",
-          "max_results": 100
-        }
-      else
-        params = {
-          "exclude": "retweets",
-          "since_id": $conversation_id,
-          "end_time": (DateTime.parse($date) + 1).to_time.iso8601,
-          "tweet.fields": "conversation_id,in_reply_to_user_id,created_at,author_id",
-          "max_results": 100,
-          "pagination_token": token
-        }
-      end
+#mettre status de TOUS les items existants = not started
 
-      options = {
-        method: 'get',
-        headers: {
-          "User-Agent": "v2TweetLookupRuby",
-          "Authorization": "Bearer #{ENV["BEARER_TOKEN"]}"
-        },
-        params: params
-      }
+Item.all.each do |item|
+  item.status = "finished"
+end
 
-      request = Typhoeus::Request.new("https://api.twitter.com/2/users/#{$author_top_tweet}/tweets", options)
+User.all.reverse.each do |user|
 
-      response = request.run
+  p user.id
 
-      if JSON.parse(response.body).key?("data")
-        @tweets << JSON.parse(response.body)["data"]
-      end
+  shelf = Shelf.find_by(username: user.username)
 
-      if JSON.parse(response.body)["meta"]["next_token"]
-        paginating(JSON.parse(response.body)["meta"]["next_token"])
-      end
+  # Créer espaces 'Not started' etc.
+  space1 = Space.create(name: "Not started", position: 1)
+  space2 = Space.create(name: "In progress", position: 2)
+  space3 = Space.create(name: "Finished", position: 3)
+
+  # Mettre tout ce qui est dans Added by Bot dans 'Not started'
+  if shelf.spaces.where(name: '🤖 Added by Bot').first.nil? == false
+    added_by_bot = shelf.spaces.where(name: '🤖 Added by Bot').first
+    added_by_bot.items.each do |item|
+      space1.items << item
+      space1.save
+      item.status = "not started"
     end
 
-    url = "https://twitter.com/dickiebush/status/1416405127531991040"
+    spaces_in_added_by_bot = added_by_bot.children.map { |connection| connection.space }
 
-      tweet_id = url.match(/twitter\.com\/(?:#!\/)?(\w+)\/status(es)?\/(\d+)/)[3]
+    spaces_in_added_by_bot.each do |space|
+      s1 = Connection.create(space: space1)
+      co = s1.children.create(space: space)
+    end
 
-      params = {
-        "ids": tweet_id,
-        "tweet.fields": "conversation_id,author_id"
-      }
+    added_by_bot.destroy
+  end
 
-      options = {
-        method: 'get',
-        headers: {
-          "User-Agent": "v2TweetLookupRuby",
-          "Authorization": "Bearer #{ENV["BEARER_TOKEN"]}"
-        },
-        params: params
-      }
+  #items
 
-      request = Typhoeus::Request.new("https://api.twitter.com/2/tweets", options)
+  #spaces
 
-      response = request.run
+  # mettre tout ce qui reste sur la shelf dans finished
 
-      $conversation_id = JSON.parse(response.body)["data"][0]["conversation_id"]
-      author_init_tweet = JSON.parse(response.body)["data"][0]["author_id"]
+  # Mettre tt ce qui reste sur la shelf dans 'Finished'
+  shelf.items.each do |item|
+    space3.items << item
+    space3.save
+    item.status = "finished"
+  end
 
-      params = {
-        "ids": $conversation_id,
-        "tweet.fields": "author_id,created_at"
-      }
+  # mettre aussi les spaces
+  shelf.spaces.each do |space|
+    s1 = Connection.create(space: space3)
+    co = s1.children.create(space: space)
+  end
 
-      options = {
-        method: 'get',
-        headers: {
-          "User-Agent": "v2TweetLookupRuby",
-          "Authorization": "Bearer #{ENV["BEARER_TOKEN"]}"
-        },
-        params: params
-      }
+  shelf.spaces << space1
+  shelf.spaces << space2
+  shelf.spaces << space3
+  shelf.save
 
-      request = Typhoeus::Request.new("https://api.twitter.com/2/tweets", options)
-
-      response = request.run
-
-      $date = JSON.parse(response.body)["data"][0]["created_at"]
-      $author_top_tweet = JSON.parse(response.body)["data"][0]["author_id"]
-      text_init_tweet = JSON.parse(response.body)["data"][0]["text"]
-
-      @tweets = []
-
-      paginating(token=nil)
-
-      p @tweets
-
-      text_content = text_init_tweet
-
-      if @tweets.empty? == false
-        @tweets = @tweets.flatten
-        @tweets.reverse_each do |tweet|
-          if ((tweet["conversation_id"] == $conversation_id) && (tweet["in_reply_to_user_id"] == $author_top_tweet) && (tweet["author_id"] == $author_top_tweet))
-            text_content += "\n\n#{tweet["text"]}"
-          end
-        end
-      end
-
-      p text_content
+end

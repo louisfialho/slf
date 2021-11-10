@@ -93,4 +93,12 @@ class ItemPolicy < ApplicationPolicy
   def item_audio_duration?
     true
   end
+
+  def was_item_added?
+    true
+  end
+
+  def mark_as_finished?
+    true
+  end
 end

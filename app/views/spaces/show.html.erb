@@ -4,9 +4,9 @@
   <div class="navbar" id="navshow">
     <div>
       <% if @parent %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, space_path(@parent) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <h1 class="space-title"> <%= @space.name %> </h1>
@@ -52,55 +52,25 @@
 <% elsif user_signed_in? && (@current_user == @shelf_mother.user) %>
   <!-- Navbar: Back, space title, options -->
   <div class="navbar" id="navshow">
-    <div>
-      <% if @parent %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
-      <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
-      <% end %>
-    </div>
-    <h1 class="space-title"> <%= @space.name %> </h1>
-    <div id="options-btn">
-      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
-    </div>
-  </div>
-  <!-- Options box: Add, move, destroy, leave -->
-  <div class="options-ctn options-ctn-shelf-space space-options" id="options" style="display:none;">
-    <div class="option-ctn">
-      <a >➕</a>
-      <a class="option-label" id="new-object-or-space">New...</a>
-    </div>
-    <div class="option-ctn">
-      <a>👉</a>
-      <a class="option-label" id="move-to">Move</a>
-    </div>
-    <% if @space.name != "🤖 Added by Bot" %>
-      <div class="option-ctn">
-        <a>🗑</a>
-        <% parent = nil %>
-        <% @space.connections.each do |connection| %>
-          <% if connection.parent_id.nil? == false %>
-            <% parent = connection.parent.space %>
-          <% end %>
-        <% end %>
-        <% if @space.shelves.empty? == false %>
-          <%= link_to 'Delete', space_path(@space, shelf_id: @space.shelves.first.id), method: :delete, class: "option-label" %>
-        <% elsif parent.nil? == false %>
-          <%= link_to 'Delete', space_path(@space, parent_id: parent.id), method: :delete, class: "option-label" %>
-        <% end %>
+    <%= link_to shelf_path(@shelf.username) do %>
+      <div class="rounded-braun-button" title="Back">
+        <div class="back-rounded-braun-button" id="back-item-show">👈</div>
       </div>
     <% end %>
-    <div class="option-ctn" id="wallet-option">
-      <a>👝</a>
-      <%= link_to "Wallet", payment_path, class: "option-label", id: "wallet" %>
+    <div style="display: flex;">
+      <div id="colored-space">
+        <% if @space.name == "Not started" %>
+          <%= image_tag "red_circle.png", width: 37, height: 37 %>
+        <% elsif @space.name == "In progress" %>
+          <%= image_tag "orange_circle.png", width: 37, height: 37 %>
+        <% elsif @space.name == "Finished" %>
+          <%= image_tag "green_circle.png", width: 37, height: 37 %>
+        <% end %>
+      </div>
+      <h1 class="space-title"> <%= @space.name %> </h1>
     </div>
-    <div class="option-ctn">
-      <a>🤖</a>
-      <a class="option-label" id="connect-btn">Connect</a>
-    </div>
-    <div class="option-ctn">
-      <a>🚪</a>
-      <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
+    <div id="options-btn" style="visibility:hidden">
+      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
     </div>
   </div>
 
@@ -111,9 +81,9 @@
   <div class="navbar" id="navshow">
     <div>
       <% if @parent %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, space_path(@parent) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <h1 class="space-title"> <%= @space.name %> </h1>
@@ -135,9 +105,9 @@
   <div class="navbar" id="navshow">
     <div>
       <% if @parent %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, space_path(@parent) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <h1 class="space-title"> <%= @space.name %> </h1>
@@ -156,7 +126,7 @@
 <!-- MOVE TO LIST -->
   <div class="options-ctn" id="move-to-list" style="display:none;" data-type="space" data-space-id="<%= @space.id %>" data-shelf-id="<%= @shelf_mother.id %>">
     <div id="top-line">
-      <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
+      <%= image_tag("back.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
       <p class="option" id="top-element">Shelf</p>
     </div>
     <hr/>
@@ -261,38 +231,38 @@
         <% if policy(object).show? %>
           <div class="object" data-type="items" data-id="<%= object.id %>">
             <% if object.medium == "book" %>
-              <%= link_to image_tag("book.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("book.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "podcast" %>
-              <%= link_to image_tag("podcast.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("podcast.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "video" %>
-              <%= link_to image_tag("video.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("video.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "blogpost" %>
-              <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "news_article" %>
-              <%= link_to image_tag("news_article.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("news_article.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "academic_article" %>
-              <%= link_to image_tag("academic_article.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("academic_article.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "newsletter" %>
-              <%= link_to image_tag("newsletter.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("newsletter.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "tweet" %>
-              <%= link_to image_tag("tweet.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("tweet.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "thread" %>
-              <%= link_to image_tag("thread.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+              <%= link_to image_tag("thread.png", class: 'object-picture'), item_path(object, origin: "space", shelf_id: @shelf.id) %>
             <% elsif object.medium == "audio_book" %>
-              <%= link_to image_tag("audio_book.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("audio_book.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "e_book" %>
-              <%= link_to image_tag("e_book.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("e_book.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "online_course" %>
-              <%= link_to image_tag("online_course.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("online_course.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "code_repository" %>
-              <%= link_to image_tag("code_repository.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("code_repository.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% elsif object.medium == "blog" %>
-              <%= link_to image_tag("blog.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("blog.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% else %>
-              <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @space.id) %>
+              <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, origin: "space", space_id: @space.id) %>
             <% end %>
-  <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, space_id: @space.id), class: "object_name" %> -->
-              <%= link_to truncate(object.name, length: 40), item_path(object, space_id: @space.id), class: "object_name" %>
+  <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, origin: "space", space_id: @space.id), class: "object_name" %> -->
+              <%= link_to truncate(object.name, length: 40), item_path(object, origin: "space", space_id: @space.id), class: "object_name" %>
           </div>
         <% end %>
       <% end %>

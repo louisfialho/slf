@@ -55,7 +55,9 @@ Rails.application.routes.draw do
       post :persist_mp3_url
       post :persist_audio_timestamp
       post :persist_audio_duration
+      post :mark_as_finished
       get 'item_audio_duration'
+      get 'was_item_added'
     end
     member do
       patch :move

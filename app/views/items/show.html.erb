@@ -4,9 +4,9 @@
   <div class="navbar" id="navshow">
     <div>
       <% if @parent_space %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, space_path(@parent_space) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <div>
@@ -111,33 +111,67 @@
 <!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN ITEM -->
   <!-- Navbar: Back, item emoji, options -->
   <div class="navbar" id="navshow">
-    <div>
-      <% if @parent_space %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space), id: 'back-item-show' %>
-      <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username), id: 'back-item-show' %>
+    <% if @space_back_id %>
+      <%= link_to space_path(Space.find(@space_back_id)) do %>
+        <div class="rounded-braun-button" title="Back">
+          <div class="back-rounded-braun-button" id="back-item-show">👈</div>
+        </div>
       <% end %>
-    </div>
+    <% else %>
+      <%= link_to shelf_path(@shelf.username) do %>
+        <div class="rounded-braun-button" title="Back">
+          <div class="back-rounded-braun-button" id="back-item-show">👈</div>
+        </div>
+      <% end %>
+    <% end %>
     <div>
       <a id="item-medium-icon">
         <% if @item.medium == "book" %>
           <%= image_tag "book.png", width: 37 %>
         <% elsif @item.medium == "podcast" %>
-          <%= image_tag "podcast.png", width: 37 %>
+          <% if @item.status == "in progress" %>
+            <img id="medium-emoji" width="37" src="/assets/podcast_orange.png">
+          <% elsif @item.status == "finished" %>
+            <img id="medium-emoji" width="37" src="/assets/podcast_green.png">
+          <% end %>
         <% elsif @item.medium == "video" %>
-          <%= image_tag "video.png", width: 37 %>
+          <% if @item.status == "in progress" %>
+            <img id="medium-emoji" width="37" src="/assets/video_orange.png">
+          <% elsif @item.status == "finished" %>
+            <img id="medium-emoji" width="37" src="/assets/video_green.png">
+          <% end %>
         <% elsif @item.medium == "blogpost" %>
-          <%= image_tag "blogpost.png", width: 37 %>
+          <% if @item.status == "in progress" %>
+            <img id="medium-emoji" width="37" src="/assets/blogpost_orange.png">
+          <% elsif @item.status == "finished" %>
+            <img id="medium-emoji" width="37" src="/assets/blogpost_green.png">
+          <% end %>
         <% elsif @item.medium == "newsletter" %>
-          <%= image_tag "newsletter.png", width: 37 %>
+          <% if @item.status == "in progress" %>
+            <img id="medium-emoji" width="37" src="/assets/newsletter_orange.png">
+          <% elsif @item.status == "finished" %>
+            <img id="medium-emoji" width="37" src="/assets/newsletter_green.png">
+          <% end %>
         <% elsif @item.medium == "news_article" %>
-          <%= image_tag "news_article.png", width: 37 %>
+          <% if @item.status == "in progress" %>
+            <img id="medium-emoji" width="37" src="/assets/news_article_orange.png">
+          <% elsif @item.status == "finished" %>
+            <img id="medium-emoji" width="37" src="/assets/news_article_green.png">
+          <% end %>
         <% elsif @item.medium == "academic_article" %>
           <%= image_tag "academic_article.png", width: 37 %>
         <% elsif @item.medium == "tweet" %>
-          <%= image_tag "tweet.png", width: 37 %>
+          <% if @item.status == "in progress" %>
+            <img id="medium-emoji" width="37" src="/assets/tweet_orange.png">
+          <% elsif @item.status == "finished" %>
+            <img id="medium-emoji" width="37" src="/assets/tweet_green.png">
+          <% end %>
         <% elsif @item.medium == "thread" %>
-          <%= image_tag "thread.png", width: 37 %>
+          <% if @item.status == "in progress" %>
+            <img id="medium-emoji" width="37" src="/assets/thread_orange.png">
+          <% elsif @item.status == "finished" %>
+            <img id="medium-emoji" width="37" src="/assets/thread_green.png">
+          <% end %>
         <% elsif @item.medium == "audio_book" %>
           <%= image_tag "audio_book.png", width: 37 %>
         <% elsif @item.medium == "blog" %>
@@ -153,9 +187,15 @@
         <% end %>
       </a>
     </div>
-    <div id="options-btn">
-      <a><%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options' %></a>
-    </div>
+    <% if @item.audio_duration.nil? == false %>
+      <a class="rounded-braun-button" id="listen-braun-button" title="Listen" style="visibility:hidden">
+        <div class="emoji-rounded-braun-button">👂</div>
+      </a>
+    <% else %>
+      <a class="rounded-braun-button" id="listen-braun-button" title="Listen" style="visibility:">
+        <div class="emoji-rounded-braun-button">👂</div>
+      </a>
+    <% end %>
   </div>
 
   <!-- Edit medium box -->
@@ -173,41 +213,10 @@
     <% end %>
   </div>
 
-  <!-- Options box: Move, destroy, leave -->
-  <div class="options-ctn item-options" id="options" style="display:none;">
-    <% if @item.text_content.nil? == false %>
-      <% if @item.mp3_url.nil? == true %>
-        <div class="option-ctn" id="listen-option">
-          <a>👂</a>
-          <a class="option-label" id="listen">Listen</a>
-        </div>
-      <% end %>
-    <% end %>
-    <div class="option-ctn">
-      <a>👉</a>
-      <a class="option-label" id="move-to">Move</a>
-    </div>
-    <div class="option-ctn">
-      <a>🗑</a>
-      <% if @shelf %>
-        <%= link_to "Delete", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option-label" %>
-      <% elsif @space %>
-        <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
-      <% end %>
-    </div>
-    <div class="option-ctn" id="wallet-option">
-      <a>👝</a>
-      <%= link_to "Wallet", payment_path, class: "option-label", id: "wallet" %>
-    </div>
-    <div class="option-ctn">
-      <a>🚪</a>
-      <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-    </div>
-  </div>
   <!-- Item title -->
   <div class="main-container">
     <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
-      <h1 class="item-title" id="item-title" data-id="<%= @item.id %>" data-timestamp="<%= @item.audio_timestamp %>">
+      <h1 class="item-title" id="item-title" data-id="<%= @item.id %>" data-timestamp="<%= @item.audio_timestamp %>" data-status="<%= @item.status %>" data-medium="<%= @item.medium %>">
         <%= @item.name %>
       </h1>
     </a>
@@ -216,7 +225,7 @@
     <!-- Text content -->
     <div id="text-content"><%= @item.text_content %></div>
     <!-- Audio player -->
-    <% if @item.mp3_url.nil? == false %>
+    <% if @item.audio_duration.nil? == false %>
       <audio id="audioPlayback" controls preload="auto" title="<%= @item.name %>">
         <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
       </audio>
@@ -234,9 +243,9 @@
   <div class="navbar" id="navshow">
     <div>
       <% if @parent_space %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, space_path(@parent_space) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <div>
@@ -309,9 +318,9 @@
   <div class="navbar" id="navshow">
     <div>
       <% if @parent_space %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, space_path(@parent_space) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, space_path(@parent_space) %>
       <% else %>
-        <%= link_to image_tag("left_arrow.png", width: 37).html_safe, shelf_path(@shelf_mother.username) %>
+        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, shelf_path(@shelf_mother.username) %>
       <% end %>
     </div>
     <div>
@@ -376,39 +385,6 @@
 <% end %>
 
 
-<!-- ADD SPACE NAME BOX -->
-    <div class="options-ctn options-ctn-shelf-space" id="add-space" style="display:none;">
-      <p class="option prompt" id="add-space-prompt" > What is the name of this new space? 🗄 </p>
-      <%= simple_form_for @child, html: { autocomplete: 'off' } do |f| %>
-        <%= f.text_field :name, class: 'txt-inpt txt-inpt-box' %> <!-- autofocus: true, onblur: 'this.focus()' --> <!-- onpaste: 'setTimeout(function(){ form.submit(); }, 0.1); -->
-        <%= f.hidden_field :shelf_id, :value => @shelf_mother.id %>
-        <%= f.hidden_field :item_id, :value => @item.id %>
-        <%= f.submit "Add space", style: "display: none;" %>
-      <% end %>
-    </div>
-<!-- END OF ADD SPACE NAME BOX -->
-
-<!-- MOVE TO LIST -->
-  <div class="options-ctn" id="move-to-list" style="display:none;" data-type="item" data-item-id="<%= @item.id %>" data-shelf-id="<%= @shelf_mother.id %>">
-    <div id="top-line">
-      <%= image_tag("left_arrow.png", width: 23, height: 25, style: 'display:none;', id: 'left-arrow-img').html_safe %>
-      <p class="option" id="top-element">Shelf</p>
-    </div>
-    <hr/>
-    <ul id="children-spaces">
-    <% move_item_to_space_list.each do |space| %>
-      <li>
-        <a class="option" id="child-space-<%= space.id %>" data-space-id="<%= space.id %>">🗄 <%= truncate(space.name, length: 25) %></a>
-      </li>
-    <% end %>
-    </ul>
-      <div id="button-new-space-parent">
-        <%= image_tag("grey_plus.png", width: 18, height: 18, id: 'grey-plus-img').html_safe %>
-        <div id="new-space-txt">New</div>
-      </div>
-    <%= button_to "👉 Move to shelf", { controller: "items", action: "move_to_shelf", item_id: @item.id }, id: 'move-to-button' %>
-  </div>
-<!-- END OF MOVE TO LIST -->
 
 
 

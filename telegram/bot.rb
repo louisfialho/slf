@@ -48,14 +48,14 @@ Telegram::Bot::Client.run(token) do |bot|
               end
             else
               if shelf.spaces.empty? == false
-                if shelf.spaces.where(name: "🤖 Added by Bot").length == 1 #user did not create another one nor deleted it
-                  space = shelf.spaces.where(name: "🤖 Added by Bot").first
+                if shelf.spaces.where(name: "🔴 Not started").length == 1 #user did not create another one nor deleted it
+                  space = shelf.spaces.where(name: "🔴 Not started").first
                   space.items.update_all('position = position + 1')
                   space.children.each do |connection|
                     connection.space.position += 1
                     connection.space.save
                   end
-                  if space.items.empty? && (shelf.spaces.length == 1) && (shelf.spaces.first.name == "🤖 Added by Bot") && shelf.items.empty?
+                  if space.items.empty? && (shelf.spaces.length == 1) && (shelf.spaces.first.name == "🔴 Not started") && shelf.items.empty?
                     space.items << item
                     item.save
                   else

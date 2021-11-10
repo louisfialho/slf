@@ -49,31 +49,21 @@
 
 <!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN SHELF -->
 <% elsif user_signed_in? && (@current_user == @shelf.user) %>
-  <!-- Navbar: Logo, Options -->
-  <div class="navbar" id="navshow">
+  <div class="navbar-shelf">
     <p class="logo">shelf</p>
-    <div id="options-btn">
-      <a><%= image_tag "options.png", alt: "Options", width: 37 %></a>
-    </div>
-  </div>
-  <!-- Options box: Add and leave -->
-  <div class="options-ctn options-ctn-shelf-space shelf-options" id="options" style="display:none;">
-    <div class="option-ctn">
-      <a>➕</a>
-      <a class="option-label" id="new-object-or-space">New...</a>
-    </div>
-    <div class="option-ctn" id="wallet-option">
-      <a>👝</a>
-      <%= link_to "Wallet", payment_path, class: "option-label", id: "wallet" %>
-    </div>
-    <div class="option-ctn">
-      <a>🤖</a>
-      <a class="option-label" id="connect-btn">Connect</a>
-    </div>
-    <div class="option-ctn">
-      <a>🚪</a>
-      <%= link_to 'Leave', destroy_user_session_path, method: :delete, class: "option-label", id: "leave-shelf" %>   <!-- si un utilisateur n'est pas logged in <%= link_to "Log in", new_user_session_path %> -->
-    </div>
+    <a class="add-shelf" id="add-btn-shelf">
+      <img width="30" height="30" id="img-add-btn" src="/assets/plus_shelf.png" style="display:;">
+      <div style="padding-left: 25px; display:;" id="txt-add-btn">New item</div>
+      <div style="padding-left: 15px; display:none;" id="txt-input-btn">
+        <%= form_for @item, remote: true do |f| %>
+          <%= f.text_field :url, class: 'txt-inpt txt-inpt-box', placeholder: "Paste URL" %>
+          <%= f.hidden_field :shelf_id, :value => @shelf.id %>
+          <%= f.submit "Add item", style: "display: none;" %>
+        <% end %>
+      </div>
+      <img width="30" height="30" id="spinner-add-btn" src="/assets/spinner.png" style="display:none;">
+      <img width="30" height="30" id="tick-add-btn" src="/assets/tick.png" style="display:none;">
+    </a>
   </div>
 
 <!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND NOT ON THEIR OWN SHELF -->
@@ -119,10 +109,10 @@
         <a>📚</a>
         <a class="option-label">New resource</a>
       </div>
-      <div class="option-ctn" id="button-new-space-child">
+<!--       <div class="option-ctn" id="button-new-space-child">
         <a>🗄</a>
         <a class="option-label">New space</a>
-      </div>
+      </div> -->
     </div>
 <!-- END OF OPTIONS -->
 
@@ -174,65 +164,200 @@ You can add your first resource by clicking on 'Options' in the top right and ei
 
 
 <!-- IF SHELF HAS OBJECTS -->
-<div>
-  <% if @shelf.id == 20 %> <!-- the if and elsif conditions are litterally the same - could be refactored but kept as is for lisibiliy -->
-    <div class="grid-container" data-controller="drag" data-drag-url="/:type/:id/move">
-  <% elsif @current_user == @shelf.user %>
-    <div class="grid-container" data-controller="drag" data-drag-url="/:type/:id/move">
-  <% else %>
-    <div class="grid-container">
-  <% end %>
-    <% objects = @shelf.spaces + @shelf.items %>
-    <% objects.sort_by(&:position).each do |object| %>
-      <% if object.class.name == "Space" %>
-        <% if policy(object).show? %>
-          <% if (object.name == "🤖 Added by Bot") && object.items.empty? %>
-          <% else %>
-            <div class="object" data-type="spaces" data-id="<%= object.id %>">
-            <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object, shelf_id: @shelf.id) %>
-            <%= link_to truncate(object.name, length: 45), space_path(object, shelf_id: @shelf.id), class: "object_name" %>
-          </div>
+<div class="shelf-grid-ctn">
+  <div class="shelf-grid">
+    <div class="superspace" id="not-started" data-id="<%= @not_started_space.id %>">
+      <div class="expand-superspace" id="expand-not-started" style="display: none;"><div class="expand-logo">↗️</div></div>
+      <h1 class="superspace-title">Not started</h1>
+      <div class="superspace-grid" id="not-started-grid" data-controller="drag" data-drag-url="/:type/:id/move">
+        <% objects = @not_started_space.children.map { |connection| connection.space } + @not_started_space.items %> <!-- syntax à verif -->
+        <% objects.sort_by(&:position).each do |object| %>
+          <% if object.class.name == "Space" %>
+            <% if policy(object).show? %>
+              <div class="object-shelf" data-type="spaces" data-id="<%= object.id %>">
+                <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object) %>
+      <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), space_path(object),  class: "object_name_space" %> -->
+                <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name_space" %>
+              </div>
+            <% end %>
+          <% elsif object.class.name == "Item" %>
+            <% if policy(object).show? %>
+              <div class="object-shelf" data-type="items" data-id="<%= object.id %>">
+                <% if object.medium == "book" %>
+                  <%= link_to image_tag("book.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "podcast" %>
+                  <%= link_to image_tag("podcast.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "video" %>
+                  <%= link_to image_tag("video.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "blogpost" %>
+                  <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "news_article" %>
+                  <%= link_to image_tag("news_article.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "academic_article" %>
+                  <%= link_to image_tag("academic_article.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "newsletter" %>
+                  <%= link_to image_tag("newsletter.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "tweet" %>
+                  <%= link_to image_tag("tweet.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "thread" %>
+                  <%= link_to image_tag("thread.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "audio_book" %>
+                  <%= link_to image_tag("audio_book.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "e_book" %>
+                  <%= link_to image_tag("e_book.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "online_course" %>
+                  <%= link_to image_tag("online_course.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "code_repository" %>
+                  <%= link_to image_tag("code_repository.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% elsif object.medium == "blog" %>
+                  <%= link_to image_tag("blog.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% else %>
+                  <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
+                <% end %>
+      <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, space_id: @not_started_space.id), class: "object_name_space" %> -->
+                  <%= link_to truncate(object.name, length: 13), item_path(object, space_id: @not_started_space.id), class: "object_name_space" %>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
-      <% elsif object.class.name == "Item" %>
-        <% if policy(object).show? %>
-          <div class="object" data-type="items" data-id="<%= object.id %>">
-            <% if object.medium == "book" %>
-              <%= link_to image_tag("book.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "podcast" %>
-              <%= link_to image_tag("podcast.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "video" %>
-              <%= link_to image_tag("video.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "blogpost" %>
-              <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "news_article" %>
-              <%= link_to image_tag("news_article.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "academic_article" %>
-              <%= link_to image_tag("academic_article.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "newsletter" %>
-              <%= link_to image_tag("newsletter.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "tweet" %>
-              <%= link_to image_tag("tweet.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "thread" %>
-              <%= link_to image_tag("thread.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "audio_book" %>
-              <%= link_to image_tag("audio_book.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "e_book" %>
-              <%= link_to image_tag("e_book.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "online_course" %>
-              <%= link_to image_tag("online_course.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "code_repository" %>
-              <%= link_to image_tag("code_repository.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% elsif object.medium == "blog" %>
-              <%= link_to image_tag("blog.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
-            <% else %>
-              <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, shelf_id: @shelf.id) %>
+      </div>
+    </div>
+    <div class="superspace" id="in-progress" data-id="<%= @in_progress_space.id %>">
+      <div class="expand-superspace" id="expand-in-progress" style="display: none;"><div class="expand-logo">↗️</div></div>
+      <h1 class="superspace-title">In progres</h1>
+      <div class="superspace-grid" id="in-progress-grid" data-controller="drag" data-drag-url="/:type/:id/move">
+        <% objects = @in_progress_space.children.map { |connection| connection.space } + @in_progress_space.items %> <!-- syntax à verif -->
+        <% objects.sort_by(&:position).each do |object| %>
+          <% if object.class.name == "Space" %>
+            <% if policy(object).show? %>
+              <div class="object-shelf" data-type="spaces" data-id="<%= object.id %>">
+                <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object) %>
+      <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), space_path(object),  class: "object_name_space" %> -->
+                <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name_space" %>
+              </div>
             <% end %>
-  <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 40), item_path(object, shelf_id: @shelf.id), class: "object_name" %> -->
-            <%= link_to truncate(object.name, length: 40), item_path(object, shelf_id: @shelf.id), class: "object_name" %>
+          <% elsif object.class.name == "Item" %>
+            <% if policy(object).show? %>
+              <div class="object-shelf" data-type="items" data-id="<%= object.id %>">
+                <% if object.medium == "book" %>
+                  <%= link_to image_tag("book.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "podcast" %>
+                  <%= link_to image_tag("podcast.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "video" %>
+                  <%= link_to image_tag("video.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "blogpost" %>
+                  <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "news_article" %>
+                  <%= link_to image_tag("news_article.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "academic_article" %>
+                  <%= link_to image_tag("academic_article.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "newsletter" %>
+                  <%= link_to image_tag("newsletter.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "tweet" %>
+                  <%= link_to image_tag("tweet.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "thread" %>
+                  <%= link_to image_tag("thread.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "audio_book" %>
+                  <%= link_to image_tag("audio_book.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "e_book" %>
+                  <%= link_to image_tag("e_book.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "online_course" %>
+                  <%= link_to image_tag("online_course.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "code_repository" %>
+                  <%= link_to image_tag("code_repository.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% elsif object.medium == "blog" %>
+                  <%= link_to image_tag("blog.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% else %>
+                  <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
+                <% end %>
+      <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, space_id: @in_progress_space.id), class: "object_name_space" %> -->
+                  <%= link_to truncate(object.name, length: 13), item_path(object, space_id: @in_progress_space.id), class: "object_name_space" %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="superspace" id="finished" data-id="<%= @finished_space.id %>">
+      <div class="expand-superspace" id="expand-finished" style="display: none;"><div class="expand-logo">↗️</div></div>
+      <h1 class="superspace-title">Finished</h1>
+      <div class="superspace-grid" id="finished-grid" data-controller="drag" data-drag-url="/:type/:id/move">
+        <% objects = @finished_space.children.map { |connection| connection.space } + @finished_space.items %> <!-- syntax à verif -->
+        <% objects.sort_by(&:position).each do |object| %>
+          <% if object.class.name == "Space" %>
+            <% if policy(object).show? %>
+              <div class="object-shelf" data-type="spaces" data-id="<%= object.id %>">
+                <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object) %>
+      <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), space_path(object),  class: "object_name_space" %> -->
+                <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name_space" %>
+              </div>
+            <% end %>
+          <% elsif object.class.name == "Item" %>
+            <% if policy(object).show? %>
+              <div class="object-shelf" data-type="items" data-id="<%= object.id %>">
+                <% if object.medium == "book" %>
+                  <%= link_to image_tag("book.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "podcast" %>
+                  <%= link_to image_tag("podcast.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "video" %>
+                  <%= link_to image_tag("video.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "blogpost" %>
+                  <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "news_article" %>
+                  <%= link_to image_tag("news_article.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "academic_article" %>
+                  <%= link_to image_tag("academic_article.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "newsletter" %>
+                  <%= link_to image_tag("newsletter.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "tweet" %>
+                  <%= link_to image_tag("tweet.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "thread" %>
+                  <%= link_to image_tag("thread.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "audio_book" %>
+                  <%= link_to image_tag("audio_book.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "e_book" %>
+                  <%= link_to image_tag("e_book.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "online_course" %>
+                  <%= link_to image_tag("online_course.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "code_repository" %>
+                  <%= link_to image_tag("code_repository.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% elsif object.medium == "blog" %>
+                  <%= link_to image_tag("blog.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% else %>
+                  <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
+                <% end %>
+      <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, space_id: @finished_space.id), class: "object_name_space" %> -->
+                  <%= link_to truncate(object.name, length: 13), item_path(object, space_id: @finished_space.id), class: "object_name_space" %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <a class="option-shelf" id="gear" style="display:">
+      <div class="back-rounded-braun-button">⚙️</div>
+    </a>
+    <div id="options-shelf-ctn" style="display: none;">
+      <% if @user.telegram_chat_id.nil? %>
+        <%= link_to meet_bot_path(@current_user), title: "Connect with Telegram Bot"  do %>
+          <div class="option-shelf" style="margin-right: 20px;">
+            <div class="back-rounded-braun-button">📱</div>
           </div>
         <% end %>
       <% end %>
-    <% end %>
+      <a class="option-shelf" style="margin-right: 20px;" href="https://chrome.google.com/webstore/detail/shelf/dbnfpkfeedjlicclaffhoglpmgpdjblk?hl=en"  target="_blank" rel="noopener noreferrer" title="Connect with Chrome extension">
+        <div class="back-rounded-braun-button">💻</div>
+      </a>
+      <%= link_to payment_path, title: "Wallet" do %>
+        <div class="option-shelf" style="margin-right: 20px;">
+          <div class="back-rounded-braun-button">👝</div>
+        </div>
+      <% end %>
+      <%= link_to destroy_user_session_path, method: :delete, title: "Leave" do %>
+        <div class="option-shelf">
+          <div class="back-rounded-braun-button">🚪</div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

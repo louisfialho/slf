@@ -43,6 +43,10 @@ import { displayItemMediaOptions } from '../components/display-item-media-option
 import { textToSpeech2 } from '../components/text-to-speech2';
 import { saveAudioTimestamp } from '../components/save-audio-timestamp';
 import { setAudioTimestamp } from '../components/set-audio-timestamp';
+import { markAsFinished } from '../components/mark-as-finished';
+import { addShelf } from '../components/add-shelf';
+import { expandSuperspace } from '../components/expand-superspace';
+import { shelfOptionsGear } from '../components/shelf-options-gear';
 
 document.addEventListener('turbolinks:load', () => {
 
@@ -52,10 +56,11 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.getElementById("text-content")) {
      adjustTextContentSize();
+     markAsFinished();
   }
 
-  if (document.querySelector(".item-options")) {
-    displayItemOptions();
+  if (document.querySelector("#listen-braun-button")) {
+    // displayItemOptions();
     // textToSpeech();
     textToSpeech2();
   }
@@ -112,6 +117,20 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector("#item-medium-icon")) {
     displayItemMediaOptions();
   }
+
+  if (document.querySelector("#add-btn-shelf")) {
+    addShelf();
+  }
+
+  if (document.querySelector(".superspace")) {
+    expandSuperspace();
+  }
+
+  if (document.querySelector("#gear")) {
+    shelfOptionsGear();
+  }
+
+
 });
 
 import "controllers"

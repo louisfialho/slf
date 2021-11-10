@@ -27,9 +27,40 @@ class User < ApplicationRecord
   def create_shelf_and_space_for_Telegram_items
       shelf = Shelf.new(user_id: self.id)
       shelf.save
-      space = Space.new(name: "🤖 Added by Bot", position: 1)
-      space.save
-      shelf.spaces << space
+      space1 = Space.new(name: "Not started", position: 1)
+      space2 = Space.new(name: "In progress", position: 2)
+      space3 = Space.new(name: "Finished", position: 3)
+      space1.save
+      space2.save
+      space3.save
+      shelf.spaces << space1
+      shelf.spaces << space2
+      shelf.spaces << space3
+      text_content_intro = "Welcome to Shelf! 🎉
+Shelf helps you make the most of your text resources 👇
+
+📥  Save text resources:
+Save any blog post 📄, newsletter 🗞, news article 📰 or twitter thread 🧵 either:
+- 📱 From mobile using Shelf's Telegram Bot: Go back to your shelf and click on 'Options' ⚙️ to connect with Shelf's Telegram Bot.
+- 💻 From desktop using Shelf's Chrome extension: Go back to your shelf and click on 'Options' ⚙️ to install Shelf's Chrome extension.
+- 👨‍💻 From desktop by pasting a URL in-app: Go back to your shelf, click on 'New item' in the top right and paste a URL.
+When adding a resource, shelf will automatically extract the text so that you can read distraction free or...
+
+👂 Turn text into audio:
+Turn any text resource into audio using the world's most human-sounding voice.
+Try it now and turn this text into audio by clicking on 'Listen' 👂 in the top right.
+You currently have 15 minutes of free audio. You can purchase more audio credits by going back to your shelf, clicking on 'Options' ⚙️ and opening your wallet 👝
+
+🗄 Manage:
+Shelf automatically classifies your resources based on their status in one of three spaces:
+- 🔴 Not started
+- 🟠 Started
+- 🟢 Finished
+
+👋 Let us know if you have any feedback and feature request at hello@shelf.so ! Coming soon: smart search, automated sumarization using GPT-3 and more!
+      "
+      tutorial_item = Item.create(url: "https://fs.blog/learning/", medium: "blogpost", name: "Start here!", text_content: text_content_intro, status: "not started" )
+      space1.items << tutorial_item
   end
 
   def add_telegram_hash

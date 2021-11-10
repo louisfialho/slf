@@ -42,7 +42,4 @@ document.addEventListener('click', function(event) {
 
 }
 
-
-
-
 export { updateStatus };
