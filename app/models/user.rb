@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :username, format: { with: /\A[a-zA-Z0-9]+\Z/, message: ": please only use letters and numbers" }
   validates_uniqueness_of :username, message: ": this username is already taken"
   before_create :generate_extension_auth_token
-  after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash, :titleize_first_last_name, :set_username_on_shelf, :give_free_credits
+  after_create :create_shelf_and_space_for_Telegram_items, :add_telegram_hash, :set_username_on_shelf, :give_free_credits
 
   require "base64"
 
@@ -78,12 +78,6 @@ Shelf automatically classifies your resources based on their status in one of th
       random_token = SecureRandom.urlsafe_base64(nil, false)
       break random_token unless User.exists?(chrome_auth_token: random_token)
     end
-  end
-
-  def titleize_first_last_name
-    self.first_name = self.first_name.titleize
-    self.last_name = self.last_name.titleize
-    self.save
   end
 
   def valid_phone_num

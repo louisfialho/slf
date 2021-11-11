@@ -5,7 +5,7 @@
   </head>
   <body>
     <div style="font-family: Charter Helvetica; font-size: large;">
-      <p>Hey <%= @user.first_name %>,</p>
+      <p>Hey <%= @user.username %>,</p>
       <p>If you did not receive our SMS, please open the following link from mobile to connect with Shelf Telegram Bot:</p>
       <p><a href="https://t.me/Shelf_bot?start=<%= @user.telegram_hash %>">https://t.me/Shelf_bot?start=<%= @user.telegram_hash %></a></p>
       <p>Once in Telegram, simply hit 'Start'</p>
