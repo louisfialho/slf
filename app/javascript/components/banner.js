@@ -23,6 +23,7 @@ const loadDynamicBannerText = () => {
     new Typed('#banner-typed-text', {
       strings: ["newsletters &#128478;"
       , "blog posts &#128196;"
+      , "twitter threads &#129525;"
       , "news articles &#128240;"
       , "or any web page &#128218;"
       ],

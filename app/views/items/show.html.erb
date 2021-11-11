@@ -128,50 +128,8 @@
       <a id="item-medium-icon">
         <% if @item.medium == "book" %>
           <%= image_tag "book.png", width: 37 %>
-        <% elsif @item.medium == "podcast" %>
-          <% if @item.status == "in progress" %>
-            <%= image_tag "podcast_orange.png", width: 37, id: "medium-emoji"%>
-          <% elsif @item.status == "finished" %>
-            <%= image_tag "podcast_green.png", width: 37, id: "medium-emoji"%>
-          <% end %>
-        <% elsif @item.medium == "video" %>
-          <% if @item.status == "in progress" %>
-          <%= image_tag "video_orange.png", width: 37, id: "medium-emoji"%>
-          <% elsif @item.status == "finished" %>
-            <%= image_tag "video_green.png", width: 37, id: "medium-emoji"%>
-          <% end %>
-        <% elsif @item.medium == "blogpost" %>
-          <% if @item.status == "in progress" %>
-            <%= image_tag "blogpost_orange.png", width: 37, id: "medium-emoji"%>
-          <% elsif @item.status == "finished" %>
-            <%= image_tag "blogpost_green.png", width: 37, id: "medium-emoji"%>
-          <% end %>
-        <% elsif @item.medium == "newsletter" %>
-          <% if @item.status == "in progress" %>
-          <%= image_tag "newsletter_orange.png", width: 37, id: "medium-emoji"%>
-          <% elsif @item.status == "finished" %>
-            <%= image_tag "newsletter_green.png", width: 37, id: "medium-emoji"%>
-          <% end %>
-        <% elsif @item.medium == "news_article" %>
-          <% if @item.status == "in progress" %>
-             <%= image_tag "news_article_orange.png", width: 37, id: "medium-emoji"%>
-          <% elsif @item.status == "finished" %>
-            <%= image_tag "news_article_green.png", width: 37, id: "medium-emoji"%>
-          <% end %>
         <% elsif @item.medium == "academic_article" %>
           <%= image_tag "academic_article.png", width: 37 %>
-        <% elsif @item.medium == "tweet" %>
-          <% if @item.status == "in progress" %>
-            <%= image_tag "tweet_orange.png", width: 37, id: "medium-emoji"%>
-          <% elsif @item.status == "finished" %>
-            <%= image_tag "tweet_green.png", width: 37, id: "medium-emoji"%>
-          <% end %>
-        <% elsif @item.medium == "thread" %>
-          <% if @item.status == "in progress" %>
-            <%= image_tag "thread_orange.png", width: 37, id: "medium-emoji"%>
-          <% elsif @item.status == "finished" %>
-            <%= image_tag "thread_green.png", width: 37, id: "medium-emoji"%>
-          <% end %>
         <% elsif @item.medium == "audio_book" %>
           <%= image_tag "audio_book.png", width: 37 %>
         <% elsif @item.medium == "blog" %>
@@ -183,7 +141,12 @@
         <% elsif @item.medium == "code_repository" %>
           <%= image_tag "code_repository.png", width: 37 %>
         <% else %>
-          <%= image_tag "web.png", width: 37 %>
+          <% if @item.status == "in progress" %> <!-- works for podcast, video, blogpost, newsletter, news_article, tweet, thread -->
+             <%= image_tag "#{@item.medium}_orange.png", width: 37, id: "medium-emoji", style:"display:"%>
+             <%= image_tag "#{@item.medium}_green.png", width: 37, id: "medium-emoji-marked-as-finished", style:"display: none;"%>
+          <% elsif @item.status == "finished" %>
+            <%= image_tag "#{@item.medium}_green.png", width: 37, id: "medium-emoji"%>
+          <% end %>
         <% end %>
       </a>
     </div>
@@ -199,7 +162,6 @@
     <%= link_to payment_path, class: "rounded-braun-button", id:"wallet-braun-button", title: "Wallet", style: "display:none;" do %>
       <div class="emoji-rounded-braun-button" id="wallet-emoji-in-braun-btn">👝</div>
     <% end %>
-
   </div>
 
   <!-- Edit medium box -->
