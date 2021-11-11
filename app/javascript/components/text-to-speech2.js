@@ -9,6 +9,7 @@ const textToSpeech2 = () => {
   let itemId = document.getElementById("item-title").dataset.id;
 
   let listenBtn = document.getElementById("listen-braun-button");
+  let walletBtn = document.getElementById("wallet-braun-button");
 
   let text = document.getElementById("text-content").innerText;
   text = text.replace(/(\r\n|\n|\r)/gm, ". ");
@@ -274,7 +275,9 @@ const textToSpeech2 = () => {
             } else if (userTtsBalanceInMin == null) { // i.e. @user.tts_balance_in_min = nil
               displaySrcLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/9add9faf-2310-45ba-9562-29b3cf36f811.mp3")
             } else {
-              displaySrcLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/6bcda5a7-430e-4f51-b7f4-1835fd1607f5.mp3")
+              displaySrcLoadPlay("https://polly-async.s3.eu-west-2.amazonaws.com/ac8ec7f7-6d3b-40b5-aa6f-083d326d9365.mp3")
+              listenBtn.style.display = "none"
+              walletBtn.style.display = ""
             }
           }
         });

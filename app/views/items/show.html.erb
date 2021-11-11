@@ -192,10 +192,14 @@
         <div class="emoji-rounded-braun-button">👂</div>
       </a>
     <% else %>
-      <a class="rounded-braun-button" id="listen-braun-button" title="Listen" style="visibility:">
+      <a class="rounded-braun-button" id="listen-braun-button" title="Listen" style="visibility:; display:;">
         <div class="emoji-rounded-braun-button">👂</div>
       </a>
     <% end %>
+    <%= link_to payment_path, class: "rounded-braun-button", id:"wallet-braun-button", title: "Wallet", style: "display:none;" do %>
+      <div class="emoji-rounded-braun-button" id="wallet-emoji-in-braun-btn">👝</div>
+    <% end %>
+
   </div>
 
   <!-- Edit medium box -->
