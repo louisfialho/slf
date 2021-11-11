@@ -44,7 +44,7 @@ import { textToSpeech2 } from '../components/text-to-speech2';
 import { saveAudioTimestamp } from '../components/save-audio-timestamp';
 import { setAudioTimestamp } from '../components/set-audio-timestamp';
 import { markAsFinished } from '../components/mark-as-finished';
-import { addShelf } from '../components/add-shelf.js.erb';
+import { addShelf } from '../components/add-shelf';
 import { expandSuperspace } from '../components/expand-superspace';
 import { shelfOptionsGear } from '../components/shelf-options-gear';
 
