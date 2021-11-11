@@ -187,7 +187,7 @@
         <% end %>
       </a>
     </div>
-    <% if @item.audio_duration.nil? == false %>
+    <% if (@item.audio_duration.nil? == false) || (@item.text_content.nil?) %>
       <a class="rounded-braun-button" id="listen-braun-button" title="Listen" style="visibility:hidden">
         <div class="emoji-rounded-braun-button">👂</div>
       </a>
