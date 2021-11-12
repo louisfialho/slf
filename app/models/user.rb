@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def give_free_credits
-    self.tts_balance_in_min = 15
+    self.tts_balance_in_min = 60
     self.save
   end
 
