@@ -14,7 +14,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
     if @item.save
       # Add newly created item to 'Added by bot' for user
       @shelf = @user.shelves.first
-      @not_started_space = @shelf.spaces.where(name: '🔴 Not started').first
+      @not_started_space = @shelf.spaces.where(name: 'Not started').first
       @not_started_space.items << @item
       item_url = "https://www.shelf.so/items/#{@item.id}?space_id=#{@not_started_space.id}"
       render json: {url: item_url}
