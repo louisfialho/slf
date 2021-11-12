@@ -208,10 +208,18 @@
   <!-- Navbar: Back, item emoji, options -->
   <div class="navbar" id="navshow">
     <div>
-      <% if @parent_space %>
-        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, space_path(@parent_space) %>
+      <% if @space_back_id %>
+        <%= link_to space_path(Space.find(@space_back_id)) do %>
+          <div class="rounded-braun-button" title="Back">
+            <div class="back-rounded-braun-button" id="back-item-show">👈</div>
+          </div>
+        <% end %>
       <% else %>
-        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, shelf_path(@shelf_mother.username) %>
+        <%= link_to shelf_path(@shelf.username) do %>
+          <div class="rounded-braun-button" title="Back">
+            <div class="back-rounded-braun-button" id="back-item-show">👈</div>
+          </div>
+        <% end %>
       <% end %>
     </div>
     <div>
@@ -283,10 +291,24 @@
   <!-- Navbar: Back, item emoji, login or sign up -->
   <div class="navbar" id="navshow">
     <div>
-      <% if @parent_space %>
-        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, space_path(@parent_space) %>
+      <% if @item.id == 4932 %>
+        <%= link_to(root_path) do %>
+          <div class="rounded-braun-button" title="Back">
+            <div class="back-rounded-braun-button" id="back-item-show">👈</div>
+          </div>
+        <% end %>
+      <% elsif @space_back_id %>
+        <%= link_to space_path(Space.find(@space_back_id)) do %>
+          <div class="rounded-braun-button" title="Back">
+            <div class="back-rounded-braun-button" id="back-item-show">👈</div>
+          </div>
+        <% end %>
       <% else %>
-        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, shelf_path(@shelf_mother.username) %>
+        <%= link_to shelf_path(@shelf.username) do %>
+          <div class="rounded-braun-button" title="Back">
+            <div class="back-rounded-braun-button" id="back-item-show">👈</div>
+          </div>
+        <% end %>
       <% end %>
     </div>
     <div>
