@@ -49,7 +49,7 @@ When adding a resource, shelf will automatically extract the text so that you ca
 👂 Turn text into audio:
 Turn any text resource into audio using the world's most human-sounding voice.
 Try it now and turn this text into audio by clicking on 'Listen' 👂 in the top right.
-You currently have 15 minutes of free audio. You can purchase more audio credits by going back to your shelf, clicking on 'Options' ⚙️ and opening your wallet 👝
+You currently have 60 minutes of free audio. You can purchase more audio credits by going back to your shelf, clicking on 'Options' ⚙️ and opening your wallet 👝
 
 🗄 Manage:
 Shelf automatically classifies your resources based on their status in one of three spaces:
