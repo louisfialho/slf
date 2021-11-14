@@ -178,7 +178,7 @@ You can add your first resource by clicking on 'Options' in the top right and ei
               <div class="object-shelf" data-type="spaces" data-id="<%= object.id %>">
                 <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object) %>
       <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), space_path(object),  class: "object_name_space" %> -->
-                <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name_space" %>
+                <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name_space", title: object.name.to_s %>
               </div>
             <% end %>
           <% elsif object.class.name == "Item" %>
@@ -216,7 +216,7 @@ You can add your first resource by clicking on 'Options' in the top right and ei
                   <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @not_started_space.id) %>
                 <% end %>
       <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, space_id: @not_started_space.id), class: "object_name_space" %> -->
-                  <%= link_to truncate(object.name, length: 13), item_path(object, space_id: @not_started_space.id), class: "object_name_space" %>
+                  <%= link_to truncate(object.name, length: 13), item_path(object, space_id: @not_started_space.id), class: "object_name_space", title: object.name.to_s %>
               </div>
             <% end %>
           <% end %>
@@ -234,7 +234,7 @@ You can add your first resource by clicking on 'Options' in the top right and ei
               <div class="object-shelf" data-type="spaces" data-id="<%= object.id %>">
                 <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object) %>
       <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), space_path(object),  class: "object_name_space" %> -->
-                <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name_space" %>
+                <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name_space", title: object.name.to_s %>
               </div>
             <% end %>
           <% elsif object.class.name == "Item" %>
@@ -272,7 +272,7 @@ You can add your first resource by clicking on 'Options' in the top right and ei
                   <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @in_progress_space.id) %>
                 <% end %>
       <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, space_id: @in_progress_space.id), class: "object_name_space" %> -->
-                  <%= link_to truncate(object.name, length: 13), item_path(object, space_id: @in_progress_space.id), class: "object_name_space" %>
+                  <%= link_to truncate(object.name, length: 13), item_path(object, space_id: @in_progress_space.id), class: "object_name_space", title: object.name.to_s %>
               </div>
             <% end %>
           <% end %>
@@ -290,7 +290,7 @@ You can add your first resource by clicking on 'Options' in the top right and ei
               <div class="object-shelf" data-type="spaces" data-id="<%= object.id %>">
                 <%= link_to image_tag("space.png", class: 'object-picture'), space_path(object) %>
       <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), space_path(object),  class: "object_name_space" %> -->
-                <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name_space" %>
+                <%= link_to truncate(object.name, length: 45), space_path(object),  class: "object_name_space", title: object.name.to_s %>
               </div>
             <% end %>
           <% elsif object.class.name == "Item" %>
@@ -328,7 +328,7 @@ You can add your first resource by clicking on 'Options' in the top right and ei
                   <%= link_to image_tag("blogpost.png", class: 'object-picture'), item_path(object, space_id: @finished_space.id) %>
                 <% end %>
       <!--           <%= link_to truncate(object.position.to_s + ' ' + object.name, length: 45), item_path(object, space_id: @finished_space.id), class: "object_name_space" %> -->
-                  <%= link_to truncate(object.name, length: 13), item_path(object, space_id: @finished_space.id), class: "object_name_space" %>
+                  <%= link_to truncate(object.name, length: 13), item_path(object, space_id: @finished_space.id), class: "object_name_space", title: object.name.to_s %>
               </div>
             <% end %>
           <% end %>
