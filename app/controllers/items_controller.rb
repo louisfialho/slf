@@ -61,7 +61,7 @@ skip_after_action :verify_authorized, only: [:item_audio_duration, :was_item_add
     # @child = Space.new
     # @parent_id = Space.new
     @space = Space.new
-    @shelf_mother = shelf_mother_of_item(@item)
+    # @shelf_mother = shelf_mother_of_item(@item)
     if current_user
       @user = current_user
       if @item.status == "not started"

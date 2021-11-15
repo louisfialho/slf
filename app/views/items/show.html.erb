@@ -1,113 +1,4 @@
-<% if @shelf_mother.id == 20 %>
-<!-- NAVBAR AND OPTIONS BOX IF USER ON SANDBOX SHELF -->
-  <!-- Navbar: Back, item emoji, options -->
-  <div class="navbar" id="navshow">
-    <div>
-      <% if @parent_space %>
-        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, space_path(@parent_space) %>
-      <% else %>
-        <%= link_to image_tag("back.png", width: 37, class: "back").html_safe, shelf_path(@shelf_mother.username) %>
-      <% end %>
-    </div>
-    <div>
-      <a id="item-medium-icon">
-        <% if @item.medium == "book" %>
-          <%= image_tag "book.png", width: 37 %>
-        <% elsif @item.medium == "podcast" %>
-          <%= image_tag "podcast.png", width: 37 %>
-        <% elsif @item.medium == "video" %>
-          <%= image_tag "video.png", width: 37 %>
-        <% elsif @item.medium == "blogpost" %>
-          <%= image_tag "blogpost.png", width: 37 %>
-        <% elsif @item.medium == "newsletter" %>
-          <%= image_tag "newsletter.png", width: 37 %>
-        <% elsif @item.medium == "news_article" %>
-          <%= image_tag "news_article.png", width: 37 %>
-        <% elsif @item.medium == "academic_article" %>
-          <%= image_tag "academic_article.png", width: 37 %>
-        <% elsif @item.medium == "tweet" %>
-          <%= image_tag "tweet.png", width: 37 %>
-        <% elsif @item.medium == "thread" %>
-          <%= image_tag "thread.png", width: 37 %>
-        <% elsif @item.medium == "audio_book" %>
-          <%= image_tag "audio_book.png", width: 37 %>
-        <% elsif @item.medium == "blog" %>
-          <%= image_tag "blog.png", width: 37 %>
-        <% elsif @item.medium == "e_book" %>
-          <%= image_tag "e_book.png", width: 37 %>
-        <% elsif @item.medium == "online_course" %>
-          <%= image_tag "online_course.png", width: 37 %>
-        <% elsif @item.medium == "code_repository" %>
-          <%= image_tag "code_repository.png", width: 37 %>
-        <% else %>
-          <%= image_tag "blogpost.png", width: 37 %>
-        <% end %>
-      </a>
-    </div>
-    <div id="options-btn">
-      <a><%= image_tag "options.png", alt: "Options", width: 37, class: 'item-options' %></a>
-    </div>
-  </div>
-
-  <!-- Edit medium box -->
-  <div class="media-ctn" style="display:none;" id="media-ctn">
-    <%= simple_form_for(@item) do |f| %>
-      <%= f.input :medium,
-        legend_tag: false,
-        as: :radio_buttons,
-        collection: [['blog', '📑 Blog'], ['blogpost', '📄 Blogpost'], ['news_article', '📰 News article'], ['newsletter', '🗞 Newsletter'], ['academic_article', '📃 Academic article'], ['tweet', '🐦 Tweet'], ['thread', '🧵 Thread'], ['podcast', '🎙 Podcast'], ['video', '📺 Video'], ['online_course', '🎓 Online course'], ['book', '📕 Book'], ['e_book', '📙 Ebook'], ['audio_book', '🎧 Audio book'], ['code_repository', '🐱 Code repository']],
-        label_method: :second,
-        value_method: :first,
-        item_wrapper_class: 'option-label',
-        input_html: {class: 'category-selector', onchange: 'this.form.submit();'}
-      %>
-    <% end %>
-  </div>
-
-  <!-- Options box: Move, destroy -->
-  <div class="options-ctn item-options" id="options" style="display:none;">
-    <% if user_signed_in? && (@current_user.username == "louisfialho") %>
-      <div class="option-ctn">
-        <a>👉</a>
-        <a class="option-label" id="move-to">Move</a>
-      </div>
-      <div class="option-ctn">
-        <a>🗑</a>
-        <% if @shelf %>
-          <%= link_to "Delete", item_path(@item, shelf_id: @shelf.id), method: :delete, class: "option-label" %>
-        <% elsif @space %>
-          <%= link_to "Delete", item_path(@item, space_id: @space.id), method: :delete, class: "option-label" %>
-        <% end %>
-      </div>
-    <% end %>
-    <div class="option-ctn">
-      <a>🏡</a>
-      <a href="https://www.shelf.so/users/sign_up" class="option-label">Sign up</a>
-    </div>
-    <div class="option-ctn">
-      <a>🚪</a>
-      <%= link_to 'Leave', root_path, class: "option-label", id: "leave-shelf" %>
-    </div>
-  </div>
-  <!-- Item title -->
-  <div class="main-container">
-    <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
-      <h1 class="item-title" id="item-title" data-id="<%= @item.id %>">
-        <%= @item.name %>
-      </h1>
-    </a>
-    <div style="height: 35px"></div>
-    <!-- Text content -->
-    <div id="text-content"><%= @item.text_content %></div>
-    <!-- Add audio player! -->
-    <% if @item.mp3_url.nil? == false %>
-      <audio id="audioPlayback" controls preload="auto" title="<%= @item.name %>">
-        <source id="audioSource" type="audio/mp3" src="<%= @item.mp3_url %>">
-      </audio>
-    <% end %>
-  </div>
-
-<% elsif user_signed_in? && (@current_user == @shelf_mother.user) %>
+<% if user_signed_in? && (@current_user.username == @shelf.username) %>
 <!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND ON THEIR OWN ITEM -->
   <!-- Navbar: Back, item emoji, options -->
   <div class="navbar" id="navshow">
@@ -203,7 +94,7 @@
   </div>
 
 
-<% elsif user_signed_in? && (@current_user != @shelf_mother.user) %>
+<% elsif user_signed_in? && (@current_user.username != @shelf.username) %> %>
 <!-- NAVBAR AND OPTIONS BOX IF USER SIGNED IN AND NOT ON THEIR OWN ITEM -->
   <!-- Navbar: Back, item emoji, options -->
   <div class="navbar" id="navshow">
