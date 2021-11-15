@@ -11,10 +11,12 @@
 <div>
   <div class="lp-1">
     <p class="tagline" id="tagline"><span id="banner-typed-text"></span></p>
-      <div class="lp-cta-main">
-        <%= link_to('Try it now', item_path(Item.find(4932)), id: 'try-it-now') %>
-        <%= link_to image_tag("right_arrow_white.png", width: 25).html_safe, shelf_path(Shelf.find(20).username) %>
-      </div>
+      <%= link_to item_path(Item.find(4932)) do %>
+        <div class="lp-cta-main">
+          <h id="try-it-now">Try it now</h>
+          <%= image_tag("right_arrow_white.png", width: 25).html_safe %>
+        </div>
+      <% end %>
       <p id="sub-cta">No signup required</p>
   </div>
 </div>
