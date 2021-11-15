@@ -182,26 +182,12 @@
   <!-- Navbar: Back, item emoji, login or sign up -->
   <div class="navbar" id="navshow">
     <div>
-      <% if @item.id == 4932 %>
-        <%= link_to(root_path) do %>
-          <div class="rounded-braun-button" title="Back">
-            <div class="back-rounded-braun-button" id="back-item-show">👈</div>
-          </div>
-        <% end %>
-      <% elsif @space_back_id %>
-        <%= link_to space_path(Space.find(@space_back_id)) do %>
-          <div class="rounded-braun-button" title="Back">
-            <div class="back-rounded-braun-button" id="back-item-show">👈</div>
-          </div>
-        <% end %>
-      <% else %>
-        <%= link_to shelf_path(@shelf.username) do %>
-          <div class="rounded-braun-button" title="Back">
-            <div class="back-rounded-braun-button" id="back-item-show">👈</div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+      <%= link_to(root_path) do %>
+        <div class="rounded-braun-button" title="Back">
+          <div class="back-rounded-braun-button" id="back-item-show">👈</div>
+        </div>
+
+
     <div>
       <a target="_blank" rel="noopener noreferrer" href="<%= @item.url %>">
         <% if @item.medium == "book" %>
