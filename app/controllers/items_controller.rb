@@ -61,7 +61,7 @@ skip_after_action :verify_authorized, only: [:item_audio_duration, :was_item_add
     # @child = Space.new
     # @parent_id = Space.new
     @space = Space.new
-    # @shelf_mother = shelf_mother_of_item(@item)
+    @shelf_mother = shelf_mother_of_item(@item)
     if current_user
       @user = current_user
       if @item.status == "not started"
@@ -306,8 +306,8 @@ skip_after_action :verify_authorized, only: [:item_audio_duration, :was_item_add
   def set_shelf
     if user_signed_in?
       @shelf = current_user.shelves.first
-    else
-      @shelf = shelf_mother_of_item(Item.find(params[:id]))
+    # else
+    #   @shelf = shelf_mother_of_item(Item.find(params[:id]))
     end
   end
 
