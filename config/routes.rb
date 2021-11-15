@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
   devise_for :users, controllers: {sessions: "sessions", registrations: "custom_registrations"}
   root to: 'pages#home'
+  get "/ref=hackernews" => "pages#home"
   get "/payment" => "pages#payment", as: 'payment'
   post "/create-checkout-session" => "payments#redirect_stripe"
   # post '/hooks/stripe' => 'payments#receive'
