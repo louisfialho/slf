@@ -7,6 +7,11 @@ class UserNotifierMailer < ApplicationMailer
     mail( :to => @user.email, :subject => 'Add your first resource to your Shelf 📚' )
   end
 
+  def send_feedback_email(user)
+    @user = user
+    mail( :to => @user.email, :subject => 'Any feedback on Shelf? 📝 Submit feedback and get free credits' )
+  end
+
   def set_up_telegram(user)
     @user = user
     mail( :to => @user.email, :subject => 'Connect with Shelf Bot on Telegram 🤖' )

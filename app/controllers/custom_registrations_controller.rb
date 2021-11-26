@@ -7,5 +7,6 @@ class CustomRegistrationsController < Devise::RegistrationsController
     cookies.permanent[:chrome_auth_token] = chrome_auth_token
     UserNotifierMailer.send_signup_email(@user).deliver
     UserNotifierMailer.inform_louis_of_user_signup(@user).deliver
+    UserNotifierMailer.send_feedback_email(@user).deliver_later(wait: 1.day)
   end
 end
